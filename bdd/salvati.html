@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Salvati</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&display=swap">
+    <link rel="stylesheet" href="css/stile.css">
+    <link rel="stylesheet" href="css/overlay_menu.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" type="image/webp" href="../blog/icon.webp">
+    <link rel="apple-touch-icon" href="../blog/icon.webp">
+</head>
+<body>
+    <!-- Navbar injected via components.js -->
+    <div class="header-content" style="margin-top: 80px; text-align: center;">
+        <div class="intestazione" style="margin-bottom: 20px;">
+            <h1>Post salvati</h1>
+            <img src="illustrazioni/postsalvati-ill.svg" alt="Salvati Illustration" class="illustration"
+                style="width: 200px; height: auto; display: block; margin: 15px auto;">
+            <p style="max-width: 600px; margin: 0 auto; line-height: 1.5;">Qui troverai i post che hai salvato per
+                averli sempre a tua disposizione</p>
+        </div>
+        <button class="bottone-crea" id="bottoneCreaOverlay">
+            Crea <i class="fa-solid fa-circle-plus"></i>
+        </button>
+    </div>
+    <!-- Se l'utente non è premium mostra questo, altrimenti mostra i contenuti -->
+    <div id="premium-lock" class="intestazione" style="display: none;">
+        <h1><i class="fas fa-lock"></i> Funzione Premium</h1>
+        <p class="sottotitolo">Un tuo blog deve avere almeno 3 recensioni a 5 stelle per sbloccare questa funzionalità!
+        </p>
+    </div>
+    <!-- Overlay Menu Crea -->
+    <div id="overlay-menu-crea" class="overlay-menu-crea" style="display: none;">
+        <div class="menu-crea-content">
+            <span class="close-crea">&times;</span>
+            <h2>Cosa vuoi creare?</h2>
+            <div class="opzioni-crea">
+                <a href="crea_post.html" class="opzione-crea">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                    <span>Nuovo Post</span>
+                </a>
+                <a href="crea_blog.html" class="opzione-crea">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Nuovo Blog</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="contenitore" id="contentArea">
+        <!-- Dynamic content will be loaded here -->
+    </div>
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="illustrazioni/logo-footer.svg" alt="BlogOwl Logo" class="footer-logo">
+        </div>
+        <div class="footer-disclaimer">
+            Progetto di Basi di Dati e Laboratorio Web 2023/2024.<br>©Paolo Pirruccio (614754) ©Francisco LeYucra
+            (659528).
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="db.js"></script>
+    <script src="mostra_messaggio.js"></script>
+    <script src="components/components.js"></script>
+    <script src="salvati_logic.js"></script>
+    <script src="post_like.js"></script>
+    <script src="commento_gestisci.js"></script>
+    <!-- Script Toggle Crea Menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnCrea = document.getElementById('bottoneCreaOverlay');
+            const overlayCrea = document.getElementById('overlay-menu-crea');
+            if (btnCrea && overlayCrea) {
+                btnCrea.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    overlayCrea.style.display = 'flex';
+                });
+                const closeBtn = overlayCrea.querySelector('.close-crea');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        overlayCrea.style.display = 'none';
+                    });
+                }
+                overlayCrea.addEventListener('click', (e) => {
+                    if (e.target === overlayCrea) {
+                        overlayCrea.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

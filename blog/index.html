@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>My Blog - Paolo Pirruccio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/webp" href="icon.webp">
+    <link rel="apple-touch-icon" href="icon.webp">
+</head>
+<body>
+    <div class="page-container">
+        <header class="library-header">
+            <div class="nav-header">
+                <a href="../index.html" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+                </a>
+            </div>
+            <h1>My Blog</h1>
+            <p class="subtitle">Pensieri, progetti e note sparse.</p>
+        </header>
+        <main class="library-grid" id="blog-content"
+            style="display: none; max-width: 800px; margin: 0 auto; display: block;">
+            <div id="article-viewer" class="article-content"></div>
+        </main>
+        <footer class="site-footer">
+            <p>&copy; <span id="current-year"></span> Paolo Pirruccio. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="mailto:pirruccio.01@gmail.com" class="footer-social-link" title="Email"><i
+                        class="fa-solid fa-envelope"></i></a>
+                <a href="https://www.instagram.com/pirruccio_paolo/" class="footer-social-link" target="_blank" rel="noopener noreferrer"
+                    title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/paolopirruccio/" class="footer-social-link" target="_blank" rel="noopener noreferrer"
+                    title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://t.me/sunriseshy" class="footer-social-link" target="_blank" rel="noopener noreferrer" title="Telegram"><i
+                        class="fa-brands fa-telegram"></i></a>
+            </div>
+        </footer>
+    </div>
+    <script src="posts.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('post');
+        const viewer = document.getElementById('article-viewer');
+        const header = document.querySelector('.library-header');
+        if (postId) {
+            loadArticle(postId);
+        } else {
+            renderPostList();
+        }
+        function renderPostList() {
+            if (!window.BLOG_POSTS || !window.BLOG_POSTS.length) {
+                viewer.innerHTML = '<p style="text-align:center;color:#888;padding:40px;">Nessun articolo pubblicato ancora.</p>';
+                return;
+            }
+            viewer.innerHTML = window.BLOG_POSTS.map(post => {
+                const d = new Date(post.date);
+                const dateStr = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+                return `
+                    <a href="?post=${post.id}" class="post-item" style="
+                        display: block;
+                        padding: 16px 0;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                        text-decoration: none;
+                        color: inherit;
+                        transition: opacity 0.2s ease;">
+                        <div style="font-size: 0.85rem; color: #888; margin-bottom: 4px;">${dateStr}</div>
+                        <div style="font-weight: 600; font-size: 1.1rem; line-height: 1.3;">${post.title.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+                    </a>`;
+            }).join('');
+            // Hover effect via event delegation
+            viewer.querySelectorAll('.post-item').forEach(item => {
+                item.addEventListener('mouseenter', () => { item.style.opacity = '0.7'; });
+                item.addEventListener('mouseleave', () => { item.style.opacity = '1'; });
+            });
+        }
+        async function loadArticle(id) {
+            // Add back-to-list button to header
+            const nav = document.querySelector('.nav-header');
+            if (nav) {
+                nav.innerHTML = `<a href="index.html" class="back-button"><i class="fa-solid fa-arrow-left"></i> Tutti gli articoli</a>`;
+            }
+            try {
+                if (!window.BLOG_POSTS || !Array.isArray(window.BLOG_POSTS)) throw new Error("Dati dei post non caricati.");
+                const post = window.BLOG_POSTS.find(p => p.id === id);
+                if (!post) { viewer.innerHTML = '<h1>Articolo non trovato</h1>'; return; }
+                let markdown = post.content;
+                if (!markdown && post.file) {
+                    const mdResponse = await fetch(`articoli/${post.file}`);
+                    if (!mdResponse.ok) throw new Error('File not found');
+                    markdown = await mdResponse.text();
+                }
+                if (!markdown) throw new Error("Contenuto vuoto");
+                let htmlContent = marked.parse(markdown);
+                if (post.date) {
+                    const d = new Date(post.date);
+                    const dateStr = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+                    const dateHtml = `<div class="article-date" style="color:#888;margin-top:-0.5em;margin-bottom:2em;font-size:0.95rem;">${dateStr}</div>`;
+                    htmlContent = htmlContent.includes('</h1>') ? htmlContent.replace('</h1>', `</h1>${dateHtml}`) : dateHtml + htmlContent;
+                }
+                viewer.innerHTML = DOMPurify.sanitize(htmlContent);
+                document.title = `${post.title} - Paolo Pirruccio`;
+            } catch (error) {
+                console.error(error);
+                viewer.innerHTML = `<div style="text-align:center;padding:20px;color:#ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> Errore nel caricamento.<br><small>${error.message}</small></div>`;
+            }
+        }
+    </script>
+    <style>
+        /* Markdown Content Styles Override */
+        .article-content {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            padding: 20px;
+        }
+        .article-content h1,
+        .article-content h2,
+        .article-content h3 {
+            font-family: 'Instrument Serif', serif;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: var(--text-primary);
+        }
+        .article-content h1 {
+            font-size: 2.5rem;
+        }
+        .article-content h2 {
+            font-size: 2rem;
+        }
+        .article-content p {
+            margin-bottom: 1em;
+        }
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 1em;
+            padding-left: 20px;
+        }
+        .article-content blockquote {
+            border-left: 4px solid var(--accent-light);
+            padding-left: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        .article-content img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+    </style>
+    <script src="../version.js"></script>
+</body>
+</html>

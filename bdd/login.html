@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login e Registrazione</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/stile.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" type="image/webp" href="../blog/icon.webp">
+    <link rel="apple-touch-icon" href="../blog/icon.webp">
+</head>
+<body>
+    <div class="contenitore-messaggio">
+        <div id="messaggio-container" class="messaggio" style="display: none;"></div>
+    </div>
+    <!-- Navbar injected via components.js -->
+    <!-- Banner Avviso Mock -->
+    <div class="banner-avviso" id="bannerAvvisoMock">
+        <div>
+            <strong><i class="fas fa-info-circle"></i> Avviso: Versione Mock (Portfolio)</strong><br>
+            Questa web app era originariamente collegata a un database MySQL tramite PHP.
+            Per permetterne la visita pubblica senza server, il backend è stato rimosso e sostituito con una simulazione
+            JavaScript (LocalStorage).
+            Tutti i dati creati o le registrazioni persisteranno solo nel tuo browser attuale.
+        </div>
+        <button class="chiudi-banner" onclick="document.getElementById('bannerAvvisoMock').style.display='none'">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="intestazione" style="margin-top: 20px;">
+        <img src="illustrazioni/login-ill.svg" alt="Illustrazione" class="illustrazione">
+        <h1>BlogOwl ti dà il benvenuto</h1>
+        <div class="contenitore-filtri">
+            <div class="pillola-filtro attivo" id="tab-login">Login</div>
+            <div class="pillola-filtro inattivo" id="tab-registrati">Registrati</div>
+        </div>
+    </div>
+    <div class="contenitore-form">
+        <!-- Login Form -->
+        <form id="formLogin">
+            <div class="gruppo-form">
+                <label for="loginEmail"><i class="fas fa-envelope"></i>Email</label>
+                <input type="text" id="loginEmail" name="email" placeholder="Inserisci la tua email o username" required
+                    autocomplete="username">
+            </div>
+            <div class="gruppo-form">
+                <label for="loginPassword"><i class="fas fa-lock"></i>Password</label>
+                <input type="password" id="loginPassword" name="password" placeholder="Inserisci la tua password"
+                    required autocomplete="current-password">
+            </div>
+            <div class="gruppo-form">
+                <button type="submit" id="pulsanteLogin">Login</button>
+            </div>
+            <div class="gruppo-form" style="margin-top: -4px;">
+                <button type="button" id="pulsanteDemoLogin" onclick="demoLogin()">Accedi come Ospite</button>
+            </div>
+        </form>
+        <!-- Registration Form -->
+        <form id="formRegistrazione" style="display: none;">
+            <div class="contenitore-nome">
+                <div class="gruppo-form">
+                    <label for="registerNome"><i class="fas fa-id-card"></i>Nome</label>
+                    <input type="text" id="registerNome" name="nome" placeholder="Inserisci il tuo nome" maxlength="50"
+                        required autocomplete="given-name">
+                    <div class="contatore-caratteri"><span id="contatoreCaratteriNome">0</span>/50</div>
+                </div>
+                <div class="gruppo-form">
+                    <label for="registerCognome"><i class="fas fa-id-card"></i>Cognome</label>
+                    <input type="text" id="registerCognome" name="cognome" placeholder="Inserisci il tuo cognome"
+                        maxlength="50" required autocomplete="family-name">
+                    <div class="contatore-caratteri"><span id="contatoreCaratteriCognome">0</span>/50</div>
+                </div>
+            </div>
+            <div class="gruppo-form">
+                <label for="registerEmail"><i class="fas fa-envelope"></i>Email</label>
+                <input type="email" id="registerEmail" name="email" placeholder="Inserisci la tua email" maxlength="250"
+                    required autocomplete="email">
+                <div class="contatore-caratteri"><span id="contatoreCaratteriEmail">0</span>/250</div>
+            </div>
+            <div class="gruppo-form">
+                <label for="registerUsername"><i class="fas fa-user"></i>Username</label>
+                <input type="text" id="registerUsername" name="username" placeholder="Inserisci il tuo username"
+                    maxlength="12" required autocomplete="username">
+                <div class="contatore-caratteri"><span id="contatoreCaratteriUsername">0</span>/12</div>
+            </div>
+            <div class="gruppo-form">
+                <label for="registerPassword"><i class="fas fa-lock"></i>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="registerPassword" name="password" placeholder="Inserisci la tua password"
+                        maxlength="10" required autocomplete="new-password">
+                    <i class="fas fa-eye password-toggle"></i>
+                </div>
+                <div class="contatore-caratteri"><span id="contatoreCaratteriPassword">0</span>/10</div>
+            </div>
+            <div class="gruppo-form">
+                <label for="registerConfermaPassword"><i class="fas fa-lock"></i>Conferma Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="registerConfermaPassword" name="conferma_password"
+                        placeholder="Conferma la tua password" maxlength="10" required autocomplete="new-password">
+                    <i class="fas fa-eye password-toggle"></i>
+                </div>
+                <div class="contatore-caratteri"><span id="contatoreCaratteriConfermaPassword">0</span>/10</div>
+            </div>
+            <div class="gruppo-form">
+                <label for="registerBio"><i class="fas fa-info-circle"></i>Bio</label>
+                <textarea id="registerBio" name="bio" placeholder="Inserisci una breve bio" maxlength="250"></textarea>
+                <div class="contatore-caratteri"><span id="contatoreCaratteriBio">0</span>/250</div>
+            </div>
+            <div class="gruppo-form">
+                <button type="submit" id="pulsanteRegistrazione">Registrati</button>
+            </div>
+        </form>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="illustrazioni/logo-footer.svg" alt="BlogOwl Logo" class="footer-logo">
+        </div>
+        <div class="footer-disclaimer">
+            Progetto di Basi di Dati e Laboratorio Web 2023/2024.<br>©Paolo Pirruccio (614754) ©Francisco LeYucra
+            (659528).<br>Crediti: FontAwesome per icone e UnDraw per illustrazioni.
+        </div>
+    </footer>
+    <script src="db.js"></script>
+    <script src="mostra_messaggio.js"></script>
+    <script src="components/components.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        function demoLogin() {
+            const res = window.mockDB.loginUser('paolo@example.com', 'password123');
+            if (res.success) {
+                window.location.href = 'index.html';
+            } else {
+                mostraMessaggio('Login demo non disponibile. Prova a registrarti.', 'errore');
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const banner = document.getElementById('bannerAvvisoMock');
+            if (banner) {
+                document.body.insertBefore(banner, document.body.firstChild);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#030305">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Faq">
+    <title>Faq - InfoUma</title>
+    <meta name="color-scheme" content="dark">
+    <link rel="apple-touch-icon" href="assets/domande.png" />
+    <link rel="icon" type="image/png" href="assets/domande.png" />
+    <link rel="manifest" href="./faq.manifest.json">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vostro-dominio.com/domande/">
+    <meta property="og:title" content="Faq - InfoUma">
+    <meta property="og:description"
+        content="Le risposte alle domande più frequenti su corsi, esami e vita universitaria a Informatica Umanistica.">
+    <meta property="og:image" content="https://vostro-dominio.com/assets/compass.webp">
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://vostro-dominio.com/domande/">
+    <meta property="twitter:title" content="Faq - InfoUma">
+    <meta property="twitter:description"
+        content="Le risposte alle domande più frequenti su corsi, esami e vita universitaria a Informatica Umanistica.">
+    <meta property="twitter:image" content="https://vostro-dominio.com/assets/compass.webp">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+    <script src="navbar.js"></script>
+
+    <div class="container fade-in">
+        <header>
+            <picture class="site-logo-container">
+                <source srcset="assets/book.webp" media="(prefers-color-scheme: light)">
+                <img src="assets/book.webp" alt="InfoUma Logo" class="site-logo">
+            </picture>
+            <div class="version-badge alpha">Alpha</div>
+            <h1>Domande Frequenti</h1>
+            <p
+                style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">
+                Le risposte alle domande più frequenti su corsi di InfoUma, esami, vita universitaria e altro.
+            </p>
+            <div class="search-container">
+                <i class="ri-search-line search-icon"></i>
+                <input type="text" id="search-input" placeholder="Cerca domande...">
+                <i class="ri-close-line search-clear" id="search-clear"></i>
+            </div>
+        </header>
+        <main id="faq-container">
+            <div class="faq-category">
+                <h2 class="section-title">
+                    <img src="assets/grad.webp" class="section-icon-img" alt=""> Didattica & Carriera
+                </h2>
+                <div class="faq-list">
+                    <div class="faq-item fade-in-card">
+                        <button class="faq-question">
+                            <span>Come posso iscrivermi agli esami?</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Le iscrizioni si effettuano tramite il portale esami.unipi.it. Ricorda di controllare
+                                le date
+                                di apertura e chiusura delle iscrizioni.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item fade-in-card">
+                        <button class="faq-question">
+                            <span>Dove trovo l'orario delle lezioni?</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>L'orario è disponibile sul portale Agenda Didattica o tramite il link "Il mio
+                                calendario
+                                lezioni" nella home page.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item fade-in-card">
+                        <button class="faq-question">
+                            <span>Chi posso contattare per problemi amministrativi?</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Per problemi relativi alla carriera, contatta la Segreteria Studenti. Per questioni
+                                didattiche, rivolgiti all'Unità Didattica del dipartimento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-category">
+                <h2 class="section-title">
+                    <img src="assets/canteen.webp" class="section-icon-img" alt=""> Mensa & Servizi
+                </h2>
+                <div class="faq-list">
+                    <div class="faq-item fade-in-card">
+                        <button class="faq-question">
+                            <span>Come accedo alla posta universitaria?</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Puoi accedere tramite il portale Outlook utilizzando le tue credenziali di ateneo
+                                (nome.cognome@studenti.unipi.it).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-category">
+                <h2 class="section-title">
+                    <img src="assets/map.webp" class="section-icon-img" alt=""> Mappe & Logistica
+                </h2>
+                <div class="faq-list">
+                    <div class="faq-item fade-in-card">
+                        <button class="faq-question">
+                            <span>Dove si trovano le aule del Polo Fibonacci?</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Il Polo Fibonacci si trova in Largo Bruno Pontecorvo 3. Puoi consultare la mappa
+                                nella
+                                sezione "Mappe & Logistica" della home.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="representatives-section fade-in" style="margin-top: 3rem; margin-bottom: 2rem;">
+                <h2 class="section-title">
+                    <img src="assets/rappresentanti.webp" class="section-icon-img" alt="icon">
+                    Rappresentanti
+                </h2>
+                <div class="representatives-grid">
+                    <div class="rep-card">
+                        <div class="rep-avatar">
+                            <img src="assets/placeholder-avatar.webp" alt="Rappresentante 1"
+                                onerror="this.src='https://ui-avatars.com/api/?name=Rappresentante+1&background=random'">
+                        </div>
+                        <div class="rep-info">
+                            <h3 class="rep-name">Nome Cognome</h3>
+                            <p class="rep-role">Rappresentante Triennale</p>
+                            <a href="mailto:email@studenti.unipi.it" class="rep-contact">
+                                <i class="ri-mail-line"></i> email@studenti.unipi.it
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rep-card">
+                        <div class="rep-avatar">
+                            <img src="assets/placeholder-avatar.webp" alt="Rappresentante 2"
+                                onerror="this.src='https://ui-avatars.com/api/?name=Rappresentante+2&background=random'">
+                        </div>
+                        <div class="rep-info">
+                            <h3 class="rep-name">Nome Cognome</h3>
+                            <p class="rep-role">Rappresentante Triennale</p>
+                            <a href="mailto:email@studenti.unipi.it" class="rep-contact">
+                                <i class="ri-mail-line"></i> email@studenti.unipi.it
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rep-card">
+                        <div class="rep-avatar">
+                            <img src="assets/placeholder-avatar.webp" alt="Rappresentante 3"
+                                onerror="this.src='https://ui-avatars.com/api/?name=Rappresentante+3&background=random'">
+                        </div>
+                        <div class="rep-info">
+                            <h3 class="rep-name">Nome Cognome</h3>
+                            <p class="rep-role">Rappresentante Magistrale</p>
+                            <a href="mailto:email@studenti.unipi.it" class="rep-contact">
+                                <i class="ri-mail-line"></i> email@studenti.unipi.it
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <a href="mailto:p.pirruccio@studenti.unipi.it?subject=Proposta%20Faq%20InfoUma" class="suggest-cta">
+                <div class="suggest-icon">
+                    <i class="ri-lightbulb-flash-line"></i>
+                </div>
+                <div class="suggest-content">
+                    <span class="suggest-title">Hai una domanda da aggiungere?</span>
+                    <span class="suggest-desc">Aiuta i tuoi compagni suggerendo nuove domande.</span>
+                </div>
+                <i class="ri-mail-send-line suggest-arrow"></i>
+            </a>
+        </main>
+    </div>
+    <footer>
+        <img src="assets/compass.webp" alt="logo"
+            style="width: 40px; height: 40px; margin-bottom: 0.5rem; opacity: 0.9;">
+        <div
+            style="font-family: var(--font-display); font-size: 1.8rem; font-style: italic; margin-bottom: 1rem; color: var(--text-primary);">
+            La Bussola di InfoUma</div>
+        <p class="disclaimer">
+            by <strong style="color: var(--text-primary);">Paolo Pirruccio</strong>.<br>
+            <span style="font-size: 0.75rem; opacity: 0.8; display: inline-block; margin-top: 0.3rem;">
+                Le informazioni riportate potrebbero essere inesatte.<br>
+                Non affiliato all'Università di Pisa o a Cineca.
+            </span>
+        </p>
+        <a href="mailto:pirruccio.01@gmail.com?subject=Segnalazione%20Bug%20FAQ"
+            style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.3rem; font-size: 0.8rem; margin-top: 1rem; transition: color 0.2s;">
+            <i class="ri-bug-line"></i> Segnala un bug
+        </a>
+        <p id="total-faq" class="disclaimer" style="margin-top: 0.5rem; font-weight: 500; opacity: 0.6;"></p>
+    </footer>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqItems = document.querySelectorAll('.faq-item');
+            const searchInput = document.getElementById('search-input');
+            const header = document.querySelector('header');
+            const totalFaq = document.getElementById('total-faq');
+            if (totalFaq) {
+                totalFaq.textContent = `${faqItems.length} domande frequenti`;
+            }
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    if (!isActive) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            });
+            if (searchInput) {
+                const clearBtn = document.getElementById('search-clear');
+                searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+
+                    if (clearBtn) {
+                        if (query.length > 0) {
+                            clearBtn.classList.add('visible');
+                        } else {
+                            clearBtn.classList.remove('visible');
+                        }
+                    }
+
+                    const categories = document.querySelectorAll('.faq-category');
+                    categories.forEach(category => {
+                        const items = category.querySelectorAll('.faq-item');
+                        let hasVisibleItems = false;
+                        items.forEach(item => {
+                            const questionText = item.querySelector('.faq-question span').textContent.toLowerCase();
+                            const answerText = item.querySelector('.faq-answer').textContent.toLowerCase();
+                            if (questionText.includes(query) || answerText.includes(query)) {
+                                item.style.display = 'block';
+                                hasVisibleItems = true;
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                        if (hasVisibleItems) {
+                            category.style.display = 'block';
+                        } else {
+                            category.style.display = 'none';
+                        }
+                    });
+                });
+
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', () => {
+                        searchInput.value = '';
+                        clearBtn.classList.remove('visible');
+                        searchInput.dispatchEvent(new Event('input'));
+                        searchInput.focus();
+                    });
+                }
+
+            }
+
+            document.addEventListener('keydown', (e) => {
+                const arrowKeys = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'];
+                if (!arrowKeys.includes(e.key) && e.key !== 'Escape') return;
+                const focusableElements = Array.from(document.querySelectorAll('a, button, input')).filter(el => {
+                    const rect = el.getBoundingClientRect();
+                    return rect.width > 0 && rect.height > 0 && getComputedStyle(el).display !== 'none' && getComputedStyle(el).visibility !== 'hidden';
+                });
+                let currentFocus = document.activeElement;
+                let currentIndex = focusableElements.indexOf(currentFocus);
+                if (currentIndex === -1) {
+                    if (arrowKeys.includes(e.key)) {
+                        e.preventDefault();
+                        const firstItem = document.querySelector('.faq-question, #search-input');
+                        if (firstItem) firstItem.focus();
+                    }
+                    return;
+                }
+
+                if (arrowKeys.includes(e.key)) e.preventDefault();
+                const currentPos = currentFocus.getBoundingClientRect();
+                let nextIndex = -1;
+                switch (e.key) {
+                    case 'ArrowRight':
+                        nextIndex = (currentIndex + 1) % focusableElements.length;
+                        break;
+                    case 'ArrowLeft':
+                        nextIndex = (currentIndex - 1 + focusableElements.length) % focusableElements.length;
+                        break;
+                    case 'ArrowDown':
+                        nextIndex = findNearestElement(focusableElements, currentPos, 'down');
+                        if (nextIndex === -1) nextIndex = (currentIndex + 1) % focusableElements.length;
+                        break;
+                    case 'ArrowUp':
+                        nextIndex = findNearestElement(focusableElements, currentPos, 'up');
+                        if (nextIndex === -1) nextIndex = (currentIndex - 1 + focusableElements.length) % focusableElements.length;
+                        break;
+                    case 'Escape':
+                        if (currentFocus === searchInput) searchInput.blur();
+                        break;
+                }
+                if (nextIndex !== -1) {
+                    const nextEl = focusableElements[nextIndex];
+                    nextEl.focus();
+                    nextEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+            function findNearestElement(elements, currentPos, direction) {
+                let bestIndex = -1;
+                let minDistance = Infinity;
+                elements.forEach((el, index) => {
+                    if (el === document.activeElement) return;
+                    const pos = el.getBoundingClientRect();
+                    if (direction === 'down' && pos.top >= currentPos.bottom - 5) {
+                        const dist = Math.sqrt(Math.pow(pos.left - currentPos.left, 2) + Math.pow(pos.top - currentPos.top, 2));
+                        if (dist < minDistance) {
+                            minDistance = dist;
+                            bestIndex = index;
+                        }
+                    } else if (direction === 'up' && pos.bottom <= currentPos.top + 5) {
+                        const dist = Math.sqrt(Math.pow(pos.left - currentPos.left, 2) + Math.pow(pos.top - currentPos.top, 2));
+                        if (dist < minDistance) {
+                            minDistance = dist;
+                            bestIndex = index;
+                        }
+                    }
+                });
+                return bestIndex;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.fade-in-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            window.addEventListener('scroll', () => {
+                const scrollBtn = document.querySelector('.scroll-buttons');
+                if (!scrollBtn) return;
+                if (window.scrollY > 200) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            });
+            window.dispatchEvent(new Event('scroll'));
+
+        });
+    </script>
+    <script src="../version.js"></script>
+    <div class="scroll-buttons">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="scroll-btn" title="Torna su">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f8f8f8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="InfoUma">
+    <meta name="description" content="Paolo - Designer & Developer">
+    <title>Paolo - Portfolio</title>
+    <link rel="apple-touch-icon" href="bussola/assets/compass.png">
+    <link rel="icon" type="image/png" href="bussola/assets/compass.png">
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="stylelinks.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://paolopirruccio.github.io/Portfolio/">
+    <meta property="og:title" content="Paolo Pirruccio - Portfolio">
+    <meta property="og:description" content="Digital Humanities Student. UX/UI Designer. Creative Developer.">
+    <meta property="og:image" content="https://paolopirruccio.github.io/Portfolio/assets/android-chrome-512x512.webp">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://paolopirruccio.github.io/Portfolio/">
+    <meta property="twitter:title" content="Paolo Pirruccio - Portfolio">
+    <meta property="twitter:description" content="Digital Humanities Student. UX/UI Designer. Creative Developer.">
+    <meta property="twitter:image"
+        content="https://paolopirruccio.github.io/Portfolio/assets/android-chrome-512x512.webp">
+    <link rel="icon" type="image/webp" href="icon.webp">
+    <link rel="apple-touch-icon" href="icon.webp">
+</head>
+
+<body>
+    <div class="main-container">
+        <header class="artistic-header">
+            <h1 class="hero-text">
+                <span class="line" data-hover-text>Paolo Pirruccio</span>
+                <span class="line indent" data-i18n="hero_role" data-hover-text>UX/UI Designer.</span>
+                <span class="line" data-i18n="hero_creative" data-hover-text>Digital Creative. </span>
+                <span class="line indent-2">
+                    <span data-i18n="hero_loc_pre" data-hover-text>Da Siracusa. </span>
+                    <span id="dynamic-age" data-hover-text>24</span>
+                    <span data-i18n="hero_loc_post" data-hover-text> anni.</span>
+                </span>
+            </h1>
+            <div class="status-badge">
+                <span class="status-dot green"></span>
+                <span class="status-text" data-i18n="status_avail">Currently available for part-time work</span>
+            </div>
+        </header>
+        <div class="deck-container">
+            <div class="card-deck">
+                <a href="https://tidycal.com/paolopirruccio" class="card tidycal" target="_blank"
+                    rel="noopener noreferrer">
+                    <div class="card-inner">
+                        <div class="card-header">
+                            <span class="card-label">Booking</span>
+                            <div class="card-icon">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+                        </div>
+                        <h2 class="card-title" data-i18n="card_booking">Book a Call</h2>
+                        <div class="card-visual visual-tidycal"></div>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/pirruccio_paolo/" class="card instagram" target="_blank"
+                    rel="noopener noreferrer">
+                    <div class="card-inner">
+                        <div class="card-header">
+                            <span class="card-label" data-i18n="card_social">Social</span>
+                            <div class="card-icon">
+                                <i class="fa-brands fa-instagram"></i>
+                            </div>
+                        </div>
+                        <h2 class="card-title">
+                            Instagram
+                            <span class="qr-trigger" data-qr="https://www.instagram.com/pirruccio_paolo/"
+                                title="Mostra QR Code">
+                                <i class="fa-solid fa-qrcode"></i>
+                            </span>
+                        </h2>
+                        <div class="card-visual visual-instagram"></div>
+                    </div>
+                </a>
+                <a href="https://t.me/sunriseshy" class="card telegram" target="_blank" rel="noopener noreferrer">
+                    <div class="card-inner">
+                        <div class="card-header">
+                            <span class="card-label" data-i18n="card_message">Message</span>
+                            <div class="card-icon">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+                        </div>
+                        <h2 class="card-title">
+                            Telegram
+                            <span class="qr-trigger" data-qr="https://t.me/sunriseshy" title="Mostra QR Code">
+                                <i class="fa-solid fa-qrcode"></i>
+                            </span>
+                        </h2>
+                        <div class="card-visual visual-telegram"></div>
+                    </div>
+                </a>
+                <a href="https://www.linkedin.com/in/paolopirruccio/" class="card linkedin" target="_blank"
+                    rel="noopener noreferrer">
+                    <div class="card-inner">
+                        <div class="card-header">
+                            <span class="card-label" data-i18n="card_connect">Connect</span>
+                            <div class="card-icon">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </div>
+                        </div>
+                        <h2 class="card-title">LinkedIn</h2>
+                        <div class="card-visual visual-linkedin"></div>
+                    </div>
+                </a>
+                <a href="https://vsco.co/paolo-pirruccio/gallery" class="card vsco" target="_blank"
+                    rel="noopener noreferrer">
+                    <div class="card-inner">
+                        <div class="card-header">
+                            <span class="card-label" data-i18n="card_photos">Photos</span>
+                            <div class="card-icon">
+                                <i class="fa-solid fa-camera-retro"></i>
+                            </div>
+                        </div>
+                        <h2 class="card-title">Gallery</h2>
+                        <div class="card-visual visual-vsco"></div>
+                    </div>
+                </a>
+                <a href="mailto:pirruccio.01@gmail.com" class="card email" target="_blank" rel="noopener noreferrer">
+                    <div class="card-inner">
+                        <div class="card-header">
+                            <span class="card-label" data-i18n="card_contact">Contact</span>
+                            <div class="card-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                        </div>
+                        <h2 class="card-title" data-i18n="card_email_action">Email Me</h2>
+                        <div class="card-visual visual-email"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="my-apps-section" id="curriculum-section" style="display: block; margin-bottom: 20px;">
+            <div class="apps-header" id="curriculum-toggle" tabindex="0" role="button" aria-expanded="false">
+                <span class="apps-title" style="font-size: 2rem;" data-i18n="section_cv">Chi sono</span>
+                <i class="fa-solid fa-chevron-down" id="curriculum-chevron"></i>
+            </div>
+            <div class="apps-list" id="curriculum-list">
+                <div class="cv-container">
+                    <div class="cv-grid">
+                        <div class="cv-sidebar">
+                            <div class="cv-profile-header">
+                                <h3 class="cv-name">Paolo Pirruccio</h3>
+                                <div class="cv-role" data-i18n="cv_role">UX/UI Designer</div>
+                            </div>
+                            <div class="cv-block">
+                                <div class="cv-block-title" data-i18n="cv_contacts_title">Contatti</div>
+                                <ul class="cv-list-clean">
+                                    <li><i class="fa-solid fa-envelope"></i> pirruccio.01@gmail.com</li>
+                                    <li><i class="fa-brands fa-linkedin"></i> linkedin.com/in/paolopirruccio</li>
+                                    <li><i class="fa-solid fa-location-dot"></i> Italy</li>
+                                </ul>
+                            </div>
+                            <div class="cv-block">
+                                <div class="cv-block-title" data-i18n="cv_certs_title">Certificazioni</div>
+                                <ul class="cv-list-clean">
+                                    <li><i class="fa-solid fa-certificate"></i> <span data-i18n="cv_cert_1">ECDL Full
+                                            Standard</span></li>
+                                    <li><i class="fa-solid fa-language"></i> <span data-i18n="cv_cert_2">B1 Preliminary
+                                            (Cambridge)</span></li>
+                                </ul>
+                            </div>
+                            <div class="cv-block">
+                                <div class="cv-block-title" data-i18n="cv_skills_title">Competenze</div>
+                                <div class="cv-skills-grid">
+                                    <div class="cv-skill-tag"><strong data-i18n="cv_skill_design">Design</strong><small
+                                            data-i18n="cv_skills_design">Figma, Sketch, Adobe Suite</small></div>
+                                    <div class="cv-skill-tag"><strong data-i18n="cv_skill_web">Web</strong><small
+                                            data-i18n="cv_skills_web">HTML, CSS, WordPress</small>
+                                    </div>
+                                    <div class="cv-skill-tag"><strong data-i18n="cv_skill_tech">Tech</strong><small
+                                            data-i18n="cv_skills_tech">JS, PHP, SQL, Notion</small>
+                                    </div>
+                                    <div class="cv-skill-tag"><strong data-i18n="cv_skill_other">Other</strong><small
+                                            data-i18n="cv_skills_other">Video Editing, Social</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="assets/cv-paolo-pirruccio.pdf" download="Paolo_Pirruccio_CV.pdf" target="_blank"
+                                rel="noopener noreferrer" class="cv-download-btn"
+                                data-i18n="cv_download">
+                                <i class="fa-solid fa-file-arrow-down"></i> Download CV
+                            </a>
+                        </div>
+                        <div class="cv-main">
+                            <div class="cv-block">
+                                <div class="cv-block-title" data-i18n="cv_profile_title">Profilo</div>
+                                <p class="cv-block-content" data-i18n="cv_profile_desc">
+                                    UX designer con formazione umanistica e competenze tecniche trasversali. Progetta
+                                    interfacce intuitive e accessibili, curando l'esperienza utente e la coerenza
+                                    visiva.
+                                    Abile nel mediare tra design e sviluppo grazie alla conoscenza dei linguaggi web.
+                                    Organizzato, preciso e predisposto al lavoro in team.
+                                </p>
+                            </div>
+                            <div class="cv-block">
+                                <div class="cv-block-title" data-i18n="cv_exp_title">Esperienza</div>
+                                <div class="cv-exp-item">
+                                    <span class="cv-exp-role" data-i18n="cv_exp_role_1">Stage Digital Marketing &
+                                        UX</span>
+                                    <span class="cv-exp-place" data-i18n="cv_exp_place_1">CityComm s.r.l | Progetto
+                                        Laprendoconsport.it</span>
+                                    <p class="cv-exp-desc" data-i18n="cv_exp_desc_1">
+                                        Supporto alla supervisione del progetto digitale, analisi UX e ottimizzazione
+                                        dei contenuti per la piattaforma web.
+                                    </p>
+                                </div>
+                                <div class="cv-exp-item">
+                                    <span class="cv-exp-role" data-i18n="cv_exp_role_2">Volontario FAI</span>
+                                    <span class="cv-exp-place" data-i18n="cv_exp_place_2">Fondo Ambiente Italiano,
+                                        Siracusa</span>
+                                    <p class="cv-exp-desc" data-i18n="cv_exp_desc_2">
+                                        Accoglienza visitatori e supporto nell'organizzazione di eventi culturali e
+                                        valorizzazione del territorio.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="cv-block">
+                                <div class="cv-block-title" data-i18n="cv_edu_title">Istruzione</div>
+                                <div class="cv-exp-item">
+                                    <span class="cv-exp-role" data-i18n="cv_edu_role_1">Magistrale in Informatica
+                                        Umanistica</span>
+                                    <span class="cv-exp-place" data-i18n="cv_edu_place_1">Università di Pisa | In
+                                        corso</span>
+                                </div>
+                                <div class="cv-exp-item">
+                                    <span class="cv-exp-role" data-i18n="cv_edu_role_2">Laurea Triennale in Informatica
+                                        Umanistica</span>
+                                    <span class="cv-exp-place" data-i18n="cv_edu_place_2">Università di Pisa | 2021 -
+                                        2025</span>
+                                    <p class="cv-exp-desc" data-i18n="cv_edu_desc_2">
+                                        Percorso ibrido tra tecnologie digitali e scienze umane. Focus su: Linguistica
+                                        Computazionale, Web Design, Archivi Digitali e Analisi Dati.
+                                    </p>
+                                </div>
+                                <div class="cv-exp-item">
+                                    <span class="cv-exp-role" data-i18n="cv_edu_role_3">Diploma Liceo Scientifico</span>
+                                    <span class="cv-exp-place" data-i18n="cv_edu_place_3">IIS Luigi Einaudi, Siracusa |
+                                        100 e lode</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-apps-section" id="projects-section" style="display: block; margin-bottom: 20px;">
+            <div class="apps-header" id="projects-toggle" tabindex="0" role="button" aria-expanded="false">
+                <span class="apps-title" style="font-size: 2rem;" data-i18n="section_projects">I miei progetti</span>
+                <i class="fa-solid fa-chevron-down" id="projects-chevron"></i>
+            </div>
+            <div class="apps-list" id="projects-list">
+                <div class="gallery-container slider-wrapper">
+                    <button class="slider-btn prev-btn" id="proj-prev" aria-label="Previous project"><i
+                            class="fa-solid fa-chevron-left"></i></button>
+                    <button class="slider-btn next-btn" id="proj-next" aria-label="Next project"><i
+                            class="fa-solid fa-chevron-right"></i></button>
+                    <div class="gallery-slider" id="home-projects-slider">
+                        <!-- Projects injected by projectsData.js -->
+                        <a href="gallery.html" class="gallery-slider-end">
+                            <div style="text-align: center;">
+                                <i class="fa-solid fa-arrow-right" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                                <br>
+                                <span data-i18n="view_all_projects">Vedi tutti</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-apps-section" id="services-section" style="display: block; margin-bottom: 20px;">
+            <div class="apps-header" id="services-toggle" tabindex="0" role="button" aria-expanded="false">
+                <span class="apps-title" style="font-size: 2rem;" data-i18n="section_services">Servizi</span>
+                <i class="fa-solid fa-chevron-down" id="services-chevron"></i>
+            </div>
+            <div class="apps-list" id="services-list">
+                <div class="pricing-container">
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <div class="pricing-card-header">
+                                <div class="pricing-icon">
+                                    <i class="fa-solid fa-wrench"></i>
+                                </div>
+                                <h3 class="pricing-name" data-i18n="pricing_quick_name">Quick Fix</h3>
+                                <p class="pricing-desc" data-i18n="pricing_quick_desc">Fix rapidi, bug e piccole
+                                    modifiche</p>
+                            </div>
+                            <div class="pricing-price">
+                                <span class="pricing-amount">€30</span>
+                                <span class="pricing-unit">/ 1 <span data-i18n="pricing_hour">ora</span></span>
+                            </div>
+                            <ul class="pricing-features">
+                                <li data-i18n="pricing_quick_f1"><i class="fa-solid fa-check"></i> Correzione bug</li>
+                                <li data-i18n="pricing_quick_f2"><i class="fa-solid fa-check"></i> Piccole modifiche
+                                    testo/immagini</li>
+                                <li data-i18n="pricing_quick_f3"><i class="fa-solid fa-check"></i> Fix responsive</li>
+                                <li data-i18n="pricing_quick_f4"><i class="fa-solid fa-check"></i> Supporto via chat
+                                </li>
+                            </ul>
+                            <a href="mailto:pirruccio.01@gmail.com?subject=Quick%20Fix%20-%20Richiesta%20servizio"
+                                class="pricing-cta" data-i18n="pricing_cta">
+                                Contattami
+                            </a>
+                        </div>
+                        <div class="pricing-card pricing-featured">
+                            <div class="pricing-badge" data-i18n="pricing_popular">Più scelto</div>
+                            <div class="pricing-card-header">
+                                <div class="pricing-icon">
+                                    <i class="fa-solid fa-code"></i>
+                                </div>
+                                <h3 class="pricing-name" data-i18n="pricing_standard_name">Standard</h3>
+                                <p class="pricing-desc" data-i18n="pricing_standard_desc">Aggiornamenti, nuove sezioni e
+                                    restyling</p>
+                            </div>
+                            <div class="pricing-price">
+                                <span class="pricing-amount">€75</span>
+                                <span class="pricing-unit">/ 3 <span data-i18n="pricing_hours">ore</span></span>
+                            </div>
+                            <div class="pricing-per-hour">€25/<span data-i18n="pricing_hour">ora</span></div>
+                            <ul class="pricing-features">
+                                <li data-i18n="pricing_standard_f1"><i class="fa-solid fa-check"></i> Tutto del Quick
+                                    Fix</li>
+                                <li data-i18n="pricing_standard_f2"><i class="fa-solid fa-check"></i> Nuove sezioni o
+                                    pagine</li>
+                                <li data-i18n="pricing_standard_f3"><i class="fa-solid fa-check"></i> Restyling grafico
+                                </li>
+                                <li data-i18n="pricing_standard_f4"><i class="fa-solid fa-check"></i> Ottimizzazione SEO
+                                    base</li>
+                                <li data-i18n="pricing_standard_f5"><i class="fa-solid fa-check"></i> Supporto
+                                    prioritario</li>
+                            </ul>
+                            <a href="mailto:pirruccio.01@gmail.com?subject=Standard%20-%20Richiesta%20servizio"
+                                class="pricing-cta" data-i18n="pricing_cta">
+                                Contattami
+                            </a>
+                        </div>
+                        <div class="pricing-card">
+                            <div class="pricing-card-header">
+                                <div class="pricing-icon">
+                                    <i class="fa-solid fa-rocket"></i>
+                                </div>
+                                <h3 class="pricing-name" data-i18n="pricing_pro_name">Pro</h3>
+                                <p class="pricing-desc" data-i18n="pricing_pro_desc">Progetti corposi e redesign
+                                    completo</p>
+                            </div>
+                            <div class="pricing-price">
+                                <span class="pricing-amount">€120</span>
+                                <span class="pricing-unit">/ 6 <span data-i18n="pricing_hours">ore</span></span>
+                            </div>
+                            <div class="pricing-per-hour">€20/<span data-i18n="pricing_hour">ora</span></div>
+                            <ul class="pricing-features">
+                                <li data-i18n="pricing_pro_f1"><i class="fa-solid fa-check"></i> Tutto dello Standard
+                                </li>
+                                <li data-i18n="pricing_pro_f2"><i class="fa-solid fa-check"></i> Redesign completo</li>
+                                <li data-i18n="pricing_pro_f3"><i class="fa-solid fa-check"></i> Nuove funzionalità</li>
+                                <li data-i18n="pricing_pro_f4"><i class="fa-solid fa-check"></i> Consulenza UX/UI</li>
+                                <li data-i18n="pricing_pro_f5"><i class="fa-solid fa-check"></i> Revisioni incluse</li>
+                            </ul>
+                            <a href="mailto:pirruccio.01@gmail.com?subject=Pro%20-%20Richiesta%20servizio"
+                                class="pricing-cta" data-i18n="pricing_cta">
+                                Contattami
+                            </a>
+                        </div>
+                    </div>
+                    <p class="pricing-note" data-i18n="pricing_note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Prestazione occasionale con ricevuta. Nessuna P.IVA richiesta sotto i 5.000€/anno.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer class="site-footer">
+            <p>&copy; <span id="current-year"></span> <span>Paolo
+                    Pirruccio</span>. All rights reserved.</p>
+            <div class="footer-socials">
+            </div>
+        </footer>
+    </div>
+    <div id="qr-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div id="qr-container">
+                <img id="qr-image" src="" alt="QR Code">
+            </div>
+            <p id="qr-label"></p>
+        </div>
+    </div>
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <div class="lightbox-content-wrapper">
+            <button class="lightbox-nav prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <img class="lightbox-content" id="lightbox-img">
+            <button class="lightbox-nav next-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="lightbox-footer">
+            <div id="caption"></div>
+            <div class="lightbox-counter">1 / 1</div>
+        </div>
+    </div>
+    <script src="links.js"></script>
+    <script src="scriptlinks.js"></script>
+    <script src="projectsData.js"></script>
+    <script src="script.js"></script>
+    <script src="blog/posts.js"></script>
+    <div class="top-pill-bar">
+        <button class="pill-btn" id="search-btn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="search-btn-text" data-i18n="search">Cerca</span>
+        </button>
+        <button class="pill-btn" id="lang-btn">
+            <span id="lang-toggle-text">EN</span>
+        </button>
+    </div>
+    <div class="spotlight-overlay" id="spotlight-overlay">
+        <div class="spotlight-backdrop" id="spotlight-backdrop"></div>
+        <div class="spotlight-modal">
+            <div class="spotlight-input-wrap">
+                <i class="fa-solid fa-magnifying-glass spotlight-input-icon"></i>
+                <input type="text" id="spotlight-input" class="spotlight-input" placeholder="Cerca..."
+                    autocomplete="off" data-i18n-placeholder="search_placeholder">
+                <i class="fa-solid fa-xmark spotlight-close-icon" id="spotlight-close-btn"
+                    style="cursor: pointer; font-size: 1.2rem; color: #888; padding: 0 5px;" title="Chiudi"></i>
+            </div>
+            <div class="spotlight-results" id="spotlight-results"></div>
+        </div>
+    </div>
+    <script src="translations.js"></script>
+    <script src="version.js"></script>
+    <script src="ai/data.js"></script>
+    <script src="spotlight.js"></script>
+</body>
+
+</html>

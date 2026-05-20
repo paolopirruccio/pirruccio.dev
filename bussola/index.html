@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#030305">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bussola">
+    <meta name="color-scheme" content="dark">
+    <title>Bussola - InfoUma</title>
+    <link rel="icon" type="image/png" href="assets/compass.png" />
+    <link rel="apple-touch-icon" href="assets/compass.png" />
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        .minimal-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .pill-menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            padding: 1.2rem 1.8rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pill-menu-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .pill-menu-item:hover::before {
+            transform: translateX(100%);
+        }
+
+        .pill-menu-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .pill-menu-item:active {
+            transform: translateY(-1px);
+        }
+
+        .pill-left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .pill-icon {
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pill-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .pill-arrow {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            transition: transform 0.3s;
+        }
+
+        .pill-menu-item:hover .pill-arrow {
+            transform: translateX(4px);
+            color: var(--text-primary);
+        }
+
+        /* Varie tinte leggere per icone per dare personalità */
+        .pill-lezioni .pill-icon {
+            color: #60a5fa;
+        }
+
+        .pill-aule .pill-icon {
+            color: #f472b6;
+        }
+
+        .pill-faq .pill-icon {
+            color: #fbbf24;
+        }
+
+        .pill-links .pill-icon {
+            color: #34d399;
+        }
+
+        .pill-map .pill-icon {
+            color: #f87171;
+        }
+
+        @media (prefers-color-scheme: light) {
+            .pill-menu-item {
+                background: #ffffff;
+                border-color: rgba(0, 0, 0, 0.1);
+                color: #111;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            }
+
+            .pill-menu-item:hover {
+                background: #f8f9fa;
+                border-color: rgba(0, 0, 0, 0.2);
+            }
+
+            .pill-left,
+            .pill-icon {
+                color: #111;
+            }
+
+            .pill-arrow {
+                color: #666;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="info-modal-overlay" id="infouma-modal">
+        <div class="info-modal-content">
+            <button class="info-modal-close"
+                onclick="document.getElementById('infouma-modal').classList.remove('active')"><i
+                    class="ri-close-line"></i></button>
+            <img src="assets/compass.webp" alt="InfoUma Logo" class="info-modal-logo">
+            <h2
+                style="font-family: var(--font-display); font-size: 2.2rem; font-style: italic; margin-bottom: 0.5rem; color: var(--text-primary); text-transform:none; letter-spacing:0;">
+                La Bussola di InfoUma</h2>
+            <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+                Il portale essenziale per gli studenti di Informatica Umanistica dell'Università di Pisa. Raccoglie le
+                risorse più importanti in un unico sito interattivo.
+            </p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+                Progetto a cura di <strong style="color: var(--text-primary);">Paolo Pirruccio</strong>.
+            </p>
+        </div>
+    </div>
+
+    <!-- Navbar hidden for minimalist design -->
+    <!-- <script src="navbar.js"></script> -->
+
+    <div class="container fade-in">
+
+        <!-- Original Header Restored -->
+        <header>
+            <picture class="site-logo-container">
+                <img src="assets/compass.webp" alt="Bussola Logo" class="site-logo" style="height: 140px;">
+            </picture>
+            <div class="version-badge beta" style="margin-bottom: 1rem;">BETA</div>
+            <h1>La Bussola di InfoUma</h1>
+            <p
+                style="text-align: center; color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; margin-bottom: 3rem; max-width: 600px; line-height: 1.5;">
+                Il portale essenziale per gli studenti di Informatica Umanistica dell'Università di Pisa. Raccoglie le
+                risorse più importanti in un unico sito interattivo.
+            </p>
+        </header>
+
+        <!-- Minimalist Pill Menu -->
+        <main class="minimal-container">
+
+            <a href="./links.html" class="pill-menu-item pill-links">
+                <div class="pill-left">
+                    <i class="ri-bookmark-line pill-icon"></i>
+                    <span class="pill-text">Tutti i link utili a portali e servizi</span>
+                </div>
+                <i class="ri-arrow-right-line pill-arrow"></i>
+            </a>
+
+
+            <a href="./lezioni.html" class="pill-menu-item pill-lezioni">
+                <div class="pill-left">
+                    <i class="ri-presentation-line pill-icon"></i>
+                    <span class="pill-text">Cerca lezioni al polo Fibonacci</span>
+                </div>
+                <i class="ri-arrow-right-line pill-arrow"></i>
+            </a>
+
+            <a href="./aule.html" class="pill-menu-item pill-aule">
+                <div class="pill-left">
+                    <i class="ri-door-open-line pill-icon"></i>
+                    <span class="pill-text">Cerca aule del polo Fibonacci</span>
+                </div>
+                <i class="ri-arrow-right-line pill-arrow"></i>
+            </a>
+
+            <a href="./faq.html" class="pill-menu-item pill-faq">
+                <div class="pill-left">
+                    <i class="ri-question-line pill-icon"></i>
+                    <span class="pill-text">Domande frequenti su InfoUma</span>
+                </div>
+                <i class="ri-arrow-right-line pill-arrow"></i>
+            </a>
+
+            <a href="https://plumkewe.github.io/dove-unipi/" target="_blank" rel="noopener noreferrer" class="pill-menu-item pill-map">
+                <div class="pill-left">
+                    <i class="ri-map-pin-line pill-icon"></i>
+                    <span class="pill-text">Dove UniPi, mappa dei poli</span>
+                </div>
+                <i class="ri-external-link-line pill-arrow"></i>
+            </a>
+
+
+        </main>
+
+        <footer style="margin-top: 5rem;">
+            <img src="assets/compass.webp" alt="logo"
+                style="width: 40px; height: 40px; margin-bottom: 0.5rem; opacity: 0.9;">
+            <div
+                style="font-family: var(--font-display); font-size: 1.8rem; font-style: italic; margin-bottom: 1rem; color: var(--text-primary);">
+                La Bussola di InfoUma</div>
+            <p class="disclaimer">
+                by <strong style="color: var(--text-primary);">Paolo Pirruccio</strong>.<br>
+                <span style="font-size: 0.75rem; opacity: 0.8; display: inline-block; margin-top: 0.3rem;">
+                    Non affiliato all'Università di Pisa o a Cineca.
+                </span>
+            </p>
+            <a href="mailto:pirruccio.01@gmail.com?subject=Segnalazione%20Bug%20Bussola"
+                style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.3rem; font-size: 0.8rem; margin-top: 1rem; transition: color 0.2s;">
+                <i class="ri-bug-line"></i> Segnala un bug
+            </a>
+        </footer>
+    </div>
+
+    <script src="../version.js"></script>
+</body>
+
+</html>

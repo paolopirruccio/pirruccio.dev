@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea Post</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&display=swap">
+    <link rel="stylesheet" href="css/stile.css">
+    <link rel="stylesheet" href="css/overlay_crea.css">
+    <style>
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .checkbox-container input[type="checkbox"] {
+            display: none;
+        }
+        .checkbox-container label {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 25px;
+            display: inline-block;
+            color: #333;
+        }
+        .checkbox-container label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #6a0dad;
+            background: #fff;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        .checkbox-container input[type="checkbox"]:checked+label:before {
+            background: #6a0dad;
+        }
+        .checkbox-container label:after {
+            content: '\\2714';
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 20px;
+            color: #fff;
+            line-height: 25px;
+            text-align: center;
+            width: 25px;
+            height: 25px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .checkbox-container input[type="checkbox"]:checked+label:after {
+            opacity: 1;
+        }
+        .checkbox-container label:hover:before {
+            border-color: #4a0b7c;
+        }
+        .overlay-content {
+            width: 80%;
+            max-width: 600px;
+            padding: 30px;
+        }
+        .bottone-dettatura {
+            background-color: #6a0dad;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .bottone-dettatura:hover {
+            background-color: #45a049;
+        }
+        .bottone-dettatura.attivo {
+            background-color: #f44336;
+        }
+        .bottone-dettatura.attivo:hover {
+            background-color: #da190b;
+        }
+        .bottone-dettatura i {
+            color: white;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" type="image/webp" href="../blog/icon.webp">
+    <link rel="apple-touch-icon" href="../blog/icon.webp">
+</head>
+<body>
+    <div class="contenitore-messaggio">
+        <div id="messaggio-container" class="messaggio" style="display: none;"></div>
+    </div>
+    <!-- Navbar injected via components.js -->
+    <div class="contenitore" style="margin-top: 80px;">
+        <a href="#" class="bottone bottone-torna-home" id="bottoneTornaHome">
+            <i class="fa-solid fa-house"></i> Torna alla Home
+        </a>
+        <div class="intestazione">
+            <h1><i class="fa-solid fa-feather-pointed"></i> Scrivi un post</h1>
+            <p class="sottotitolo">Condividi le tue idee e ispira il mondo!<br>Se non hai un blog dove pubblicare il
+                post sarai reindirizzato a crearne uno.</p>
+        </div>
+        <div class="illustration-container" style="text-align: center;">
+            <img src="illustrazioni/creapost-ill.svg" alt="Create Post Illustration" class="illustration"
+                style="max-width: 100%; height: auto;">
+        </div>
+        <div class="scatola">
+            <form id="formPost">
+                <!-- Titolo post  -->
+                <h3><i class="fas fa-heading"></i> Titolo:</h3>
+                <p class="descrizione-campo">Scegli un titolo accattivante che riassuma il contenuto del tuo post.</p>
+                <div class="gruppo-form">
+                    <input type="text" id="inputTitolo" name="titolo" placeholder="Es. Le 10 migliori ricette italiane"
+                        required maxlength="100">
+                    <div class="contatore-caratteri">
+                        <span id="contatoreCaratteriTitolo">0</span>/100
+                    </div>
+                </div>
+                <!-- Contenuto post  -->
+                <h3><i class="fas fa-align-left"></i> Contenuto:</h3>
+                <p class="descrizione-campo">Scrivi il corpo del tuo post. Sii creativo e coinvolgente!</p>
+                <div class="gruppo-form">
+                    <textarea id="editor" name="contenuto" placeholder="Inizia a scrivere il tuo post qui..." required
+                        maxlength="5000"></textarea>
+                    <div class="contatore-caratteri">
+                        <span id="contatoreCaratteriContenuto">0</span>/5000
+                        <button type="button" id="bottoneDettatura" class="bottone-dettatura">
+                            <i class="fas fa-microphone" style="color: white;"></i> Attiva Dettatura
+                        </button>
+                    </div>
+                </div>
+                <!-- Carica immagine post -->
+                <div class="bottoni-inferiori">
+                    <button type="button" class="bottone bottone-immagine" id="caricaImmagine">
+                        <i class="fas fa-image"></i> Carica Immagine
+                    </button>
+                    <div id="blog-action-container">
+                        <!-- Verrà popolato da JS. Mostra checkbox "Bozza" e tasto "Avanti" o tasto "Crea blog" se l'utente non ne ha. -->
+                    </div>
+                </div>
+                <input type="hidden" id="blog" name="blog">
+                <input type="hidden" id="alt_descrizione" name="alt_descrizione">
+                <input type="file" id="inputImmagine" name="immagine" style="display: none;" accept=".webp,.jpg,.jpeg">
+            </form>
+            <p id="premium-warning" style="display: none;"><i class="fas fa-lock"></i> Attenzione: solo gli utenti
+                Premium possono utilizzare la funzionalità "Salva come Bozza".</p>
+        </div>
+    </div>
+    <!-- Overlay pubblica -->
+    <div id="overlayPubblica" class="overlay">
+        <div class="overlay-content">
+            <h3><i class="fas fa-blog"></i> Seleziona il blog dove pubblicare</h3>
+            <p class="descrizione-campo">Scegli il blog in cui vuoi pubblicare questo post.</p>
+            <!-- Selettore di blog personalizzato -->
+            <div class="custom-select-wrapper">
+                <div class="custom-select" id="customSelectBlog">
+                    <div class="custom-select-trigger">
+                        <span id="selectedBlog">Seleziona Blog</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="custom-options" id="customOptionsBlog">
+                        <!-- Opzioni generate da js -->
+                    </div>
+                </div>
+            </div>
+            <!-- Overlay conferma -->
+            <div class="bottoni-overlay">
+                <button id="confermaPubblica" class="bottone bottone-invia">Salva</button>
+                <button id="annullaPubblica" class="bottone bottone-bozza">Annulla</button>
+            </div>
+        </div>
+    </div>
+    <!-- Overlay gestione immagine -->
+    <div id="overlayImmagine" class="overlay">
+        <div class="overlay-content">
+            <h3><i class="fas fa-image"></i> Gestione Immagine</h3>
+            <div id="previewImmagine" style="display: none; margin-bottom: 15px;">
+                <img id="immagineCaricata" src="" alt="Anteprima immagine" style="max-width: 100%; max-height: 200px;">
+            </div>
+            <p class="avviso-immagine">Formati accettati: PNG e JPEG. Dimensione massima: 1 MB</p>
+            <button type="button" id="selezionaImmagine" class="bottone bottone-invia">
+                <i class="fas fa-upload"></i> Seleziona Immagine
+            </button>
+            <div class="gruppo-form">
+                <input type="text" id="inputAltDescrizione" placeholder="Descrizione alternativa dell'immagine"
+                    maxlength="250">
+                <div class="contatore-caratteri">
+                    <span id="contatoreCaratteriAlt">0</span>/250
+                </div>
+            </div>
+            <!-- Overlay conferma -->
+            <div class="bottoni-overlay">
+                <button id="confermaImmagine" class="bottone bottone-invia">Conferma</button>
+                <button id="rimuoviImmagine" class="bottone bottone-bozza" style="display: none;">Rimuovi
+                    Immagine</button>
+                <button id="annullaImmagine" class="bottone bottone-bozza">Annulla</button>
+            </div>
+        </div>
+    </div>
+    <!-- Overlay premium -->
+    <div id="overlayPremium" class="overlay">
+        <div class="overlay-content">
+            <h1><i class="fas fa-lock"></i> Funzione Premium</h1>
+            <p class="sottotitolo">Un tuo blog deve avere almeno 3 recensioni a 5 stelle per sbloccare questa
+                funzionalità!</p>
+            <button onclick="document.getElementById('overlayPremium').classList.remove('active')"
+                class="bottone-default">Chiudi</button>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="illustrazioni/logo-footer.svg" alt="BlogOwl Logo" class="footer-logo">
+        </div>
+        <div class="footer-disclaimer">
+            Progetto di Basi di Dati e Laboratorio Web 2023/2024.
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="db.js"></script>
+    <script src="mostra_messaggio.js"></script>
+    <script src="components/components.js"></script>
+    <script src="crea_post_logic.js"></script>
+</body>
+</html>

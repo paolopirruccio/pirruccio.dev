@@ -1,0 +1,261 @@
+/* Curriculum Styles */
+.cv-container {
+    padding: 10px 20px;
+    color: var(--text-primary);
+}
+
+.cv-header-block {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.cv-main-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2rem;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.cv-main-role {
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+
+.cv-section {
+    margin-bottom: 40px;
+}
+
+.cv-section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.cv-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.cv-text.small {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.cv-timeline-item {
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 15px;
+    border-left: 2px solid var(--accent-yellow);
+}
+
+.cv-timeline-entry {
+    margin-bottom: 15px;
+}
+
+.cv-item-title {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.cv-item-meta {
+    display: block;
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 2px;
+}
+
+.cv-detail {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.cv-list {
+    list-style: none;
+    padding: 0;
+}
+
+.cv-list li {
+    padding-left: 15px;
+    position: relative;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.cv-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent-yellow);
+}
+
+.cv-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.cv-skill-tag {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.cv-skill-tag strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.cv-skill-tag small {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+::selection {
+    background: var(--accent-yellow);
+    color: #000000;
+    text-shadow: none;
+}
+
+.cv-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+}
+
+.cv-sidebar {
+    border-right: 1px solid var(--card-border);
+    padding-right: 30px;
+}
+
+.cv-main {
+    padding-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .cv-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .cv-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--card-border);
+        padding-right: 0;
+        padding-bottom: 30px;
+    }
+
+    .cv-main {
+        padding-left: 0;
+    }
+}
+
+.cv-profile-header {
+    margin-bottom: 30px;
+}
+
+.cv-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+.cv-role {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.cv-block {
+    margin-bottom: 30px;
+}
+
+.cv-block-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 5px;
+}
+
+.cv-block-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.cv-list-clean {
+    list-style: none;
+    padding: 0;
+}
+
+.cv-list-clean li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.cv-list-clean i {
+    font-size: 0.8rem;
+    color: var(--accent-yellow);
+    width: 15px;
+}
+
+.cv-exp-item {
+    margin-bottom: 25px;
+}
+
+.cv-exp-role {
+    font-weight: 600;
+    display: block;
+    font-size: 1.05rem;
+}
+
+.cv-exp-place {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.cv-exp-desc {
+    font-size: 0.90rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+    .card.vsco .card-inner {
+        background: #222;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card.vsco .card-title,
+    .card.vsco .card-label,
+    .card.vsco .card-icon {
+        color: #fff;
+    }
+}

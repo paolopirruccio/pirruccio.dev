@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impostazioni</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/stile.css">
+    <link rel="stylesheet" href="css/overlay_menu.css">
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .overlay.active {
+            display: flex;
+        }
+        .overlay-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 500px;
+            width: 90%;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" type="image/webp" href="../blog/icon.webp">
+    <link rel="apple-touch-icon" href="../blog/icon.webp">
+</head>
+<body>
+    <!-- Navbar injected via components.js -->
+    <div style="margin-top: 80px; text-align: center;">
+        <h1>Impostazioni</h1>
+        <img src="illustrazioni/impostazioni-ill.svg" alt="Plan Illustrazione" class="illustrazione"
+            style="margin: 0 auto; max-width: 250px;">
+    </div>
+    <div class="scatola sezione-comandi" style="text-align: center; max-width: 600px; margin: 0 auto;">
+        <div class="colonna-comandi">
+            <div class="voce-comando" onclick="showOverlay('overlayModificaImmagine')">
+                <i class="fas fa-camera"></i>
+                <span>Modifica foto account</span>
+            </div>
+            <div class="voce-comando" onclick="showOverlay('overlayModificaNome')">
+                <i class="fas fa-id-card"></i>
+                <span>Modifica nome</span>
+            </div>
+            <div class="voce-comando" onclick="showOverlay('overlayModificaCognome')">
+                <i class="fas fa-id-card"></i>
+                <span>Modifica cognome</span>
+            </div>
+        </div>
+        <div class="colonna-comandi">
+            <div class="voce-comando" onclick="showOverlay('overlayModificaUsername')">
+                <i class="fas fa-user-edit"></i>
+                <span>Modifica nome utente</span>
+            </div>
+            <div class="voce-comando" onclick="showOverlay('overlayModificaBio')">
+                <i class="fas fa-circle-info"></i>
+                <span>Modifica bio</span>
+            </div>
+            <div class="voce-comando" onclick="alert('Funzionà cancellazione account solo mockata.');">
+                <i class="fas fa-trash-alt"></i>
+                <span>Cancella account</span>
+            </div>
+        </div>
+    </div>
+    <p style="text-align: center; margin-top: 20px;">Rivedi <a href="account.html">il tuo account.</a></p>
+    <!-- Overlays -->
+    <div class="overlay" id="overlayModificaNome">
+        <div class="overlay-content">
+            <h3>Modifica nome</h3>
+            <input type="text" id="imp-nome" placeholder="Nuovo nome" maxlength="20"
+                style="width: 100%; padding: 10px; margin-bottom: 20px;">
+            <div class="bottoni-overlay">
+                <button class="bottone-salva"
+                    onclick="saveField('nome', 'imp-nome', 'overlayModificaNome')">Salva</button>
+                <button class="bottone-chiudi" onclick="hideOverlay('overlayModificaNome')">Chiudi</button>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="overlayModificaCognome">
+        <div class="overlay-content">
+            <h3>Modifica cognome</h3>
+            <input type="text" id="imp-cognome" placeholder="Nuovo cognome" maxlength="50"
+                style="width: 100%; padding: 10px; margin-bottom: 20px;">
+            <div class="bottoni-overlay">
+                <button class="bottone-salva"
+                    onclick="saveField('cognome', 'imp-cognome', 'overlayModificaCognome')">Salva</button>
+                <button class="bottone-chiudi" onclick="hideOverlay('overlayModificaCognome')">Chiudi</button>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="overlayModificaUsername">
+        <div class="overlay-content">
+            <h3>Modifica nome utente</h3>
+            <input type="text" id="imp-username" placeholder="Nuovo nome utente" maxlength="10"
+                style="width: 100%; padding: 10px; margin-bottom: 20px;">
+            <div class="bottoni-overlay">
+                <button class="bottone-salva"
+                    onclick="saveField('username', 'imp-username', 'overlayModificaUsername')">Salva</button>
+                <button class="bottone-chiudi" onclick="hideOverlay('overlayModificaUsername')">Chiudi</button>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="overlayModificaBio">
+        <div class="overlay-content">
+            <h3>Modifica bio</h3>
+            <textarea id="imp-bio" placeholder="Nuova bio" maxlength="250"
+                style="width: 100%; padding: 10px; margin-bottom: 20px;"></textarea>
+            <div class="bottoni-overlay">
+                <button class="bottone-salva" onclick="saveField('bio', 'imp-bio', 'overlayModificaBio')">Salva</button>
+                <button class="bottone-chiudi" onclick="hideOverlay('overlayModificaBio')">Chiudi</button>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="overlayModificaImmagine">
+        <div class="overlay-content">
+            <h3>Modifica immagine account</h3>
+            <p style="font-size: 0.9em; color: #666;">Seleziona uno degli avatar disponibili.</p>
+            <style>
+                .avatar-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 15px;
+                    margin-bottom: 20px;
+                }
+                .avatar-option {
+                    cursor: pointer;
+                    border: 2px solid transparent;
+                    border-radius: 50%;
+                    width: 70px;
+                    height: 70px;
+                    object-fit: cover;
+                    transition: border-color 0.2s, transform 0.2s;
+                }
+                .avatar-option:hover {
+                    transform: scale(1.1);
+                }
+                .avatar-option.selected {
+                    border-color: #6a0dad;
+                    box-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
+                }
+            </style>
+            <div class="avatar-grid" id="avatarGrid">
+                <img src="immagini_profilo/Pic1.webp" class="avatar-option" data-value="Pic1.webp" alt="Default">
+                <img src="immagini_profilo/Pic2.webp" class="avatar-option" data-value="Pic2.webp" alt="Gatto">
+                <img src="immagini_profilo/Pic3.webp" class="avatar-option" data-value="Pic3.webp" alt="Cane">
+                <img src="immagini_profilo/Pic4.webp" class="avatar-option" data-value="Pic4.webp" alt="Uomo">
+                <img src="immagini_profilo/Pic5.webp" class="avatar-option" data-value="Pic5.webp" alt="Donna">
+                <img src="immagini_profilo/Pic6.webp" class="avatar-option" data-value="Pic6.webp" alt="Musica">
+            </div>
+            <input type="hidden" id="imp-pic" value="Pic1.webp">
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const avatars = document.querySelectorAll('.avatar-option');
+                    const hiddenInput = document.getElementById('imp-pic');
+                    avatars.forEach(img => {
+                        img.addEventListener('click', () => {
+                            avatars.forEach(a => a.classList.remove('selected'));
+                            img.classList.add('selected');
+                            hiddenInput.value = img.getAttribute('data-value');
+                        });
+                    });
+                });
+            </script>
+            <div class="bottoni-overlay">
+                <button class="bottone-salva"
+                    onclick="saveField('immagine_profilo', 'imp-pic', 'overlayModificaImmagine')">Salva</button>
+                <button class="bottone-chiudi" onclick="hideOverlay('overlayModificaImmagine')">Chiudi</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" style="margin-top: 50px;">
+        <div class="footer-logo">
+            <img src="illustrazioni/logo-footer.svg" alt="BlogOwl Logo" class="footer-logo">
+        </div>
+        <div class="footer-disclaimer">
+            Progetto di Basi di Dati e Laboratorio Web 2023/2024.<br>©Paolo Pirruccio (614754) ©Francisco LeYucra
+            (659528).
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="db.js"></script>
+    <script src="mostra_messaggio.js"></script>
+    <script src="components/components.js"></script>
+    <script src="account_logic.js"></script>
+    <script>
+        function showOverlay(overlayId) {
+            document.getElementById(overlayId).classList.add('active');
+        }
+        function hideOverlay(overlayId) {
+            document.getElementById(overlayId).classList.remove('active');
+        }
+        function saveField(field, inputId, overlayId) {
+            const val = document.getElementById(inputId).value;
+            if (window.mockUpdatingProfile) {
+                window.mockUpdatingProfile(field, val);
+                hideOverlay(overlayId);
+                alert("Aggiornato! Ricarica se sei nella pagina account.");
+            }
+        }
+    </script>
+</body>
+</html>

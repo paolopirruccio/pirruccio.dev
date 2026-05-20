@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Paolo Assistant</title>
+    <link rel="manifest" href="assetsai/favicon/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assistant.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://paolopirruccio.github.io/Portfolio/ai/">
+    <meta property="og:title" content="Paolo's AI Assistant">
+    <meta property="og:description" content="Chat with my personal AI assistant to know more about me.">
+    <meta property="og:image" content="https://paolopirruccio.github.io/Portfolio/ai/assetsai/ai.webp">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://paolopirruccio.github.io/Portfolio/ai/">
+    <meta property="twitter:title" content="Paolo's AI Assistant">
+    <meta property="twitter:description" content="Chat with my personal AI assistant to know more about me.">
+    <meta property="twitter:image" content="https://paolopirruccio.github.io/Portfolio/ai/assetsai/ai.webp">
+    <link rel="icon" type="image/webp" href="icon.webp">
+    <link rel="apple-touch-icon" href="icon.webp">
+</head>
+<body>
+    <div class="app-container">
+        <header class="chat-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="chat-title">
+                        <span class="chat-title-text">Assistente di Paolo <span class="beta-badge">BETA</span></span>
+                        <div class="status-indicator">
+                            <span class="status-dot"></span>
+                            <span class="status-text">online</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button id="resetBtn" class="header-btn" aria-label="Reset Chat">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                        </svg>
+                    </button>
+                    <a href="../index.html" class="header-btn portfolio-link" aria-label="Portfolio">
+                        Portfolio
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main class="chat-container" id="chatContainer">
+            <div class="empty-state" id="emptyState">
+                <img src="assetsai/ai.webp" alt="Avatar" class="empty-icon">
+                <h2 class="empty-title">Come posso aiutarti?</h2>
+                <p class="empty-subtitle">Chiedimi come contattare Paolo, inviargli denaro, seguirlo sui social e tanto
+                    altro ancora...</p>
+                <div class="suggestions-scroll">
+                    <button class="suggestion-card card-style-gold" data-prompt="Contattalo">
+                        <span class="suggestion-icon"><i class="fa-solid fa-envelope"></i></span>
+                        <span class="suggestion-text">Contatta</span>
+                    </button>
+                    <button class="suggestion-card card-style-orange" data-prompt="Mostrami i suoi social">
+                        <span class="suggestion-icon"><i class="fa-solid fa-circle-user"></i></span>
+                        <span class="suggestion-text">Social</span>
+                    </button>
+                    <button class="suggestion-card card-style-telegram" data-prompt="Appuntamento">
+                        <span class="suggestion-icon"><i class="fa-solid fa-calendar-check"></i></span>
+                        <span class="suggestion-text">Prenota</span>
+                    </button>
+                    <button class="suggestion-card card-style-paypal" data-prompt="Inviargli del denaro">
+                        <span class="suggestion-icon"><i class="fa-solid fa-hand-holding-dollar"></i></span>
+                        <span class="suggestion-text">Denaro</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+        <div class="input-bar-space">
+            <div class="input-wrapper">
+                <div class="input-bar">
+                    <textarea id="userInput" class="chat-input" placeholder="Scrivi un messaggio..."
+                        rows="1"></textarea>
+                    <button id="sendBtn" class="send-btn" aria-label="Invia">
+                        <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 19V5M5 12l7-7 7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="data.js"></script>
+    <script src="scriptai.js"></script>
+    <script src="../version.js"></script>
+</body>
+</html>

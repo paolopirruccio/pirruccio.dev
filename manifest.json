@@ -1,0 +1,23 @@
+{
+  "name": "InfoUma",
+  "short_name": "InfoUma",
+  "description": "Portale degli studenti di Informatica Umanistica - UniPi",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030305",
+  "theme_color": "#030305",
+  "icons": [
+    {
+      "src": "bussola/assets/compass.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "bussola/assets/compass.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

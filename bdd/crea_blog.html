@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&display=swap">
+    <link rel="stylesheet" href="css/stile.css">
+    <link rel="stylesheet" href="css/overlay_crea.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" type="image/webp" href="../blog/icon.webp">
+    <link rel="apple-touch-icon" href="../blog/icon.webp">
+</head>
+<body>
+    <!-- Navbar injected via components.js -->
+    <div class="contenitore" style="margin-top: 80px;">
+        <a href="index.html" class="bottone bottone-torna-home" id="bottoneTornaHome">
+            <i class="fa-solid fa-house"></i> Torna alla Home
+        </a>
+        <div class="intestazione">
+            <h1><i class="fa-solid fa-layer-group"></i> Crea un nuovo blog</h1>
+            <p class="sottotitolo">Dai vita alle tue idee e condividi la tua passione con il mondo!</p>
+        </div>
+        <div class="illustration-container" style="text-align: center;">
+            <img src="illustrazioni/creablog-ill.svg" alt="Create Blog Illustration" class="illustration"
+                style="max-width: 100%; height: auto;">
+        </div>
+        <div class="scatola">
+            <form id="formCreaBlog">
+                <!-- Titolo del blog -->
+                <h3><i class="fas fa-heading"></i> Titolo del Blog:</h3>
+                <p class="descrizione-campo">Scegli un titolo accattivante che riassuma l'essenza del tuo blog.</p>
+                <div class="gruppo-form">
+                    <input type="text" id="titoloBlog" placeholder="Es. Le Avventure di un Viaggiatore Culinario"
+                        required maxlength="50">
+                    <div class="contatore-caratteri">
+                        <span id="contatoreCaratteriTitolo">0</span>/50
+                    </div>
+                </div>
+                <!-- Tagline -->
+                <h3><i class="fas fa-tag"></i> Tagline del Blog:</h3>
+                <p class="descrizione-campo">Una breve frase che cattura l'essenza del tuo blog.</p>
+                <div class="gruppo-form">
+                    <textarea id="taglineBlog" placeholder="Es. Esplorando il mondo un piatto alla volta" required
+                        maxlength="150"></textarea>
+                    <div class="contatore-caratteri">
+                        <span id="contatoreCaratteriTagline">0</span>/150
+                    </div>
+                </div>
+                <!-- Descrizione -->
+                <h3><i class="fas fa-align-left"></i> Descrizione del Blog:</h3>
+                <p class="descrizione-campo">Descrivi in dettaglio di cosa tratterà il tuo blog.</p>
+                <div class="gruppo-form">
+                    <textarea id="descrizioneBlog" placeholder="Es. Unisciti a me in un viaggio culinario..." required
+                        maxlength="300"></textarea>
+                    <div class="contatore-caratteri">
+                        <span id="contatoreCaratteriDescrizione">0</span>/300
+                    </div>
+                </div>
+                <!-- Categoria -->
+                <h3><i class="fas fa-tags"></i> Categoria:</h3>
+                <p class="descrizione-campo">Inserisci la categoria principale del tuo blog.</p>
+                <div class="gruppo-form">
+                    <input type="text" id="categoria" placeholder="Es. Cucina" required maxlength="25">
+                </div>
+                <!-- Tema (Molto Semplificato in Mocking) -->
+                <h3><i class="fas fa-palette"></i> Tema:</h3>
+                <p class="descrizione-campo">Scegli lo stile visivo del tuo blog.</p>
+                <div class="gruppo-form">
+                    <select id="tema" style="width: 100%; padding: 10px;">
+                        <option value="1">Classico (default)</option>
+                        <option value="2">Elegante (Premium)</option>
+                        <option value="3">Ceruleo (Premium)</option>
+                        <option value="4">Naturale (Premium)</option>
+                    </select>
+                </div>
+                <div class="bottoni-inferiori">
+                    <button type="button" class="bottone bottone-invia" id="btnSalvaBlog">
+                        <i class="fa-solid fa-circle-check"></i> Crea Blog
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="illustrazioni/logo-footer.svg" alt="BlogOwl Logo" class="footer-logo">
+        </div>
+        <div class="footer-disclaimer">
+            Progetto di Basi di Dati e Laboratorio Web 2023/2024.<br>©Paolo Pirruccio (614754) ©Francisco LeYucra
+            (659528).
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="db.js"></script>
+    <script src="mostra_messaggio.js"></script>
+    <script src="components/components.js"></script>
+    <script src="crea_blog_logic.js"></script>
+</body>
+</html>

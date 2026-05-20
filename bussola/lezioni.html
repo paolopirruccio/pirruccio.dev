@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lezioni - InfoUma</title>
+    <meta name="color-scheme" content="dark">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Lezioni">
+    <link rel="apple-touch-icon" href="assets/book.png">
+    <link rel="icon" type="image/png" href="assets/book.png">
+    <link rel="manifest" href="./lezioni.manifest.json">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lezioni - InfoUma">
+    <meta property="og:description"
+        content="Cerca una materia o un docente per vedere l'orario settimanale delle lezioni.">
+    <meta property="og:image" content="https://vostro-dominio.com/assets/compass.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .course-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .course-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .course-time-badge {
+            background: rgba(var(--accent-rgb), 0.15);
+            color: var(--accent-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+        }
+
+        .course-time-badge.past {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .course-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-row i {
+            color: var(--text-muted);
+            width: 16px;
+            text-align: center;
+        }
+
+        .day-group {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--card-border);
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .day-group.today {
+            color: var(--accent);
+        }
+
+        .prof-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        @media (prefers-color-scheme: light) {
+            .prof-badge {
+                background: rgba(0, 0, 0, 0.06);
+            }
+        }
+
+        .no-results {
+            padding: 3rem 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script src="navbar.js"></script>
+    <div class="container fade-in">
+        <header>
+            <picture class="site-logo-container">
+                <img src="assets/conference.webp" alt="Cerca Lezioni Logo" class="site-logo">
+            </picture>
+            <div class="version-badge beta">Beta</div>
+            <h1>Cerca Lezioni</h1>
+            <p
+                style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">
+                Cerca lezioni di oggi e dei prossimi giorni al polo Fibonacci.
+            </p>
+            <div class="filter-controls" style="width: 100%; max-width: 600px; margin: 0 auto;">
+                <div class="search-container" style="margin-top: 0; width: 100%; max-width: 100%;">
+                    <i class="ri-search-line search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Cerca lezione per nome o professore...">
+                    <i class="ri-close-line search-clear" id="search-clear"></i>
+                </div>
+            </div>
+        </header>
+
+        <main id="main-scroll"
+            style="width: 100%; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column;">
+            <div id="results-bar"
+                style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.95rem; width: 100%;">
+                <span id="results-count-container" style="display: none; align-items: center; gap: 0.5rem;">
+                    Risultati:
+                    <strong id="results-total" style="color: var(--text-primary); font-size: 1.1rem;">0</strong>
+                </span>
+                <span class="version-badge" id="week-badge"
+                    style="margin-bottom: 0; padding: 0.25rem 0.6rem; font-size: 0.65rem; background: rgba(142, 68, 173, 0.15); color: #9b59b6; border-color: rgba(142, 68, 173, 0.2); display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap;">
+                    <i class="ri-calendar-line"></i> Prossimi giorni
+                </span>
+            </div>
+
+            <div id="results-list" style="width: 100%;">
+            </div>
+            <a href="https://plumkewe.github.io/dove-unipi/" target="_blank" rel="noopener noreferrer" class="suggest-cta"
+                style="margin-top: 1.5rem; text-decoration: none;">
+                <div class="suggest-icon"
+                    style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <img src="assets/doveunipi.webp" alt="Dove UniPi Logo" style="width: 24px; height: 24px;">
+                </div>
+                <div class="suggest-content">
+                    <span class="suggest-title">Apri mappa completa</span>
+                    <span class="suggest-desc">Esplora tutte le aule e i poli su Dove UniPi.</span>
+                </div>
+                <i class="ri-external-link-line suggest-arrow"></i>
+            </a>
+        </main>
+
+        <footer>
+            <img src="assets/compass.webp" alt="logo"
+                style="width: 40px; height: 40px; margin-bottom: 0.5rem; opacity: 0.9;">
+            <div
+                style="font-family: var(--font-display); font-size: 1.8rem; font-style: italic; margin-bottom: 1rem; color: var(--text-primary);">
+                La Bussola di InfoUma</div>
+            <p class="disclaimer">
+                by <strong style="color: var(--text-primary);">Paolo Pirruccio</strong>.<br>
+                Ispirato al lavoro di <a href="https://github.com/plumkewe" target="_blank" rel="noopener noreferrer"
+                    style="color: var(--text-primary); text-decoration: underline;">Lyubomyr Malay</a>.<br>
+            </p>
+            <a href="mailto:pirruccio.01@gmail.com?subject=Segnalazione%20Bug%20Cerca%20Lezioni"
+                style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.3rem; font-size: 0.8rem; margin-top: 1rem; transition: color 0.2s;">
+                <i class="ri-bug-line"></i> Segnala un bug
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = "https://unipi.prod.up.cineca.it/api/Impegni/getImpegniCalendarioPubblico";
+        const CLIENTE_ID = "628de8b9b63679f193b87046";
+        const DATA_URL = "https://raw.githubusercontent.com/plumkewe/dove-unipi/main/data/unified.json";
+
+        const POLES = {
+            fibonacci: { name: "Polo Fibonacci", id: "63223a029f080a0aab032afc" },
+            guidotti: { name: "Polo Guidotti", id: "63223a309f080a0aab032b0a" }
+
+        };
+
+        let weeklyEvents = [];
+        let dataLoaded = false;
+        let dataError = false;
+        let roomsData = [];
+
+        const searchInput = document.getElementById('search-input');
+        const resultsList = document.getElementById('results-list');
+        const resultsTotal = document.getElementById('results-total');
+        const initialStateHtml = '';
+
+        document.fonts.ready.then(() => {
+            document.body.classList.add('remixicon-loaded');
+        });
+
+        const DAYS_IT = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+        const MONTHS_IT = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
+
+        function getLessonRange() {
+            const start = new Date();
+            start.setHours(0, 0, 0, 0);
+
+            const end = new Date(start);
+            end.setDate(start.getDate() + 14);
+            end.setHours(23, 59, 59, 999);
+
+            return {
+                start: start.toISOString(),
+                end: end.toISOString()
+            };
+        }
+
+        function matchesRoom(aula, room) {
+            if (!aula) return false;
+            const code = aula.codice?.toUpperCase().trim() || "";
+            const roomCode = code.replace(/^(FIB|ING)\s+/i, '').trim();
+            const roomName = room.name.toUpperCase().replace(/^(AULA|SALA)\s+/i, '').trim();
+            return roomCode === roomName;
+        }
+
+        async function fetchRooms() {
+            try {
+                const res = await fetch(DATA_URL);
+                const data = await res.json();
+                const fib = data.polo.fibonacci.edificio;
+                for (const eId in fib) {
+                    const b = fib[eId];
+                    const bName = b.alias ? b.alias[0] : (b.text || "Edificio");
+                    for (const fId in b.piano) {
+                        b.piano[fId].forEach(r => {
+                            if (r.type === 'aula' || r.hasStatus) {
+                                let routeCode = r.link ? new URLSearchParams(r.link.split('?')[1]).get('c') : null;
+                                if (!routeCode) routeCode = r.nome.replace(/^(Aula|Sala)\s+/i, '').toLowerCase().replace(/\s/g, '');
+                                roomsData.push({
+                                    id: r.id,
+                                    name: r.nome,
+                                    building: bName,
+                                    floor: fId,
+                                    routeCode: routeCode
+                                });
+                            }
+                        });
+                    }
+                }
+            } catch (e) {
+                console.warn("Errore fetch unified data:", e);
+            }
+        }
+
+        function formatDateToItaliano(dateString) {
+            const d = new Date(dateString);
+            return `${DAYS_IT[d.getDay()]} ${d.getDate()} ${MONTHS_IT[d.getMonth()]}`;
+        }
+
+        function isPastEvent(dateString) {
+            return new Date(dateString) < new Date();
+        }
+
+        async function fetchWeeklySchedule() {
+            const range = getLessonRange();
+            dataLoaded = false;
+            dataError = false;
+
+            const badge = document.getElementById('week-badge');
+            if (badge) {
+                const startDate = new Date(range.start);
+                const endDate = new Date(range.end);
+                badge.innerHTML = `<i class="ri-calendar-line"></i> Dal ${startDate.getDate()} ${MONTHS_IT[startDate.getMonth()]} al ${endDate.getDate()} ${MONTHS_IT[endDate.getMonth()]}`;
+            }
+
+            try {
+                if (roomsData.length === 0) await fetchRooms();
+
+                const bodyTemplate = {
+                    mostraImpegniAnnullati: true,
+                    mostraIndisponibilitaTotali: true,
+                    clienteId: CLIENTE_ID,
+                    limitaRisultati: false,
+                    dataInizio: range.start,
+                    dataFine: range.end
+                };
+
+                const requests = Object.entries(POLES).map(async ([key, val]) => {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 20000);
+                    try {
+                        const res = await fetch(API_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ ...bodyTemplate, linkCalendarioId: val.id }),
+                            signal: controller.signal
+                        });
+                        clearTimeout(timeoutId);
+
+                        if (res.ok) {
+                            const data = await res.json();
+                            return data.map(e => ({
+                                ...e,
+                                poloNome: val.name,
+                                poloKey: key
+                            }));
+                        } else {
+                            console.warn(`Polo ${key}: HTTP ${res.status}`);
+                        }
+                    } catch (e) {
+                        clearTimeout(timeoutId);
+                        if (e.name === 'AbortError') {
+                            console.warn(`Timeout fetch polo ${key}`);
+                        } else {
+                            console.warn(`Errore fetch polo ${key}:`, e);
+                        }
+                    }
+                    return [];
+                });
+
+                const results = await Promise.all(requests);
+
+                weeklyEvents = results.flat().filter(e => {
+                    return e.evento?.dettagliDidattici?.[0]?.nome || e.evento?.tipoAttivita?.descrizione;
+                });
+
+                dataLoaded = true;
+                renderResults();
+
+            } catch (err) {
+                console.error('Errore fetch Cineca:', err);
+                dataLoaded = true;
+                dataError = true;
+                renderResults();
+            }
+        }
+
+        function renderResults() {
+            const query = searchInput.value.toLowerCase().trim();
+            const resultsBar = document.getElementById('results-bar');
+
+            if (query.length > 0 && query.length < 3) {
+                resultsList.innerHTML = `
+                        <div class="no-results" style="padding: 2rem; border: none; background: transparent;">
+                            <i class="ri-keyboard-line" style="font-size: 2rem; display: block; margin-bottom: 0.5rem; color: var(--text-secondary);"></i>
+                            <h3 style="margin-bottom: 0.2rem; color: var(--text-primary); font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;">Continua a digitare...</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Inserisci almeno 3 caratteri per iniziare la ricerca.</p>
+                        </div>
+                    `;
+                resultsTotal.textContent = "0";
+                resultsBar.style.justifyContent = 'center';
+                document.getElementById('results-count-container').style.display = 'none';
+                return;
+            }
+
+            if (query.length === 0) {
+                resultsList.innerHTML = initialStateHtml;
+                document.getElementById('results-count-container').style.display = 'none';
+                resultsTotal.textContent = "0";
+                resultsBar.style.justifyContent = 'center';
+                return;
+            }
+
+            document.getElementById('results-count-container').style.display = 'flex';
+            resultsBar.style.justifyContent = 'space-between';
+            resultsBar.style.display = 'flex';
+
+            if (!dataLoaded) {
+                resultsList.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; padding: 4rem 0; gap: 1rem;">
+                        <div class="spinner"></div>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Caricamento lezioni in corso...</p>
+                    </div>`;
+                return;
+            }
+
+            if (dataError && weeklyEvents.length === 0) {
+                resultsList.innerHTML = `
+                    <div class="no-results" style="padding: 3rem 1rem; text-align: center;">
+                        <i class="ri-server-line" style="font-size: 2.5rem; display: block; margin-bottom: 1rem; color: var(--text-secondary); opacity: 0.5;"></i>
+                        <h3 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 400;">Servizio Cineca non disponibile</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">I server dell'università (Cineca) non rispondono o sono in manutenzione. <br>Riprova tra qualche minuto.</p>
+                        <button onclick="dataLoaded=false; dataError=false; renderResults(); fetchWeeklySchedule();" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: var(--text-primary); padding: 0.6rem 1.5rem; border-radius: 12px; font-family: var(--font-family); font-size: 0.9rem; cursor: pointer; transition: all 0.2s;">Riprova ora</button>
+                    </div>`;
+                resultsTotal.textContent = "0";
+                return;
+            }
+
+            const now = new Date();
+            const filtered = weeklyEvents.filter(e => {
+                const eventEnd = new Date(e.dataFine);
+                if (eventEnd < now) return false;
+
+                const nome = (e.evento?.dettagliDidattici?.[0]?.nome || e.evento?.tipoAttivita?.descrizione || '').toLowerCase();
+                if (nome.includes(query)) return true;
+
+                const docenti = e.docenti || [];
+                const nomeDocenti = docenti.map(d => `${d.nome} ${d.cognome}`).join(' ').toLowerCase();
+                if (nomeDocenti.includes(query)) return true;
+
+                return false;
+            });
+
+            filtered.sort((a, b) => new Date(a.dataInizio) - new Date(b.dataInizio));
+
+            resultsTotal.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                resultsList.innerHTML = `
+                <div class="no-results" style="padding: 4rem 1rem; text-align: center;">
+                    <i class="ri-presentation-line" style="font-size: 3rem; display: block; margin-bottom: 1.5rem; color: var(--text-secondary); opacity: 0.5;"></i>
+                    <h2 style="font-family: var(--font-display); font-size: 2rem; font-style: italic; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 400;">Nessuna lezione trovata</h2>
+                    <p style="color: var(--text-secondary); font-size: 1rem; max-width: 400px; margin: 0 auto;">Prova con un altro nome di corso, professore o aula.</p>
+                </div>
+            `;
+                return;
+            }
+
+            const groupedByDay = filtered.reduce((acc, event) => {
+                const dayKey = formatDateToItaliano(event.dataInizio);
+                if (!acc[dayKey]) acc[dayKey] = [];
+                acc[dayKey].push(event);
+                return acc;
+            }, {});
+
+            let html = "";
+            const todayStr = formatDateToItaliano(new Date());
+
+            for (const [day, events] of Object.entries(groupedByDay)) {
+                const isToday = day === todayStr;
+                html += `
+                        <div class="day-group fade-in-card ${isToday ? 'today' : ''}">
+                            <i class="${isToday ? 'ri-calendar-check-fill' : 'ri-calendar-event-line'}"></i> ${isToday ? 'Oggi, ' + day : day}
+                        </div>
+                    `;
+
+                events.forEach(item => {
+                    const nome = item.evento?.dettagliDidattici?.[0]?.nome || item.evento?.tipoAttivita?.descrizione || 'Corso Sconosciuto';
+                    const auleText = item.risorse?.filter(r => r.aula).map(r => r.aula.descrizione || r.aula.nome).join(', ') || 'Aula da definire';
+
+                    const docentiList = item.docenti || [];
+                    const profHtml = docentiList.length > 0
+                        ? docentiList.map(d => `<span class="prof-badge"><i class="ri-user-line"></i> ${d.nome} ${d.cognome}</span>`).join('')
+                        : '';
+
+                    const start = new Date(item.dataInizio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const end = new Date(item.dataFine).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const past = isPastEvent(item.dataFine);
+
+                    let mapUrlUrl = "https://plumkewe.github.io/dove-unipi/";
+                    if (item.risorse && item.risorse.length > 0 && item.poloKey === 'fibonacci') {
+                        // Trova la prima risorsa che è effettivamente un'aula
+                        const risorsaAula = item.risorse.find(r => r.aula);
+                        if (risorsaAula) {
+                            const cinecaAula = risorsaAula.aula;
+                            const matchedRoom = roomsData.find(r => matchesRoom(cinecaAula, r));
+
+                            if (matchedRoom) {
+                                mapUrlUrl = `https://plumkewe.github.io/dove-unipi/?p=${item.poloKey}&c=${matchedRoom.routeCode}`;
+                            } else {
+                                const rName = cinecaAula?.nome || "";
+                                const cleanRoomName = rName.replace(/^(Aula|Sala)\s+/i, '').toLowerCase().replace(/\s/g, '');
+                                if (cleanRoomName) {
+                                    mapUrlUrl = `https://plumkewe.github.io/dove-unipi/?p=${item.poloKey}&c=${cleanRoomName}`;
+                                }
+                            }
+                        }
+                    }
+
+                    html += `
+                            <div class="course-card fade-in-card visible">
+                                <div class="course-header">
+                                    <div class="course-title">${nome.split('-')[0].trim()}</div>
+                                    <div class="course-time-badge ${past ? 'past' : ''}">
+                                        <i class="ri-time-line"></i> ${start} - ${end}
+                                    </div>
+                                </div>
+                                <div class="course-details">
+                                    ${profHtml ? `<div class="detail-row" style="flex-wrap: wrap; margin-bottom: 0.2rem;">${profHtml}</div>` : ''}
+                                    <div class="detail-row">
+                                        <i class="ri-building-4-line"></i> 
+                                        <span>${item.poloNome}</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <i class="ri-map-pin-line" style="color: var(--accent);"></i> 
+                                        <a href="${mapUrlUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--text-primary); font-weight: 500; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.2); text-underline-offset: 4px;">
+                                            ${auleText}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                });
+            }
+
+            resultsList.innerHTML = html;
+
+            // Make cards visible — immediately if in viewport, via observer otherwise
+            setTimeout(() => {
+                document.querySelectorAll('#results-list .fade-in-card:not(.visible)').forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        card.classList.add('visible');
+                    } else {
+                        observer.observe(card);
+                    }
+                });
+            }, 30);
+        }
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            const resultsBar = document.getElementById('results-bar');
+            const clearBtn = document.getElementById('search-clear');
+
+            if (clearBtn) {
+                if (searchInput.value.length > 0) {
+                    clearBtn.classList.add('visible');
+                } else {
+                    clearBtn.classList.remove('visible');
+                }
+            }
+
+            clearTimeout(window.searchTimeout);
+
+            if (query.length > 0 && query.length < 3) {
+                resultsList.innerHTML = `
+                        <div class="no-results" style="padding: 2rem; border: none; background: transparent;">
+                            <i class="ri-keyboard-line" style="font-size: 2rem; display: block; margin-bottom: 0.5rem; color: var(--text-secondary);"></i>
+                            <h3 style="margin-bottom: 0.2rem; color: var(--text-primary); font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;">Continua a digitare...</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Inserisci almeno 3 caratteri per iniziare la ricerca.</p>
+                        </div>
+                    `;
+                resultsTotal.textContent = "0";
+                resultsBar.style.justifyContent = 'center';
+                document.getElementById('results-count-container').style.display = 'none';
+                return;
+            } else if (query.length === 0) {
+                resultsList.innerHTML = initialStateHtml;
+                document.getElementById('results-count-container').style.display = 'none';
+                resultsTotal.textContent = "0";
+                resultsBar.style.justifyContent = 'center';
+                return;
+            }
+
+            renderResults();
+        });
+
+        const clearBtn = document.getElementById('search-clear');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearBtn.classList.remove('visible');
+                searchInput.dispatchEvent(new Event('input'));
+                searchInput.focus();
+            });
+        }
+
+        fetchWeeklySchedule();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrollBtn = document.querySelector('.scroll-buttons');
+            if (!scrollBtn) return;
+            if (window.scrollY > 200) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+    <script src="../version.js"></script>
+    <div class="scroll-buttons">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="scroll-btn" title="Torna su">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+    </div>
+</body>
+
+</html>

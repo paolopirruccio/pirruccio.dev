@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Paolo Assistant</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assistant.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container" style="justify-content: center; align-items: center; display: flex; height: 100vh;">
+        <div class="empty-state">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🤖</div>
+            <div class="chat-bubble"
+                style="background: var(--bg-card); padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border-color); display: inline-block;">
+                <h1 style="font-family: 'Instrument Serif', serif; font-size: 3rem; margin: 0 0 10px 0;">404 Error</h1>
+                <p style="margin: 0;">Le mie banche dati non trovano questa pagina.</p>
+            </div>
+            <br>
+            <a href="../index.html" class="suggestion-card card-style-orange"
+                style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 24px; margin-bottom: 20px;">
+                <span class="suggestion-icon"><i class="fa-solid fa-redo"></i></span>
+                <span class="suggestion-text">Riavvia Chat</span>
+            </a>
+            <div class="quick-links"
+                style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; max-width: 600px;">
+                <a href="https://vsco.co/paolo-pirruccio/gallery" target="_blank" rel="noopener noreferrer" class="suggestion-card"
+                    style="text-decoration: none; padding: 10px 16px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid var(--border-color); color: var(--text-primary); font-size: 0.9rem; transition: all 0.2s;">
+                    <i class="fa-solid fa-camera-retro" style="margin-right: 8px;"></i> VSCO
+                </a>
+                <a href="../uscite/index.html" class="suggestion-card"
+                    style="text-decoration: none; padding: 10px 16px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid var(--border-color); color: var(--text-primary); font-size: 0.9rem; transition: all 0.2s;">
+                    <i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i> Uscite
+                </a>
+                <a href="../content/risorse/index.html" class="suggestion-card"
+                    style="text-decoration: none; padding: 10px 16px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid var(--border-color); color: var(--text-primary); font-size: 0.9rem; transition: all 0.2s;">
+                    <i class="fa-solid fa-book" style="margin-right: 8px;"></i> Libreria
+                </a>
+                <a href="../gym/index.html" class="suggestion-card"
+                    style="text-decoration: none; padding: 10px 16px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid var(--border-color); color: var(--text-primary); font-size: 0.9rem; transition: all 0.2s;">
+                    <i class="fa-solid fa-dumbbell" style="margin-right: 8px;"></i> Gym
+                </a>
+            </div>
+        </div>
+    </div>
+<script src="../version.js"></script>
+</body>
+</html>

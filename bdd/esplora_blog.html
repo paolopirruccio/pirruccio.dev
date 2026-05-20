@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esplora Blog, I tuoi blog e Blog seguiti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&display=swap">
+    <link rel="stylesheet" href="css/stile.css">
+    <link rel="stylesheet" href="css/overlay_menu.css">
+    <style>
+        .segmented-control {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background-color: #f8f9fa;
+            border-radius: 20px;
+            padding: 8px;
+            width: 80%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .segmented-control button {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            background-color: transparent;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 20px;
+        }
+        .segmented-control button.active {
+            background-color: #6A0DAD;
+            color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+        }
+        .segmented-control button:focus {
+            outline: none;
+        }
+        .segmented-control button:hover:not(.active) {
+            background-color: #e9ecef;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" type="image/webp" href="../blog/icon.webp">
+    <link rel="apple-touch-icon" href="../blog/icon.webp">
+</head>
+<body>
+    <!-- Navbar injected via components.js -->
+    <div style="margin-top: 80px; text-align: center;">
+        <h1>Scopri i blog</h1>
+        <img src="illustrazioni/imieiblog-ill.svg" alt="Illustration" class="illustration"
+            style="width: 200px; height: auto; display: block; margin: auto;">
+    </div>
+    <div class="segmented-control">
+        <button id="tuoiBlogBtn"><i class="fa-solid fa-list"></i> I tuoi blog</button>
+        <button id="EsploraBtn" class="active"><i class="fa-regular fa-compass"></i> Esplora Blog</button>
+        <button id="blogSeguitiBtn"><i class="fa-regular fa-circle-check"></i> Blog seguiti</button>
+    </div>
+    <!-- Sezione Esplora Blog -->
+    <div id="EsploraBlogSection" class="content-section active">
+        <div class="header-content">
+            <div class="intestazione">
+                <p>Esplora nuovi blog e segui quelli che ti interessano di più.<a href="cerca.html"> Ne cerchi uno
+                        specifico?</a></p>
+            </div>
+        </div>
+        <!-- Overlay Menu Crea -->
+        <div id="overlay-menu-crea" class="overlay-menu-crea" style="display: none;">
+            <div class="menu-crea-content">
+                <span class="close-crea">&times;</span>
+                <h2>Cosa vuoi creare?</h2>
+                <div class="opzioni-crea">
+                    <a href="crea_post.html" class="opzione-crea">
+                        <i class="fa-solid fa-feather-pointed"></i>
+                        <span>Nuovo Post</span>
+                    </a>
+                    <a href="crea_blog.html" class="opzione-crea">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Nuovo Blog</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="contenitore" id="EsploraBlogContenitore">
+            <!-- Generato da js -->
+        </div>
+    </div>
+    <!-- Sezione I Tuoi Blog -->
+    <div id="tuoiBlogSection" class="content-section">
+        <div class="header-content">
+            <div class="intestazione">
+                <p>I blog di cui sei proprietario e i blog che gestisci come coautore. <a href="crea_blog.html">Creane
+                        uno nuovo.</a></p>
+            </div>
+        </div>
+        <div class="contenitore" id="tuoiBlogContenitore">
+            <!-- Generato da js -->
+        </div>
+    </div>
+    <!-- Sezione Blog Seguiti -->
+    <div id="blogSeguitiSection" class="content-section">
+        <div class="header-content">
+            <div class="intestazione">
+                <p>I blog che segui appariranno qui e troverai i loro post nella Home. <a href="#"
+                        onclick="document.getElementById('EsploraBtn').click()">Seguine altri.</a></p>
+            </div>
+        </div>
+        <div class="contenitore" id="blogSeguitiContenitore">
+            <!-- Generato da js -->
+        </div>
+    </div>
+    <button class="bottone-crea" id="bottoneCreaOverlay">
+        Crea <i class="fa-solid fa-circle-plus"></i>
+    </button>
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="illustrazioni/logo-footer.svg" alt="BlogOwl Logo" class="footer-logo">
+        </div>
+        <div class="footer-disclaimer">
+            Progetto di Basi di Dati e Laboratorio Web 2023/2024.<br>©Paolo Pirruccio (614754) ©Francisco LeYucra
+            (659528).
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="db.js"></script>
+    <script src="mostra_messaggio.js"></script>
+    <script src="components/components.js"></script>
+    <script src="esplora_logic.js"></script>
+    <script src="post_like.js"></script>
+    <script src="commento_gestisci.js"></script>
+    <!-- Script Toggle Crea Menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnCrea = document.getElementById('bottoneCreaOverlay');
+            const overlayCrea = document.getElementById('overlay-menu-crea');
+            if (btnCrea && overlayCrea) {
+                btnCrea.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    overlayCrea.style.display = 'flex';
+                });
+                const closeBtn = overlayCrea.querySelector('.close-crea');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        overlayCrea.style.display = 'none';
+                    });
+                }
+                overlayCrea.addEventListener('click', (e) => {
+                    if (e.target === overlayCrea) {
+                        overlayCrea.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

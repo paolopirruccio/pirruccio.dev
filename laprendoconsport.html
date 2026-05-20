@@ -1,0 +1,3329 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <!-- META TAGS E CONFIGURAZIONE BASE -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laprendoconsport</title>
+
+  <!-- IMPORTAZIONE FONT E ICONE -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@200;300;400;600;700;800&family=Noto+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* STILI BASE E VARIABILI */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #FFA404;
+      --red-bright: #ED0044;
+      --red-dark: #B00033;
+      --blue-light: #0074C8;
+      --blue-dark: #0063AB;
+      --green-light: #00963A;
+      --green-dark: #016929;
+      --dark: #111111;
+      --light: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      color: var(--light);
+      background-color: var(--dark);
+      overflow-x: hidden;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    /* EFFETTO BACKGROUND CON BLOB COLORATI */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(ellipse 800px 600px at 15% 25%, rgba(255, 164, 4, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 600px 500px at 85% 60%, rgba(237, 0, 68, 0.09) 0%, transparent 50%),
+        radial-gradient(ellipse 700px 550px at 45% 80%, rgba(0, 116, 200, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 500px 400px at 75% 15%, rgba(0, 150, 58, 0.10) 0%, transparent 50%),
+        radial-gradient(ellipse 900px 700px at 25% 70%, rgba(255, 164, 4, 0.07) 0%, transparent 50%),
+        radial-gradient(ellipse 400px 300px at 90% 90%, rgba(237, 0, 68, 0.08) 0%, transparent 50%);
+      z-index: -1;
+      pointer-events: none;
+      animation: floatBlobs 20s ease-in-out infinite;
+    }
+
+    /* ANIMAZIONE BLOB DI SFONDO */
+    @keyframes floatBlobs {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      25% {
+        transform: translate(-20px, -30px) scale(1.05);
+      }
+
+      50% {
+        transform: translate(15px, -20px) scale(0.95);
+      }
+
+      75% {
+        transform: translate(-10px, 25px) scale(1.02);
+      }
+    }
+
+    /* STILI TIPOGRAFICI BASE */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 700;
+    }
+
+    /* CONTAINER PRINCIPALE */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* STILI BASE PER ELEMENTI COMUNI */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--light);
+      transition: all 0.3s ease;
+    }
+
+    /* CURSORE PERSONALIZZATO */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      pointer-events: none;
+      transition: width 0.3s, height 0.3s, background-color 0.3s;
+      mix-blend-mode: difference;
+      display: none;
+    }
+
+    .cursor.hover {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(255, 164, 4, 0.2);
+    }
+
+    /* ELEMENTI GRADIENT BLOB (DISATTIVATI) */
+    .gradient-blobs {
+      display: none;
+    }
+
+    .blob {
+      display: none;
+    }
+
+    /* SEZIONE TESTO INTERATTIVO */
+    .interactive-text-section {
+      background-color: rgba(255, 164, 4, 0.95);
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+      perspective: 1000px;
+      margin: 40px 0;
+      box-shadow: 0 20px 40px rgba(255, 164, 4, 0.3), 0 -20px 40px rgba(255, 164, 4, 0.1);
+    }
+
+    .interactive-text-container {
+      text-align: center;
+      transform-style: preserve-3d;
+    }
+
+    .interactive-text {
+      display: inline-block;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2.2rem, 8vw, 5rem);
+      font-weight: 800;
+      color: #000;
+      margin: 0;
+      padding: 20px;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+      transform-style: preserve-3d;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    /* STILI LETTERE INTERATTIVE */
+    .letter {
+      display: inline-block;
+      position: relative;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+
+    .letter:hover {
+      transform: translateY(-8px) scale(1.1);
+      color: #ED0044;
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+    }
+
+    .letter:before {
+      content: attr(data-letter);
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #0074C8;
+      transform: translateZ(-3px) translateY(3px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .letter:hover:before {
+      opacity: 0.2;
+    }
+
+    .letter:after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #000;
+      transform: scaleX(0);
+      transition: transform 0.2s ease;
+      transform-origin: center;
+    }
+
+    .letter:hover:after {
+      transform: scaleX(1);
+    }
+
+    .interactive-text-container:hover .letter:not(:hover) {
+      opacity: 0.9;
+    }
+
+    /* ANIMAZIONE PULSANTE LETTERE */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .letter.pulse {
+      animation: pulse 0.4s ease;
+    }
+
+    /* CONTENITORE PRINCIPALE */
+    .main-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* SEZIONE HERO CON SLIDESHOW */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 30% 70%, rgba(255, 164, 4, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 30%, rgba(237, 0, 68, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 20%, rgba(0, 116, 200, 0.06) 0%, transparent 50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 60px 0 40px;
+    }
+
+    /* ANIMAZIONE TESTO HERO */
+    .hero h1 {
+      font-size: clamp(2.2rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 1.5rem;
+      color: var(--light);
+      text-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      mix-blend-mode: difference;
+    }
+
+    /* ANIMAZIONE TESTO COLORATO NELLA HERO */
+    .hero-title-animated {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      padding: 8px 0;
+    }
+
+    .hero-word {
+      display: inline-block;
+      animation: wordFade 0.6s forwards;
+      opacity: 0;
+      transform: translateY(30px);
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-word:nth-child(1) {
+      animation-delay: 0.1s;
+      color: var(--light);
+    }
+
+    .hero-word:nth-child(2) {
+      animation-delay: 0.4s;
+      color: var(--primary);
+    }
+
+    .hero-word:nth-child(3) {
+      animation-delay: 0.7s;
+      color: var(--red-bright);
+    }
+
+    @keyframes wordFade {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 3px;
+      background-color: var(--primary);
+      bottom: -10px;
+      left: 0;
+      animation: lineGrow 1.2s ease forwards;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    @keyframes lineGrow {
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    .hero p {
+      font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+      max-width: 500px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s forwards;
+      animation-delay: 0.9s;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    /* SLIDESHOW HERO */
+    .slideshow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .slideshow-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      filter: brightness(0.6) contrast(1.1);
+    }
+
+    .slideshow-item.active {
+      opacity: 0.5;
+    }
+
+    .slideshow-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* LOGO CONTAINER */
+    .logo-container {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 10;
+      margin-left: 20px;
+      width: 450px;
+      max-width: 90%;
+    }
+
+    /* ELEMENTI DECORATIVI */
+    .decor-image {
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* PULSANTE SCROLL HERO */
+    .hero-scroll {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 5;
+      cursor: pointer;
+    }
+
+    .hero-scroll p {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
+    .scroll-arrow {
+      width: 25px;
+      height: 25px;
+      border: 2px solid var(--light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-8px);
+      }
+
+      60% {
+        transform: translateY(-4px);
+      }
+    }
+
+    /* SEZIONE CITAZIONE */
+    .quote-section {
+      position: relative;
+      background-color: transparent;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      overflow: hidden;
+      padding: 50px 0;
+      margin: 30px 0;
+    }
+
+    .quote-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .quote-mark {
+      position: absolute;
+      font-family: 'Bricolage Grotesque', serif;
+      font-size: 60vh;
+      font-weight: bold;
+      color: rgba(255, 164, 4, 0.06);
+      line-height: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+
+    .quote-container {
+      max-width: 700px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .quote-text {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+      font-weight: 300;
+      line-height: 1.4;
+      margin-bottom: 25px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeUp 0.8s forwards;
+      animation-delay: 0.1s;
+    }
+
+    .quote-author {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(1rem, 1.3vw, 1.1rem);
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      position: relative;
+      padding-top: 15px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeUp 0.8s forwards;
+      animation-delay: 0.3s;
+    }
+
+    .quote-author:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 2px;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .quote-decor {
+      position: absolute;
+      right: 8%;
+      bottom: 8%;
+      width: 120px;
+      z-index: 1;
+    }
+
+    /* PALLINI DI TRANSIZIONE ANIMATI */
+    .transition-dots {
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      z-index: 3;
+    }
+
+    .transition-dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      animation: dotJump 1s infinite ease-in-out;
+    }
+
+    .transition-dot:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .transition-dot:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .transition-dot:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes dotJump {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* SEZIONE TESTO SCORREVOLE ORIZZONTALE */
+    .marquee-section {
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+      background-color: transparent;
+      margin: 30px 0;
+    }
+
+    .marquee-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      margin: 30px 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      will-change: transform;
+      animation-duration: 25s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    .marquee-track-left {
+      animation-name: marqueeLeft;
+    }
+
+    .marquee-track-right {
+      animation-name: marqueeRight;
+    }
+
+    @keyframes marqueeLeft {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes marqueeRight {
+      0% {
+        transform: translateX(-50%);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .marquee-item {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 0 15px;
+      color: var(--light);
+    }
+
+    .marquee-item span {
+      color: var(--primary);
+    }
+
+    /* SEZIONE REVEAL TESTO CON SCROLL */
+    .scroll-reveal-container {
+      position: relative;
+      height: 80vh;
+      padding-top: 20px;
+      margin: 15px 0;
+    }
+
+    .scroll-reveal-sticky {
+      position: sticky;
+      top: 0;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .scroll-reveal-content {
+      width: 100%;
+      max-width: 1000px;
+      position: relative;
+    }
+
+    .scroll-reveal-image {
+      width: 85%;
+      height: 55vh;
+      margin: 0 auto;
+      background-color: #222;
+      overflow: hidden;
+      position: relative;
+      border-radius: 8px;
+    }
+
+    .scroll-reveal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.1);
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-reveal-text {
+      position: absolute;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(1.4rem, 6vw, 4rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--light);
+      will-change: transform, opacity;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+    }
+
+    .text-top {
+      top: 8%;
+      left: 0;
+      transform: translateX(-100%) rotate(-8deg);
+    }
+
+    .text-bottom {
+      bottom: 8%;
+      right: 0;
+      transform: translateX(100%) rotate(8deg);
+    }
+
+    /* SEZIONE PANNELLI COLORATI FEATURES */
+    .features-stack-container {
+      position: relative;
+      height: 400vh;
+      overflow: hidden;
+      margin: 40px 0;
+    }
+
+    .feature-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 1;
+      opacity: 1;
+    }
+
+    /* GESTIONE Z-INDEX PANNELLI */
+    .feature-panel:nth-child(1) {
+      z-index: 4;
+    }
+
+    .feature-panel:nth-child(2) {
+      z-index: 3;
+    }
+
+    .feature-panel:nth-child(3) {
+      z-index: 2;
+    }
+
+    .feature-panel:nth-child(4) {
+      z-index: 1;
+    }
+
+    /* STILI PANNELLI COLORATI */
+    .panel-yellow {
+      background: linear-gradient(rgba(255, 164, 4, 0.7), rgba(255, 164, 4, 0.7)), url('https://images.unsplash.com/photo-1622659097972-68f1d8c1829f?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+      box-shadow: 0 0 50px rgba(255, 164, 4, 0.4);
+    }
+
+    .panel-red {
+      background: linear-gradient(rgba(237, 0, 68, 0.8), rgba(237, 0, 68, 0.8)), url('https://images.unsplash.com/photo-1469573054742-64da3f2527fc?q=80&w=2652&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    .panel-blue {
+      background: linear-gradient(rgba(0, 116, 200, 0.7), rgba(0, 116, 200, 0.7)), url('https://images.unsplash.com/photo-1530549387789-4c1017266635?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+      box-shadow: 0 0 50px rgba(0, 116, 200, 0.3);
+    }
+
+    .panel-green {
+      background: linear-gradient(rgba(0, 150, 58, 0.85), rgba(0, 150, 58, 0.85)), url('https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=2638&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    /* CONTENUTO PANNELLI */
+    .panel-content {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(3px);
+      padding: 30px 35px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform: translateY(30px) scale(0.95);
+      opacity: 0.7;
+    }
+
+    .panel-content.active {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .panel-title {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 1.2rem;
+      position: relative;
+      display: inline-block;
+      transform: translateX(-20px);
+      transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .panel-content.active .panel-title {
+      transform: translateX(0);
+    }
+
+    .panel-title::after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 3px;
+      background-color: currentColor;
+      opacity: 0.4;
+      bottom: -8px;
+      left: 0;
+      transform: scaleX(0);
+      transition: transform 0.6s ease 0.3s;
+    }
+
+    .panel-content.active .panel-title::after {
+      transform: scaleX(1);
+    }
+
+    .panel-desc {
+      font-size: clamp(1.05rem, 1.1vw, 1.1rem);
+      margin-bottom: 1.5rem;
+      max-width: 550px;
+      line-height: 1.5;
+      transform: translateY(20px);
+      transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s;
+    }
+
+    .panel-content.active .panel-desc {
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* SEZIONE CARD FLIP 3D */
+    .card-flip-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 0;
+      background-color: rgba(255, 164, 4, 0.95);
+      perspective: 1000px;
+      margin: 40px 0;
+      box-shadow: 0 20px 40px rgba(255, 164, 4, 0.3), 0 -20px 40px rgba(255, 164, 4, 0.1);
+    }
+
+    .card-flip-container {
+      width: 100%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 0 20px;
+    }
+
+    .valori-title {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 30px auto;
+      color: var(--dark);
+    }
+
+    .valori-title h2 {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .valori-title p {
+      font-size: clamp(1.05rem, 1vw, 1.05rem);
+      opacity: 0.9;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.4;
+    }
+
+    /* COMPONENTI CARD FLIP */
+    .flip-card {
+      width: 100%;
+      height: 280px;
+      perspective: 1000px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s;
+      transform-style: preserve-3d;
+    }
+
+    @media (hover: hover) {
+      .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 25px;
+    }
+
+    .flip-card-front {
+      background-color: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .flip-card-back {
+      background-color: var(--dark);
+      color: var(--light);
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+    }
+
+    .flip-card-title {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .flip-card-desc {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* GRIGLIA PROGRAMMI */
+    .programs-grid {
+      padding: 60px 0;
+      background-color: transparent;
+      position: relative;
+      overflow: hidden;
+      margin: 30px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 3px;
+      background-color: var(--primary);
+      bottom: -8px;
+      left: 20%;
+    }
+
+    .section-desc {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: clamp(1.05rem, 1vw, 1.05rem);
+      line-height: 1.4;
+    }
+
+    .programs-container {
+      max-width: 750px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    /* ITEM PROGRAMMI */
+    .program-item {
+      position: relative;
+      height: 250px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s ease;
+    }
+
+    @media (hover: hover) {
+      .program-item:hover {
+        transform: translateY(-10px);
+      }
+
+      .program-item:hover .program-bg {
+        transform: scale(1.08);
+      }
+    }
+
+    .program-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transition: transform 0.4s ease;
+    }
+
+    .program-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));
+      z-index: 2;
+    }
+
+    .program-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 18px;
+      z-index: 3;
+    }
+
+    .program-title {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .program-desc {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    /* PULSANTI SOCIAL */
+    .social-button {
+      display: inline-block;
+      padding: 7px 16px;
+      background-color: var(--primary);
+      color: var(--dark);
+      font-weight: 600;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .social-button i {
+      margin-right: 6px;
+    }
+
+    /* STILI SOCIAL BUTTON PER PIATTAFORME */
+    .social-button.facebook {
+      background-color: #1877f2;
+      color: white;
+    }
+
+    .social-button.twitter {
+      background-color: #1da1f2;
+      color: white;
+    }
+
+    .social-button.instagram {
+      background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+      color: white;
+    }
+
+    /* TAG PROGRAMMA */
+    .program-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      z-index: 3;
+    }
+
+    .program-decor {
+      position: absolute;
+      right: 3%;
+      top: 8%;
+      width: 150px;
+      z-index: 0;
+    }
+
+    /* VARIANTI COLORE TAG */
+    .tag-red {
+      background-color: var(--red-bright);
+    }
+
+    .tag-blue {
+      background-color: var(--blue-light);
+    }
+
+    .tag-green {
+      background-color: var(--green-light);
+    }
+
+    .tag-primary {
+      background-color: var(--primary);
+      color: var(--dark);
+    }
+
+    /* CALCOLATORE FITNESS */
+    .fitness-calculator {
+      padding: 60px 0;
+      background-color: transparent;
+      margin: 30px 0;
+    }
+
+    .calculator-decor {
+      position: absolute;
+      left: 3%;
+      bottom: 8%;
+      width: 120px;
+      z-index: 0;
+    }
+
+    /* CONTENITORE TAB CALCOLATORI */
+    .tabs-container {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 18px;
+      background-color: rgba(17, 17, 17, 0.8);
+      border-radius: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* NAVIGAZIONE TAB */
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 25px;
+    }
+
+    .tab-btn {
+      flex: 1 1 30%;
+      min-width: 120px;
+      text-align: center;
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid #FFA404;
+      padding: 10px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      transition: 0.3s;
+      font-size: 0.9rem;
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      background-color: #FFA404;
+      color: #000;
+    }
+
+    /* CONTENUTO TAB */
+    .tab-content {
+      display: none;
+      animation: fadein 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content label {
+      display: block;
+      margin: 12px 0 4px;
+      font-size: 1rem;
+    }
+
+    .tab-content input,
+    .tab-content select {
+      width: 100%;
+      padding: 8px;
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .tab-content button {
+      margin-top: 12px;
+      background-color: #FFA404;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .output {
+      margin-top: 12px;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* SEZIONE UNISCITI AL MOVIMENTO */
+    .unisciti-movimento-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      overflow: hidden;
+      padding: 80px 0;
+      margin: 40px 0;
+    }
+
+    /* SFONDO PARTICELLE */
+    .particles-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) scale(0);
+      }
+
+      10% {
+        opacity: 0.8;
+        transform: translateY(90vh) scale(0.5);
+      }
+
+      90% {
+        opacity: 0.8;
+        transform: translateY(10vh) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-10vh) scale(0);
+      }
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+
+    /* CONTENUTO SEZIONE MOVIMENTO */
+    .unisciti-movimento-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .unisciti-movimento-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(45deg, #ffffff 0%, #ffa404 50%, #ffffff 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 6s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .unisciti-movimento-description {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+      animation: fadeUpDelay 1s ease forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes fadeUpDelay {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .unisciti-movimento-subtitle {
+      font-size: clamp(1rem, 1.5vw, 1.1rem);
+      color: rgba(255, 164, 4, 0.8);
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: fadeUpDelay 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    /* SEZIONE RSS NEWS FEED */
+    .rss-section {
+      padding: 60px 0;
+      background-color: transparent;
+      position: relative;
+      margin: 30px 0;
+    }
+
+    .rss-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .rss-highlight {
+      color: var(--primary);
+    }
+
+    .rss-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+    }
+
+    .rss-disclaimer {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 25px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      border-left: 3px solid var(--primary);
+      color: rgba(255, 255, 255, 0.8);
+      text-align: left;
+    }
+
+    /* CARD NOTIZIE RSS */
+    .rss-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: rgba(25, 25, 25, 0.8);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rss-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .rss-image {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+    }
+
+    .rss-content {
+      padding: 16px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rss-date {
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .rss-item-title {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .rss-excerpt {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 12px;
+      flex-grow: 1;
+      line-height: 1.4;
+    }
+
+    .rss-link {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: var(--primary);
+      color: var(--dark);
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      align-self: flex-start;
+    }
+
+    .rss-link:hover {
+      transform: translateY(-2px);
+      background-color: #ffb434;
+    }
+
+    .rss-loading {
+      text-align: center;
+      padding: 30px;
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .rss-error {
+      text-align: center;
+      padding: 15px;
+      background-color: rgba(237, 0, 68, 0.2);
+      border-radius: 8px;
+      color: var(--light);
+      margin-top: 15px;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 60px 0 30px;
+      background-color: transparent;
+      position: relative;
+      z-index: 5;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-logo {
+      margin-bottom: 15px;
+    }
+
+    .footer-about p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 25px;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    /* LINK SOCIAL FOOTER */
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    @media (hover: hover) {
+      .social-link:hover {
+        background-color: var(--primary);
+        transform: translateY(-4px);
+      }
+    }
+
+    .footer-title {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 2px;
+      background-color: var(--primary);
+      bottom: -6px;
+      left: 0;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: all 0.3s ease;
+      display: inline-block;
+      font-size: 1rem;
+    }
+
+    @media (hover: hover) {
+      .footer-links a:hover {
+        color: var(--primary);
+        transform: translateX(4px);
+      }
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.95rem;
+    }
+
+    /* MEDIA QUERIES - RESPONSIVENESS */
+    @media (max-width: 1200px) {
+      .slideshow-item {
+        width: 100%;
+        clip-path: none;
+        opacity: 0;
+      }
+
+      .slideshow-item.active {
+        opacity: 0.4;
+      }
+
+      .container {
+        padding: 0 1.2rem;
+      }
+
+      .logo-container {
+        width: 400px;
+      }
+    }
+
+    @media (max-width: 991px) {
+
+      .hero h1,
+      .panel-title {
+        letter-spacing: -0.5px;
+      }
+
+      .panel-content {
+        padding: 25px 30px;
+      }
+
+      .section-header {
+        margin-bottom: 25px;
+      }
+
+      .section-title::after {
+        height: 2px;
+      }
+
+      .quote-decor,
+      .program-decor,
+      .calculator-decor {
+        display: none;
+      }
+
+      .logo-container {
+        width: 380px;
+      }
+
+      .features-stack-container {
+        height: 350vh;
+        margin: 60px 0;
+      }
+
+      .interactive-text {
+        font-size: clamp(2rem, 7vw, 4.5rem);
+        overflow: visible;
+        white-space: nowrap;
+      }
+
+      .feature-panel {
+        height: 80vh;
+      }
+
+      .transition-dots {
+        bottom: -40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 100vh;
+        height: 100vh;
+        padding: 0;
+      }
+
+      .hero-content {
+        padding: 50px 0 30px;
+      }
+
+      .quote-section {
+        min-height: 50vh;
+        padding: 40px 0;
+      }
+
+      .transition-dots {
+        bottom: -50px;
+      }
+
+      .interactive-text-section {
+        padding: 40px 0;
+      }
+
+      .card-flip-section {
+        min-height: auto;
+        padding: 50px 0;
+      }
+
+      .programs-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .flip-card {
+        height: 240px;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+      }
+
+      .marquee-item {
+        font-size: clamp(1.8rem, 5vw, 2.8rem);
+      }
+
+      .scroll-reveal-container {
+        height: 50vh;
+      }
+
+      .scroll-reveal-sticky {
+        height: 50vh;
+      }
+
+      .scroll-reveal-image {
+        height: 35vh;
+      }
+
+      .logo-container {
+        top: 10px;
+        left: 10px;
+        width: 350px;
+      }
+
+      .rss-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .features-stack-container {
+        height: 280vh;
+        margin: 80px 0;
+      }
+
+      .feature-panel {
+        height: 70vh;
+      }
+
+      .tabs-nav {
+        gap: 6px;
+      }
+
+      .tab-btn {
+        min-width: 100px;
+        padding: 8px 6px;
+        font-size: 0.85rem;
+      }
+
+      .letter:hover {
+        transform: translateY(-5px) scale(1.05);
+      }
+
+      .scroll-reveal-text {
+        font-size: clamp(1.2rem, 5vw, 3rem);
+      }
+
+      .unisciti-movimento-section {
+        min-height: 70vh;
+        padding: 60px 0;
+      }
+
+      .unisciti-movimento-title {
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 7.5vw, 5.5rem);
+      }
+
+      .hero p {
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+      }
+
+      .interactive-text {
+        font-size: clamp(2rem, 6.5vw, 4.5rem);
+        padding: 15px;
+      }
+
+      .panel-content {
+        padding: 25px 30px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero {
+        min-height: 100vh;
+        height: 100vh;
+        padding: 0;
+      }
+
+      .hero-content {
+        padding: 40px 0 25px;
+      }
+
+      .quote-section {
+        min-height: 40vh;
+        padding: 30px 0;
+      }
+
+      .transition-dots {
+        bottom: -60px;
+      }
+
+      .interactive-text-section {
+        padding: 30px 0;
+      }
+
+      .section-title {
+        font-size: clamp(1.8rem, 6vw, 2rem);
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 8vw, 3.5rem);
+        line-height: 1.15;
+      }
+
+      .hero h1::after {
+        width: 40px;
+        height: 2px;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .quote-text {
+        font-size: 1.1rem;
+      }
+
+      .rss-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-flip-container {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-scroll {
+        bottom: 20px;
+      }
+
+      .program-item {
+        height: 220px;
+      }
+
+      .program-title {
+        font-size: 1.2rem;
+      }
+
+      .program-desc {
+        font-size: 0.9rem;
+      }
+
+      .logo-container {
+        top: 8px;
+        left: 8px;
+        width: 300px;
+      }
+
+      .features-stack-container {
+        height: 240vh;
+        margin: 100px 0;
+      }
+
+      .feature-panel {
+        height: 60vh;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      .quote-mark {
+        font-size: 40vh;
+      }
+
+      .panel-yellow,
+      .panel-red,
+      .panel-blue,
+      .panel-green {
+        background-attachment: scroll;
+      }
+
+      .interactive-text {
+        font-size: clamp(1.8rem, 6vw, 3.5rem);
+        padding: 10px;
+        letter-spacing: -0.5px;
+      }
+
+      .panel-content {
+        padding: 22px 30px 22px 35px;
+      }
+
+      .scroll-reveal-container {
+        height: 45vh;
+      }
+
+      .scroll-reveal-sticky {
+        height: 45vh;
+      }
+
+      .scroll-reveal-image {
+        height: 30vh;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 100vh;
+        height: 100vh;
+      }
+
+      .quote-section {
+        min-height: 35vh;
+      }
+
+      .transition-dots {
+        bottom: -70px;
+      }
+
+      .marquee-section,
+      .programs-grid,
+      .rss-section,
+      .card-flip-section,
+      .fitness-calculator,
+      .unisciti-movimento-section {
+        padding: 40px 0;
+      }
+
+      .flip-card {
+        height: 220px;
+      }
+
+      .panel-content {
+        padding: 20px 12px 20px 35px;
+      }
+
+      .section-desc {
+        font-size: 1rem;
+        padding: 0 8px;
+      }
+
+      .footer {
+        padding: 40px 0 25px;
+      }
+
+      .quote-mark {
+        font-size: 35vh;
+      }
+
+      .tabs-container {
+        margin: 20px auto;
+        padding: 12px;
+      }
+
+      .tabs-nav {
+        gap: 4px;
+        margin-bottom: 15px;
+      }
+
+      .tab-btn {
+        padding: 6px 4px;
+        font-size: 0.8rem;
+        min-width: 80px;
+      }
+
+      .interactive-text {
+        font-size: clamp(1.6rem, 5.5vw, 3.5rem);
+        letter-spacing: -1px;
+      }
+
+      .features-stack-container {
+        height: 200vh;
+        margin: 120px 0;
+      }
+
+      .feature-panel {
+        height: 50vh;
+      }
+
+      .unisciti-movimento-section {
+        min-height: 60vh;
+        padding: 50px 0;
+      }
+
+      .logo-container {
+        width: 260px;
+      }
+
+      .scroll-reveal-container {
+        height: 40vh;
+      }
+
+      .scroll-reveal-sticky {
+        height: 40vh;
+      }
+
+      .scroll-reveal-image {
+        height: 25vh;
+      }
+    }
+
+    /* SCHERMI MOLTO PICCOLI */
+    @media (max-width: 360px) {
+      .interactive-text {
+        font-size: clamp(1.4rem, 5vw, 3rem);
+        padding: 8px;
+      }
+
+      .logo-container {
+        width: 240px;
+      }
+
+      .transition-dots {
+        bottom: -80px;
+      }
+
+      .scroll-reveal-container {
+        height: 35vh;
+      }
+
+      .scroll-reveal-sticky {
+        height: 35vh;
+      }
+
+      .scroll-reveal-image {
+        height: 22vh;
+      }
+
+      .unisciti-movimento-section {
+        min-height: 55vh;
+      }
+    }
+
+    /* OTTIMIZZAZIONI PRESTAZIONI MOBILE */
+    @media (max-width: 768px) {
+      * {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+
+      .slideshow-item img,
+      .program-bg,
+      .scroll-reveal-image img {
+        will-change: auto;
+        transform: none !important;
+      }
+
+      .hero-content,
+      .slideshow {
+        transform: none !important;
+      }
+
+      .letter {
+        transition: all 0.2s ease;
+      }
+
+      .flip-card-inner {
+        transition: transform 0.3s;
+      }
+
+      .program-item {
+        transition: transform 0.2s ease;
+      }
+
+      .panel-yellow,
+      .panel-red,
+      .panel-blue,
+      .panel-green {
+        background-attachment: scroll;
+      }
+    }
+    .archive-banner {
+      background-color: var(--primary);
+      color: #000;
+      text-align: center;
+      padding: 10px 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      position: relative;
+      z-index: 99999;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .social-link, .social-button { pointer-events: none; opacity: 0.6; }
+  </style>
+</head>
+
+<body>
+  <!-- BANNER ARCHIVIO -->
+  <div class="archive-banner">
+    Questo sito è una copia d'archivio statica di un progetto concluso gestito per Citycomm srl. Alcune funzionalità non sono più attive.
+  </div>
+  <!-- CURSORE PERSONALIZZATO -->
+  <div class="cursor"></div>
+
+  <div class="main-wrapper">
+    <!-- SEZIONE HERO -->
+    <section class="hero">
+      <div class="container hero-content">
+        <!-- TESTO ANIMATO COLORATO -->
+        <h1>
+          <span class="hero-title-animated">
+            <span class="hero-word">Sport.</span>
+          </span>
+          <span class="hero-title-animated">
+            <span class="hero-word">Passione.</span>
+          </span>
+          <span class="hero-title-animated">
+            <span class="hero-word">Inclusione.</span>
+          </span>
+        </h1>
+        <p>Laprendoconsport promuove stili di vita sani, inclusione sociale e benessere attraverso lo sport e l'attività
+          fisica.</p>
+      </div>
+
+      <!-- LOGO ORIZZONTALE -->
+      <div class="logo-container" style="max-width: 200px !important;">
+        <img src="https://www.laprendoconsport.it/wp-content/uploads/2025/05/fkfkkfkf.svg" alt="Logo Laprendoconsport">
+      </div>
+
+      <!-- SLIDESHOW FULLSCREEN -->
+      <div class="slideshow">
+        <div class="slideshow-item active">
+          <img
+            src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=2614&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Attività sportiva inclusiva">
+        </div>
+        <div class="slideshow-item">
+          <img
+            src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+            alt="Competizione sportiva">
+        </div>
+        <div class="slideshow-item">
+          <img
+            src="https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+            alt="Allenamento">
+        </div>
+        <div class="slideshow-item">
+          <img
+            src="https://images.unsplash.com/photo-1535743686920-55e4145369b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80"
+            alt="Benessere">
+        </div>
+        <div class="slideshow-item">
+          <img
+            src="https://images.unsplash.com/photo-1554284126-aa88f22d8b74?ixlib=rb-4.0.3&auto=format&fit=crop&w=1394&q=80"
+            alt="Sport adattato">
+        </div>
+      </div>
+
+      <!-- PULSANTE SCROLL DOWN -->
+      <div class="hero-scroll" id="heroScroll" data-cursor-hover>
+        <p>Scorri</p>
+        <div class="scroll-arrow">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE TESTO SCORREVOLE -->
+    <section class="marquee-section">
+      <div class="gradient-blobs">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
+      </div>
+
+      <div class="marquee-container">
+        <div class="marquee-track marquee-track-left">
+          <div class="marquee-item">Rispetto <span>•</span> Educazione <span>•</span> Comunità <span>•</span> Diversità
+            <span>•</span></div>
+          <div class="marquee-item">Rispetto <span>•</span> Educazione <span>•</span> Comunità <span>•</span> Diversità
+            <span>•</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE CITAZIONE -->
+    <section class="quote-section" id="quote">
+      <div class="gradient-blobs">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
+      </div>
+
+      <div class="quote-bg">
+        <div class="quote-mark">"</div>
+      </div>
+      <div class="quote-container">
+        <blockquote class="quote-text">
+          Non importa cosa trovi alla fine della corsa, l'importante è quello che provi mentre stai correndo. Il
+          miracolo non è essere giunti al traguardo, ma avere avuto il coraggio di partire.
+        </blockquote>
+        <p class="quote-author">JESSE OWENS</p>
+      </div>
+
+      <!-- ANIMAZIONE TRANSIZIONE -->
+      <div class="transition-dots">
+        <div class="transition-dot"></div>
+        <div class="transition-dot"></div>
+        <div class="transition-dot"></div>
+      </div>
+    </section>
+
+    <!-- SEZIONE CARD FLIP 3D -->
+    <section class="card-flip-section">
+      <div class="container">
+        <div class="valori-title">
+          <h2>I nostri valori</h2>
+          <p>Principi fondamentali che guidano ogni nostra attività e iniziativa.</p>
+        </div>
+
+        <div class="card-flip-container">
+          <!-- CARD 1 -->
+          <div class="flip-card" data-cursor-hover>
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <i class="fas fa-child flip-card-icon"></i>
+                <h3 class="flip-card-title">Per i giovani</h3>
+                <p class="flip-card-desc">Spazi di ispirazione dove le nuove generazioni possono coltivare potenzialità,
+                  valori e consapevolezza.</p>
+              </div>
+              <div class="flip-card-back">
+                <h3 class="flip-card-title">Sviluppo e crescita</h3>
+                <p class="flip-card-desc">Un percorso formativo che favorisce autonomia, espressione personale e
+                  crescita integrale attraverso esperienze significative.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 2 -->
+          <div class="flip-card" data-cursor-hover>
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <i class="fas fa-users flip-card-icon"></i>
+                <h3 class="flip-card-title">Inclusione</h3>
+                <p class="flip-card-desc">Promuoviamo l'incontro tra le differenze, dove ogni persona può sentirsi
+                  accolta e valorizzata.</p>
+              </div>
+              <div class="flip-card-back">
+                <h3 class="flip-card-title">Sport per tutti</h3>
+                <p class="flip-card-desc">Uno spazio aperto, accessibile e rispettoso, in cui ogni corpo e ogni storia
+                  trovano dignità attraverso il movimento.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 3 -->
+          <div class="flip-card" data-cursor-hover>
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <i class="fas fa-heartbeat flip-card-icon"></i>
+                <h3 class="flip-card-title">Benessere</h3>
+                <p class="flip-card-desc">Un equilibrio profondo tra corpo, mente e spirito, coltivato attraverso il
+                  movimento consapevole.</p>
+              </div>
+              <div class="flip-card-back">
+                <h3 class="flip-card-title">Salute integrale</h3>
+                <p class="flip-card-desc">Una visione olistica del prendersi cura di sé: energia, alimentazione e
+                  ascolto interiore in armonia quotidiana.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE PROGRAMMI A GRIGLIA -->
+    <section class="programs-grid">
+      <div class="gradient-blobs">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
+      </div>
+
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">#Laprendoconsport</h2>
+          <p class="section-desc">Usa il nostro hashtag per condividere la tua storia e invogliare le persone ad
+            iniziare il loro viaggio verso uno stile di vita più attivo.</p>
+        </div>
+
+        <div class="programs-container">
+          <!-- ELEMENTO PROGRAMMA -->
+          <div class="program-item" data-cursor-hover>
+            <img
+              src="https://images.unsplash.com/photo-1735457507278-56458ca35716?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Social Facebook" class="program-bg">
+            <div class="program-overlay"></div>
+            <div class="program-content">
+              <h3 class="program-title">Seguici su Facebook</h3>
+              <p class="program-desc">Rimani aggiornato sulle nostre riflessioni e sui temi che guidano il nostro
+                impegno per una cultura dello sport aperta e consapevole.</p>
+              <a href="#" class="social-button facebook" onclick="return false;"><i
+                  class="fab fa-facebook-f"></i> Segui la pagina</a>
+            </div>
+            <div class="program-tag tag-red">Community</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE REVEAL TESTO CON SCROLL -->
+    <section class="scroll-reveal-container">
+      <div class="scroll-reveal-sticky">
+        <div class="scroll-reveal-content">
+          <div class="scroll-reveal-image">
+            <img
+              src="https://images.unsplash.com/photo-1657145537587-bc61af46050c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Sport in carrozzina">
+          </div>
+          <h2 class="scroll-reveal-text text-top" id="textTop">Sport per tutti</h2>
+          <h2 class="scroll-reveal-text text-bottom" id="textBottom">Inclusione sociale</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTAINER PANNELLI FEATURES COLORATI -->
+    <div class="features-stack-container">
+      <!-- PANNELLO GIALLO -->
+      <section class="feature-panel panel-yellow" id="panel1">
+        <div class="container">
+          <div class="panel-content">
+            <h2 class="panel-title">Movimento e sviluppo</h2>
+            <p class="panel-desc">Attività che promuovono la cultura del movimento consapevole e l'importanza
+              dell'attività fisica regolare per il benessere generale e lo sviluppo personale.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANNELLO ROSSO -->
+      <section class="feature-panel panel-red" id="panel2">
+        <div class="container">
+          <div class="panel-content">
+            <h2 class="panel-title">Inclusione sociale</h2>
+            <p class="panel-desc">Iniziative che rendono lo sport accessibile a tutti, abbattendo barriere sociali e
+              fisiche per creare un ambiente dove ognuno può esprimere il proprio potenziale.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANNELLO BLU -->
+      <section class="feature-panel panel-blue" id="panel3">
+        <div class="container">
+          <div class="panel-content">
+            <h2 class="panel-title">Salute e benessere</h2>
+            <p class="panel-desc">Incoraggiamo abitudini salutari che integrano attività fisica, alimentazione corretta
+              e attenzione al benessere mentale.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANNELLO VERDE -->
+      <section class="feature-panel panel-green" id="panel4">
+        <div class="container">
+          <div class="panel-content">
+            <h2 class="panel-title">Crescita personale</h2>
+            <p class="panel-desc">Esperienze formative che utilizzano lo sport come strumento di sviluppo della
+              resilienza, della concentrazione e delle capacità sociali e relazionali.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEZIONE CALCOLATORI FITNESS -->
+    <section class="fitness-calculator" id="calcolatore">
+      <div class="gradient-blobs">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
+      </div>
+
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Calcolatori fitness</h2>
+          <p class="section-desc">Strumenti utili per monitorare e gestire il tuo benessere fisico.</p>
+        </div>
+
+        <!-- CONTAINER TABS CALCOLATORI -->
+        <div class="tabs-container">
+          <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="bmi"><i class="fa-solid fa-weight-scale"></i> BMI</button>
+            <button class="tab-btn" data-tab="bmr"><i class="fa-solid fa-fire-flame-curved"></i> BMR</button>
+            <button class="tab-btn" data-tab="tdee"><i class="fa-solid fa-bolt"></i> TDEE</button>
+            <button class="tab-btn" data-tab="bf"><i class="fa-solid fa-ruler"></i> Massa grassa</button>
+            <button class="tab-btn" data-tab="macro"><i class="fa-solid fa-utensils"></i> Macronutrienti</button>
+            <button class="tab-btn" data-tab="kcal"><i class="fa-solid fa-person-running"></i> Calorie attività</button>
+          </div>
+
+          <!-- TAB BMI -->
+          <div class="tab-content active" id="bmi">
+            <label>Altezza (m):</label>
+            <input id="bmi_h" type="number" step="0.01">
+            <label>Peso (kg):</label>
+            <input id="bmi_w" type="number" step="0.1">
+            <button onclick="calcolaBMI()">Calcola BMI</button>
+            <div class="output" id="out_bmi"></div>
+          </div>
+
+          <!-- TAB BMR -->
+          <div class="tab-content" id="bmr">
+            <label>Sesso:</label>
+            <select id="bmr_sesso">
+              <option value="uomo">Uomo</option>
+              <option value="donna">Donna</option>
+            </select>
+            <label>Età:</label>
+            <input id="bmr_eta" type="number">
+            <label>Altezza (cm):</label>
+            <input id="bmr_h" type="number">
+            <label>Peso (kg):</label>
+            <input id="bmr_w" type="number">
+            <button onclick="calcolaBMR()">Calcola BMR</button>
+            <div class="output" id="out_bmr"></div>
+          </div>
+
+          <!-- TAB TDEE -->
+          <div class="tab-content" id="tdee">
+            <label>BMR (kcal):</label>
+            <input id="tdee_bmr" type="number">
+            <label>Livello attività:</label>
+            <select id="tdee_livello">
+              <option value="1.2">Sedentario</option>
+              <option value="1.375">Leggero</option>
+              <option value="1.55">Moderato</option>
+              <option value="1.725">Intenso</option>
+              <option value="1.9">Molto intenso</option>
+            </select>
+            <button onclick="calcolaTDEE()">Calcola TDEE</button>
+            <div class="output" id="out_tdee"></div>
+          </div>
+
+          <!-- TAB MASSA GRASSA -->
+          <div class="tab-content" id="bf">
+            <label>Sesso:</label>
+            <select id="bf_sesso">
+              <option value="uomo">Uomo</option>
+              <option value="donna">Donna</option>
+            </select>
+            <label>Altezza (cm):</label>
+            <input id="bf_h" type="number">
+            <label>Circonferenza vita (cm):</label>
+            <input id="bf_vita" type="number">
+            <label>Circonferenza collo (cm):</label>
+            <input id="bf_collo" type="number">
+            <label>Circonferenza fianchi (cm):</label>
+            <input id="bf_fianchi" type="number">
+            <button onclick="calcolaBF()">Calcola BF%</button>
+            <div class="output" id="out_bf"></div>
+          </div>
+
+          <!-- TAB MACRONUTRIENTI -->
+          <div class="tab-content" id="macro">
+            <label>TDEE (kcal):</label>
+            <input id="macro_tdee" type="number">
+            <button onclick="calcolaMacro()">Calcola macronutrienti</button>
+            <div class="output" id="out_macro"></div>
+          </div>
+
+          <!-- TAB CALORIE ATTIVITÀ -->
+          <div class="tab-content" id="kcal">
+            <label>Peso (kg):</label>
+            <input id="act_peso" type="number">
+            <label>Attività:</label>
+            <select id="act_tipo">
+              <option value="8">Corsa (8 km/h)</option>
+              <option value="5">Camminata (5 km/h)</option>
+              <option value="10">Salto corda</option>
+              <option value="6">Bici (moderata)</option>
+            </select>
+            <label>Durata (minuti):</label>
+            <input id="act_min" type="number">
+            <button onclick="calcolaAttivita()">Calcola kcal</button>
+            <div class="output" id="out_act"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE TESTO INTERATTIVO -->
+    <section class="interactive-text-section">
+      <div class="container">
+        <div class="interactive-text-container">
+          <h2 class="interactive-text" id="interactiveText">
+            <span class="letter" data-letter="#">#</span>
+            <span class="letter" data-letter="l">l</span>
+            <span class="letter" data-letter="a">a</span>
+            <span class="letter" data-letter="p">p</span>
+            <span class="letter" data-letter="r">r</span>
+            <span class="letter" data-letter="e">e</span>
+            <span class="letter" data-letter="n">n</span>
+            <span class="letter" data-letter="d">d</span>
+            <span class="letter" data-letter="o">o</span>
+            <span class="letter" data-letter="c">c</span>
+            <span class="letter" data-letter="o">o</span>
+            <span class="letter" data-letter="n">n</span>
+            <span class="letter" data-letter="s">s</span>
+            <span class="letter" data-letter="p">p</span>
+            <span class="letter" data-letter="o">o</span>
+            <span class="letter" data-letter="r">r</span>
+            <span class="letter" data-letter="t">t</span>
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTO SCORREVOLE DA DESTRA A SINISTRA -->
+    <div class="marquee-container">
+      <div class="marquee-track marquee-track-right">
+        <div class="marquee-item">Passione <span>•</span> Inclusione <span>•</span> Crescita <span>•</span> Benessere
+          <span>•</span></div>
+        <div class="marquee-item">Passione <span>•</span> Inclusione <span>•</span> Crescita <span>•</span> Benessere
+          <span>•</span></div>
+      </div>
+    </div>
+
+    <!-- SEZIONE UNISCITI AL MOVIMENTO -->
+    <section class="unisciti-movimento-section">
+      <div class="gradient-blobs">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
+      </div>
+
+      <!-- BACKGROUND PARTICELLE ANIMATE -->
+      <div class="particles-background" id="particlesContainer"></div>
+
+      <div class="unisciti-movimento-content">
+        <div class="unisciti-movimento-subtitle">Lo sport come</div>
+        <h2 class="unisciti-movimento-title">Unisciti al movimento</h2>
+        <p class="unisciti-movimento-description">
+          Lo sport è molto più di un'attività fisica. È un flusso continuo che trasforma energia in movimento, pensiero
+          in azione, potenziale in performance. Ogni gesto atletico diventa una forma di espressione personale che
+          connette corpo e mente.
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="gradient-blobs">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
+      </div>
+
+      <div class="container footer-container">
+        <!-- SEZIONE ABOUT FOOTER -->
+        <div class="footer-about">
+          <div class="footer-logo">
+            <img src="https://www.laprendoconsport.it/wp-content/uploads/2025/05/Frame-65-3.png"
+              alt="Laprendoconsport Logo" style="height: 35px;">
+          </div>
+          <p>Laprendoconsport è un'iniziativa non profit dedicata alla promozione di stili di vita sani, inclusione
+            sociale e benessere attraverso lo sport.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" data-cursor-hover><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link" data-cursor-hover><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link" data-cursor-hover><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link" data-cursor-hover><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <!-- NAVIGAZIONE FOOTER -->
+        <div class="footer-col">
+          <h4 class="footer-title">Navigazione</h4>
+          <ul class="footer-links">
+            <li><a href="#" data-cursor-hover>Home</a></li>
+            <li><a href="#quote" data-cursor-hover>Filosofia</a></li>
+            <li><a href="#calcolatore" data-cursor-hover>Calcolatori</a></li>
+          </ul>
+        </div>
+
+        <!-- CONTATTI FOOTER -->
+        <div class="footer-col">
+          <h4 class="footer-title">Contatti</h4>
+          <ul class="footer-links">
+            <li><a href="#" data-cursor-hover>Livorno, Italia</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- COPYRIGHT -->
+      <div class="copyright">
+        <p>Progetto concluso. Sito mantenuto a solo scopo di portfolio.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- IMPORTAZIONE LIBRERIE GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // RILEVAMENTO DISPOSITIVI TOUCH
+      const isTouchDevice = 'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0;
+
+      // INIZIALIZZAZIONE CURSORE PERSONALIZZATO
+      const cursor = document.querySelector('.cursor');
+      if (!isTouchDevice) {
+        cursor.style.display = 'block';
+        const cursorHoverElements = document.querySelectorAll('[data-cursor-hover]');
+
+        document.addEventListener('mousemove', (e) => {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+        });
+
+        cursorHoverElements.forEach(element => {
+          element.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover');
+          });
+
+          element.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover');
+          });
+        });
+      }
+
+      // GESTIONE SLIDESHOW AUTOMATICO
+      function startSlideshow() {
+        const slides = document.querySelectorAll('.slideshow-item');
+        let currentSlide = 0;
+
+        setInterval(() => {
+          slides[currentSlide].classList.remove('active');
+          currentSlide = (currentSlide + 1) % slides.length;
+          slides[currentSlide].classList.add('active');
+        }, 6000);
+      }
+
+      startSlideshow();
+
+      // CREAZIONE PARTICELLE ANIMATE
+      function createParticles() {
+        const container = document.getElementById('particlesContainer');
+        if (!container) return;
+
+        // STELLE STATICHE
+        for (let i = 0; i < 50; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          star.style.width = Math.random() * 3 + 1 + 'px';
+          star.style.height = star.style.width;
+          star.style.left = Math.random() * 100 + '%';
+          star.style.top = Math.random() * 100 + '%';
+          star.style.animationDelay = Math.random() * 3 + 's';
+          container.appendChild(star);
+        }
+
+        // PARTICELLE FLUTTUANTI
+        function createFloatingParticle() {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+
+          const size = Math.random() * 8 + 2;
+          particle.style.width = size + 'px';
+          particle.style.height = size + 'px';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+          particle.style.animationDelay = Math.random() * 2 + 's';
+          container.appendChild(particle);
+
+          // PULIZIA PARTICELLE
+          setTimeout(() => {
+            if (particle.parentNode) {
+              particle.parentNode.removeChild(particle);
+            }
+          }, 10000);
+        }
+
+        // GENERAZIONE CONTINUA DI PARTICELLE
+        const particleInterval = isTouchDevice ? 800 : 500;
+        setInterval(createFloatingParticle, particleInterval);
+      }
+
+      // INIZIALIZZAZIONE PARTICELLE
+      createParticles();
+
+      // SMOOTH SCROLL
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // GESTIONE PULSANTE SCROLL HERO
+      document.getElementById('heroScroll').addEventListener('click', () => {
+        window.scrollTo({
+          top: document.getElementById('quote').offsetTop,
+          behavior: 'smooth'
+        });
+      });
+
+      // SISTEMA TAB CALCOLATORI
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+          document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById(btn.dataset.tab).classList.add("active");
+        });
+      });
+
+      // FLIP CARD PER DISPOSITIVI TOUCH
+      if (isTouchDevice) {
+        const flipCards = document.querySelectorAll('.flip-card');
+        flipCards.forEach(card => {
+          card.addEventListener('click', function () {
+            this.classList.toggle('flipped');
+          });
+        });
+      }
+
+      // FUNZIONI CALCOLATORI FITNESS
+      window.calcolaBMI = function () {
+        let h = parseFloat(document.getElementById("bmi_h").value);
+        let w = parseFloat(document.getElementById("bmi_w").value);
+        if (h > 0 && w > 0) {
+          let bmi = w / (h * h);
+          let cat = bmi < 18.5 ? "Sottopeso" : bmi < 25 ? "Normale" : bmi < 30 ? "Sovrappeso" : "Obesità";
+          document.getElementById("out_bmi").innerText = `BMI: ${bmi.toFixed(1)} (${cat})`;
+        }
+      }
+
+      window.calcolaBMR = function () {
+        let s = document.getElementById("bmr_sesso").value;
+        let eta = parseInt(document.getElementById("bmr_eta").value);
+        let h = parseFloat(document.getElementById("bmr_h").value);
+        let w = parseFloat(document.getElementById("bmr_w").value);
+        let bmr = s === "uomo"
+          ? 10 * w + 6.25 * h - 5 * eta + 5
+          : 10 * w + 6.25 * h - 5 * eta - 161;
+        document.getElementById("out_bmr").innerText = `BMR: ${Math.round(bmr)} kcal`;
+      }
+
+      window.calcolaTDEE = function () {
+        let bmr = parseFloat(document.getElementById("tdee_bmr").value);
+        let att = parseFloat(document.getElementById("tdee_livello").value);
+        if (bmr > 0) {
+          document.getElementById("out_tdee").innerText = `TDEE: ${Math.round(bmr * att)} kcal`;
+        }
+      }
+
+      window.calcolaBF = function () {
+        let sesso = document.getElementById("bf_sesso").value;
+        let h = parseFloat(document.getElementById("bf_h").value);
+        let vita = parseFloat(document.getElementById("bf_vita").value);
+        let collo = parseFloat(document.getElementById("bf_collo").value);
+        let fianchi = parseFloat(document.getElementById("bf_fianchi").value);
+        let bf = 0;
+
+        if (sesso === "uomo") {
+          bf = 495 / (1.0324 - 0.19077 * Math.log10(vita - collo) + 0.15456 * Math.log10(h)) - 450;
+        } else {
+          bf = 495 / (1.29579 - 0.35004 * Math.log10(vita + fianchi - collo) + 0.22100 * Math.log10(h)) - 450;
+        }
+        document.getElementById("out_bf").innerText = `BF% stimato: ${bf.toFixed(1)}%`;
+      }
+
+      window.calcolaMacro = function () {
+        let tdee = parseFloat(document.getElementById("macro_tdee").value);
+        if (tdee > 0) {
+          let p = (tdee * 0.3) / 4;
+          let c = (tdee * 0.4) / 4;
+          let g = (tdee * 0.3) / 9;
+          document.getElementById("out_macro").innerText =
+            `Proteine: ${Math.round(p)}g | Carboidrati: ${Math.round(c)}g | Grassi: ${Math.round(g)}g`;
+        }
+      }
+
+      window.calcolaAttivita = function () {
+        let peso = parseFloat(document.getElementById("act_peso").value);
+        let tipo = parseFloat(document.getElementById("act_tipo").value);
+        let min = parseFloat(document.getElementById("act_min").value);
+        let kcal = (tipo * peso * min) / 60;
+        document.getElementById("out_act").innerText = `Calorie stimate: ${Math.round(kcal)} kcal`;
+      }
+
+      // ANIMAZIONE TESTO SCROLL REVEAL
+      function updateScrollRevealText() {
+        const container = document.querySelector('.scroll-reveal-container');
+        if (container) {
+          const rect = container.getBoundingClientRect();
+          const scrollProgress = Math.max(0, Math.min(1, -rect.top / (container.offsetHeight - window.innerHeight)));
+
+          const textTop = document.getElementById('textTop');
+          const textBottom = document.getElementById('textBottom');
+
+          if (textTop && textBottom) {
+            const rotationIntensity = isTouchDevice ? 3 : 8;
+
+            if (scrollProgress > 0.1) {
+              textTop.style.opacity = Math.min(1, (scrollProgress - 0.1) * 2.5);
+              textTop.style.transform = `translateX(-${100 - scrollProgress * 100}%) rotate(-${rotationIntensity - scrollProgress * rotationIntensity}deg)`;
+            } else {
+              textTop.style.opacity = 0;
+            }
+
+            if (scrollProgress > 0.5) {
+              textBottom.style.opacity = Math.min(1, (scrollProgress - 0.5) * 2.5);
+              textBottom.style.transform = `translateX(${100 - (scrollProgress - 0.5) * 200}%) rotate(${rotationIntensity - (scrollProgress - 0.5) * rotationIntensity * 2}deg)`;
+            } else {
+              textBottom.style.opacity = 0;
+            }
+          }
+
+          const image = document.querySelector('.scroll-reveal-image img');
+          if (image && !isTouchDevice) {
+            image.style.transform = `scale(${1.1 - scrollProgress * 0.1})`;
+          }
+        }
+      }
+
+      // GESTIONE PANNELLI COLORATI DURANTE LO SCROLL
+      function handleColoredPanelsScroll() {
+        const container = document.querySelector('.features-stack-container');
+        if (!container) return;
+
+        const panels = document.querySelectorAll('.feature-panel');
+        const containerHeight = container.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        const containerTop = container.getBoundingClientRect().top;
+        const scrollPositionInContainer = -containerTop;
+        const scrollProgressPercentage = scrollPositionInContainer / (containerHeight - viewportHeight);
+
+        const startOffset = isTouchDevice ? 0.05 : 0.05;
+        const adjustedScrollProgress = Math.max(0, Math.min(1, scrollProgressPercentage - startOffset)) / (1 - startOffset);
+
+        const panelCount = panels.length;
+        const panelIndex = Math.min(
+          Math.floor(adjustedScrollProgress * panelCount),
+          panelCount - 1
+        );
+
+        // AGGIORNAMENTO STATI PANNELLI
+        panels.forEach((panel, index) => {
+          const panelContent = panel.querySelector('.panel-content');
+          if (panelContent) {
+            if (index === panelIndex && adjustedScrollProgress > 0) {
+              panelContent.classList.add('active');
+            } else {
+              panelContent.classList.remove('active');
+            }
+          }
+        });
+      }
+
+      // INIZIALIZZAZIONE ANIMAZIONI GSAP
+      function setupAnimations() {
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !isTouchDevice) {
+          gsap.registerPlugin(ScrollTrigger);
+
+          const fadeElements = document.querySelectorAll('.section-title, .flip-card, .program-item, .valori-title');
+          fadeElements.forEach(element => {
+            gsap.fromTo(element,
+              { y: 20, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                scrollTrigger: {
+                  trigger: element,
+                  start: "top bottom-=80",
+                  toggleActions: "play none none none"
+                }
+              }
+            );
+          });
+        }
+      }
+
+      // AGGIORNAMENTO ANIMAZIONI GLOBALE
+      function updateAnimations() {
+        updateScrollRevealText();
+        handleColoredPanelsScroll();
+      }
+
+      // THROTTLE PER OTTIMIZZAZIONE PERFORMANCE
+      function throttle(func, limit) {
+        let lastFunc;
+        let lastRan;
+        return function () {
+          const context = this;
+          const args = arguments;
+          if (!lastRan) {
+            func.apply(context, args);
+            lastRan = Date.now();
+          } else {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(function () {
+              if ((Date.now() - lastRan) >= limit) {
+                func.apply(context, args);
+                lastRan = Date.now();
+              }
+            }, limit - (Date.now() - lastRan));
+          }
+        }
+      }
+
+      // INIZIALIZZAZIONE
+      updateAnimations();
+      setupAnimations();
+
+      const throttleLimit = isTouchDevice ? 16 : 8;
+      window.addEventListener('scroll', throttle(updateAnimations, throttleLimit));
+
+      window.addEventListener('resize', throttle(updateAnimations, 100));
+
+      // ANIMAZIONE TESTO INTERATTIVO
+      const letters = document.querySelectorAll('.letter');
+      const container = document.querySelector('.interactive-text-container');
+
+      if (container) {
+        letters.forEach((letter, index) => {
+          letter.style.transitionDelay = `${index * 0.03}s`;
+          letter.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            letter.style.transform = 'translateY(0)';
+          }, 50 + index * 30);
+        });
+
+        function getRandomColor() {
+          const colors = ['#ED0044', '#0074C8', '#00963A', '#B00033', '#111111'];
+          return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        letters.forEach(letter => {
+          if (!isTouchDevice) {
+            letter.addEventListener('mouseover', function () {
+              this.style.transform = 'translateY(-8px) scale(1.1)';
+              this.style.color = getRandomColor();
+              this.style.zIndex = '10';
+            });
+
+            letter.addEventListener('mouseout', function () {
+              setTimeout(() => {
+                this.style.transform = '';
+                this.style.color = '';
+                this.style.zIndex = '';
+              }, 200);
+            });
+          }
+
+          letter.addEventListener('click', function (e) {
+            e.preventDefault();
+            this.classList.add('pulse');
+            this.style.color = getRandomColor();
+
+            setTimeout(() => {
+              this.classList.remove('pulse');
+              this.style.color = '';
+            }, 400);
+          });
+        });
+
+        if (!isTouchDevice) {
+          container.addEventListener('mousemove', function (e) {
+            const rect = container.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            const xPos = (mouseX / rect.width - 0.5) * 2;
+            const yPos = (mouseY / rect.height - 0.5) * 2;
+
+            container.style.transform = `rotateY(${xPos * 3}deg) rotateX(${-yPos * 3}deg)`;
+          });
+
+          container.addEventListener('mouseleave', function () {
+            container.style.transform = 'rotateY(0deg) rotateX(0deg)';
+          });
+        }
+
+        if (isTouchDevice) {
+          container.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+            letters.forEach((letter, index) => {
+              setTimeout(() => {
+                letter.classList.add('pulse');
+                setTimeout(() => {
+                  letter.classList.remove('pulse');
+                }, 300);
+              }, index * 30);
+            });
+          });
+        }
+      }
+
+      // INIZIALIZZAZIONE ANIMAZIONE MARQUEE
+      function initMarqueeAnimation() {
+        const duration = isTouchDevice ? '35s' : '25s';
+        const leftTrack = document.querySelector('.marquee-track-left');
+        const rightTrack = document.querySelector('.marquee-track-right');
+
+        if (leftTrack) leftTrack.style.animationDuration = duration;
+        if (rightTrack) rightTrack.style.animationDuration = duration;
+      }
+
+      initMarqueeAnimation();
+
+      // ANIMAZIONE TESTO HERO
+      function animateHeroText() {
+        const words = document.querySelectorAll('.hero-word');
+
+        if (words.length === 0) return;
+
+        const interval = isTouchDevice ? 15000 : 10000;
+        setInterval(() => {
+          words.forEach((word, index) => {
+            let color;
+            switch (index % 3) {
+              case 0: color = 'var(--light)'; break;
+              case 1: color = 'var(--primary)'; break;
+              case 2: color = 'var(--red-bright)'; break;
+            }
+
+            const translateY = isTouchDevice ? '-5px' : '-10px';
+            word.style.transition = 'transform 0.4s ease, color 0.4s ease';
+            word.style.transform = `translateY(${translateY})`;
+            word.style.color = color;
+
+            setTimeout(() => {
+              word.style.transform = 'translateY(0)';
+            }, 400 + index * 80);
+          });
+        }, interval);
+      }
+
+      animateHeroText();
+
+      // AGGIORNAMENTO SPAZIATURE RESPONSIVE
+      function updateSpacing() {
+        const spacingElements = document.querySelectorAll('.interactive-text-section, .quote-section, .card-flip-section, .programs-grid, .marquee-section, .fitness-calculator, .unisciti-movimento-section');
+
+        let spacingValue;
+        if (window.innerWidth < 576) {
+          spacingValue = '20px 0';
+        } else if (window.innerWidth < 768) {
+          spacingValue = '25px 0';
+        } else if (window.innerWidth < 991) {
+          spacingValue = '35px 0';
+        } else {
+          spacingValue = '40px 0';
+        }
+
+        spacingElements.forEach(element => {
+          element.style.margin = spacingValue;
+        });
+      }
+
+      updateSpacing();
+
+      // EFFETTO PARALLAX HERO
+      function updateHeroParallax() {
+        if (isTouchDevice) return;
+
+        const scrollPosition = window.scrollY;
+        const heroContent = document.querySelector('.hero-content');
+        const slideshow = document.querySelector('.slideshow');
+
+        if (heroContent && slideshow && scrollPosition < window.innerHeight) {
+          heroContent.style.transform = `translateY(${scrollPosition * 0.15}px)`;
+          slideshow.style.transform = `translateY(${scrollPosition * 0.08}px)`;
+        }
+      }
+
+      if (!isTouchDevice) {
+        window.addEventListener('scroll', throttle(updateHeroParallax, 16));
+        updateHeroParallax();
+      }
+
+      // GESTIONE RESPONSIVE IMMAGINI
+      function handleResponsiveImages() {
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+          img.loading = 'lazy';
+
+          if (isTouchDevice && window.innerWidth < 768) {
+            img.style.imageRendering = 'auto';
+            img.style.transform = 'translateZ(0)';
+          }
+        });
+      }
+
+      handleResponsiveImages();
+
+      window.addEventListener('resize', throttle(() => {
+        updateSpacing();
+        initMarqueeAnimation();
+        handleResponsiveImages();
+      }, 250));
+
+      // OTTIMIZZAZIONI PER DISPOSITIVI TOUCH
+      if (isTouchDevice) {
+        document.body.style.setProperty('--animation-duration', '0.2s');
+
+        const programItems = document.querySelectorAll('.program-item');
+        programItems.forEach(item => {
+          item.addEventListener('touchstart', function () {
+            this.style.transform = 'translateY(-5px)';
+          });
+
+          item.addEventListener('touchend', function () {
+            setTimeout(() => {
+              this.style.transform = '';
+            }, 150);
+          });
+        });
+
+        document.addEventListener('touchmove', function (e) {
+          if (e.scale !== 1) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+      }
+
+      // OTTIMIZZAZIONE VISIBILITÀ ELEMENTI
+      function handleVisibilityOptimization() {
+        const observerOptions = {
+          root: null,
+          rootMargin: '50px',
+          threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-viewport');
+            } else {
+              entry.target.classList.remove('in-viewport');
+            }
+          });
+        }, observerOptions);
+
+        const sectionsToObserve = document.querySelectorAll('.features-stack-container, .scroll-reveal-container, .interactive-text-section, .unisciti-movimento-section');
+        sectionsToObserve.forEach(section => observer.observe(section));
+      }
+
+      if ('IntersectionObserver' in window) {
+        handleVisibilityOptimization();
+      }
+
+      // DEBUG PERFORMANCE MOBILE
+      if (isTouchDevice && window.location.hostname === 'localhost') {
+        console.log('Mobile optimizations enabled');
+
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            if (performance.timing) {
+              const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+              console.log(`Page load time: ${loadTime}ms`);
+            }
+          }, 0);
+        });
+      }
+
+      // GESTIONE ERRORI JAVASCRIPT
+      window.addEventListener('error', function (e) {
+        console.warn('JavaScript error caught:', e.message);
+      });
+
+      // PULIZIA EVENTI
+      window.addEventListener('beforeunload', function () {
+        document.removeEventListener('scroll', updateAnimations);
+        document.removeEventListener('resize', updateSpacing);
+      });
+
+      // INIZIALIZZAZIONE FINALE
+      setTimeout(() => {
+        document.body.classList.add('loaded');
+      }, 100);
+    });
+
+    // FUNZIONI GLOBALI CALCOLATORI
+    function calcolaBMI() {
+      let h = parseFloat(document.getElementById("bmi_h").value);
+      let w = parseFloat(document.getElementById("bmi_w").value);
+      if (h > 0 && w > 0) {
+        let bmi = w / (h * h);
+        let cat = bmi < 18.5 ? "Sottopeso" : bmi < 25 ? "Normale" : bmi < 30 ? "Sovrappeso" : "Obesità";
+        document.getElementById("out_bmi").innerText = `BMI: ${bmi.toFixed(1)} (${cat})`;
+      }
+    }
+
+    function calcolaBMR() {
+      let s = document.getElementById("bmr_sesso").value;
+      let eta = parseInt(document.getElementById("bmr_eta").value);
+      let h = parseFloat(document.getElementById("bmr_h").value);
+      let w = parseFloat(document.getElementById("bmr_w").value);
+      if (eta > 0 && h > 0 && w > 0) {
+        let bmr = s === "uomo"
+          ? 10 * w + 6.25 * h - 5 * eta + 5
+          : 10 * w + 6.25 * h - 5 * eta - 161;
+        document.getElementById("out_bmr").innerText = `BMR: ${Math.round(bmr)} kcal`;
+      }
+    }
+
+    function calcolaTDEE() {
+      let bmr = parseFloat(document.getElementById("tdee_bmr").value);
+      let att = parseFloat(document.getElementById("tdee_livello").value);
+      if (bmr > 0) {
+        document.getElementById("out_tdee").innerText = `TDEE: ${Math.round(bmr * att)} kcal`;
+      }
+    }
+
+    function calcolaBF() {
+      let sesso = document.getElementById("bf_sesso").value;
+      let h = parseFloat(document.getElementById("bf_h").value);
+      let vita = parseFloat(document.getElementById("bf_vita").value);
+      let collo = parseFloat(document.getElementById("bf_collo").value);
+      let fianchi = parseFloat(document.getElementById("bf_fianchi").value || 0);
+
+      if (h > 0 && vita > 0 && collo > 0) {
+        let bf = 0;
+        if (sesso === "uomo") {
+          bf = 495 / (1.0324 - 0.19077 * Math.log10(vita - collo) + 0.15456 * Math.log10(h)) - 450;
+        } else {
+          if (fianchi > 0) {
+            bf = 495 / (1.29579 - 0.35004 * Math.log10(vita + fianchi - collo) + 0.22100 * Math.log10(h)) - 450;
+          }
+        }
+        if (bf > 0) {
+          document.getElementById("out_bf").innerText = `BF% stimato: ${bf.toFixed(1)}%`;
+        }
+      }
+    }
+
+    function calcolaMacro() {
+      let tdee = parseFloat(document.getElementById("macro_tdee").value);
+      if (tdee > 0) {
+        let p = (tdee * 0.3) / 4;
+        let c = (tdee * 0.4) / 4;
+        let g = (tdee * 0.3) / 9;
+        document.getElementById("out_macro").innerText =
+          `Proteine: ${Math.round(p)}g | Carboidrati: ${Math.round(c)}g | Grassi: ${Math.round(g)}g`;
+      }
+    }
+
+    function calcolaAttivita() {
+      let peso = parseFloat(document.getElementById("act_peso").value);
+      let tipo = parseFloat(document.getElementById("act_tipo").value);
+      let min = parseFloat(document.getElementById("act_min").value);
+      if (peso > 0 && min > 0) {
+        let kcal = (tipo * peso * min) / 60;
+        document.getElementById("out_act").innerText = `Calorie stimate: ${Math.round(kcal)} kcal`;
+      }
+    }
+  </script>
+</body>
+
+</html>

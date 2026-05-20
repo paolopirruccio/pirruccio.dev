@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>404 - ChiDoQuà</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        .error-code {
+            font-size: 6rem;
+            font-weight: 800;
+            color: var(--coral-warm, #ff6b6b);
+            margin: 0;
+            line-height: 1;
+        }
+        .error-msg {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            font-family: 'Outfit', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="error-container">
+            <span class="material-icons-round"
+                style="font-size: 4rem; opacity: 0.5; margin-bottom: 10px;">wrong_location</span>
+            <h1 class="error-code">404</h1>
+            <p class="error-msg">Sembra che ci siamo persi...</p>
+            <a href="index.html" class="btn btn-primary" style="width: auto; padding: 12px 24px;">
+                Torna a casa
+                <span class="material-icons-round" style="margin-left:8px;">home</span>
+            </a>
+        </div>
+    </div>
+<script src="../version.js"></script>
+</body>
+</html>
