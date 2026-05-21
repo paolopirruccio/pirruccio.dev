@@ -128,6 +128,19 @@
 
         </main>
 
+        <!-- ── Banner installazione PWA (inline, al posto del floating) ── -->
+        <div class="pwa-home-banner" id="pwaBannerHome">
+            <div class="pwa-home-banner-icon">🧭</div>
+            <div class="pwa-home-banner-text">
+                <strong id="pwaTitle">Installa la Bussola</strong>
+                <span id="pwaDesc">Aggiungila alla schermata home per accedere più velocemente.</span>
+            </div>
+            <div class="pwa-home-banner-actions">
+                <button class="pwa-home-install-btn" id="pwaInstallBtn" onclick="handlePwaInstall()">Installa</button>
+                <button class="pwa-home-dismiss-btn" onclick="dismissPwa()"><i class="ri-close-line"></i></button>
+            </div>
+        </div>
+
         <footer style="margin-top: 5rem;">
             <img src="assets/compass.webp" alt="logo"
                 style="width: 40px; height: 40px; margin-bottom: 0.5rem; opacity: 0.9;">
@@ -145,19 +158,6 @@
                 <i class="ri-bug-line"></i> Segnala un bug
             </a>
         </footer>
-    </div>
-
-    <!-- ── PWA install banner ── -->
-    <div class="pwa-banner" id="pwaBanner">
-        <div class="pwa-banner-icon">🧭</div>
-        <div class="pwa-banner-text">
-            <strong id="pwaTitle">Aggiungi alla schermata home</strong>
-            <span id="pwaDesc">Accedi più velocemente come un'app.</span>
-        </div>
-        <div class="pwa-banner-actions">
-            <button class="pwa-install-btn" id="pwaInstallBtn" onclick="handlePwaInstall()">Installa</button>
-            <button class="pwa-dismiss-btn" onclick="dismissPwa()"><i class="ri-close-line"></i></button>
-        </div>
     </div>
 
     <script src="../version.js"></script>
@@ -229,21 +229,17 @@
     });
 
     function showPwaBanner(os) {
-        var banner = document.getElementById('pwaBanner');
-        var btn    = document.getElementById('pwaInstallBtn');
-        var desc   = document.getElementById('pwaDesc');
+        var banner = document.getElementById('pwaBannerHome');
+        if (!banner) return;
+        var btn  = document.getElementById('pwaInstallBtn');
+        var desc = document.getElementById('pwaDesc');
         if (os === 'ios') {
-            btn.textContent = '?';
-            btn.style.display = 'none';
-            desc.textContent = 'Tocca   poi "Aggiungi alla schermata Home"';
-            // Mostra istruzione share icon
-            document.getElementById('pwaTitle').textContent = 'Installa l\'app';
-            var shareIcon = document.createElement('span');
-            shareIcon.innerHTML = ' <i class="ri-share-box-line"></i> ';
-            shareIcon.style.cssText = 'display:inline;vertical-align:middle;';
-            desc.innerHTML = 'Tocca ' + shareIcon.innerHTML + ' poi <strong>Aggiungi alla schermata Home</strong>';
+            if (btn) btn.style.display = 'none';
+            if (desc) desc.innerHTML = 'Tocca <i class="ri-share-box-line" style="vertical-align:middle"></i> poi <strong>Aggiungi alla schermata Home</strong>';
+            var title = document.getElementById('pwaTitle');
+            if (title) title.textContent = 'Installa la Bussola';
         }
-        setTimeout(function() { banner.classList.add('show'); }, 1500);
+        setTimeout(function() { banner.classList.add('show'); }, 800);
     }
 
     function handlePwaInstall() {
@@ -256,7 +252,8 @@
     }
 
     function dismissPwa() {
-        document.getElementById('pwaBanner').classList.remove('show');
+        var banner = document.getElementById('pwaBannerHome');
+        if (banner) banner.classList.remove('show');
         localStorage.setItem('bussola_pwa_dismissed', '1');
     }
 
@@ -267,12 +264,6 @@
         // Lingua
         var lang = localStorage.getItem('bussola_lang') || 'it';
         applyLang(lang);
-
-        // La home è breve — mostra sempre il trigger impostazioni
-        setTimeout(function() {
-            var t = document.getElementById('bussolaSettingsTrigger');
-            if (t) t.classList.add('visible');
-        }, 150);
 
         // iOS PWA check
         var isIOS    = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;

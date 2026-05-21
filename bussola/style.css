@@ -2175,7 +2175,7 @@ html[data-theme="letterato"] {
     --accent-color:  #7c5230;
     --accent:        #7c5230;
     --font-family:  'Inter', sans-serif;
-    --font-display: 'Playfair Display', serif;
+    --font-display: 'Instrument Serif', serif;
     --free:   #2d7a3a;
     --occupied: #5b4ecb;
 }
@@ -2308,9 +2308,9 @@ html[data-theme="letterato"] .page-switcher-btn:hover:not(.active) { background:
 html[data-theme="letterato"] .page-switcher-logo { border-right-color: rgba(80,50,20,0.15); }
 html[data-theme="letterato"] .scroll-btn:hover { background: rgba(255,255,255,0.9); }
 
-/* ── LETTERATO: dark mode (OS dark preference) ── */
+/* ── LETTERATO: dark mode (OS dark preference, o forzato con data-color-scheme) ── */
 @media (prefers-color-scheme: dark) {
-    html[data-theme="letterato"] {
+    html[data-theme="letterato"]:not([data-color-scheme="light"]) {
         color-scheme: dark;
         --bg-color:      #20140a;
         --card-bg:       rgba(180, 130, 60, 0.08);
@@ -2360,6 +2360,106 @@ html[data-theme="letterato"] .scroll-btn:hover { background: rgba(255,255,255,0.
     html[data-theme="letterato"] h1 { font-style: italic; }
     html[data-theme="letterato"] .fav-btn.saved { color: #d4a060; }
     html[data-theme="letterato"] .fav-btn:hover { color: #d4a060; }
+}
+
+/* ── LETTERATO: color-scheme forzato via data-color-scheme ── */
+html[data-color-scheme="dark"][data-theme="letterato"] {
+    color-scheme: dark;
+    --bg-color: #20140a; --card-bg: rgba(180,130,60,0.08); --card-border: rgba(180,130,60,0.2);
+    --card-hover-bg: rgba(180,130,60,0.14); --hover: rgba(180,130,60,0.08);
+    --text-primary: #f5e8d0; --text-secondary: #b8956a; --accent-color: #d4a060; --accent: #d4a060;
+    --free: #5a9a6a; --occupied: #8075c8;
+}
+html[data-color-scheme="dark"][data-theme="letterato"] body { background-image: none; }
+html[data-color-scheme="dark"][data-theme="letterato"] ::selection { background: #d4a060; color: #20140a; }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-primary { color: #f5e8d0 !important; }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-primary:nth-child(1) { background: rgba(180,130,60,0.15); border-color: rgba(180,130,60,0.3); }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-primary:nth-child(2) { background: rgba(160,100,40,0.18); border-color: rgba(180,130,60,0.25); }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-primary:nth-child(3) { background: rgba(140,85,30,0.2);   border-color: rgba(180,130,60,0.28); }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-primary:nth-child(4) { background: rgba(190,150,60,0.14); border-color: rgba(190,150,60,0.25); }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-primary:nth-child(5) { background: rgba(120,140,70,0.15); border-color: rgba(150,160,80,0.25); }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-primary:nth-child(6) { background: rgba(160,120,80,0.14); border-color: rgba(180,130,60,0.22); }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-primary:nth-child(n+7) { background: rgba(180,130,60,0.08); color: #f5e8d0 !important; }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-tertiary { background: rgba(180,130,60,0.05); border-color: rgba(180,130,60,0.15); color: #b8956a; }
+html[data-color-scheme="dark"][data-theme="letterato"] .card-tertiary:hover { background: rgba(180,130,60,0.1); color: #f5e8d0; border-color: rgba(180,130,60,0.3); }
+html[data-color-scheme="dark"][data-theme="letterato"] .chip { background: rgba(180,130,60,0.08); border-color: rgba(180,130,60,0.25); color: #b8956a; }
+html[data-color-scheme="dark"][data-theme="letterato"] .chip.active { background: #d4a060; color: #20140a; border-color: #d4a060; }
+html[data-color-scheme="dark"][data-theme="letterato"] #search-input { background: rgba(180,130,60,0.08); border-color: rgba(180,130,60,0.22); color: #f5e8d0; }
+html[data-color-scheme="dark"][data-theme="letterato"] .bussola-settings-sheet { background: #20140a; }
+html[data-color-scheme="dark"][data-theme="letterato"] .page-switcher { background: rgba(180,130,60,0.08); border-color: rgba(180,130,60,0.2); }
+html[data-color-scheme="dark"][data-theme="letterato"] .page-switcher-btn { color: #b8956a; }
+html[data-color-scheme="dark"][data-theme="letterato"] .page-switcher-btn.active { color: #f5e8d0 !important; -webkit-text-fill-color: #f5e8d0 !important; }
+html[data-color-scheme="dark"][data-theme="letterato"] .version-badge { border-color: rgba(212,160,96,0.35); color: #d4a060; }
+html[data-color-scheme="dark"][data-theme="letterato"] .scroll-btn { background: rgba(180,130,60,0.1); border-color: rgba(180,130,60,0.25); color: #f5e8d0; }
+html[data-color-scheme="dark"][data-theme="letterato"] h1 { font-style: italic; }
+/* Force light per letterato in dark OS */
+html[data-color-scheme="light"][data-theme="letterato"] {
+    color-scheme: light; --bg-color: #faf7f0; --card-bg: rgba(60,40,10,0.03);
+    --card-border: rgba(80,50,20,0.14); --card-hover-bg: rgba(80,50,20,0.06);
+    --text-primary: #2b1d0e; --text-secondary: #6b5240; --accent-color: #7c5230; --accent: #7c5230;
+    --free: #2d7a3a; --occupied: #5b4ecb;
+}
+
+/* ── DISLESSIA: dark mode ── */
+@media (prefers-color-scheme: dark) {
+    html[data-theme="dislessia"]:not([data-color-scheme="light"]) {
+        color-scheme: dark;
+        --bg-color: #1a1a10; --card-bg: rgba(255,253,232,0.05); --card-border: rgba(255,253,232,0.12);
+        --card-hover-bg: rgba(255,253,232,0.08); --hover: rgba(255,253,232,0.05);
+        --text-primary: #FFFDE8; --text-secondary: #c8c490; --accent-color: #FFFDE8; --accent: #FFFDE8;
+        --free: #6abf6a; --occupied: #c08080;
+    }
+}
+html[data-color-scheme="dark"][data-theme="dislessia"] {
+    color-scheme: dark;
+    --bg-color: #1a1a10; --card-bg: rgba(255,253,232,0.05); --card-border: rgba(255,253,232,0.12);
+    --card-hover-bg: rgba(255,253,232,0.08); --hover: rgba(255,253,232,0.05);
+    --text-primary: #FFFDE8; --text-secondary: #c8c490; --accent-color: #FFFDE8; --accent: #FFFDE8;
+    --free: #6abf6a; --occupied: #c08080;
+}
+html[data-color-scheme="light"][data-theme="dislessia"] {
+    color-scheme: light;
+    --bg-color: #FFFDE8; --text-primary: #0a0a1a; --text-secondary: #3a3a5a;
+}
+
+/* ── NEO / NORD / ANALOGICO: sempre dark, anche in light OS ── */
+@media (prefers-color-scheme: light) {
+    html[data-theme="neo"] {
+        color-scheme: dark;
+        --bg-color: #070d1a; --card-bg: rgba(0,224,255,0.04); --card-border: rgba(0,224,255,0.18);
+        --card-hover-bg: rgba(0,224,255,0.1); --hover: rgba(0,224,255,0.07);
+        --text-primary: #d4f7ff; --text-secondary: #4a9ab0; --accent-color: #00e0ff;
+    }
+    html[data-theme="neo"] body { background-color: #070d1a; color: #d4f7ff; }
+    html[data-theme="neo"] .card-primary,
+    html[data-theme="neo"] .secondary-card,
+    html[data-theme="neo"] .secondary-nav-section .card-primary { background: rgba(0,80,110,0.35) !important; border-color: rgba(0,224,255,0.25) !important; color: #d4f7ff !important; }
+    html[data-theme="neo"] .secondary-card:hover,
+    html[data-theme="neo"] .secondary-card-wide:hover { background: rgba(0,100,140,0.4) !important; border-color: rgba(0,224,255,0.35) !important; }
+
+    html[data-theme="nord"] {
+        color-scheme: dark;
+        --bg-color: #1c1220; --card-bg: rgba(220,160,200,0.06); --card-border: rgba(220,160,200,0.16);
+        --card-hover-bg: rgba(220,160,200,0.1); --text-primary: #f5e8ff; --text-secondary: #c4a0d8; --accent-color: #e8a8d8;
+    }
+    html[data-theme="nord"] body { background-color: #1c1220; color: #f5e8ff; }
+    html[data-theme="nord"] .card-primary,
+    html[data-theme="nord"] .secondary-card,
+    html[data-theme="nord"] .secondary-nav-section .card-primary { background: rgba(180,100,160,0.2) !important; border-color: rgba(220,160,200,0.25) !important; color: #f5e8ff !important; }
+    html[data-theme="nord"] .secondary-card:hover,
+    html[data-theme="nord"] .secondary-card-wide:hover { background: rgba(200,120,180,0.28) !important; border-color: rgba(220,160,200,0.4) !important; }
+
+    html[data-theme="analogico"] {
+        color-scheme: dark;
+        --bg-color: #040904; --card-bg: rgba(57,255,20,0.03); --card-border: rgba(57,255,20,0.2);
+        --card-hover-bg: rgba(57,255,20,0.08); --text-primary: #39ff14; --text-secondary: #1c8a0e; --accent-color: #39ff14;
+    }
+    html[data-theme="analogico"] body { background-color: #040904; color: #39ff14; }
+    html[data-theme="analogico"] .card-primary,
+    html[data-theme="analogico"] .secondary-card,
+    html[data-theme="analogico"] .secondary-nav-section .card-primary { background: rgba(57,255,20,0.07) !important; border-color: rgba(57,255,20,0.3) !important; color: #39ff14 !important; }
+    html[data-theme="analogico"] .secondary-card:hover,
+    html[data-theme="analogico"] .secondary-card-wide:hover { background: rgba(57,255,20,0.12) !important; border-color: rgba(57,255,20,0.45) !important; }
 }
 
 /* ── NORD: card primarie in palette artica ── */
@@ -2594,6 +2694,32 @@ html[data-theme="analogico"] #search-input:focus { border-color: rgba(57,255,20,
 }
 .wip-back:hover { opacity: 0.85; }
 
+/* WIP overlay: forza testo chiaro su temi light (letterato/dislessia) */
+html[data-theme="letterato"] .wip-overlay,
+html[data-theme="dislessia"] .wip-overlay {
+    background: rgba(20, 10, 5, 0.88);
+}
+html[data-theme="letterato"] .wip-title,
+html[data-theme="letterato"] .wip-icon,
+html[data-theme="dislessia"] .wip-title,
+html[data-theme="dislessia"] .wip-icon {
+    color: #f5f0e8;
+}
+html[data-theme="letterato"] .wip-desc,
+html[data-theme="dislessia"] .wip-desc {
+    color: #c8b89a;
+}
+html[data-theme="letterato"] .wip-dismiss,
+html[data-theme="dislessia"] .wip-dismiss {
+    border-color: rgba(255,255,255,0.2);
+    color: #c8b89a;
+}
+html[data-theme="letterato"] .wip-dismiss:hover,
+html[data-theme="dislessia"] .wip-dismiss:hover {
+    background: rgba(255,255,255,0.1);
+    color: #f5f0e8;
+}
+
 /* Preferiti aule */
 .fav-btn {
     background: none;
@@ -2651,8 +2777,8 @@ html[data-theme="dislessia"] {
     --accent-color: #0a0a1a;
     --free: #1a7a1a;
     --occupied: #7a1a1a;
-    --font-family: 'OpenDyslexic3', 'OpenDyslexic', Arial, sans-serif;
-    --font-display: 'OpenDyslexic3', 'OpenDyslexic', Arial, sans-serif;
+    --font-family: 'OpenDyslexic', Arial, sans-serif;
+    --font-display: 'OpenDyslexic', Arial, sans-serif;
 }
 html[data-theme="dislessia"] body {
     background-image: none;
@@ -2971,3 +3097,112 @@ html[data-theme="analogico"] .site-logo {
 .home-settings-btn:hover i {
     transform: rotate(60deg);
 }
+
+/* ── Color scheme toggle nelle impostazioni ── */
+.color-scheme-toggle {
+    display: flex;
+    gap: 8px;
+}
+.scheme-btn {
+    flex: 1;
+    padding: 8px 6px;
+    border-radius: 999px;
+    border: 1px solid var(--card-border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-family);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.scheme-btn i { font-size: 0.9rem; }
+.scheme-btn.active {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+    font-weight: 700;
+}
+.scheme-btn:hover:not(.active) {
+    background: var(--card-hover-bg);
+    color: var(--text-primary);
+}
+
+/* ── Home h1: leggermente più piccolo su mobile ── */
+@media (max-width: 768px) {
+    .container > header h1 {
+        font-size: clamp(1.6rem, 7vw, 2.5rem);
+    }
+}
+
+/* ── PWA home banner (inline nella home, sostituisce il floating) ── */
+.pwa-home-banner {
+    display: none;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 1.2rem 1.4rem;
+    gap: 1rem;
+    align-items: center;
+    margin-top: -2rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.5s ease;
+}
+.pwa-home-banner.show {
+    display: flex;
+}
+.pwa-home-banner-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.pwa-home-banner-text {
+    flex: 1;
+}
+.pwa-home-banner-text strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+    font-weight: 700;
+}
+.pwa-home-banner-text span {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+.pwa-home-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.pwa-home-install-btn {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: none;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-family);
+    white-space: nowrap;
+    transition: opacity 0.2s;
+}
+.pwa-home-install-btn:hover { opacity: 0.85; }
+.pwa-home-dismiss-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.pwa-home-dismiss-btn:hover { color: var(--text-primary); }
