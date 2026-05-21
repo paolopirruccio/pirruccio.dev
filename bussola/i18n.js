@@ -82,6 +82,7 @@
             rep_master:               'Rappresentante Magistrale',
             faq_total:                (n) => `${n} domande frequenti`,
             /* ── Navbar ── */
+            nav_home:                 'Home',
             nav_links:                'Link',
             nav_lezioni:              'Lezioni',
             nav_aule:                 'Aule',
@@ -189,6 +190,7 @@
             rep_master:               'Graduate Representative',
             faq_total:                (n) => `${n} frequently asked questions`,
             /* ── Navbar ── */
+            nav_home:                 'Home',
             nav_links:                'Links',
             nav_lezioni:              'Lectures',
             nav_aule:                 'Rooms',

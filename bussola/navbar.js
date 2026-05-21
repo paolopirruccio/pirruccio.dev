@@ -1,5 +1,6 @@
 function initNavbar() {
     const pages = [
+        { id: 'bussola', i18nKey: 'nav_home',    label: 'Home',    icon: 'ri-home-5-line',       url: './index.html' },
         { id: 'links',   i18nKey: 'nav_links',   label: 'Link',    icon: 'ri-bookmark-line',     url: './links.html' },
         { id: 'lezioni', i18nKey: 'nav_lezioni',  label: 'Lezioni', icon: 'ri-presentation-line', url: './lezioni.html' },
         { id: 'aule',    i18nKey: 'nav_aule',     label: 'Aule',    icon: 'ri-door-open-line',    url: './aule.html' },
@@ -11,18 +12,8 @@ function initNavbar() {
     const currentPath = window.location.pathname;
     const currentPage = pages.find(p => currentPath.endsWith(p.url.replace('./', '')))?.id || 'bussola';
 
-    const isDashboard = currentPage === 'bussola';
-
     const navbarHtml = `
     <div class="page-switcher">
-        ${isDashboard
-            ? `<a href="#!" onclick="document.getElementById('infouma-modal').classList.add('active'); return false;" class="page-switcher-logo" title="InfoUma About">
-                 <img src="assets/compass.webp" alt="InfoUma">
-               </a>`
-            : `<a href="./index.html" class="page-switcher-logo" title="InfoUma Home">
-                 <img src="assets/compass.webp" alt="InfoUma">
-               </a>`
-        }
         ${pages.map(page => `
             <a href="${page.url}" class="page-switcher-btn ${currentPage === page.id ? 'active' : ''}">
                 <i class="${page.icon}"></i>

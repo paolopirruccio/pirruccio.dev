@@ -2450,7 +2450,7 @@ html[data-theme="analogico"] #search-input:focus { border-color: rgba(57,255,20,
 }
 .theme-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 .theme-card {
@@ -2490,6 +2490,8 @@ html[data-theme="analogico"] #search-input:focus { border-color: rgba(57,255,20,
 .dot-letterato { background: radial-gradient(circle at 35% 35%, #c8a87a, #faf7f0); }
 .dot-nord      { background: radial-gradient(circle at 35% 35%, #e8a8d8, #1c1220); }
 .dot-analogico { background: radial-gradient(circle at 35% 35%, #39ff14, #040904); }
+.dot-dislessia { background: radial-gradient(circle at 35% 35%, #fffde8, #fffde8); border: 2px solid #1a1a2e; position: relative; }
+.dot-dislessia::after { content: 'Aa'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; color: #1a1a2e; line-height: 1; }
 
 /* Lang toggle */
 .lang-toggle {
@@ -2636,6 +2638,106 @@ html[data-theme="letterato"] .fav-chip-active { background: rgba(192,112,62,0.12
 html[data-theme="analogico"] .fav-chip-active { background: rgba(57,255,20,0.1) !important; border-color: rgba(57,255,20,0.4) !important; color: #39ff14 !important; }
 html[data-theme="nord"]      .fav-chip-active { background: rgba(244,114,182,0.12) !important; border-color: rgba(244,114,182,0.4) !important; color: #f472b6 !important; }
 
+/* ── Tema Dislessia (OpenDyslexic, alto contrasto) ── */
+html[data-theme="dislessia"] {
+    color-scheme: light;
+    --bg-color: #FFFDE8;
+    --card-bg: rgba(0,0,0,0.04);
+    --card-border: rgba(0,0,0,0.12);
+    --card-hover-bg: rgba(0,0,0,0.06);
+    --hover: rgba(0,0,0,0.04);
+    --text-primary: #0a0a1a;
+    --text-secondary: #3a3a5a;
+    --accent-color: #0a0a1a;
+    --free: #1a7a1a;
+    --occupied: #7a1a1a;
+    --font-family: 'OpenDyslexic3', 'OpenDyslexic', Arial, sans-serif;
+    --font-display: 'OpenDyslexic3', 'OpenDyslexic', Arial, sans-serif;
+}
+html[data-theme="dislessia"] body {
+    background-image: none;
+    background-color: var(--bg-color);
+}
+html[data-theme="dislessia"] * {
+    letter-spacing: 0.06em;
+    word-spacing: 0.12em;
+}
+html[data-theme="dislessia"] p,
+html[data-theme="dislessia"] span,
+html[data-theme="dislessia"] li,
+html[data-theme="dislessia"] a {
+    line-height: 1.9;
+}
+html[data-theme="dislessia"] h1 {
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    color: #0a0a1a;
+}
+html[data-theme="dislessia"] ::selection {
+    background: #ffcc00;
+    color: #0a0a1a;
+}
+/* Chip e input */
+html[data-theme="dislessia"] .chip,
+html[data-theme="dislessia"] .filter-chip {
+    background: rgba(0,0,0,0.05);
+    border-color: rgba(0,0,0,0.15);
+    color: var(--text-primary);
+}
+html[data-theme="dislessia"] .chip.active,
+html[data-theme="dislessia"] .filter-chip.active {
+    background: #0a0a1a;
+    border-color: #0a0a1a;
+    color: #FFFDE8;
+}
+html[data-theme="dislessia"] input,
+html[data-theme="dislessia"] .search-container {
+    background: rgba(0,0,0,0.05);
+    border-color: rgba(0,0,0,0.2);
+    color: #0a0a1a;
+}
+html[data-theme="dislessia"] input::placeholder {
+    color: #5a5a7a;
+}
+/* Navbar */
+html[data-theme="dislessia"] .page-switcher {
+    background: rgba(255,253,232,0.95);
+    border-color: rgba(0,0,0,0.2);
+}
+html[data-theme="dislessia"] .page-switcher-btn {
+    color: #3a3a5a;
+}
+html[data-theme="dislessia"] .page-switcher-btn.active {
+    color: #0a0a1a;
+}
+/* Cards */
+html[data-theme="dislessia"] .card-primary {
+    color: #0a0a1a !important;
+    border-color: rgba(0,0,0,0.15) !important;
+}
+html[data-theme="dislessia"] .card-primary:nth-child(1)  { background: #E8F4FD; }
+html[data-theme="dislessia"] .card-primary:nth-child(2)  { background: #E8FDF4; }
+html[data-theme="dislessia"] .card-primary:nth-child(3)  { background: #FDF4E8; }
+html[data-theme="dislessia"] .card-primary:nth-child(4)  { background: #F4E8FD; }
+html[data-theme="dislessia"] .card-primary:nth-child(5)  { background: #FDE8E8; }
+html[data-theme="dislessia"] .card-primary:nth-child(6)  { background: #E8FDE8; }
+html[data-theme="dislessia"] .card-primary:nth-child(n+7) { background: rgba(0,0,0,0.04); }
+html[data-theme="dislessia"] .bussola-settings-sheet {
+    background: #FFFDE8;
+    border-color: rgba(0,0,0,0.15);
+}
+/* Home cards */
+html[data-theme="dislessia"] .bussola-home-card {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.12);
+}
+html[data-theme="dislessia"] .bussola-home-card:hover {
+    background: rgba(0,0,0,0.08);
+    border-color: rgba(0,0,0,0.2);
+}
+
 /* PWA install banner */
 .pwa-banner {
     position: fixed;
@@ -2682,6 +2784,12 @@ html[data-theme="nord"]      .fav-chip-active { background: rgba(244,114,182,0.1
     font-size: 1.1rem;
     line-height: 1;
     padding: 4px;
+}
+@media (max-width: 768px) {
+    /* Sulla navbar mobile c'è ~70px di altezza + 1rem dal basso → sposta il banner sopra */
+    .pwa-banner {
+        bottom: calc(1rem + 76px + 0.75rem);
+    }
 }
 
 /* ── Pulsante fisso Impostazioni (speculare al go-to-top) ── */
@@ -2831,4 +2939,35 @@ html[data-theme="analogico"] .site-logo {
 @media (max-width: 420px) {
     .bussola-home-grid { grid-template-columns: 1fr; gap: 0.75rem; }
     .bussola-home-card.full-width { grid-column: span 1; }
+}
+
+/* ── Pulsante impostazioni inline nella home ── */
+.home-settings-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    font-family: var(--font-family);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.01em;
+}
+.home-settings-btn i {
+    font-size: 1rem;
+    transition: transform 0.4s ease;
+}
+.home-settings-btn:hover {
+    background: var(--card-hover-bg);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+.home-settings-btn:hover i {
+    transform: rotate(60deg);
 }

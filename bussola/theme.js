@@ -4,7 +4,7 @@
  * Includere in <head> di ogni pagina bussola.
  */
 (function () {
-    const VALID = ['original', 'neo', 'letterato', 'nord', 'analogico'];
+    const VALID = ['original', 'neo', 'letterato', 'nord', 'analogico', 'dislessia'];
 
     const FONT_URLS = {
         neo:       'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap',
@@ -12,6 +12,7 @@
         analogico: 'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap',
         original:  'https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap',
         nord:      'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&display=swap',
+        dislessia: 'https://fonts.cdnfonts.com/css/opendyslexic3',
     };
 
     function loadFont(theme) {
@@ -58,11 +59,12 @@
             '  <div>',
             '    <p class="settings-section-label">Tema</p>',
             '    <div class="theme-grid" id="bussolaThemeGrid">',
-            '      <div class="theme-card" data-theme="original" onclick="BussolaSettings.selectTheme(\'original\')"><div class="theme-dot dot-original"></div><span class="theme-name">Original</span></div>',
-            '      <div class="theme-card" data-theme="neo"      onclick="BussolaSettings.selectTheme(\'neo\')">     <div class="theme-dot dot-neo"></div>     <span class="theme-name">Neo</span></div>',
+            '      <div class="theme-card" data-theme="original"  onclick="BussolaSettings.selectTheme(\'original\')"> <div class="theme-dot dot-original"></div> <span class="theme-name">Original</span></div>',
+            '      <div class="theme-card" data-theme="neo"       onclick="BussolaSettings.selectTheme(\'neo\')">      <div class="theme-dot dot-neo"></div>      <span class="theme-name">Neo</span></div>',
             '      <div class="theme-card" data-theme="letterato" onclick="BussolaSettings.selectTheme(\'letterato\')"><div class="theme-dot dot-letterato"></div><span class="theme-name">Letterato</span></div>',
-            '      <div class="theme-card" data-theme="nord"     onclick="BussolaSettings.selectTheme(\'nord\')">    <div class="theme-dot dot-nord"></div>    <span class="theme-name">Nord</span></div>',
+            '      <div class="theme-card" data-theme="nord"      onclick="BussolaSettings.selectTheme(\'nord\')">     <div class="theme-dot dot-nord"></div>     <span class="theme-name">Nord</span></div>',
             '      <div class="theme-card" data-theme="analogico" onclick="BussolaSettings.selectTheme(\'analogico\')"><div class="theme-dot dot-analogico"></div><span class="theme-name">Analogico</span></div>',
+            '      <div class="theme-card" data-theme="dislessia" onclick="BussolaSettings.selectTheme(\'dislessia\')"><div class="theme-dot dot-dislessia"></div><span class="theme-name">Dislessia</span></div>',
             '    </div>',
             '  </div>',
             '  <div>',
