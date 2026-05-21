@@ -32,6 +32,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
     <style>
         .toggle-container {
             display: flex;
@@ -183,9 +185,10 @@
                 <img src="assets/links.webp" alt="InfoUma Logo" class="site-logo">
             </picture>
             <div class="version-badge beta">Beta</div>
-            <h1 id="greeting">Link Utili</h1>
+            <h1 id="greeting" data-i18n="links_h1">Link Utili</h1>
             <p
-                style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">
+                style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem;"
+                data-i18n="links_desc">
                 Tutti i link ai servizi di Informatica Umanistica, raccolti in un unico posto.
             </p>
             <div class="toggle-container" style="margin-top: 0; margin-bottom: 0.8rem;">
@@ -193,12 +196,12 @@
                     <input type="checkbox" id="new-tab-toggle">
                     <span class="slider"></span>
                 </label>
-                <span>Apri in nuova pagina</span>
+                <span data-i18n="links_new_tab">Apri in nuova pagina</span>
             </div>
 
             <div class="search-container">
                 <i class="ri-search-line search-icon"></i>
-                <input type="text" id="search-input" placeholder="Cerca link...">
+                <input type="text" id="search-input" placeholder="Cerca link..." data-i18n="links_search">
                 <i class="ri-close-line search-clear" id="search-clear"></i>
             </div>
 
@@ -229,8 +232,8 @@
                 <i class="ri-lightbulb-flash-line"></i>
             </div>
             <div class="suggest-content">
-                <span class="suggest-title">Hai un link da suggerire?</span>
-                <span class="suggest-desc">Contribuisci a rendere la Bussola più completa inviando i tuoi
+                <span class="suggest-title" data-i18n="links_suggest_title">Hai un link da suggerire?</span>
+                <span class="suggest-desc" data-i18n="links_suggest_desc">Contribuisci a rendere la Bussola più completa inviando i tuoi
                     suggerimenti.</span>
             </div>
             <i class="ri-mail-send-line suggest-arrow"></i>
@@ -258,6 +261,29 @@
     </div>
     <script src="script.js"></script>
     <script src="../version.js"></script>
+    <script>
+    /* ── i18n ── */
+    function applyLang(lang) {
+        if (window.BussolaI18n) {
+            BussolaI18n.applyDataI18n(lang);
+        }
+        // Re-render dynamic content with the new language
+        renderChips();
+        renderLinks();
+        // Update total links count
+        const totalLinks = document.getElementById('total-links');
+        if (totalLinks && window.BussolaI18n) {
+            const dict = BussolaI18n.DICT[lang] || BussolaI18n.DICT['it'];
+            const fn = dict && dict.links_total;
+            totalLinks.textContent = typeof fn === 'function' ? fn(resources.length) : `${resources.length} link`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const lang = localStorage.getItem('bussola_lang') || 'it';
+        if (window.BussolaI18n) BussolaI18n.applyDataI18n(lang);
+    });
+    </script>
     <div class="scroll-buttons">
         <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="scroll-btn" title="Torna su">
             <i class="ri-arrow-up-line"></i>

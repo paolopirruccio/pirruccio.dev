@@ -24,6 +24,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
     <link rel="stylesheet" href="style.css">
     <style>
         .course-card {
@@ -153,16 +155,21 @@
                 <img src="assets/conference.webp" alt="Cerca Lezioni Logo" class="site-logo">
             </picture>
             <div class="version-badge beta">Beta</div>
-            <h1>Cerca Lezioni</h1>
-            <p
+            <h1 data-i18n="lezioni_h1">Cerca Lezioni</h1>
+            <p data-i18n="lezioni_desc"
                 style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">
                 Cerca lezioni di oggi e dei prossimi giorni al polo Fibonacci.
             </p>
             <div class="filter-controls" style="width: 100%; max-width: 600px; margin: 0 auto;">
-                <div class="search-container" style="margin-top: 0; width: 100%; max-width: 100%;">
+                <div class="search-container" style="margin-top: 0; width:100%;">
                     <i class="ri-search-line search-icon"></i>
-                    <input type="text" id="search-input" placeholder="Cerca lezione per nome o professore...">
+                    <input type="text" id="search-input" data-i18n="lezioni_placeholder" placeholder="Cerca lezione per nome o professore...">
                     <i class="ri-close-line search-clear" id="search-clear"></i>
+                </div>
+                <div class="datetime-shortcuts">
+                    <button id="tomorrow-btn-lez" class="tomorrow-btn" onclick="toggleTomorrowLezioni()">
+                        <i class="ri-skip-right-line"></i> <span id="tomorrow-label-lez" data-i18n="lezioni_tomorrow">Domani</span>
+                    </button>
                 </div>
             </div>
         </header>
@@ -230,6 +237,21 @@
         let dataLoaded = false;
         let dataError = false;
         let roomsData = [];
+        let _filterTomorrow = false;
+
+        function toggleTomorrowLezioni() {
+            _filterTomorrow = !_filterTomorrow;
+            const btn = document.getElementById('tomorrow-btn-lez');
+            const label = document.getElementById('tomorrow-label-lez');
+            if (_filterTomorrow) {
+                if (label) label.textContent = BussolaI18n.t('lezioni_today_btn');
+                btn.classList.add('active');
+            } else {
+                if (label) label.textContent = BussolaI18n.t('lezioni_tomorrow');
+                btn.classList.remove('active');
+            }
+            renderResults();
+        }
 
         const searchInput = document.getElementById('search-input');
         const resultsList = document.getElementById('results-list');
@@ -241,7 +263,36 @@
         });
 
         const DAYS_IT = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+        const DAYS_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const MONTHS_IT = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
+        const MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        function getDays() { return BussolaI18n.getLang() === 'en' ? DAYS_EN : DAYS_IT; }
+        function getMonths() { return BussolaI18n.getLang() === 'en' ? MONTHS_EN : MONTHS_IT; }
+
+        /* Global applyLang — called by BussolaSettings when user switches language */
+        function applyLang(lang) {
+            localStorage.setItem('bussola_lang', lang);
+            BussolaI18n.applyDataI18n(lang);
+            // Update tomorrow button label if active
+            const btn = document.getElementById('tomorrow-btn-lez');
+            if (btn) {
+                const isActive = btn.classList.contains('active');
+                const label = document.getElementById('tomorrow-label-lez');
+                if (label) label.textContent = isActive ? BussolaI18n.t('lezioni_today_btn') : BussolaI18n.t('lezioni_tomorrow');
+            }
+            // Update week badge
+            const range = getLessonRange();
+            const badge = document.getElementById('week-badge');
+            if (badge) {
+                const startDate = new Date(range.start);
+                const endDate = new Date(range.end);
+                const m = getMonths();
+                badge.innerHTML = `<i class="ri-calendar-line"></i> ${BussolaI18n.t('week_from')} ${startDate.getDate()} ${m[startDate.getMonth()]} ${BussolaI18n.t('week_to')} ${endDate.getDate()} ${m[endDate.getMonth()]}`;
+            }
+            // Re-render to pick up new language strings and course names
+            renderResults();
+        }
 
         function getLessonRange() {
             const start = new Date();
@@ -296,7 +347,7 @@
 
         function formatDateToItaliano(dateString) {
             const d = new Date(dateString);
-            return `${DAYS_IT[d.getDay()]} ${d.getDate()} ${MONTHS_IT[d.getMonth()]}`;
+            return `${getDays()[d.getDay()]} ${d.getDate()} ${getMonths()[d.getMonth()]}`;
         }
 
         function isPastEvent(dateString) {
@@ -312,7 +363,7 @@
             if (badge) {
                 const startDate = new Date(range.start);
                 const endDate = new Date(range.end);
-                badge.innerHTML = `<i class="ri-calendar-line"></i> Dal ${startDate.getDate()} ${MONTHS_IT[startDate.getMonth()]} al ${endDate.getDate()} ${MONTHS_IT[endDate.getMonth()]}`;
+                badge.innerHTML = `<i class="ri-calendar-line"></i> ${BussolaI18n.t('week_from')} ${startDate.getDate()} ${getMonths()[startDate.getMonth()]} ${BussolaI18n.t('week_to')} ${endDate.getDate()} ${getMonths()[endDate.getMonth()]}`;
             }
 
             try {
@@ -381,12 +432,12 @@
             const query = searchInput.value.toLowerCase().trim();
             const resultsBar = document.getElementById('results-bar');
 
-            if (query.length > 0 && query.length < 3) {
+            if (!_filterTomorrow && query.length > 0 && query.length < 3) {
                 resultsList.innerHTML = `
                         <div class="no-results" style="padding: 2rem; border: none; background: transparent;">
                             <i class="ri-keyboard-line" style="font-size: 2rem; display: block; margin-bottom: 0.5rem; color: var(--text-secondary);"></i>
-                            <h3 style="margin-bottom: 0.2rem; color: var(--text-primary); font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;">Continua a digitare...</h3>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Inserisci almeno 3 caratteri per iniziare la ricerca.</p>
+                            <h3 style="margin-bottom: 0.2rem; color: var(--text-primary); font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;">${BussolaI18n.t('lezioni_typing_title')}</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">${BussolaI18n.t('lezioni_typing_hint')}</p>
                         </div>
                     `;
                 resultsTotal.textContent = "0";
@@ -395,7 +446,7 @@
                 return;
             }
 
-            if (query.length === 0) {
+            if (!_filterTomorrow && query.length === 0) {
                 resultsList.innerHTML = initialStateHtml;
                 document.getElementById('results-count-container').style.display = 'none';
                 resultsTotal.textContent = "0";
@@ -411,7 +462,7 @@
                 resultsList.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; padding: 4rem 0; gap: 1rem;">
                         <div class="spinner"></div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Caricamento lezioni in corso...</p>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">${BussolaI18n.t('lezioni_loading')}</p>
                     </div>`;
                 return;
             }
@@ -420,27 +471,47 @@
                 resultsList.innerHTML = `
                     <div class="no-results" style="padding: 3rem 1rem; text-align: center;">
                         <i class="ri-server-line" style="font-size: 2.5rem; display: block; margin-bottom: 1rem; color: var(--text-secondary); opacity: 0.5;"></i>
-                        <h3 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 400;">Servizio Cineca non disponibile</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">I server dell'università (Cineca) non rispondono o sono in manutenzione. <br>Riprova tra qualche minuto.</p>
-                        <button onclick="dataLoaded=false; dataError=false; renderResults(); fetchWeeklySchedule();" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: var(--text-primary); padding: 0.6rem 1.5rem; border-radius: 12px; font-family: var(--font-family); font-size: 0.9rem; cursor: pointer; transition: all 0.2s;">Riprova ora</button>
+                        <h3 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 400;">${BussolaI18n.t('lezioni_error_title')}</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">${BussolaI18n.t('lezioni_error_desc')}</p>
+                        <button onclick="dataLoaded=false; dataError=false; renderResults(); fetchWeeklySchedule();" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: var(--text-primary); padding: 0.6rem 1.5rem; border-radius: 12px; font-family: var(--font-family); font-size: 0.9rem; cursor: pointer; transition: all 0.2s;">${BussolaI18n.t('lezioni_retry')}</button>
                     </div>`;
                 resultsTotal.textContent = "0";
                 return;
             }
 
             const now = new Date();
+            // Calcola range di domani se filtro attivo
+            let tomorrowStart = null, tomorrowEnd = null;
+            if (_filterTomorrow) {
+                tomorrowStart = new Date();
+                tomorrowStart.setDate(tomorrowStart.getDate() + 1);
+                tomorrowStart.setHours(0, 0, 0, 0);
+                tomorrowEnd = new Date(tomorrowStart);
+                tomorrowEnd.setHours(23, 59, 59, 999);
+            }
+
             const filtered = weeklyEvents.filter(e => {
+                const eventStart = new Date(e.dataInizio);
                 const eventEnd = new Date(e.dataFine);
-                if (eventEnd < now) return false;
 
-                const nome = (e.evento?.dettagliDidattici?.[0]?.nome || e.evento?.tipoAttivita?.descrizione || '').toLowerCase();
-                if (nome.includes(query)) return true;
+                // Filtro domani
+                if (_filterTomorrow) {
+                    if (eventStart < tomorrowStart || eventStart > tomorrowEnd) return false;
+                } else {
+                    if (eventEnd < now) return false;
+                }
 
-                const docenti = e.docenti || [];
-                const nomeDocenti = docenti.map(d => `${d.nome} ${d.cognome}`).join(' ').toLowerCase();
-                if (nomeDocenti.includes(query)) return true;
+                // Filtro testo (se c'è query)
+                if (query.length >= 3) {
+                    const nome = (e.evento?.dettagliDidattici?.[0]?.nome || e.evento?.tipoAttivita?.descrizione || '').toLowerCase();
+                    if (nome.includes(query)) return true;
+                    const docenti = e.docenti || [];
+                    const nomeDocenti = docenti.map(d => `${d.nome} ${d.cognome}`).join(' ').toLowerCase();
+                    if (nomeDocenti.includes(query)) return true;
+                    return false;
+                }
 
-                return false;
+                return true;
             });
 
             filtered.sort((a, b) => new Date(a.dataInizio) - new Date(b.dataInizio));
@@ -451,8 +522,8 @@
                 resultsList.innerHTML = `
                 <div class="no-results" style="padding: 4rem 1rem; text-align: center;">
                     <i class="ri-presentation-line" style="font-size: 3rem; display: block; margin-bottom: 1.5rem; color: var(--text-secondary); opacity: 0.5;"></i>
-                    <h2 style="font-family: var(--font-display); font-size: 2rem; font-style: italic; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 400;">Nessuna lezione trovata</h2>
-                    <p style="color: var(--text-secondary); font-size: 1rem; max-width: 400px; margin: 0 auto;">Prova con un altro nome di corso, professore o aula.</p>
+                    <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 400;">${BussolaI18n.t('lezioni_none_title')}</h2>
+                    <p style="color: var(--text-secondary); font-size: 1rem; max-width: 400px; margin: 0 auto;">${BussolaI18n.t('lezioni_none_hint')}</p>
                 </div>
             `;
                 return;
@@ -472,13 +543,13 @@
                 const isToday = day === todayStr;
                 html += `
                         <div class="day-group fade-in-card ${isToday ? 'today' : ''}">
-                            <i class="${isToday ? 'ri-calendar-check-fill' : 'ri-calendar-event-line'}"></i> ${isToday ? 'Oggi, ' + day : day}
+                            <i class="${isToday ? 'ri-calendar-check-fill' : 'ri-calendar-event-line'}"></i> ${isToday ? BussolaI18n.t('lezioni_today_prefix') + day : day}
                         </div>
                     `;
 
                 events.forEach(item => {
-                    const nome = item.evento?.dettagliDidattici?.[0]?.nome || item.evento?.tipoAttivita?.descrizione || 'Corso Sconosciuto';
-                    const auleText = item.risorse?.filter(r => r.aula).map(r => r.aula.descrizione || r.aula.nome).join(', ') || 'Aula da definire';
+                    const nome = BussolaI18n.getCourseName(item.evento);
+                    const auleText = item.risorse?.filter(r => r.aula).map(r => r.aula.descrizione || r.aula.nome).join(', ') || BussolaI18n.t('lezioni_room_tbd');
 
                     const docentiList = item.docenti || [];
                     const profHtml = docentiList.length > 0
@@ -569,8 +640,8 @@
                 resultsList.innerHTML = `
                         <div class="no-results" style="padding: 2rem; border: none; background: transparent;">
                             <i class="ri-keyboard-line" style="font-size: 2rem; display: block; margin-bottom: 0.5rem; color: var(--text-secondary);"></i>
-                            <h3 style="margin-bottom: 0.2rem; color: var(--text-primary); font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;">Continua a digitare...</h3>
-                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Inserisci almeno 3 caratteri per iniziare la ricerca.</p>
+                            <h3 style="margin-bottom: 0.2rem; color: var(--text-primary); font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;">${BussolaI18n.t('lezioni_typing_title')}</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">${BussolaI18n.t('lezioni_typing_hint')}</p>
                         </div>
                     `;
                 resultsTotal.textContent = "0";
@@ -599,6 +670,11 @@
         }
 
         fetchWeeklySchedule();
+
+        // Apply lang on load
+        document.addEventListener('DOMContentLoaded', function() {
+            BussolaI18n.applyDataI18n(BussolaI18n.getLang());
+        });
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {

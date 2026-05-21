@@ -32,10 +32,25 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
 </head>
 
 <body>
     <script src="navbar.js"></script>
+
+    <!-- WIP overlay -->
+    <div class="wip-overlay" id="wipOverlay">
+        <div class="wip-inner">
+            <i class="ri-tools-line wip-icon"></i>
+            <h2 class="wip-title" data-i18n="faq_wip_title">In lavorazione</h2>
+            <p class="wip-desc" data-i18n="faq_wip_desc">Le FAQ di InfoUma sono in preparazione.<br>Torneremo presto con risposte complete su corsi, esami e vita universitaria.</p>
+            <div class="wip-btn">
+                <a href="./index.html" class="wip-back"><i class="ri-arrow-left-line"></i> <span data-i18n="faq_back_home">Home</span></a>
+                <button class="wip-dismiss" data-i18n="faq_wip_preview" onclick="document.getElementById('wipOverlay').style.display='none'">Anteprima</button>
+            </div>
+        </div>
+    </div>
 
     <div class="container fade-in">
         <header>
@@ -44,88 +59,80 @@
                 <img src="assets/book.webp" alt="InfoUma Logo" class="site-logo">
             </picture>
             <div class="version-badge alpha">Alpha</div>
-            <h1>Domande Frequenti</h1>
-            <p
+            <h1 data-i18n="faq_h1">Domande Frequenti</h1>
+            <p data-i18n="faq_desc"
                 style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">
                 Le risposte alle domande più frequenti su corsi di InfoUma, esami, vita universitaria e altro.
             </p>
             <div class="search-container">
                 <i class="ri-search-line search-icon"></i>
-                <input type="text" id="search-input" placeholder="Cerca domande...">
+                <input type="text" id="search-input" data-i18n="faq_placeholder" placeholder="Cerca domande...">
                 <i class="ri-close-line search-clear" id="search-clear"></i>
             </div>
         </header>
         <main id="faq-container">
             <div class="faq-category">
                 <h2 class="section-title">
-                    <img src="assets/grad.webp" class="section-icon-img" alt=""> Didattica & Carriera
+                    <img src="assets/grad.webp" class="section-icon-img" alt=""> <span data-i18n="cat_didattica">Didattica & Carriera</span>
                 </h2>
                 <div class="faq-list">
                     <div class="faq-item fade-in-card">
                         <button class="faq-question">
-                            <span>Come posso iscrivermi agli esami?</span>
+                            <span data-i18n="faq_q1">Come posso iscrivermi agli esami?</span>
                             <i class="ri-arrow-down-s-line"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>Le iscrizioni si effettuano tramite il portale esami.unipi.it. Ricorda di controllare
-                                le date
-                                di apertura e chiusura delle iscrizioni.</p>
+                            <p data-i18n="faq_a1">Le iscrizioni si effettuano tramite il portale esami.unipi.it. Ricorda di controllare le date di apertura e chiusura delle iscrizioni.</p>
                         </div>
                     </div>
                     <div class="faq-item fade-in-card">
                         <button class="faq-question">
-                            <span>Dove trovo l'orario delle lezioni?</span>
+                            <span data-i18n="faq_q2">Dove trovo l'orario delle lezioni?</span>
                             <i class="ri-arrow-down-s-line"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>L'orario è disponibile sul portale Agenda Didattica o tramite il link "Il mio
-                                calendario
-                                lezioni" nella home page.</p>
+                            <p data-i18n="faq_a2">L'orario è disponibile sul portale Agenda Didattica o tramite il link "Il mio calendario lezioni" nella home page.</p>
                         </div>
                     </div>
                     <div class="faq-item fade-in-card">
                         <button class="faq-question">
-                            <span>Chi posso contattare per problemi amministrativi?</span>
+                            <span data-i18n="faq_q3">Chi posso contattare per problemi amministrativi?</span>
                             <i class="ri-arrow-down-s-line"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>Per problemi relativi alla carriera, contatta la Segreteria Studenti. Per questioni
-                                didattiche, rivolgiti all'Unità Didattica del dipartimento.</p>
+                            <p data-i18n="faq_a3">Per problemi relativi alla carriera, contatta la Segreteria Studenti. Per questioni didattiche, rivolgiti all'Unità Didattica del dipartimento.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="faq-category">
                 <h2 class="section-title">
-                    <img src="assets/canteen.webp" class="section-icon-img" alt=""> Mensa & Servizi
+                    <img src="assets/canteen.webp" class="section-icon-img" alt=""> <span data-i18n="cat_mensa">Mensa & Servizi</span>
                 </h2>
                 <div class="faq-list">
                     <div class="faq-item fade-in-card">
                         <button class="faq-question">
-                            <span>Come accedo alla posta universitaria?</span>
+                            <span data-i18n="faq_q4">Come accedo alla posta universitaria?</span>
                             <i class="ri-arrow-down-s-line"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>Puoi accedere tramite il portale Outlook utilizzando le tue credenziali di ateneo
-                                (nome.cognome@studenti.unipi.it).</p>
+                            <p data-i18n="faq_a4">Puoi accedere tramite il portale Outlook utilizzando le tue credenziali di ateneo (nome.cognome@studenti.unipi.it).</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="faq-category">
                 <h2 class="section-title">
-                    <img src="assets/map.webp" class="section-icon-img" alt=""> Mappe & Logistica
+                    <img src="assets/map.webp" class="section-icon-img" alt=""> <span data-i18n="cat_mappe">Mappe & Logistica</span>
                 </h2>
                 <div class="faq-list">
                     <div class="faq-item fade-in-card">
                         <button class="faq-question">
-                            <span>Dove si trovano le aule del Polo Fibonacci?</span>
+                            <span data-i18n="faq_q5">Dove si trovano le aule del Polo Fibonacci?</span>
                             <i class="ri-arrow-down-s-line"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>Il Polo Fibonacci si trova in Largo Bruno Pontecorvo 3. Puoi consultare la mappa
-                                nella
-                                sezione "Mappe & Logistica" della home.</p>
+                            <p data-i18n="faq_a5">Il Polo Fibonacci si trova in Largo Bruno Pontecorvo 3. Puoi consultare la mappa nella sezione "Mappe & Logistica" della home.</p>
                         </div>
                     </div>
                 </div>
@@ -134,7 +141,7 @@
             <section class="representatives-section fade-in" style="margin-top: 3rem; margin-bottom: 2rem;">
                 <h2 class="section-title">
                     <img src="assets/rappresentanti.webp" class="section-icon-img" alt="icon">
-                    Rappresentanti
+                    <span data-i18n="cat_rappresentanti">Rappresentanti</span>
                 </h2>
                 <div class="representatives-grid">
                     <div class="rep-card">
@@ -144,7 +151,7 @@
                         </div>
                         <div class="rep-info">
                             <h3 class="rep-name">Nome Cognome</h3>
-                            <p class="rep-role">Rappresentante Triennale</p>
+                            <p class="rep-role" data-i18n="rep_bachelor">Rappresentante Triennale</p>
                             <a href="mailto:email@studenti.unipi.it" class="rep-contact">
                                 <i class="ri-mail-line"></i> email@studenti.unipi.it
                             </a>
@@ -157,7 +164,7 @@
                         </div>
                         <div class="rep-info">
                             <h3 class="rep-name">Nome Cognome</h3>
-                            <p class="rep-role">Rappresentante Triennale</p>
+                            <p class="rep-role" data-i18n="rep_bachelor">Rappresentante Triennale</p>
                             <a href="mailto:email@studenti.unipi.it" class="rep-contact">
                                 <i class="ri-mail-line"></i> email@studenti.unipi.it
                             </a>
@@ -170,7 +177,7 @@
                         </div>
                         <div class="rep-info">
                             <h3 class="rep-name">Nome Cognome</h3>
-                            <p class="rep-role">Rappresentante Magistrale</p>
+                            <p class="rep-role" data-i18n="rep_master">Rappresentante Magistrale</p>
                             <a href="mailto:email@studenti.unipi.it" class="rep-contact">
                                 <i class="ri-mail-line"></i> email@studenti.unipi.it
                             </a>
@@ -184,8 +191,8 @@
                     <i class="ri-lightbulb-flash-line"></i>
                 </div>
                 <div class="suggest-content">
-                    <span class="suggest-title">Hai una domanda da aggiungere?</span>
-                    <span class="suggest-desc">Aiuta i tuoi compagni suggerendo nuove domande.</span>
+                    <span class="suggest-title" data-i18n="faq_suggest_title">Hai una domanda da aggiungere?</span>
+                    <span class="suggest-desc" data-i18n="faq_suggest_desc">Aiuta i tuoi compagni suggerendo nuove domande.</span>
                 </div>
                 <i class="ri-mail-send-line suggest-arrow"></i>
             </a>
@@ -212,13 +219,30 @@
     </footer>
     </div>
     <script>
+        /* Global applyLang — called by BussolaSettings when user switches language */
+        function applyLang(lang) {
+            localStorage.setItem('bussola_lang', lang);
+            BussolaI18n.applyDataI18n(lang);
+            const totalFaq = document.getElementById('total-faq');
+            if (totalFaq) {
+                const n = document.querySelectorAll('.faq-item').length;
+                const fn = BussolaI18n.t('faq_total');
+                totalFaq.textContent = typeof fn === 'function' ? fn(n) : `${n}`;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Apply language on load
+            const lang = BussolaI18n.getLang();
+            BussolaI18n.applyDataI18n(lang);
+
             const faqItems = document.querySelectorAll('.faq-item');
             const searchInput = document.getElementById('search-input');
             const header = document.querySelector('header');
             const totalFaq = document.getElementById('total-faq');
             if (totalFaq) {
-                totalFaq.textContent = `${faqItems.length} domande frequenti`;
+                const fn = BussolaI18n.t('faq_total');
+                totalFaq.textContent = typeof fn === 'function' ? fn(faqItems.length) : `${faqItems.length}`;
             }
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');

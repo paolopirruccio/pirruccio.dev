@@ -25,6 +25,8 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
 </head>
 
 <body>
@@ -36,25 +38,30 @@
                 <img src="assets/door.webp" alt="Cerca Aule Logo" class="site-logo">
             </picture>
             <div class="version-badge beta">Beta</div>
-            <h1>Cerca Aule</h1>
-            <p
+            <h1 data-i18n="aule_h1">Cerca Aule</h1>
+            <p data-i18n="aule_desc"
                 style="text-align: center; color: var(--text-secondary); font-size: 1rem; margin-top: -0.5rem; margin-bottom: 2rem;">
                 Trova un'aula libera, controlla che lezione c'è e quando finisce al Polo Fibonacci.
             </p>
             <div class="filter-controls">
                 <div class="datetime-controls">
-                    <div class="input-group">
+                    <div class="input-group" onclick="try{document.getElementById('date-input').showPicker()}catch(e){}" style="cursor:pointer;">
                         <i class="ri-calendar-event-line input-icon"></i>
                         <input type="date" id="date-input">
                     </div>
-                    <div class="input-group">
+                    <div class="input-group" onclick="try{document.getElementById('time-input').showPicker()}catch(e){}" style="cursor:pointer;">
                         <i class="ri-time-line input-icon"></i>
                         <input type="time" id="time-input">
                     </div>
                 </div>
+                <div class="datetime-shortcuts">
+                    <button id="tomorrow-btn" class="tomorrow-btn" onclick="toggleTomorrow()">
+                        <i class="ri-skip-right-line"></i> <span id="tomorrow-label" data-i18n="aule_tomorrow">Domani</span>
+                    </button>
+                </div>
                 <div class="search-container" style="margin-top: 0; width: 100%;">
                     <i class="ri-search-line search-icon"></i>
-                    <input type="text" id="search-input" placeholder="Cerca aule del Fibonacci...">
+                    <input type="text" id="search-input" data-i18n="aule_placeholder" placeholder="Cerca aule del Fibonacci...">
                     <i class="ri-close-line search-clear" id="search-clear"></i>
                 </div>
             </div>
@@ -63,13 +70,19 @@
             <div
                 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; padding: 0 0.5rem; color: var(--text-secondary); font-size: 0.95rem;">
                 <span style="display: flex; align-items: center; gap: 0.5rem;">
-                    Aule libere:
+                    <span data-i18n="aule_free_label">Aule libere:</span>
                     <strong id="free-total" style="color: var(--text-primary); font-size: 1.1rem;">0</strong>
                 </span>
                 <span class="version-badge"
                     style="margin-bottom: 0; padding: 0.25rem 0.6rem; font-size: 0.65rem; background: rgba(46, 204, 113, 0.15); color: #2ecc71; border-color: rgba(46, 204, 113, 0.2); display: inline-flex; align-items: center; gap: 0.3rem;">
-                    <i class="ri-refresh-line"></i> Sinc. Cineca UP
+                    <i class="ri-refresh-line"></i> <span data-i18n="aule_sync">Sinc. Cineca UP</span>
                 </span>
+            </div>
+            <div id="fav-row" style="display:none; margin-bottom:0.5rem;">
+                <button id="fav-chip" class="chip" onclick="toggleFavFilter()" style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                    <i class="ri-heart-3-fill" style="font-size:0.95rem;"></i>
+                    <span id="fav-chip-label">Preferiti</span>
+                </button>
             </div>
             <div id="building-chips" class="chip-container" style="margin-bottom: 0.5rem;">
 
@@ -86,8 +99,8 @@
                     <img src="assets/doveunipi.webp" alt="Dove UniPi Logo" style="width: 24px; height: 24px;">
                 </div>
                 <div class="suggest-content">
-                    <span class="suggest-title">Apri mappa completa</span>
-                    <span class="suggest-desc">Esplora tutte le aule e i poli su Dove UniPi.</span>
+                    <span class="suggest-title" data-i18n="aule_map_title">Apri mappa completa</span>
+                    <span class="suggest-desc" data-i18n="aule_map_desc">Esplora tutte le aule e i poli su Dove UniPi.</span>
                 </div>
                 <i class="ri-external-link-line suggest-arrow"></i>
             </a>
@@ -160,28 +173,102 @@
         let dataError = false;
         let selectedBuilding = 'TUTTI';
         let selectedFloor = 'TUTTI';
+        let showOnlyFavs = false;
+
+        // ── Preferiti ──
+        function getFavs() {
+            try { return JSON.parse(localStorage.getItem('bussola_favs') || '[]'); } catch { return []; }
+        }
+        function isFav(name) { return getFavs().includes(name); }
+        function toggleFav(name) {
+            const favs = getFavs();
+            const idx = favs.indexOf(name);
+            if (idx >= 0) favs.splice(idx, 1); else favs.push(name);
+            localStorage.setItem('bussola_favs', JSON.stringify(favs));
+            updateFavUi();
+            if (showOnlyFavs) renderList();
+        }
+        function handleFavClick(e, btn, name) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFav(name);
+            const saved = isFav(name);
+            btn.classList.toggle('saved', saved);
+            btn.querySelector('i').className = saved ? 'ri-heart-3-fill' : 'ri-heart-3-line';
+            btn.title = saved ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti';
+        }
+        function updateFavUi() {
+            const count = getFavs().length;
+            const row   = document.getElementById('fav-row');
+            const label = document.getElementById('fav-chip-label');
+            if (row)   row.style.display = count > 0 ? 'flex' : 'none';
+            if (label) label.textContent = `${BussolaI18n.t('aule_favorites')} (${count})`;
+            if (showOnlyFavs && count === 0) { showOnlyFavs = false; }
+            const chip = document.getElementById('fav-chip');
+            if (chip) chip.classList.toggle('fav-chip-active', showOnlyFavs);
+        }
+        function toggleFavFilter() {
+            showOnlyFavs = !showOnlyFavs;
+            document.getElementById('fav-chip').classList.toggle('fav-chip-active', showOnlyFavs);
+            renderList();
+        }
         const dateInput = document.getElementById('date-input');
         const timeInput = document.getElementById('time-input');
         const resultsList = document.getElementById('results-list');
         const freeTotal = document.getElementById('free-total');
-        const loader = document.getElementById('loading-overlay');
         const chipContainer = document.getElementById('building-chips');
         const floorChipContainer = document.getElementById('floor-chips');
 
         const now = new Date();
         dateInput.value = now.toISOString().split('T')[0];
         timeInput.value = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+        // ── Domani / Oggi button ──
+        let _isTomorrow = false;
+        function toggleTomorrow() {
+            _isTomorrow = !_isTomorrow;
+            const btn = document.getElementById('tomorrow-btn');
+            const label = document.getElementById('tomorrow-label');
+            if (_isTomorrow) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dateInput.value = tomorrow.toISOString().split('T')[0];
+                timeInput.value = '08:30';
+                if (label) label.textContent = BussolaI18n.t('aule_today_btn');
+                btn.classList.add('active');
+            } else {
+                const todayNow = new Date();
+                dateInput.value = todayNow.toISOString().split('T')[0];
+                timeInput.value = todayNow.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', hour12: false });
+                if (label) label.textContent = BussolaI18n.t('aule_tomorrow');
+                btn.classList.remove('active');
+            }
+            renderList();
+        }
+        // Reset isTomorrow se l'utente cambia manualmente la data
+        dateInput.addEventListener('change', function() {
+            const today = new Date().toISOString().split('T')[0];
+            if (dateInput.value === today && _isTomorrow) {
+                _isTomorrow = false;
+                const btn = document.getElementById('tomorrow-btn');
+                btn.innerHTML = '<i class="ri-calendar-2-line"></i> Domani';
+                btn.classList.remove('active');
+            }
+        });
         async function init() {
             try {
                 await Promise.all([fetchRooms(), fetchAuleServizi()]);
                 generateChips();
                 await syncCineca();
                 bindUI();
+                updateFavUi();
             } catch (err) {
                 console.error(err);
-                alert("Errore caricamento dati.");
-            } finally {
-                loader.style.display = 'none';
+                resultsList.innerHTML = `
+                    <div style="padding: 3rem 1rem; text-align: center; color: var(--text-secondary);">
+                        <i class="ri-wifi-off-line" style="font-size: 2.5rem; display: block; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p style="font-size: 0.95rem;">Impossibile caricare i dati. Controlla la connessione e ricarica la pagina.</p>
+                    </div>`;
             }
         }
         async function fetchRooms() {
@@ -242,7 +329,7 @@
                 let label = b;
                 let icon = '';
                 if (b === 'TUTTI') {
-                    label = 'Tutti gli Edifici';
+                    label = BussolaI18n.t('aule_all_buildings');
                     icon = '<i class="ri-building-line" style="margin-right: 4px;"></i>';
                 } else if (b.length <= 2) {
 
@@ -278,7 +365,7 @@
             }
             floorChipContainer.style.display = 'flex';
             floorChipContainer.innerHTML = floors.map(f => {
-                let label = f === 'TUTTI' ? 'Tutti i piani' : `Piano ${f}`;
+                let label = f === 'TUTTI' ? BussolaI18n.t('aule_all_floors') : `${BussolaI18n.t('aule_floor')} ${f}`;
                 return `
                     <div class="chip ${f === selectedFloor ? 'active' : ''}" data-floor="${f}">
                         ${label}
@@ -331,7 +418,8 @@
                             return data.map(e => {
                                 const aule = (e.risorse || []).filter(r => r.aula).map(r => r.aula);
                                 const nome = e.evento?.dettagliDidattici?.[0]?.nome || e.evento?.tipoAttivita?.descrizione || 'Occupata';
-                                return { ...e, aule, nomeLezione: nome, poloKey: key };
+                                const nomeEn = BussolaI18n.getCourseName(e.evento);
+                            return { ...e, aule, nomeLezione: nome, nomeLezioneEn: nomeEn, poloKey: key };
                             });
                         } else {
                             hasError = true;
@@ -369,7 +457,14 @@
             return icons ? `<div class="services-row">${icons}</div>` : '';
         }
         function formatRemainingTime(minutes) {
-            if (minutes < 1) return "Ancora per meno di un minuto";
+            const lang = BussolaI18n.getLang();
+            if (minutes < 1) return BussolaI18n.t('aule_remaining_under1');
+            if (lang === 'en') {
+                if (minutes < 60) return `${minutes} min left`;
+                const hours = Math.floor(minutes / 60);
+                const mins = minutes % 60;
+                return mins > 0 ? `${hours}h ${mins}min left` : `${hours}h left`;
+            }
             if (minutes < 60) return `Ancora per ${minutes} min`;
             const hours = Math.floor(minutes / 60);
             const mins = minutes % 60;
@@ -390,8 +485,8 @@
                 resultsList.innerHTML = `
                         <div style="padding: 3rem; text-align: center; color: var(--text-muted); background: var(--card-bg); border-radius: 16px; border: 1px solid var(--card-border);">
                             <i class="ri-door-lock-line" style="font-size: 3rem; display: block; margin-bottom: 1rem; color: var(--text-secondary);"></i>
-                            <h3 style="margin-bottom: 0.5rem; color: var(--text-primary); font-family: var(--font-display); font-style: italic; font-size: 1.8rem; font-weight: 400;">Polo Chiuso</h3>
-                            <p style="font-size: 0.95rem; line-height: 1.5;">Il polo è aperto dal lunedì al venerdì,<br>dalle 08:00 alle 19:30.</p>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--text-primary); font-family: var(--font-display); font-size: 1.8rem; font-weight: 400;">${BussolaI18n.t('aule_polo_closed_title')}</h3>
+                            <p style="font-size: 0.95rem; line-height: 1.5;">${BussolaI18n.t('aule_polo_closed_desc')}</p>
                         </div>`;
                 return;
             }
@@ -400,9 +495,9 @@
                 resultsList.innerHTML = `
                     <div style="padding: 3rem 1rem; text-align: center; background: rgba(255,255,255,0.03); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-top: 1rem;">
                         <i class="ri-server-line" style="font-size: 3rem; display: block; margin-bottom: 1.5rem; color: var(--text-secondary); opacity: 0.5;"></i>
-                        <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 400;">Servizio Cineca non disponibile</h3>
-                        <p style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 2rem; max-width: 400px; margin-left: auto; margin-right: auto;">I server dell'università non rispondono. <br>L'app non può determinare quali aule siano libere in questo momento.</p>
-                        <button onclick="syncCineca()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: var(--text-primary); padding: 0.8rem 2rem; border-radius: 14px; font-family: var(--font-family); font-size: 1rem; cursor: pointer; transition: all 0.2s;">Riprova ora</button>
+                        <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 400;">${BussolaI18n.t('aule_error_title')}</h3>
+                        <p style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 2rem; max-width: 400px; margin-left: auto; margin-right: auto;">${BussolaI18n.t('aule_error_desc')}</p>
+                        <button onclick="syncCineca()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: var(--text-primary); padding: 0.8rem 2rem; border-radius: 14px; font-family: var(--font-family); font-size: 1rem; cursor: pointer; transition: all 0.2s;">${BussolaI18n.t('aule_retry')}</button>
                     </div>`;
                 freeTotal.textContent = "0";
                 chipContainer.style.display = 'none';
@@ -414,12 +509,14 @@
             setTimeout(() => {
                 chipContainer.style.display = 'flex';
                 if (selectedBuilding !== 'TUTTI') floorChipContainer.style.display = 'flex';
+                const _favs = getFavs();
                 const processed = roomsData
                     .filter(r => {
                         const matchesSearch = !searchQuery || r.name.toLowerCase().includes(searchQuery) || r.building.toLowerCase().includes(searchQuery);
                         const matchesBuilding = selectedBuilding === 'TUTTI' || r.building === selectedBuilding;
                         const matchesFloor = selectedFloor === 'TUTTI' || String(r.floor) === selectedFloor;
-                        return matchesSearch && matchesBuilding && matchesFloor;
+                        const matchesFav = !showOnlyFavs || _favs.includes(r.name);
+                        return matchesSearch && matchesBuilding && matchesFloor && matchesFav;
                     })
                     .map(room => {
                         const event = eventsData.find(e => {
@@ -480,7 +577,7 @@
                         const limitTime = item.next ? new Date(item.next.dataInizio) : new Date(new Date(check).setHours(CLOSING_HOUR, CLOSING_MINUTE, 0, 0));
                         const minutesLeft = Math.floor((limitTime - check) / (1000 * 60));
                         const timeStr = limitTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                        untilText = `Libera fino alle ${timeStr}`;
+                        untilText = `${BussolaI18n.t('aule_free_until')} ${timeStr}`;
                         const realNow = new Date();
                         const isToday = new Date(dateInput.value).toDateString() === realNow.toDateString();
                         const isCurrentTime = Math.abs(realNow - check) < 120000;
@@ -493,15 +590,24 @@
                         const freeAtHours = item.freeAt.getHours();
                         const freeAtMinutes = item.freeAt.getMinutes();
                         const isAfterClosing = freeAtHours > CLOSING_HOUR || (freeAtHours === CLOSING_HOUR && freeAtMinutes >= CLOSING_MINUTE);
-                        untilText = isAfterClosing ? 'Fino a chiusura' : `Si libera alle ${timeStr}`;
+                        untilText = isAfterClosing ? BussolaI18n.t('aule_free_until_close') : `${BussolaI18n.t('aule_free_from')} ${timeStr}`;
                     }
+                    const _favSaved = isFav(item.room.name);
+                    const _rn = item.room.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
                     html += `
                         <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="search-result-item fade-in-card">
-                            <i class="ri-map-pin-line map-icon"></i>
+                            <div class="room-top-actions">
+                                <button class="fav-btn${_favSaved ? ' saved' : ''}"
+                                        onclick="handleFavClick(event,this,'${_rn}')"
+                                        title="${_favSaved ? BussolaI18n.t('aule_fav_remove') : BussolaI18n.t('aule_fav_add')}">
+                                    <i class="${_favSaved ? 'ri-heart-3-fill' : 'ri-heart-3-line'}"></i>
+                                </button>
+                                <i class="ri-map-pin-line map-icon"></i>
+                            </div>
                             <div class="result-content">
                                 <div class="result-title">${item.room.name}</div>
                                 <div class="result-details">
-                                    <i class="ri-building-4-line"></i> ${item.room.building} &middot; Piano ${item.room.floor}
+                                    <i class="ri-building-4-line"></i> ${item.room.building} &middot; ${BussolaI18n.t('aule_floor')} ${item.room.floor}
                                 </div>
                                 ${getServicesHtml(item.room.name)}
                             </div>
@@ -515,9 +621,10 @@
                                 const minutesLeft = Math.floor((item.freeAt - check) / (1000 * 60));
                                 let subText = untilText;
                                 if (isToday && minutesLeft > 0 && minutesLeft < 60) {
-                                    subText = `Si libera tra ${minutesLeft} min`;
+                                    subText = `${BussolaI18n.t('aule_free_in')} ${minutesLeft} min`;
                                 }
-                                return `<span>${item.current.nomeLezione.split('-')[0].trim()}</span><br><span style="font-size: 0.75rem; opacity: 0.8;">${subText}</span>`;
+                                const displayName = (BussolaI18n.getLang() === 'en' && item.current.nomeLezioneEn ? item.current.nomeLezioneEn : item.current.nomeLezione).split('-')[0].trim();
+                                return `<span>${displayName}</span><br><span style="font-size: 0.75rem; opacity: 0.8;">${subText}</span>`;
                             })()
                             : `<span>${untilText}</span>${showMinutes ? `<br><span style="font-size: 0.75rem; opacity: 0.8;">${timeRemainingText}</span>` : ''}`
                         }
@@ -530,7 +637,7 @@
                         </a>
                     `;
                 });
-                resultsList.innerHTML = html || `<div style="padding: 3rem; text-align: center; color: var(--text-muted);"><i class="ri-search-eye-line" style="font-size: 2rem; display: block; margin-bottom: 1rem;"></i>Nessun risultato disponibile.</div>`;
+                resultsList.innerHTML = html || `<div style="padding: 3rem; text-align: center; color: var(--text-muted);"><i class="ri-search-eye-line" style="font-size: 2rem; display: block; margin-bottom: 1rem;"></i>${BussolaI18n.t('aule_no_results')}</div>`;
             }, 10);
         }
         function updateDateDisplay() {
@@ -606,6 +713,24 @@
             }
         });
         window.dispatchEvent(new Event('scroll'));
+
+        /* Global applyLang — called by BussolaSettings when user switches language */
+        function applyLang(lang) {
+            localStorage.setItem('bussola_lang', lang);
+            BussolaI18n.applyDataI18n(lang);
+            // Rebuild chips with new language
+            generateChips();
+            generateFloorChips();
+            // Re-render list
+            renderList();
+            // Update fav UI
+            updateFavUi();
+        }
+
+        // Apply lang on load
+        document.addEventListener('DOMContentLoaded', function () {
+            BussolaI18n.applyDataI18n(BussolaI18n.getLang());
+        });
     </script>
     <script src="../version.js"></script>
     <div class="scroll-buttons">

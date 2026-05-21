@@ -20,131 +20,24 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
     <style>
-        .minimal-container {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            padding: 1rem;
-        }
-
-        .pill-menu-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 100px;
-            padding: 1.2rem 1.8rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pill-menu-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .pill-menu-item:hover::before {
-            transform: translateX(100%);
-        }
-
-        .pill-menu-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .pill-menu-item:active {
-            transform: translateY(-1px);
-        }
-
-        .pill-left {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-        }
-
-        .pill-icon {
-            font-size: 1.6rem;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .pill-text {
-            font-size: 1.15rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
-        .pill-arrow {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            transition: transform 0.3s;
-        }
-
-        .pill-menu-item:hover .pill-arrow {
-            transform: translateX(4px);
-            color: var(--text-primary);
-        }
-
-        /* Varie tinte leggere per icone per dare personalità */
-        .pill-lezioni .pill-icon {
-            color: #60a5fa;
-        }
-
-        .pill-aule .pill-icon {
-            color: #f472b6;
-        }
-
-        .pill-faq .pill-icon {
-            color: #fbbf24;
-        }
-
-        .pill-links .pill-icon {
-            color: #34d399;
-        }
-
-        .pill-map .pill-icon {
-            color: #f87171;
-        }
-
+        /* Home card-grid overrides per tema chiaro */
         @media (prefers-color-scheme: light) {
-            .pill-menu-item {
+            .bussola-home-card {
                 background: #ffffff;
-                border-color: rgba(0, 0, 0, 0.1);
-                color: #111;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                border-color: rgba(0,0,0,0.08);
+                box-shadow: 0 2px 12px rgba(0,0,0,0.05);
             }
-
-            .pill-menu-item:hover {
+            .bussola-home-card:hover {
                 background: #f8f9fa;
-                border-color: rgba(0, 0, 0, 0.2);
+                border-color: rgba(0,0,0,0.15);
             }
-
-            .pill-left,
-            .pill-icon {
-                color: #111;
-            }
-
-            .pill-arrow {
-                color: #666;
-            }
+        }
+        html[data-theme="letterato"] .bussola-home-card {
+            background: rgba(60,40,10,0.03);
+            border-color: rgba(80,50,20,0.14);
         }
     </style>
 </head>
@@ -170,8 +63,7 @@
         </div>
     </div>
 
-    <!-- Navbar hidden for minimalist design -->
-    <!-- <script src="navbar.js"></script> -->
+    <script src="navbar.js"></script>
 
     <div class="container fade-in">
 
@@ -189,50 +81,46 @@
             </p>
         </header>
 
-        <!-- Minimalist Pill Menu -->
-        <main class="minimal-container">
+        <!-- Card Grid Menu -->
+        <main class="bussola-home-grid">
 
-            <a href="./links.html" class="pill-menu-item pill-links">
-                <div class="pill-left">
-                    <i class="ri-bookmark-line pill-icon"></i>
-                    <span class="pill-text">Tutti i link utili a portali e servizi</span>
-                </div>
-                <i class="ri-arrow-right-line pill-arrow"></i>
+            <a href="./links.html" class="bussola-home-card card-links">
+                <i class="ri-bookmark-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="links_title">Link utili</span>
+                <span class="bussola-card-desc" data-i18n="links_desc">Portali, servizi e risorse</span>
+                <i class="ri-arrow-right-line bussola-card-arrow"></i>
             </a>
 
-
-            <a href="./lezioni.html" class="pill-menu-item pill-lezioni">
-                <div class="pill-left">
-                    <i class="ri-presentation-line pill-icon"></i>
-                    <span class="pill-text">Cerca lezioni al polo Fibonacci</span>
-                </div>
-                <i class="ri-arrow-right-line pill-arrow"></i>
+            <a href="./lezioni.html" class="bussola-home-card card-lezioni">
+                <i class="ri-presentation-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="lezioni_title">Lezioni</span>
+                <span class="bussola-card-desc" data-i18n="lezioni_desc">Orari al Polo Fibonacci</span>
+                <i class="ri-arrow-right-line bussola-card-arrow"></i>
             </a>
 
-            <a href="./aule.html" class="pill-menu-item pill-aule">
-                <div class="pill-left">
-                    <i class="ri-door-open-line pill-icon"></i>
-                    <span class="pill-text">Cerca aule del polo Fibonacci</span>
-                </div>
-                <i class="ri-arrow-right-line pill-arrow"></i>
+            <a href="./aule.html" class="bussola-home-card card-aule">
+                <i class="ri-door-open-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="aule_title">Aule libere</span>
+                <span class="bussola-card-desc" data-i18n="aule_desc">Trova un posto al Fibonacci</span>
+                <i class="ri-arrow-right-line bussola-card-arrow"></i>
             </a>
 
-            <a href="./faq.html" class="pill-menu-item pill-faq">
-                <div class="pill-left">
-                    <i class="ri-question-line pill-icon"></i>
-                    <span class="pill-text">Domande frequenti su InfoUma</span>
-                </div>
-                <i class="ri-arrow-right-line pill-arrow"></i>
+            <a href="./faq.html" class="bussola-home-card card-faq">
+                <i class="ri-question-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="faq_title">FAQ</span>
+                <span class="bussola-card-desc" data-i18n="faq_desc">Domande frequenti</span>
+                <i class="ri-arrow-right-line bussola-card-arrow"></i>
             </a>
 
-            <a href="https://plumkewe.github.io/dove-unipi/" target="_blank" rel="noopener noreferrer" class="pill-menu-item pill-map">
-                <div class="pill-left">
-                    <i class="ri-map-pin-line pill-icon"></i>
-                    <span class="pill-text">Dove UniPi, mappa dei poli</span>
+            <a href="https://plumkewe.github.io/dove-unipi/" target="_blank" rel="noopener noreferrer"
+               class="bussola-home-card card-map full-width">
+                <i class="ri-map-pin-line bussola-card-icon"></i>
+                <div>
+                    <span class="bussola-card-title" data-i18n="map_title">Mappa dei Poli</span>
+                    <span class="bussola-card-desc" style="display:block;" data-i18n="map_desc">Dove UniPi — naviga il campus</span>
                 </div>
-                <i class="ri-external-link-line pill-arrow"></i>
+                <i class="ri-external-link-line bussola-card-arrow"></i>
             </a>
-
 
         </main>
 
@@ -255,7 +143,142 @@
         </footer>
     </div>
 
+    <!-- ── PWA install banner ── -->
+    <div class="pwa-banner" id="pwaBanner">
+        <div class="pwa-banner-icon">🧭</div>
+        <div class="pwa-banner-text">
+            <strong id="pwaTitle">Aggiungi alla schermata home</strong>
+            <span id="pwaDesc">Accedi più velocemente come un'app.</span>
+        </div>
+        <div class="pwa-banner-actions">
+            <button class="pwa-install-btn" id="pwaInstallBtn" onclick="handlePwaInstall()">Installa</button>
+            <button class="pwa-dismiss-btn" onclick="dismissPwa()"><i class="ri-close-line"></i></button>
+        </div>
+    </div>
+
     <script src="../version.js"></script>
+    <script>
+    /* ────────────────────────────────────────────
+       i18n — traduzioni home
+    ──────────────────────────────────────────── */
+    const I18N = {
+        it: {
+            links_title:   'Link utili',
+            links_desc:    'Portali, servizi e risorse',
+            lezioni_title: 'Lezioni',
+            lezioni_desc:  'Orari al Polo Fibonacci',
+            aule_title:    'Aule libere',
+            aule_desc:     'Trova un posto al Fibonacci',
+            faq_title:     'FAQ',
+            faq_desc:      'Domande frequenti',
+            map_title:     'Mappa dei Poli',
+            map_desc:      'Dove UniPi — naviga il campus',
+        },
+        en: {
+            links_title:   'Useful links',
+            links_desc:    'Portals, services & resources',
+            lezioni_title: 'Lectures',
+            lezioni_desc:  'Schedule at Polo Fibonacci',
+            aule_title:    'Free rooms',
+            aule_desc:     'Find a spot at Fibonacci',
+            faq_title:     'FAQ',
+            faq_desc:      'Frequently asked questions',
+            map_title:     'Campus map',
+            map_desc:      'Dove UniPi — explore the campus',
+        }
+    };
+
+    function applyLang(lang) {
+        localStorage.setItem('bussola_lang', lang);
+        document.documentElement.setAttribute('lang', lang === 'en' ? 'en' : 'it');
+        // Applica traduzioni locali (home cards)
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+            const key = el.dataset.i18n;
+            if (I18N[lang] && I18N[lang][key]) el.textContent = I18N[lang][key];
+        });
+        // Applica traduzioni globali (navbar e altri elementi con BussolaI18n)
+        if (window.BussolaI18n) BussolaI18n.applyDataI18n(lang);
+        // Aggiorna bottoni lingua nell'overlay globale
+        var it = document.getElementById('bussolaLangIT');
+        var en = document.getElementById('bussolaLangEN');
+        if (it) it.classList.toggle('active', lang === 'it');
+        if (en) en.classList.toggle('active', lang === 'en');
+    }
+
+    function refreshThemeGrid() {
+        // Delega all'overlay globale iniettato da theme.js
+        var cur = BussolaTheme.get();
+        document.querySelectorAll('#bussolaThemeGrid .theme-card').forEach(function(card) {
+            card.classList.toggle('active', card.dataset.theme === cur);
+        });
+    }
+
+    /* ────────────────────────────────────────────
+       PWA install
+    ──────────────────────────────────────────── */
+    var _deferredPrompt = null;
+
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        _deferredPrompt = e;
+        if (!localStorage.getItem('bussola_pwa_dismissed')) showPwaBanner('android');
+    });
+
+    function showPwaBanner(os) {
+        var banner = document.getElementById('pwaBanner');
+        var btn    = document.getElementById('pwaInstallBtn');
+        var desc   = document.getElementById('pwaDesc');
+        if (os === 'ios') {
+            btn.textContent = '?';
+            btn.style.display = 'none';
+            desc.textContent = 'Tocca   poi "Aggiungi alla schermata Home"';
+            // Mostra istruzione share icon
+            document.getElementById('pwaTitle').textContent = 'Installa l\'app';
+            var shareIcon = document.createElement('span');
+            shareIcon.innerHTML = ' <i class="ri-share-box-line"></i> ';
+            shareIcon.style.cssText = 'display:inline;vertical-align:middle;';
+            desc.innerHTML = 'Tocca ' + shareIcon.innerHTML + ' poi <strong>Aggiungi alla schermata Home</strong>';
+        }
+        setTimeout(function() { banner.classList.add('show'); }, 1500);
+    }
+
+    function handlePwaInstall() {
+        if (!_deferredPrompt) return;
+        _deferredPrompt.prompt();
+        _deferredPrompt.userChoice.then(function() {
+            _deferredPrompt = null;
+            dismissPwa();
+        });
+    }
+
+    function dismissPwa() {
+        document.getElementById('pwaBanner').classList.remove('show');
+        localStorage.setItem('bussola_pwa_dismissed', '1');
+    }
+
+    /* ────────────────────────────────────────────
+       Init
+    ──────────────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lingua
+        var lang = localStorage.getItem('bussola_lang') || 'it';
+        applyLang(lang);
+
+        // La home è breve — mostra sempre il trigger impostazioni
+        setTimeout(function() {
+            var t = document.getElementById('bussolaSettingsTrigger');
+            if (t) t.classList.add('visible');
+        }, 150);
+
+        // iOS PWA check
+        var isIOS    = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        var standalone = window.navigator.standalone === true;
+        if (isIOS && isSafari && !standalone && !localStorage.getItem('bussola_pwa_dismissed')) {
+            showPwaBanner('ios');
+        }
+    });
+    </script>
 </body>
 
 </html>
