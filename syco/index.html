@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sycophancy Flashcards & Quiz - Studio Relazione</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+    <header class="app-header">
+        <div class="header-logo">
+            <span class="logo-icon">🧠</span>
+            <div class="logo-text">
+                <h1>SycophancyStudy</h1>
+                <p>Ripasso Bibliografico per la Commissione</p>
+            </div>
+        </div>
+        <div class="header-actions" style="display: flex; align-items: center; gap: 12px;">
+            <a href="Pirruccio_614754%20copy.pdf" target="_blank" class="btn btn-secondary" style="width: auto; padding: 8px 14px; font-size: 12px; border-radius: var(--border-radius); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">📄 PDF Relazione</a>
+            <button id="themeToggle" class="btn-icon" aria-label="Cambia tema">🌓</button>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- Dashboard / Mode Selection -->
+        <section id="modeSelection" class="view-section active">
+            <div class="hero-section">
+                <h2>Pronto a superare l'esame?</h2>
+                <p>Scegli una modalità per ripassare gli autori e i concetti chiave della tua relazione: <strong>"L'utente ha sempre ragione, o quasi: la compiacenza degli LLM"</strong>.</p>
+            </div>
+
+            <div class="modes-grid">
+                <div class="mode-card" onclick="app.startMode('flashcards')">
+                    <div class="mode-icon">🎴</div>
+                    <div class="mode-card-text">
+                        <h3>Flashcards Interattive</h3>
+                        <p>Memorizza i nomi con le iconiche carte rotanti 3D. Segna le carte come "Imparate" o "Da rivedere".</p>
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="app.startMode('quiz')">
+                    <div class="mode-icon">🏆</div>
+                    <div class="mode-card-text">
+                        <h3>Quiz a Risposta Multipla</h3>
+                        <p>Mettiti alla prova con domande a risposta multipla generate dinamicamente e monitora il tuo punteggio in tempo reale.</p>
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="app.startMode('theory')">
+                    <div class="mode-icon">📖</div>
+                    <div class="mode-card-text">
+                        <h3>Compendio di Teoria</h3>
+                        <p>Accedi alla dispensa e bibliografia completa con concetti chiave ed espansioni dettagliate per ogni studio citato.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <h3>Le tue statistiche di oggi</h3>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <span class="stat-label">Autori esplorati</span>
+                        <span class="stat-num" id="statTotalSeen">0/17</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Miglior punteggio quiz</span>
+                        <span class="stat-num" id="statBestQuiz">--</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flashcards Mode -->
+        <section id="flashcardMode" class="view-section">
+            <div class="section-header">
+                <button class="btn btn-text" onclick="app.showDashboard()">&larr; Dashboard</button>
+                <div class="progress-container">
+                    <span id="flashcardProgressText">Carta 1 di 17</span>
+                    <div class="progress-bar-outer">
+                        <div id="flashcardProgressBar" class="progress-bar-inner" style="width: 5.8%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" id="mainFlashcard">
+                    <div class="card-face card-front">
+                        <div class="card-category" id="cardCategory">Genesi della Sycophancy</div>
+                        <div class="card-question" id="cardQuestion">Question content goes here...</div>
+                        <span class="flip-hint">Clicca per girare 🔄</span>
+                    </div>
+                    <div class="card-face card-back">
+                        <div class="card-answer-label">Risposta & Contributo</div>
+                        <div class="card-answer" id="cardAnswer">Answer content goes here...</div>
+                        <div class="card-extra" id="cardExtra">Extra contextual detail...</div>
+                        <span class="flip-hint">Clicca per girare 🔄</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-danger" onclick="app.markCard(false)">🔴 Da ripassare</button>
+                <button class="btn btn-success" onclick="app.markCard(true)">🟢 Lo so!</button>
+            </div>
+
+            <div class="navigation-controls">
+                <button class="btn btn-circle" onclick="app.prevCard()" aria-label="Precedente">&larr;</button>
+                <span class="nav-indicator" id="navIndicator">1 / 17</span>
+                <button class="btn btn-circle" onclick="app.nextCard()" aria-label="Successivo">&rarr;</button>
+            </div>
+        </section>
+
+        <!-- Quiz Mode -->
+        <section id="quizMode" class="view-section">
+            <div class="section-header">
+                <button class="btn btn-text" onclick="app.showDashboard()">&larr; Abbandona Quiz</button>
+                <div class="progress-container">
+                    <span id="quizProgressText">Domanda 1 di 10</span>
+                    <div class="progress-bar-outer">
+                        <div id="quizProgressBar" class="progress-bar-inner" style="width: 10%"></div>
+                    </div>
+                </div>
+                <div class="quiz-score-badge">
+                    <span>Punteggio: </span><strong id="liveScore">0</strong>
+                </div>
+            </div>
+
+            <div class="quiz-box">
+                <div class="quiz-question-container">
+                    <span class="question-number" id="quizQuestionNum">Domanda 1</span>
+                    <h3 id="quizQuestionText">Test question text...</h3>
+                </div>
+
+                <div class="quiz-options" id="quizOptionsContainer">
+                    <!-- Options will be generated dynamically -->
+                </div>
+
+                <div class="feedback-message" id="quizFeedback">
+                    <p class="feedback-text"></p>
+                </div>
+            </div>
+
+            <div class="quiz-controls">
+                <button class="btn btn-primary" id="btnNextQuiz" style="display: none;" onclick="app.nextQuizQuestion()">Prossima domanda &rarr;</button>
+            </div>
+        </section>
+
+        <!-- Theory Section -->
+        <section id="theoryMode" class="view-section">
+            <div class="section-header">
+                <button class="btn btn-text" onclick="app.showDashboard()">&larr; Dashboard</button>
+                <div class="theory-title-block">
+                    <h2>Compendio di Teoria</h2>
+                    <p>Espandi ogni scheda per studiare i dettagli completi</p>
+                </div>
+            </div>
+
+            <div class="theory-list" id="theoryAccordion">
+                <!-- Theory cards will be generated dynamically -->
+            </div>
+        </section>
+
+        <!-- Completion Screen -->
+        <section id="completionScreen" class="view-section">
+            <div class="completion-box text-center">
+                <div class="completion-icon" id="completionIcon">🎉</div>
+                <h2 id="completionTitle">Ottimo lavoro!</h2>
+                <p id="completionMessage">Hai completato lo studio di tutte le flashcard.</p>
+                
+                <div class="result-stats" id="quizResultsStats" style="display: none;">
+                    <div class="result-circle">
+                        <span class="result-percent" id="resultPercent">100%</span>
+                        <span class="result-score" id="resultScore">10 su 10</span>
+                    </div>
+                </div>
+
+                <div class="completion-buttons">
+                    <button class="btn btn-primary" onclick="app.restartCurrentMode()">Ricomincia</button>
+                    <button class="btn btn-secondary" onclick="app.showDashboard()">Torna alla Dashboard</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Realizzato per supportare la presentazione della tesi di <strong>Paolo Pirruccio</strong> (Matricola 614754)</p>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
