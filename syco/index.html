@@ -30,7 +30,7 @@
         <section id="modeSelection" class="view-section active">
             <div class="hero-section">
                 <h2>Pronto a superare l'esame?</h2>
-                <p>Scegli una modalità per ripassare gli autori e i concetti chiave della tua relazione: <strong>"L'utente ha sempre ragione, o quasi: la compiacenza degli LLM"</strong>.</p>
+                <p>Ripassa gli autori e i concetti chiave della tua relazione: <strong>"L'utente ha sempre ragione, o quasi: la compiacenza degli LLM"</strong>.</p>
             </div>
 
             <div class="modes-grid">
@@ -38,15 +38,15 @@
                     <div class="mode-icon">🎴</div>
                     <div class="mode-card-text">
                         <h3>Flashcards Interattive</h3>
-                        <p>Memorizza i nomi con le iconiche carte rotanti 3D. Segna le carte come "Imparate" o "Da rivedere".</p>
+                        <p>Memorizza i nomi con le carte rotanti 3D. Segna le carte come "Imparate" o "Da rivedere".</p>
                     </div>
                 </div>
 
                 <div class="mode-card" onclick="app.startMode('quiz')">
                     <div class="mode-icon">🏆</div>
                     <div class="mode-card-text">
-                        <h3>Quiz a Risposta Multipla</h3>
-                        <p>Mettiti alla prova con domande a risposta multipla generate dinamicamente e monitora il tuo punteggio in tempo reale.</p>
+                        <h3>Quiz di Autovalutazione</h3>
+                        <p>Domande a risposta multipla su autori ed esperimenti della relazione con spiegazione e correzione finale.</p>
                     </div>
                 </div>
 
@@ -54,21 +54,17 @@
                     <div class="mode-icon">📖</div>
                     <div class="mode-card-text">
                         <h3>Compendio di Teoria</h3>
-                        <p>Accedi alla dispensa e bibliografia completa con concetti chiave ed espansioni dettagliate per ogni studio citato.</p>
+                        <p>Dispensa e bibliografia completa con concetti chiave ed espansioni dettagliate per ogni studio citato.</p>
                     </div>
                 </div>
             </div>
 
             <div class="stats-panel">
-                <h3>Le tue statistiche di oggi</h3>
+                <h3>Stato del tuo studio</h3>
                 <div class="stats-row">
                     <div class="stat-item">
-                        <span class="stat-label">Autori esplorati</span>
+                        <span class="stat-label">Autori segnati come compresi:</span>
                         <span class="stat-num" id="statTotalSeen">0/17</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Miglior punteggio quiz</span>
-                        <span class="stat-num" id="statBestQuiz">--</span>
                     </div>
                 </div>
             </div>
@@ -90,13 +86,13 @@
                 <div class="flashcard" id="mainFlashcard">
                     <div class="card-face card-front">
                         <div class="card-category" id="cardCategory">Genesi della Sycophancy</div>
-                        <div class="card-question" id="cardQuestion">Question content goes here...</div>
+                        <div class="card-question" id="cardQuestion">Caricamento...</div>
                         <span class="flip-hint">Clicca per girare 🔄</span>
                     </div>
                     <div class="card-face card-back">
                         <div class="card-answer-label">Risposta & Contributo</div>
-                        <div class="card-answer" id="cardAnswer">Answer content goes here...</div>
-                        <div class="card-extra" id="cardExtra">Extra contextual detail...</div>
+                        <div class="card-answer" id="cardAnswer">Caricamento...</div>
+                        <div class="card-extra" id="cardExtra">Caricamento...</div>
                         <span class="flip-hint">Clicca per girare 🔄</span>
                     </div>
                 </div>
@@ -117,15 +113,12 @@
         <!-- Quiz Mode -->
         <section id="quizMode" class="view-section">
             <div class="section-header">
-                <button class="btn btn-text" onclick="app.showDashboard()">&larr; Abbandona Quiz</button>
+                <button class="btn btn-text" onclick="app.showDashboard()">&larr; Dashboard</button>
                 <div class="progress-container">
-                    <span id="quizProgressText">Domanda 1 di 10</span>
+                    <span id="quizProgressText">Domanda 1 di 15</span>
                     <div class="progress-bar-outer">
-                        <div id="quizProgressBar" class="progress-bar-inner" style="width: 10%"></div>
+                        <div id="quizProgressBar" class="progress-bar-inner" style="width: 6.6%"></div>
                     </div>
-                </div>
-                <div class="quiz-score-badge">
-                    <span>Punteggio: </span><strong id="liveScore">0</strong>
                 </div>
             </div>
 
@@ -171,14 +164,15 @@
                 <h2 id="completionTitle">Ottimo lavoro!</h2>
                 <p id="completionMessage">Hai completato lo studio di tutte le flashcard.</p>
                 
-                <div class="result-stats" id="quizResultsStats" style="display: none;">
-                    <div class="result-circle">
-                        <span class="result-percent" id="resultPercent">100%</span>
-                        <span class="result-score" id="resultScore">10 su 10</span>
+                <!-- Detailed Review Section -->
+                <div class="quiz-review-section" id="quizReviewContainer" style="display: none;">
+                    <h3>Riepilogo delle risposte</h3>
+                    <div class="quiz-review-list" id="quizReviewList">
+                        <!-- Questions review items will go here -->
                     </div>
                 </div>
 
-                <div class="completion-buttons">
+                <div class="completion-buttons" style="margin-top: 24px;">
                     <button class="btn btn-primary" onclick="app.restartCurrentMode()">Ricomincia</button>
                     <button class="btn btn-secondary" onclick="app.showDashboard()">Torna alla Dashboard</button>
                 </div>
