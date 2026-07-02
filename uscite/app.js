@@ -1,3 +1,13 @@
+function escapeHtml(str) {
+    if (str == null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 const state = {
     currentStep: 1,
     userName: '',
@@ -160,10 +170,10 @@ function createEventCard(event, rank) {
 
     card.innerHTML = `
         <span class="event-rank">${rank}</span>
-        <span class="event-emoji">${event.emoji}</span>
+        <span class="event-emoji">${escapeHtml(event.emoji)}</span>
         <div class="event-info">
-            <div class="event-name">${event.name}</div>
-            <div class="event-description">${event.description}</div>
+            <div class="event-name">${escapeHtml(event.name)}</div>
+            <div class="event-description">${escapeHtml(event.description)}</div>
         </div>
         <span class="material-icons-round event-drag-handle">drag_indicator</span>
     `;
@@ -351,7 +361,7 @@ function renderRefusedEvents() {
         const chip = document.createElement('div');
         chip.className = 'refused-chip';
         chip.innerHTML = `
-            ${event.emoji} ${event.name}
+            ${escapeHtml(event.emoji)} ${escapeHtml(event.name)}
             <span class="material-icons-round" style="font-size: 16px;">close</span>
         `;
         chip.onclick = () => restoreEvent(event.id);
