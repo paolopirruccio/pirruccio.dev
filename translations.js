@@ -20,6 +20,7 @@ const translations = {
         "section_mystuff": "Cose",
         "section_blog": "Pensieri",
         "section_cv": "Chi sono",
+        "section_viaggi": "Viaggi",
         "section_projects": "Alcuni progetti",
 
         "cv_role": "UX/UI DESIGNER",
@@ -135,6 +136,7 @@ const translations = {
         "section_mystuff": "Stuff",
         "section_blog": "Thoughts",
         "section_cv": "About Me",
+        "section_viaggi": "Travels",
         "section_projects": "Some projects",
 
         "cv_role": "UX/UI DESIGNER",

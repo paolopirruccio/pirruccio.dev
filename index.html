@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Caveat:wght@500;700&display=swap"
         rel="stylesheet">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://paolopirruccio.github.io/Portfolio/">
@@ -384,6 +384,13 @@
                 </div>
             </div>
         </div>
+        <div class="my-apps-section" id="viaggi-section" style="display: block; margin-bottom: 20px;">
+            <div class="apps-header" id="viaggi-toggle" tabindex="0" role="button" aria-expanded="false">
+                <span class="apps-title" style="font-size: 2rem;" data-i18n="section_viaggi">Viaggi</span>
+                <i class="fa-solid fa-chevron-down" id="viaggi-chevron"></i>
+            </div>
+            <div class="apps-list postcard-rack" id="viaggi-list"></div>
+        </div>
         <footer class="site-footer">
             <p>&copy; <span id="current-year"></span> <span>Paolo
                     Pirruccio</span>. All rights reserved.</p>
@@ -416,6 +423,7 @@
     <script src="scriptlinks.js"></script>
     <script src="projectsData.js"></script>
     <script src="script.js"></script>
+    <script src="viaggi/viaggi.js"></script>
     <script src="blog/posts.js"></script>
     <div class="top-pill-bar">
         <button class="pill-btn" id="search-btn" aria-label="Search">

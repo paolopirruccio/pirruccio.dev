@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleAccordion('services-toggle', 'services-list', 'services-chevron');
     toggleAccordion('apps-toggle', 'apps-list', 'apps-chevron');
     toggleAccordion('blog-toggle', 'blog-list', 'blog-chevron');
+    toggleAccordion('viaggi-toggle', 'viaggi-list', 'viaggi-chevron');
 
     const initChevron = (listId, chevronId, toggleId) => {
         const list = document.getElementById(listId);
