@@ -261,302 +261,111 @@
 }
 
 /* ══════════════════════════════════════════════════════════════
-   VIAGGI — cartoline
+   VIAGGI — foto polaroid
    ══════════════════════════════════════════════════════════════ */
-.postcard-rack {
-    align-items: center;
-    gap: 28px;
-    padding: 10px 6px 10px 10px;
+.polaroid-rack {
+    align-items: flex-start;
+    gap: 26px;
+    padding: 14px 6px 18px 10px;
     scroll-snap-type: x proximity;
-    perspective: 1400px;
 }
 
-.postcard-rack.open {
+.polaroid-rack.open {
     padding-top: 26px;
-    padding-bottom: 34px;
+    padding-bottom: 30px;
 }
 
-.postcard {
+.polaroid {
     flex: 0 0 auto;
-    width: 272px;
-    aspect-ratio: 20 / 15.4;
+    width: 234px;
     scroll-snap-align: center;
-    cursor: pointer;
     position: relative;
+    /* cornice bianca polaroid: bordi sottili in alto/lati, spessa in basso */
+    background: #fdfcf6;
+    padding: 13px 13px 0;
+    border-radius: 3px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.10);
     transform: rotate(var(--pc-rot, -2deg));
     transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-    outline: none;
     -webkit-tap-highlight-color: transparent;
 }
 
-.postcard:hover,
-.postcard:focus-visible {
-    transform: rotate(0deg) translateY(-8px) scale(1.03);
+/* hover: raddrizza e ingrandisce appena, SENZA cambiare l'ombra */
+.polaroid:hover,
+.polaroid:focus-visible {
+    transform: rotate(0deg) scale(1.03);
     z-index: 3;
+    outline: none;
 }
 
-.postcard:focus-visible .postcard-inner {
-    box-shadow: 0 0 0 3px var(--accent-yellow), 0 18px 35px rgba(0, 0, 0, 0.22);
-}
-
-.postcard-inner {
-    position: absolute;
-    inset: 0;
-    transform-style: preserve-3d;
-    transition: transform 0.7s cubic-bezier(0.4, 0.1, 0.2, 1), box-shadow 0.4s ease;
-    border-radius: 4px;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.postcard:hover .postcard-inner {
-    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.24), 0 4px 10px rgba(0, 0, 0, 0.12);
-}
-
-.postcard.flipped .postcard-inner {
-    transform: rotateY(180deg);
-}
-
-.postcard-front,
-.postcard-back {
-    position: absolute;
-    inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-/* ── Fronte: foto con bordo bianco e didascalia ── */
-.postcard-front {
-    background: #fdfcf8;
-    padding: 11px 11px 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.postcard-photo {
-    flex: 1;
+.polaroid-photo {
     overflow: hidden;
     background: #e8e4da;
     position: relative;
+    line-height: 0;
 }
 
-.postcard-photo::after {
+.polaroid-photo::after {
     /* leggera vignettatura fotografica */
     content: '';
     position: absolute;
     inset: 0;
-    box-shadow: inset 0 0 34px rgba(30, 20, 5, 0.18);
+    box-shadow: inset 0 0 30px rgba(30, 20, 5, 0.16);
     pointer-events: none;
 }
 
-.postcard-photo img {
+/* qualsiasi proporzione: la polaroid si adatta all'altezza della foto */
+.polaroid-photo img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
-    filter: saturate(1.04) contrast(1.02);
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    filter: saturate(1.03) contrast(1.02);
 }
 
-.postcard:hover .postcard-photo img {
-    transform: scale(1.05);
+.polaroid-caption {
+    padding: 12px 6px 16px;
+    text-align: center;
 }
 
-.postcard-caption {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 7px 4px 9px;
-}
-
-.postcard-place {
-    font-family: 'Caveat', cursive;
-    font-size: 1.45rem;
-    font-weight: 700;
-    line-height: 1;
-    color: #2c2416;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.postcard-year {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    color: #a89e88;
-}
-
-/* ── Nastro washi in alto ── */
-.postcard-tape {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    width: 92px;
-    height: 26px;
-    transform: translateX(-50%) rotate(calc(var(--pc-rot, -2deg) * -1.4));
-    background: linear-gradient(105deg,
-            rgba(255, 224, 130, 0.82), rgba(255, 213, 92, 0.68) 55%,
-            rgba(255, 224, 130, 0.82));
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-    clip-path: polygon(3% 0, 97% 4%, 100% 92%, 0 100%, 2% 48%);
-    z-index: 4;
-    opacity: 0.95;
-}
-
-/* ── Retro: carta, francobollo, timbro, righe indirizzo ── */
-.postcard-back {
-    background:
-        repeating-linear-gradient(0deg, transparent, transparent 5px, rgba(120, 96, 60, 0.025) 5px, rgba(120, 96, 60, 0.025) 6px),
-        #f6f1e3;
-    transform: rotateY(180deg);
-    padding: 14px;
-    display: grid;
-    grid-template-columns: 1.15fr auto 0.95fr;
-    grid-template-rows: auto 1fr;
-    gap: 6px 10px;
-    color: #4a3d28;
-}
-
-.postcard-divider {
-    grid-column: 2;
-    grid-row: 1 / 3;
-    width: 1px;
-    background: rgba(90, 70, 40, 0.28);
-    margin: 6px 0;
-}
-
-.postcard-stamp {
-    grid-column: 3;
-    grid-row: 1;
-    justify-self: end;
-    width: 46px;
-    height: 54px;
-    background: #fffdf4;
-    border: 1px solid rgba(120, 96, 60, 0.35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    /* dentellatura resa con l'outline tratteggiato */
-    box-shadow:
-        0 0 0 3px #fffdf4,
-        0 1px 4px rgba(0, 0, 0, 0.14);
-    outline: 2px dashed rgba(120, 96, 60, 0.4);
-    outline-offset: -5px;
-    transform: rotate(3deg);
-}
-
-.postcard-postmark {
-    grid-column: 3;
-    grid-row: 1;
-    justify-self: end;
-    align-self: start;
-    margin-top: 24px;
-    margin-right: 26px;
-    width: 52px;
-    height: 52px;
-    border: 2px solid rgba(90, 70, 40, 0.4);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: rgba(90, 70, 40, 0.55);
-    transform: rotate(-14deg);
-    pointer-events: none;
-}
-
-.postcard-postmark::before {
-    content: '✦ POSTE ✦';
-    position: absolute;
-    top: 6px;
-    font-size: 0.42rem;
-    letter-spacing: 0.06em;
-}
-
-.postcard-msg {
-    grid-column: 1;
-    grid-row: 1 / 3;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2px;
-    min-width: 0;
-}
-
-.postcard-greeting {
+.polaroid-place {
+    display: block;
     font-family: 'Caveat', cursive;
     font-size: 1.5rem;
     font-weight: 700;
-    line-height: 1.15;
-    color: #3d3120;
-    margin: 0;
-    transform: rotate(-2deg);
+    line-height: 1.05;
+    color: #2c2416;
 }
 
-.postcard-note {
-    font-family: 'Caveat', cursive;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: rgba(90, 70, 40, 0.65);
-    margin: 0;
-    transform: rotate(-2deg);
+.polaroid-year {
+    display: block;
+    margin-top: 1px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: #a89e88;
 }
 
-.postcard-address {
-    grid-column: 3;
-    grid-row: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 13px;
-    padding-bottom: 10px;
-}
-
-.address-line {
-    height: 1px;
-    background: rgba(90, 70, 40, 0.35);
-}
-
-.address-line.short {
-    width: 70%;
-}
-
-/* Dark mode: le cartoline restano "di carta", si scurisce solo l'ombra */
+/* Dark mode: la polaroid resta "di carta", cambia solo l'ombra */
 @media (prefers-color-scheme: dark) {
-    .postcard-inner {
+    .polaroid {
         box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.4);
     }
-
-    .postcard:hover .postcard-inner {
-        box-shadow: 0 22px 46px rgba(0, 0, 0, 0.65), 0 4px 10px rgba(0, 0, 0, 0.45);
-    }
 }
 
-/* Motion ridotta: niente flip 3D, mostra solo il fronte */
 @media (prefers-reduced-motion: reduce) {
-
-    .postcard,
-    .postcard-inner,
-    .postcard-photo img {
+    .polaroid {
         transition: none;
     }
 }
 
 @media (max-width: 600px) {
-    .postcard {
-        width: 236px;
+    .polaroid {
+        width: 200px;
     }
 
-    .postcard-rack {
-        gap: 22px;
+    .polaroid-rack {
+        gap: 20px;
     }
 }
 
