@@ -516,7 +516,7 @@
 
 .card-deck .card {
     flex: 0 0 auto;
-    width: 168px;
+    width: 224px;
     opacity: 1;
     transform: none;
     scroll-snap-align: start;
@@ -527,13 +527,13 @@
 }
 
 .card-deck .card-inner {
-    height: 150px;
-    padding: 16px;
-    border-radius: 18px;
+    height: 200px;
+    padding: 20px;
+    border-radius: 20px;
 }
 
 .card-deck .card-title {
-    font-size: 1.55rem;
+    font-size: 2rem;
     margin-bottom: 0;
 }
 
@@ -542,14 +542,14 @@
 }
 
 .card-deck .card-icon i {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .card-deck .card-visual {
-    width: 96px;
-    height: 96px;
-    bottom: -16px;
-    right: -16px;
+    width: 116px;
+    height: 116px;
+    bottom: -18px;
+    right: -18px;
 }
 
 .card-deck .qr-trigger {
@@ -559,15 +559,15 @@
 
 @media (max-width: 600px) {
     .card-deck .card {
-        width: 152px;
+        width: 190px;
     }
 
     .card-deck .card-inner {
-        height: 140px;
+        height: 178px;
     }
 
     .card-deck .card-title {
-        font-size: 1.4rem;
+        font-size: 1.7rem;
     }
 }
 
@@ -584,7 +584,7 @@
 .proj-card {
     --proj-color: #888888;
     flex: 0 0 auto;
-    width: 322px;
+    width: 368px;
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
@@ -673,11 +673,11 @@
 
 .proj-card-desc {
     margin: 10px 0 0;
-    font-size: 0.86rem;
+    font-size: 0.88rem;
     line-height: 1.5;
     color: var(--text-secondary);
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -697,6 +697,6 @@
 
 @media (max-width: 600px) {
     .proj-card {
-        width: 280px;
+        width: 300px;
     }
 }

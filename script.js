@@ -179,10 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         projPrev.addEventListener('click', () => {
-            homeProjSlider.scrollBy({ left: -346, behavior: 'smooth' });
+            homeProjSlider.scrollBy({ left: -392, behavior: 'smooth' });
         });
         projNext.addEventListener('click', () => {
-            homeProjSlider.scrollBy({ left: 346, behavior: 'smooth' });
+            homeProjSlider.scrollBy({ left: 392, behavior: 'smooth' });
         });
 
         homeProjSlider.addEventListener('scroll', updateSliderBtns);
