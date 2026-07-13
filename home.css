@@ -559,3 +559,121 @@
         gap: 22px;
     }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   PASSIONI — sticker a fondo pagina, mezzi fuori schermo
+   ══════════════════════════════════════════════════════════════ */
+.sticker-band {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    margin-top: 20px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.passion-sticker {
+    position: absolute;
+    width: 94px;
+    height: 94px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 2.3rem;
+    color: #fff;
+    opacity: 0.52;
+    pointer-events: auto;
+    cursor: pointer;
+    /* bordo bianco die-cut + ombra da adesivo appiccicato */
+    box-shadow:
+        0 0 0 5px #fdfcf6,
+        0 9px 20px rgba(0, 0, 0, 0.18),
+        0 2px 5px rgba(0, 0, 0, 0.12);
+    /* leggermente sbiaditi */
+    filter: saturate(0.82) contrast(0.96);
+    transform: translate(var(--st-jx, 0), 0) rotate(var(--st-rot, -10deg));
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.45s ease, filter 0.45s ease;
+    will-change: transform;
+}
+
+.passion-sticker i {
+    /* alone chiaro interno per far "staccare" l'icona come stampa serigrafica */
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.passion-sticker:hover,
+.passion-sticker:focus-visible {
+    opacity: 1;
+    filter: saturate(1) contrast(1);
+    transform: translate(var(--st-jx, 0), -10px) rotate(0deg) scale(1.09);
+    z-index: 6;
+    outline: none;
+}
+
+/* ── Colori per passione (toni un po' vintage/sbiaditi) ── */
+.st-apple    { background: #1d1d1f; }
+.st-travel   { background: #2f7d8a; }
+.st-politics { background: #8c4a52; }
+.st-books    { background: #b07d3c; }
+
+/* ── Posizioni base (mezzi fuori dai bordi della fascia) ──
+   Il JS randomizza rotazione e coordinata lungo il bordo a ogni load;
+   questi sono i fallback se il JS non gira. */
+.st-apple {
+    left: -40px;
+    bottom: 30px;
+    --st-rot: -16deg;
+}
+
+.st-politics {
+    right: -38px;
+    bottom: 26px;
+    --st-rot: 15deg;
+}
+
+.st-travel {
+    left: 52%;
+    bottom: -36px;
+    --st-rot: -8deg;
+}
+
+.st-books {
+    left: 20%;
+    bottom: -44px;
+    --st-rot: 11deg;
+}
+
+@media (prefers-color-scheme: dark) {
+    .passion-sticker {
+        box-shadow:
+            0 0 0 5px #ecebe4,
+            0 9px 22px rgba(0, 0, 0, 0.5),
+            0 2px 5px rgba(0, 0, 0, 0.4);
+        opacity: 0.5;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .passion-sticker {
+        transition: opacity 0.3s ease;
+    }
+
+    .passion-sticker:hover,
+    .passion-sticker:focus-visible {
+        transform: translate(var(--st-jx, 0), 0) rotate(var(--st-rot, -10deg));
+    }
+}
+
+@media (max-width: 600px) {
+    .sticker-band {
+        height: 120px;
+    }
+
+    .passion-sticker {
+        width: 78px;
+        height: 78px;
+        font-size: 1.9rem;
+    }
+}

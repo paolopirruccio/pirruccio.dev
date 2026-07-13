@@ -288,4 +288,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }).join('');
         }
     }
+
+    // Sticker passioni: rotazione e posizione lungo il bordo randomizzate a ogni load
+    const rand = (min, max) => Math.random() * (max - min) + min;
+    const stickerConfig = {
+        'st-apple':    { rotBase: -16, edge: 'side', prop: 'bottom', min: 14, max: 62 },
+        'st-politics': { rotBase: 15,  edge: 'side', prop: 'bottom', min: 14, max: 62 },
+        'st-travel':   { rotBase: -8,  edge: 'bottom', prop: 'left', min: 46, max: 60 },
+        'st-books':    { rotBase: 11,  edge: 'bottom', prop: 'left', min: 14, max: 32 }
+    };
+    Object.entries(stickerConfig).forEach(([cls, cfg]) => {
+        const el = document.querySelector('.' + cls);
+        if (!el) return;
+        el.style.setProperty('--st-rot', (cfg.rotBase + rand(-7, 7)).toFixed(1) + 'deg');
+        el.style.setProperty('--st-jx', rand(-6, 6).toFixed(1) + 'px');
+        el.style[cfg.prop] = cfg.prop === 'left'
+            ? rand(cfg.min, cfg.max).toFixed(1) + '%'
+            : rand(cfg.min, cfg.max).toFixed(0) + 'px';
+    });
 });
