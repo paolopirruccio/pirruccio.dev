@@ -1,6 +1,7 @@
 const projectData = [
     {
         id: "sarcofago3d",
+        color: "#8a6d3b",
         title: "Il Sarcofago Tebanianus",
         descI18n: "proj_3d_desc",
         // logo mancante → forniscilo in assets/logos/sarcofago.png (fallback: solo nome)
@@ -19,6 +20,7 @@ const projectData = [
     },
     {
         id: "laprendo",
+        color: "#e4572e",
         title: "Laprendoconsport",
         descI18n: "proj_laprendo_desc",
         // logo mancante → forniscilo in assets/logos/laprendo.png
@@ -34,6 +36,7 @@ const projectData = [
     },
     {
         id: "bussola",
+        color: "#c9a227",
         title: "La Bussola di Infouma",
         descI18n: "proj_bussola_desc",
         logo: "bussola/assets/compass.png",
@@ -49,6 +52,7 @@ const projectData = [
     },
     {
         id: "blogowl",
+        color: "#6c4bd8",
         title: "BlogOwl",
         descI18n: "proj_blogowl_desc",
         logo: "bdd/illustrazioni/logo-navbar.svg",
@@ -62,6 +66,7 @@ const projectData = [
     },
     {
         id: "codifica",
+        color: "#2f8f83",
         title: "Text Encoding Project",
         descI18n: "proj_codifica_desc",
         logo: "codifica/immagini/logo.webp",
@@ -77,6 +82,7 @@ const projectData = [
     },
     {
         id: "astergift",
+        color: "#a24bd8",
         title: "AsterGift",
         descI18n: "proj_astergift_desc",
         // logo mancante → forniscilo in assets/logos/astergift.png
@@ -88,6 +94,7 @@ const projectData = [
     },
     {
         id: "nasa",
+        color: "#2e5fce",
         title: "NASA Project",
         descI18n: "proj_nasa_desc",
         logo: "ppw/images/green-logo.png",
@@ -117,13 +124,14 @@ function renderProjects(containerId, isSlider = false) {
     }
 
     projectData.forEach(project => {
-        // ── Home: card compatta ridisegnata (screenshot + logo + nome) ──
+        // ── Home: card ridisegnata (screenshot + footer brand, logo che trasborda, descrizione) ──
         if (isSlider) {
             const url = project.link ? project.link.url : 'gallery.html';
             const card = document.createElement('a');
             card.className = 'proj-card';
             card.href = url;
             card.setAttribute('aria-label', project.title);
+            if (project.color) card.style.setProperty('--proj-color', project.color);
             if (project.link && project.link.protected) {
                 card.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -141,10 +149,11 @@ function renderProjects(containerId, isSlider = false) {
                 <div class="proj-card-foot">
                     <span class="proj-card-logo-wrap">
                         <img src="${project.logo}" alt="" class="proj-card-logo" loading="lazy"
-                             onerror="this.parentElement.remove()">
+                             onerror="this.closest('.proj-card').classList.add('no-logo'); this.parentElement.remove()">
                     </span>
                     <span class="proj-card-name">${project.title}</span>
-                    <i class="fa-solid fa-arrow-right proj-card-arrow"></i>
+                    <p class="proj-card-desc" data-i18n="${project.descI18n}"></p>
+                    <i class="fa-solid fa-arrow-right proj-card-arrow" aria-hidden="true"></i>
                 </div>
             `;
             container.appendChild(card);
