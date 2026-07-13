@@ -608,8 +608,11 @@
 .passion-sticker:focus-visible {
     opacity: 1;
     filter: saturate(1) contrast(1);
-    transform: translate(var(--st-jx, 0), -10px) rotate(0deg) scale(1.09);
-    z-index: 6;
+    /* niente sollevamento: solo raddrizza e ingrandisce appena */
+    transform: translate(var(--st-jx, 0), 0) rotate(0deg) scale(1.05);
+    /* niente ombra in hover: solo il bordo bianco die-cut */
+    box-shadow: 0 0 0 5px #fdfcf6;
+    z-index: 12;
     outline: none;
 }
 
@@ -636,13 +639,13 @@
 
 .st-travel {
     left: 52%;
-    bottom: -36px;
+    bottom: -26px;
     --st-rot: -8deg;
 }
 
 .st-books {
     left: 20%;
-    bottom: -44px;
+    bottom: -30px;
     --st-rot: 11deg;
 }
 
