@@ -3,6 +3,8 @@ const projectData = [
         id: "sarcofago3d",
         title: "Il Sarcofago Tebanianus",
         descI18n: "proj_3d_desc",
+        // logo mancante → forniscilo in assets/logos/sarcofago.png (fallback: solo nome)
+        logo: "assets/logos/sarcofago.png",
         images: [
             "assets/3d.png",
             "assets/3d-2.png",
@@ -19,6 +21,8 @@ const projectData = [
         id: "laprendo",
         title: "Laprendoconsport",
         descI18n: "proj_laprendo_desc",
+        // logo mancante → forniscilo in assets/logos/laprendo.png
+        logo: "assets/logos/laprendo.png",
         images: [
             "assets/laprendoconsport.jpg"
         ],
@@ -32,6 +36,7 @@ const projectData = [
         id: "bussola",
         title: "La Bussola di Infouma",
         descI18n: "proj_bussola_desc",
+        logo: "bussola/assets/compass.png",
         images: [
             "assets/bussola.jpeg",
             "assets/bussola-2.jpeg",
@@ -46,6 +51,7 @@ const projectData = [
         id: "blogowl",
         title: "BlogOwl",
         descI18n: "proj_blogowl_desc",
+        logo: "bdd/illustrazioni/logo-navbar.svg",
         images: [
             "assets/blogowl.jpg"
         ],
@@ -58,6 +64,7 @@ const projectData = [
         id: "codifica",
         title: "Text Encoding Project",
         descI18n: "proj_codifica_desc",
+        logo: "codifica/immagini/logo.webp",
         images: [
             "assets/codifica.jpeg",
             "assets/codifica-2.jpeg",
@@ -72,6 +79,8 @@ const projectData = [
         id: "astergift",
         title: "AsterGift",
         descI18n: "proj_astergift_desc",
+        // logo mancante → forniscilo in assets/logos/astergift.png
+        logo: "assets/logos/astergift.png",
         images: [
             "assets/astergift.jpg"
         ],
@@ -81,6 +90,7 @@ const projectData = [
         id: "nasa",
         title: "NASA Project",
         descI18n: "proj_nasa_desc",
+        logo: "ppw/images/green-logo.png",
         images: [
             "assets/ppw.jpeg",
             "assets/ppw-2.jpeg",
@@ -107,6 +117,41 @@ function renderProjects(containerId, isSlider = false) {
     }
 
     projectData.forEach(project => {
+        // ── Home: card compatta ridisegnata (screenshot + logo + nome) ──
+        if (isSlider) {
+            const url = project.link ? project.link.url : 'gallery.html';
+            const card = document.createElement('a');
+            card.className = 'proj-card';
+            card.href = url;
+            card.setAttribute('aria-label', project.title);
+            if (project.link && project.link.protected) {
+                card.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    sessionStorage.setItem('portfolio_ref', '1');
+                    window.location.href = url;
+                });
+            } else if (project.link && project.link.external) {
+                card.target = '_blank';
+                card.rel = 'noopener noreferrer';
+            }
+            card.innerHTML = `
+                <div class="proj-card-media">
+                    <img src="${project.images[0]}" alt="${project.title}" class="proj-card-img" loading="lazy">
+                </div>
+                <div class="proj-card-foot">
+                    <span class="proj-card-logo-wrap">
+                        <img src="${project.logo}" alt="" class="proj-card-logo" loading="lazy"
+                             onerror="this.parentElement.remove()">
+                    </span>
+                    <span class="proj-card-name">${project.title}</span>
+                    <i class="fa-solid fa-arrow-right proj-card-arrow"></i>
+                </div>
+            `;
+            container.appendChild(card);
+            return;
+        }
+
+        // ── gallery.html: card ricca (invariata) ──
         const item = document.createElement('div');
         item.className = 'gallery-item';
 

@@ -493,3 +493,185 @@
         font-size: 1.9rem;
     }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   HOME — contatti compatti (strip orizzontale) + progetti in focus
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Contatti: strip compatta scrollabile in orizzontale ── */
+.card-deck {
+    display: flex;
+    flex-wrap: nowrap;
+    grid-template-columns: none;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 4px 2px 14px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+}
+
+.card-deck::-webkit-scrollbar {
+    display: none;
+}
+
+.card-deck .card {
+    flex: 0 0 auto;
+    width: 168px;
+    opacity: 1;
+    transform: none;
+    scroll-snap-align: start;
+}
+
+.card-deck .card:hover {
+    transform: translateY(-6px);
+}
+
+.card-deck .card-inner {
+    height: 150px;
+    padding: 16px;
+    border-radius: 18px;
+}
+
+.card-deck .card-title {
+    font-size: 1.55rem;
+    margin-bottom: 0;
+}
+
+.card-deck .card-label {
+    font-size: 11px;
+}
+
+.card-deck .card-icon i {
+    font-size: 20px;
+}
+
+.card-deck .card-visual {
+    width: 96px;
+    height: 96px;
+    bottom: -16px;
+    right: -16px;
+}
+
+.card-deck .qr-trigger {
+    font-size: 0.8rem;
+    margin-left: 4px;
+}
+
+@media (max-width: 600px) {
+    .card-deck .card {
+        width: 152px;
+    }
+
+    .card-deck .card-inner {
+        height: 140px;
+    }
+
+    .card-deck .card-title {
+        font-size: 1.4rem;
+    }
+}
+
+/* ── Progetti: sezione sempre visibile (niente accordion) ── */
+.projects-header {
+    cursor: default;
+}
+
+.projects-list-open {
+    width: 100%;
+}
+
+/* ── Card progetto ridisegnata: screenshot + logo + nome ── */
+.proj-card {
+    flex: 0 0 auto;
+    width: 264px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 4px 20px var(--card-shadow);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: transform 0.35s cubic-bezier(0.22, 0.68, 0, 1.2), box-shadow 0.35s ease;
+}
+
+.proj-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+}
+
+.proj-card-media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.proj-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.proj-card:hover .proj-card-img {
+    transform: scale(1.05);
+}
+
+.proj-card-foot {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+}
+
+.proj-card-logo-wrap {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.proj-card-logo {
+    max-width: 76%;
+    max-height: 76%;
+    object-fit: contain;
+    display: block;
+}
+
+.proj-card-name {
+    flex: 1;
+    min-width: 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.proj-card-arrow {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.proj-card:hover .proj-card-arrow {
+    transform: translateX(3px);
+    color: var(--text-primary);
+}
+
+@media (max-width: 600px) {
+    .proj-card {
+        width: 232px;
+    }
+}

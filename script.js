@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     toggleAccordion('curriculum-toggle', 'curriculum-list', 'curriculum-chevron');
-    toggleAccordion('projects-toggle', 'projects-list', 'projects-chevron');
     toggleAccordion('services-toggle', 'services-list', 'services-chevron');
     toggleAccordion('apps-toggle', 'apps-list', 'apps-chevron');
     toggleAccordion('blog-toggle', 'blog-list', 'blog-chevron');
@@ -50,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     initChevron('curriculum-list', 'curriculum-chevron', 'curriculum-toggle');
-    initChevron('projects-list', 'projects-chevron', 'projects-toggle');
 
     // Deep link: auto-open services section if #servizi is in the URL
     if (window.location.hash === '#servizi' || window.location.hash === '#services') {
