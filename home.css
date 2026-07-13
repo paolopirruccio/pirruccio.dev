@@ -495,81 +495,8 @@
 }
 
 /* ══════════════════════════════════════════════════════════════
-   HOME — contatti compatti (strip orizzontale) + progetti in focus
+   HOME — progetti in focus
    ══════════════════════════════════════════════════════════════ */
-
-/* ── Contatti: strip compatta scrollabile in orizzontale ── */
-.card-deck {
-    display: flex;
-    flex-wrap: nowrap;
-    grid-template-columns: none;
-    gap: 14px;
-    overflow-x: auto;
-    padding: 4px 2px 14px;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-}
-
-.card-deck::-webkit-scrollbar {
-    display: none;
-}
-
-.card-deck .card {
-    flex: 0 0 auto;
-    width: 224px;
-    opacity: 1;
-    transform: none;
-    scroll-snap-align: start;
-}
-
-.card-deck .card:hover {
-    transform: translateY(-6px);
-}
-
-.card-deck .card-inner {
-    height: 200px;
-    padding: 20px;
-    border-radius: 20px;
-}
-
-.card-deck .card-title {
-    font-size: 2rem;
-    margin-bottom: 0;
-}
-
-.card-deck .card-label {
-    font-size: 11px;
-}
-
-.card-deck .card-icon i {
-    font-size: 24px;
-}
-
-.card-deck .card-visual {
-    width: 116px;
-    height: 116px;
-    bottom: -18px;
-    right: -18px;
-}
-
-.card-deck .qr-trigger {
-    font-size: 0.8rem;
-    margin-left: 4px;
-}
-
-@media (max-width: 600px) {
-    .card-deck .card {
-        width: 190px;
-    }
-
-    .card-deck .card-inner {
-        height: 178px;
-    }
-
-    .card-deck .card-title {
-        font-size: 1.7rem;
-    }
-}
 
 /* ── Progetti: sezione sempre visibile (niente accordion) ── */
 .projects-header {
