@@ -291,9 +291,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sticker passioni: rotazione e posizione lungo il bordo randomizzate a ogni load
     const rand = (min, max) => Math.random() * (max - min) + min;
+    // I laterali restano in basso (cima sempre dentro la fascia, mai tagliata);
+    // i due sul bordo inferiore sbucano da sotto.
     const stickerConfig = {
-        'st-apple':    { rotBase: -16, edge: 'side', prop: 'bottom', min: 14, max: 62 },
-        'st-politics': { rotBase: 15,  edge: 'side', prop: 'bottom', min: 14, max: 62 },
+        'st-apple':    { rotBase: -16, edge: 'side', prop: 'bottom', min: 8,  max: 30 },
+        'st-politics': { rotBase: 15,  edge: 'side', prop: 'bottom', min: 8,  max: 30 },
         'st-travel':   { rotBase: -8,  edge: 'bottom', prop: 'left', min: 46, max: 60 },
         'st-books':    { rotBase: 11,  edge: 'bottom', prop: 'left', min: 14, max: 32 }
     };
