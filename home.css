@@ -541,7 +541,6 @@
     position: relative;
     z-index: 2;
     padding: 22px 22px 24px;
-    max-width: 54%;
 }
 
 .proj-card-logo-wrap {
@@ -578,6 +577,7 @@
 
 .proj-card-name {
     display: block;
+    max-width: 84%;
     font-family: 'Instrument Serif', serif;
     font-size: 1.7rem;
     line-height: 1.1;
@@ -588,11 +588,12 @@
 
 .proj-card-desc {
     margin: 0;
-    font-size: 0.85rem;
+    max-width: 45%;
+    font-size: 0.76rem;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.82);
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -600,8 +601,8 @@
 /* miniature screenshot, storte nell'angolo e che trasbordano, stile anteprime macOS */
 .proj-card-thumbs {
     position: absolute;
-    right: -16px;
-    bottom: -16px;
+    right: 4px;
+    bottom: -18px;
     width: 170px;
     height: 132px;
     z-index: 4;
