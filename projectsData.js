@@ -1,7 +1,7 @@
 const projectData = [
     {
         id: "sarcofago3d",
-        color: "#8a6d3b",
+        color: "#4a3526",
         title: "Il Sarcofago Tebanianus",
         descI18n: "proj_3d_desc",
         // logo mancante → forniscilo in assets/logos/sarcofago.png (fallback: solo nome)
@@ -20,7 +20,7 @@ const projectData = [
     },
     {
         id: "laprendo",
-        color: "#e4572e",
+        color: "#c14a22",
         title: "Laprendoconsport",
         descI18n: "proj_laprendo_desc",
         // logo mancante → forniscilo in assets/logos/laprendo.png
@@ -36,7 +36,7 @@ const projectData = [
     },
     {
         id: "bussola",
-        color: "#c9a227",
+        color: "#6d5210",
         title: "La Bussola di Infouma",
         descI18n: "proj_bussola_desc",
         logo: "bussola/assets/compass.png",
@@ -52,7 +52,7 @@ const projectData = [
     },
     {
         id: "blogowl",
-        color: "#6c4bd8",
+        color: "#5b37c4",
         title: "BlogOwl",
         descI18n: "proj_blogowl_desc",
         logo: "bdd/illustrazioni/logo-navbar.svg",
@@ -66,7 +66,7 @@ const projectData = [
     },
     {
         id: "codifica",
-        color: "#2f8f83",
+        color: "#186a5e",
         title: "Text Encoding Project",
         descI18n: "proj_codifica_desc",
         logo: "codifica/immagini/logo.webp",
@@ -82,7 +82,7 @@ const projectData = [
     },
     {
         id: "astergift",
-        color: "#a24bd8",
+        color: "#7d2fb0",
         title: "AsterGift",
         descI18n: "proj_astergift_desc",
         // logo mancante → forniscilo in assets/logos/astergift.png
@@ -94,7 +94,7 @@ const projectData = [
     },
     {
         id: "nasa",
-        color: "#2e5fce",
+        color: "#1f4bad",
         title: "NASA Project",
         descI18n: "proj_nasa_desc",
         logo: "ppw/images/green-logo.png",
@@ -142,19 +142,23 @@ function renderProjects(containerId, isSlider = false) {
                 card.target = '_blank';
                 card.rel = 'noopener noreferrer';
             }
+            const img2 = project.images[1] || project.images[0];
+            const mono = (project.title.trim()[0] || '?').toUpperCase();
             card.innerHTML = `
-                <div class="proj-card-media">
-                    <img src="${project.images[0]}" alt="${project.title}" class="proj-card-img" loading="lazy">
+                <div class="proj-card-thumbs" aria-hidden="true">
+                    <img class="proj-thumb proj-thumb-back" src="${img2}" alt="" loading="lazy">
+                    <img class="proj-thumb proj-thumb-front" src="${project.images[0]}" alt="" loading="lazy">
                 </div>
-                <div class="proj-card-foot">
+                <div class="proj-card-body">
                     <span class="proj-card-logo-wrap">
                         <img src="${project.logo}" alt="" class="proj-card-logo" loading="lazy"
-                             onerror="this.closest('.proj-card').classList.add('no-logo'); this.parentElement.remove()">
+                             onerror="this.closest('.proj-card-logo-wrap').classList.add('mono'); this.remove()">
+                        <span class="proj-card-monogram" aria-hidden="true">${mono}</span>
                     </span>
                     <span class="proj-card-name">${project.title}</span>
                     <p class="proj-card-desc" data-i18n="${project.descI18n}"></p>
-                    <i class="fa-solid fa-arrow-right proj-card-arrow" aria-hidden="true"></i>
                 </div>
+                <i class="fa-solid fa-arrow-right proj-card-arrow" aria-hidden="true"></i>
             `;
             container.appendChild(card);
             return;
