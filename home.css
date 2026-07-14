@@ -507,6 +507,12 @@
     width: 100%;
 }
 
+/* più spazio nello slider così le miniature possono trasbordare senza essere clippate */
+#home-projects-slider {
+    padding-top: 14px;
+    padding-bottom: 50px;
+}
+
 /* ── Card progetto: sfondo brand, logo protagonista, miniature storte stile Mac ── */
 .proj-card {
     --proj-color: #444444;
@@ -517,7 +523,7 @@
     scroll-snap-align: start;
     display: block;
     border-radius: 20px;
-    overflow: hidden;
+    overflow: visible;
     background: var(--proj-color);
     color: #fff;
     text-decoration: none;
@@ -535,7 +541,7 @@
     position: relative;
     z-index: 2;
     padding: 22px 22px 24px;
-    max-width: 66%;
+    max-width: 54%;
 }
 
 .proj-card-logo-wrap {
@@ -577,6 +583,7 @@
     line-height: 1.1;
     margin-bottom: 8px;
     color: #fff;
+    overflow-wrap: break-word;
 }
 
 .proj-card-desc {
@@ -590,14 +597,14 @@
     overflow: hidden;
 }
 
-/* miniature screenshot, storte nell'angolo come le anteprime di macOS */
+/* miniature screenshot, storte nell'angolo e che trasbordano, stile anteprime macOS */
 .proj-card-thumbs {
     position: absolute;
-    right: 12px;
-    bottom: 12px;
-    width: 156px;
-    height: 128px;
-    z-index: 1;
+    right: -16px;
+    bottom: -16px;
+    width: 170px;
+    height: 132px;
+    z-index: 4;
     pointer-events: none;
 }
 
@@ -608,27 +615,27 @@
     object-fit: cover;
     border-radius: 7px;
     border: 3px solid #fff;
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.34);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.38);
     background: rgba(255, 255, 255, 0.1);
 }
 
 .proj-thumb-back {
-    right: 12px;
-    bottom: 26px;
-    transform: rotate(-17deg);
+    right: 24px;
+    bottom: 34px;
+    transform: rotate(-18deg);
     filter: brightness(0.94);
-    opacity: 0.9;
+    opacity: 0.92;
 }
 
 .proj-thumb-front {
-    right: -6px;
-    bottom: -6px;
-    transform: rotate(-7deg);
+    right: 0;
+    bottom: 0;
+    transform: rotate(-8deg);
     transition: transform 0.4s cubic-bezier(0.22, 0.68, 0, 1.2);
 }
 
 .proj-card:hover .proj-thumb-front {
-    transform: rotate(-4deg) translate(-4px, -4px);
+    transform: rotate(-4deg) translate(-4px, -6px);
 }
 
 .proj-card-arrow {
