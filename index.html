@@ -55,7 +55,24 @@
             </div>
         </header>
         <div class="deck-container">
-            <div class="card-deck">
+            <div class="slider-wrapper">
+                <button class="slider-btn prev-btn" id="deck-prev" aria-label="Contatti precedenti"><i
+                        class="fa-solid fa-chevron-left"></i></button>
+                <button class="slider-btn next-btn" id="deck-next" aria-label="Contatti successivi"><i
+                        class="fa-solid fa-chevron-right"></i></button>
+                <div class="card-deck" id="contacts-deck">
+                    <a href="mailto:pirruccio.01@gmail.com" class="card email" target="_blank" rel="noopener noreferrer">
+                    <div class="card-inner">
+                        <div class="card-header">
+                            <span class="card-label" data-i18n="card_contact">Contact</span>
+                            <div class="card-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                        </div>
+                        <h2 class="card-title" data-i18n="card_email_action">Email Me</h2>
+                        <div class="card-visual visual-email"></div>
+                    </div>
+                </a>
                 <a href="https://tidycal.com/paolopirruccio" class="card tidycal" target="_blank"
                     rel="noopener noreferrer">
                     <div class="card-inner">
@@ -118,30 +135,7 @@
                         <div class="card-visual visual-linkedin"></div>
                     </div>
                 </a>
-                <a href="gallery.html" class="card vsco">
-                    <div class="card-inner">
-                        <div class="card-header">
-                            <span class="card-label" data-i18n="card_work">Progetti</span>
-                            <div class="card-icon">
-                                <i class="fa-solid fa-layer-group"></i>
-                            </div>
-                        </div>
-                        <h2 class="card-title" data-i18n="card_gallery">Gallery</h2>
-                        <div class="card-visual visual-vsco"></div>
-                    </div>
-                </a>
-                <a href="mailto:pirruccio.01@gmail.com" class="card email" target="_blank" rel="noopener noreferrer">
-                    <div class="card-inner">
-                        <div class="card-header">
-                            <span class="card-label" data-i18n="card_contact">Contact</span>
-                            <div class="card-icon">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                        </div>
-                        <h2 class="card-title" data-i18n="card_email_action">Email Me</h2>
-                        <div class="card-visual visual-email"></div>
-                    </div>
-                </a>
+                </div>
             </div>
         </div>
         <div class="my-apps-section projects-section" id="projects-section" style="display: block; margin-bottom: 20px;">
@@ -382,13 +376,6 @@
                 </div>
             </div>
         </div>
-        <div class="my-apps-section" id="viaggi-section" style="display: block; margin-bottom: 20px;">
-            <div class="apps-header" id="viaggi-toggle" tabindex="0" role="button" aria-expanded="false">
-                <span class="apps-title" style="font-size: 2rem;" data-i18n="section_viaggi">Viaggi</span>
-                <i class="fa-solid fa-chevron-down" id="viaggi-chevron"></i>
-            </div>
-            <div class="apps-list polaroid-rack" id="viaggi-list"></div>
-        </div>
         <footer class="site-footer">
             <p>&copy; <span id="current-year"></span> <span>Paolo
                     Pirruccio</span>. All rights reserved.</p>
@@ -396,17 +383,18 @@
             </div>
         </footer>
     </div>
-    <div class="sticker-band" aria-hidden="true">
-        <div class="passion-sticker st-apple" title="Apple">
+    <div class="sticker-band">
+        <div class="passion-sticker st-apple" title="Apple" aria-hidden="true">
             <i class="fa-brands fa-apple"></i>
         </div>
-        <div class="passion-sticker st-books" title="Libri">
+        <div class="passion-sticker st-books" title="Libri" aria-hidden="true">
             <i class="fa-solid fa-book-open"></i>
         </div>
-        <div class="passion-sticker st-travel" title="Viaggi">
-            <i class="fa-solid fa-earth-europe"></i>
-        </div>
-        <div class="passion-sticker st-politics" title="Politica">
+        <a href="viaggi.html" class="passion-sticker st-travel" title="Viaggi"
+            aria-label="Apri la galleria dei viaggi">
+            <i class="fa-solid fa-earth-europe" aria-hidden="true"></i>
+        </a>
+        <div class="passion-sticker st-politics" title="Politica" aria-hidden="true">
             <i class="fa-solid fa-landmark-dome"></i>
         </div>
     </div>
@@ -435,7 +423,6 @@
     <script src="scriptlinks.js"></script>
     <script src="projectsData.js"></script>
     <script src="script.js"></script>
-    <script src="viaggi/viaggi.js"></script>
     <script src="blog/posts.js"></script>
     <div class="top-pill-bar">
         <button class="pill-btn" id="search-btn" aria-label="Search">

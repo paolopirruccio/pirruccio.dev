@@ -110,101 +110,55 @@ const projectData = [
     }
 ];
 
+// costruisce una card progetto (stesso design in home slider e in gallery)
+function buildProjectCard(project) {
+    const url = project.link ? project.link.url : 'gallery.html';
+    const card = document.createElement('a');
+    card.className = 'proj-card';
+    card.href = url;
+    card.setAttribute('aria-label', project.title);
+    if (project.color) card.style.setProperty('--proj-color', project.color);
+    if (project.link && project.link.protected) {
+        card.addEventListener('click', function (e) {
+            e.preventDefault();
+            sessionStorage.setItem('portfolio_ref', '1');
+            window.location.href = url;
+        });
+    } else if (project.link && project.link.external) {
+        card.target = '_blank';
+        card.rel = 'noopener noreferrer';
+    }
+    const img2 = project.images[1] || project.images[0];
+    const mono = (project.title.trim()[0] || '?').toUpperCase();
+    card.innerHTML = `
+        <div class="proj-card-thumbs" aria-hidden="true">
+            <img class="proj-thumb proj-thumb-back" src="${img2}" alt="" loading="lazy">
+            <img class="proj-thumb proj-thumb-front" src="${project.images[0]}" alt="" loading="lazy">
+        </div>
+        <div class="proj-card-body">
+            <span class="proj-card-logo-wrap">
+                <img src="${project.logo}" alt="" class="proj-card-logo" loading="lazy"
+                     onerror="this.closest('.proj-card-logo-wrap').classList.add('mono'); this.remove()">
+                <span class="proj-card-monogram" aria-hidden="true">${mono}</span>
+            </span>
+            <span class="proj-card-name">${project.title}</span>
+            <p class="proj-card-desc" data-i18n="${project.descI18n}"></p>
+        </div>
+        <i class="fa-solid fa-arrow-right proj-card-arrow" aria-hidden="true"></i>
+    `;
+    return card;
+}
+
 function renderProjects(containerId, isSlider = false) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    // Clear existing (except for the "view all" card in slider)
-    let viewAllCard = null;
-    if (isSlider) {
-        viewAllCard = container.querySelector('.gallery-slider-end');
-        container.innerHTML = '';
-    } else {
-        container.innerHTML = '';
-    }
+    // nel slider preserva la card "vedi tutti" in coda
+    let viewAllCard = isSlider ? container.querySelector('.gallery-slider-end') : null;
+    container.innerHTML = '';
 
-    projectData.forEach(project => {
-        // ── Home: card ridisegnata (screenshot + footer brand, logo che trasborda, descrizione) ──
-        if (isSlider) {
-            const url = project.link ? project.link.url : 'gallery.html';
-            const card = document.createElement('a');
-            card.className = 'proj-card';
-            card.href = url;
-            card.setAttribute('aria-label', project.title);
-            if (project.color) card.style.setProperty('--proj-color', project.color);
-            if (project.link && project.link.protected) {
-                card.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    sessionStorage.setItem('portfolio_ref', '1');
-                    window.location.href = url;
-                });
-            } else if (project.link && project.link.external) {
-                card.target = '_blank';
-                card.rel = 'noopener noreferrer';
-            }
-            const img2 = project.images[1] || project.images[0];
-            const mono = (project.title.trim()[0] || '?').toUpperCase();
-            card.innerHTML = `
-                <div class="proj-card-thumbs" aria-hidden="true">
-                    <img class="proj-thumb proj-thumb-back" src="${img2}" alt="" loading="lazy">
-                    <img class="proj-thumb proj-thumb-front" src="${project.images[0]}" alt="" loading="lazy">
-                </div>
-                <div class="proj-card-body">
-                    <span class="proj-card-logo-wrap">
-                        <img src="${project.logo}" alt="" class="proj-card-logo" loading="lazy"
-                             onerror="this.closest('.proj-card-logo-wrap').classList.add('mono'); this.remove()">
-                        <span class="proj-card-monogram" aria-hidden="true">${mono}</span>
-                    </span>
-                    <span class="proj-card-name">${project.title}</span>
-                    <p class="proj-card-desc" data-i18n="${project.descI18n}"></p>
-                </div>
-                <i class="fa-solid fa-arrow-right proj-card-arrow" aria-hidden="true"></i>
-            `;
-            container.appendChild(card);
-            return;
-        }
-
-        // ── gallery.html: card ricca (invariata) ──
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-
-        const imagesJson = JSON.stringify(project.images);
-
-        let linkHtml = '';
-        if (project.link) {
-            const i18nLink = project.link.textI18n || 'view_website';
-            if (project.link.protected) {
-                linkHtml = `
-                    <a href="${project.link.url}" class="project-link" data-i18n="${i18nLink}"
-                       onclick="event.preventDefault(); sessionStorage.setItem('portfolio_ref','1'); window.location.href=this.href;">
-                        View Website <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                `;
-            } else {
-                const target = project.link.external ? 'target="_blank" rel="noopener noreferrer"' : '';
-                linkHtml = `
-                    <a href="${project.link.url}" class="project-link" ${target} data-i18n="${i18nLink}">
-                        View Website <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                `;
-            }
-        }
-
-        item.innerHTML = `
-            <div class="gallery-image-container" data-images='${imagesJson}'>
-                <img src="${project.images[0]}" alt="${project.title}" class="gallery-img">
-                <div class="gallery-overlay">
-                    <i class="fa-solid fa-images"></i>
-                </div>
-            </div>
-            <div class="gallery-info" style="position: relative;">
-                <h3 class="project-title">${project.title}</h3>
-                <p class="project-desc" data-i18n="${project.descI18n}" style="transition: all 0.3s ease;"></p>
-                ${isSlider ? `<div class="expand-desc-btn" onclick="const p = this.previousElementSibling; p.style.webkitLineClamp = p.style.webkitLineClamp === 'unset' ? '3' : 'unset'; const i = this.querySelector('i'); i.classList.toggle('fa-chevron-down'); i.classList.toggle('fa-chevron-up');" style="cursor: pointer; text-align: center; color: var(--text-secondary); margin-bottom: 10px; opacity: 0.7;"><i class="fa-solid fa-chevron-down"></i></div>` : ''}
-                ${linkHtml}
-            </div>
-        `;
-        container.appendChild(item);
+    projectData.forEach(function (project) {
+        container.appendChild(buildProjectCard(project));
     });
 
     if (isSlider && viewAllCard) {

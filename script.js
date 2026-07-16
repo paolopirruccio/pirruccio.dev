@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleAccordion('services-toggle', 'services-list', 'services-chevron');
     toggleAccordion('apps-toggle', 'apps-list', 'apps-chevron');
     toggleAccordion('blog-toggle', 'blog-list', 'blog-chevron');
-    toggleAccordion('viaggi-toggle', 'viaggi-list', 'viaggi-chevron');
 
     const initChevron = (listId, chevronId, toggleId) => {
         const list = document.getElementById(listId);
@@ -150,46 +149,29 @@ document.addEventListener('DOMContentLoaded', () => {
         return bestIndex;
     }
 
-    const homeProjSlider = document.getElementById('home-projects-slider');
-    const projPrev = document.getElementById('proj-prev');
-    const projNext = document.getElementById('proj-next');
-    if (homeProjSlider && projPrev && projNext) {
-        const updateSliderBtns = () => {
-            const maxScrollLeft = homeProjSlider.scrollWidth - homeProjSlider.clientWidth;
-            if (homeProjSlider.scrollLeft <= 5) {
-                projPrev.classList.add('hidden');
-            } else {
-                projPrev.classList.remove('hidden');
-            }
+    // frecce per le sezioni che scrollano in orizzontale (progetti e contatti).
+    // Restano nascoste finché non si passa sopra la sezione (solo desktop, via CSS).
+    const setupSliderArrows = (sliderId, prevId, nextId, step) => {
+        const slider = document.getElementById(sliderId);
+        const prev = document.getElementById(prevId);
+        const next = document.getElementById(nextId);
+        if (!slider || !prev || !next) return;
 
-            if (homeProjSlider.scrollLeft >= maxScrollLeft - 5) {
-                projNext.classList.add('hidden');
-            } else {
-                projNext.classList.remove('hidden');
-            }
-
-            homeProjSlider.classList.remove('at-start', 'at-end', 'no-scroll');
-            if (maxScrollLeft <= 0) {
-                homeProjSlider.classList.add('no-scroll');
-            } else if (homeProjSlider.scrollLeft <= 5) {
-                homeProjSlider.classList.add('at-start');
-            } else if (homeProjSlider.scrollLeft >= maxScrollLeft - 5) {
-                homeProjSlider.classList.add('at-end');
-            }
+        const update = () => {
+            const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+            prev.classList.toggle('hidden', slider.scrollLeft <= 5);
+            next.classList.toggle('hidden', slider.scrollLeft >= maxScrollLeft - 5);
         };
 
-        projPrev.addEventListener('click', () => {
-            homeProjSlider.scrollBy({ left: -384, behavior: 'smooth' });
-        });
-        projNext.addEventListener('click', () => {
-            homeProjSlider.scrollBy({ left: 384, behavior: 'smooth' });
-        });
+        prev.addEventListener('click', () => slider.scrollBy({ left: -step, behavior: 'smooth' }));
+        next.addEventListener('click', () => slider.scrollBy({ left: step, behavior: 'smooth' }));
+        slider.addEventListener('scroll', update);
+        window.addEventListener('resize', update);
+        setTimeout(update, 100);
+    };
 
-        homeProjSlider.addEventListener('scroll', updateSliderBtns);
-
-        setTimeout(updateSliderBtns, 100);
-        window.addEventListener('resize', updateSliderBtns);
-    }
+    setupSliderArrows('home-projects-slider', 'proj-prev', 'proj-next', 384);
+    setupSliderArrows('contacts-deck', 'deck-prev', 'deck-next', 324);
 
     const qrModal = document.getElementById('qr-modal');
     const qrImage = document.getElementById('qr-image');

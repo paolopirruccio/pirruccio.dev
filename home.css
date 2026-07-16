@@ -377,9 +377,9 @@
     width: 100%;
     height: 160px;
     margin-top: 12px;
-    /* su iOS (viewport-fit=cover) tiene la fascia sopra la barra flottante
-       di Safari e l'home indicator, così gli sticker non vengono tagliati */
-    margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+    /* nessun buffer fisso: il taglio cade a filo del fondo pagina (niente
+       "riga" a mezz'aria). Solo la safe-area iOS come margine. */
+    margin-bottom: env(safe-area-inset-bottom, 0px);
     overflow: hidden;
     pointer-events: none;
     /* sopra al footer: gli adesivi non devono mai finirci sotto */
@@ -395,6 +395,7 @@
     place-items: center;
     font-size: 2.3rem;
     color: #fff;
+    text-decoration: none;
     opacity: 0.52;
     pointer-events: auto;
     cursor: pointer;
@@ -507,10 +508,15 @@
     width: 100%;
 }
 
-/* più spazio nello slider così le miniature possono trasbordare senza essere clippate */
+/* full-bleed fino ai bordi schermo + spazio per il trasbordo delle miniature.
+   Niente sfumatura ai lati (a differenza dei contatti). */
 #home-projects-slider {
-    padding-top: 14px;
-    padding-bottom: 50px;
+    width: 100vw;
+    margin-left: calc(-1 * var(--page-gutter));
+    padding: 14px 0 50px var(--page-gutter);
+    scroll-padding-left: var(--page-gutter);
+    -webkit-mask-image: none;
+    mask-image: none;
 }
 
 /* ── Card progetto: sfondo brand, logo protagonista, miniature storte stile Mac ── */
@@ -667,5 +673,240 @@
     .proj-thumb {
         width: 126px;
         height: 84px;
+    }
+}
+
+/* Distanza fra il bordo schermo e la colonna del testo (main-container:
+   max-width 1200 + padding 40, che scende a 20 sotto i 768px).
+   Usata dalle strip full-bleed per riallineare la prima card al testo. */
+:root {
+    --page-gutter: max(40px, calc((100vw - 1200px) / 2 + 40px));
+}
+
+@media (max-width: 768px) {
+    :root {
+        --page-gutter: 20px;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Contatti: strip a scorrimento ORIZZONTALE (come lo slider progetti),
+   dimensioni card invariate
+   ══════════════════════════════════════════════════════════════ */
+.card-deck {
+    display: flex;
+    flex-wrap: nowrap;
+    grid-template-columns: none;
+    gap: 24px;
+    overflow-x: auto;
+    /* full-bleed: la strip arriva ai bordi dello schermo (niente "bordo" di
+       pagina a sx/dx); il padding-left riallinea la prima card al testo */
+    width: 100vw;
+    margin-left: calc(-1 * var(--page-gutter));
+    padding: 14px 0 20px var(--page-gutter);
+    /* senza questo lo snap allineerebbe la prima card al bordo schermo
+       invece che alla colonna del testo */
+    scroll-padding-left: var(--page-gutter);
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    /* sfuma la fine del rigo invece di tagliarlo di netto sul bordo pagina */
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 64px), transparent 100%);
+    mask-image: linear-gradient(to right, #000 calc(100% - 64px), transparent 100%);
+}
+
+.card-deck::-webkit-scrollbar {
+    display: none;
+}
+
+.card-deck .card {
+    flex: 0 0 auto;
+    width: 300px;
+    opacity: 1;
+    transform: translateY(0);
+    scroll-snap-align: start;
+}
+
+.card-deck .card:hover {
+    transform: translateY(-8px);
+}
+
+/* ══ Card progetto anche in gallery.html (layout a griglia) ══ */
+.gallery-grid .proj-card {
+    width: auto;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PAGINA VIAGGI — header stile cartolina + griglia polaroid
+   ══════════════════════════════════════════════════════════════ */
+.viaggi-header {
+    position: relative;
+    margin: 10px 0 54px;
+    padding: 40px 0 34px;
+}
+
+/* bordo "par avion" a strisce rosse/blu */
+.viaggi-airmail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7px;
+    border-radius: 4px;
+    background: repeating-linear-gradient(115deg,
+            #c8102e 0 12px,
+            #fdfcf6 12px 24px,
+            #1c3f94 24px 36px,
+            #fdfcf6 36px 48px);
+    opacity: 0.85;
+}
+
+.viaggi-deco {
+    position: absolute;
+    top: 26px;
+    right: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    pointer-events: none;
+}
+
+/* francobollo dentellato */
+.viaggi-stamp {
+    width: 78px;
+    height: 92px;
+    background: #fffdf4;
+    border: 1px solid rgba(120, 96, 60, 0.35);
+    outline: 2px dashed rgba(120, 96, 60, 0.4);
+    outline-offset: -6px;
+    box-shadow: 0 0 0 4px #fffdf4, 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: rotate(4deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.viaggi-stamp-art {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.viaggi-stamp-val {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.42rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #8a6d3b;
+}
+
+/* timbro postale circolare */
+.viaggi-postmark {
+    width: 84px;
+    height: 84px;
+    margin-left: -22px;
+    margin-top: 26px;
+    border: 2px solid rgba(90, 70, 40, 0.42);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    transform: rotate(-12deg);
+    color: rgba(90, 70, 40, 0.6);
+}
+
+.viaggi-postmark-top {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.42rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.viaggi-postmark-mid {
+    font-family: 'Instrument Serif', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+}
+
+.viaggi-kicker {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    transform: rotate(-2deg);
+    margin: 0 0 2px;
+}
+
+/* titolo serif decorato */
+.viaggi-title {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(3.4rem, 11vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.viaggi-rule {
+    width: 132px;
+    height: 0;
+    margin: 16px 0 14px;
+    border-top: 2px solid var(--accent-yellow);
+    position: relative;
+}
+
+.viaggi-rule::after {
+    content: '✦';
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-color);
+    padding: 0 8px;
+    font-size: 0.8rem;
+    color: var(--accent-yellow);
+}
+
+.viaggi-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 42ch;
+}
+
+/* griglia polaroid */
+.polaroid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 40px 30px;
+    align-items: start;
+    justify-items: center;
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.polaroid-grid .polaroid {
+    width: 100%;
+    max-width: 260px;
+}
+
+@media (max-width: 600px) {
+    .viaggi-deco {
+        transform: scale(0.72);
+        transform-origin: top right;
+        top: 18px;
+    }
+
+    .viaggi-header {
+        margin-bottom: 36px;
+    }
+
+    .polaroid-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 28px 18px;
     }
 }
