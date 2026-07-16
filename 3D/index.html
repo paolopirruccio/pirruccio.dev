@@ -441,6 +441,37 @@
       <div id="toolbar" aria-hidden="true"></div>
       <canvas id="draw-canvas"></canvas>
     </div>
+
+
+    <!-- ══ FLASHCARD HEADER ══ -->
+    <div class="fc-hdr" id="FCHD" style="display:none">
+      <div class="fc-hdr-top">
+        <div class="hdr-left">
+          <button class="ibtn" onclick="backToStart()">
+            <svg viewBox="0 0 24 24">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <div class="lbl">Flashcard</div>
+        </div>
+        <button class="ibtn" onclick="restartFlash()">
+          <svg viewBox="0 0 24 24">
+            <polyline points="1 4 1 10 7 10" />
+            <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+          </svg>
+        </button>
+      </div>
+      <div class="track">
+        <div class="fill" id="FCF" style="width:0%"></div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+        <button class="ibtn"
+          style="height:26px; min-width:auto; font-size:12px; padding:0 8px; border-color:var(--accent); color:var(--accent);"
+          onclick="jumpTo(true)">Vai a...</button>
+        <div class="plbl" id="FCPL" style="margin:0;"></div>
+      </div>
+    </div>
+
   </div>
   <script src="js/site.js"></script>
 </body>

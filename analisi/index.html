@@ -214,8 +214,8 @@ body{
 .vg{color:var(--green)}.vr{color:var(--red)}
 .res-btns{display:flex;gap:10px}
 .res-btns.top{margin:14px 0 4px}
-a.bback{display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;box-sizing:border-box}
-a.bback svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bback{display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;box-sizing:border-box}
+.bback svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .brst{flex:1;padding:15px;background:var(--accent);color:#fff;font-size:15px;font-weight:700;
   border:none;border-radius:12px;cursor:pointer;font-family:inherit;transition:filter .15s;min-height:52px}
 .brst:hover{filter:brightness(1.1)}
@@ -412,7 +412,7 @@ mark{background:rgba(176,168,255,.35);color:var(--text);padding:0 3px;border-rad
   <button class="bnxt" id="BN" onclick="nextQ()">Prossima →</button>
   <div class="btn-row" id="BTN_ROW" style="display:none">
     <button class="btn-sec" onclick="backToStart()">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Indietro
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home Analisi
     </button>
     <button class="btn-sec" onclick="restartQuiz()">
       <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>Ricomincia
@@ -478,16 +478,16 @@ mark{background:rgba(176,168,255,.35);color:var(--text);padding:0 3px;border-rad
     </div>
   </div>
   <div class="res-btns top">
-    <button class="bback" onclick="backToStart()">← Indietro</button>
-    <a class="bback" href="../"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+    <button class="bback" onclick="backToStart()"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home Analisi</button>
     <button class="brst" onclick="restartFromResults()">Ricomincia</button>
+    <button class="brst repeat-wrong" onclick="restartWrong()" style="display:none; background:var(--red);">Ripeti Errate</button>
   </div>
   <div class="revhd">Riepilogo risposte</div>
   <div class="revl" id="RL"></div>
   <div class="res-btns">
-    <button class="bback" onclick="backToStart()">← Indietro</button>
-    <a class="bback" href="../"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+    <button class="bback" onclick="backToStart()"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home Analisi</button>
     <button class="brst" onclick="restartFromResults()">Ricomincia</button>
+    <button class="brst repeat-wrong" onclick="restartWrong()" style="display:none; background:var(--red);">Ripeti Errate</button>
   </div>
 </div>
 
@@ -533,10 +533,10 @@ const ALL=[
     "title": "Bias vs Varianza",
     "text": "Qual è la differenza tra Bias e Varianza?",
     "answers": {
-      "a": "Il Bias descrive un errore \"sistematico\"... La varianza rappresenta un errore \"variabile\"...",
-      "b": "Il Bias descrive un errore \"occasionale\"... La varianza rappresenta un errore \"sistematico\"...",
-      "c": "La Varianza descrive un errore \"sistematico\"... Il Bias rappresenta un errore \"variabile\"...",
-      "d": "Il Bias descrive un errore occasionale, la Varianza un errore pregiudiziale..."
+      "a": "Il Bias descrive l'errore sistematico introdotto dall'approssimazione di un problema reale, mentre la Varianza rappresenta la variabilità della predizione con diversi dataset di addestramento.",
+      "b": "Il Bias descrive la variabilità casuale delle predizioni del modello, mentre la Varianza rappresenta l'errore sistematico dovuto a una struttura troppo complessa.",
+      "c": "La Varianza descrive l'errore fisso introdotto da assunzioni errate dell'algoritmo, mentre il Bias rappresenta la deviazione standard delle predizioni.",
+      "d": "Il Bias descrive un errore occasionale del modello sui dati di validazione, mentre la Varianza rappresenta un errore sistematico indipendente dai dati."
     },
     "correct_letter": "a",
     "explanation": "Bias alto = modello troppo semplice (Underfitting). Varianza alta = modello troppo complesso che segue il \"rumore\" dei dati (Overfitting)."
@@ -557,10 +557,10 @@ const ALL=[
     "title": "Definizione Relazione (DB)",
     "text": "Qual è la definizione più accurata di \"Relazione\"?",
     "answers": {
-      "a": "Una RELAZIONE, rappresentata come grafo...",
-      "b": "Una RELAZIONE, rappresentata un insieme di tabelle...",
+      "a": "Una RELAZIONE, rappresentata graficamente come un diagramma ad albero, definisce i percorsi gerarchici tra i record all'interno dello schema.",
+      "b": "Una RELAZIONE, rappresentata da un insieme di tabelle collegate tra loro, permette di navigare le chiavi esterne per estrarre informazioni correlate.",
       "c": "Una RELAZIONE, rappresentata come tabella, ha un nome e un elenco di attributi (intestazioni di colonne) che consentono di interpretare i dati (record) in essa contenuti.",
-      "d": "Una RELAZIONE, rappresentata un collegamento biunivoco..."
+      "d": "Una RELAZIONE, rappresentata da un collegamento biunivoco tra due nodi di una rete di calcolatori, garantisce l'integrità referenziale."
     },
     "correct_letter": "c",
     "explanation": "Nel modello relazionale, la \"Relazione\" è il concetto matematico che noi visualizziamo concretamente come una Tabella."
@@ -593,7 +593,7 @@ const ALL=[
     "title": "Variabile Qualitativa Ordinale",
     "text": "Quando una variabile è qualitativa ordinale?",
     "answers": {
-      "a": "Quando può assumere valori che sono numeri...",
+      "a": "Quando può assumere valori numerici continui derivanti da una misurazione diretta, come altezza o peso.",
       "b": "Quando può assumere valori che rientrano in categorie o classi ordinate",
       "c": "Quando i valori che può assumere sono numeri discreti",
       "d": "Quando può assumere valori che rientrano in categorie o classi non ordinate"
@@ -606,10 +606,10 @@ const ALL=[
     "title": "Modalità",
     "text": "Cosa è la modalità di una variabile?",
     "answers": {
-      "a": "è il fenomeno... oggetto di indagine",
+      "a": "è il fenomeno o carattere oggetto di indagine statistica",
       "b": "è ognuno dei modi in cui si può manifestare la caratteristica negli individui della popolazione",
       "c": "è la modalità con cui si presenta la caratteristica nell'unità statistica u",
-      "d": "è una parte rappresentativa della popolazione..."
+      "d": "è una parte rappresentativa della popolazione selezionata tramite campionamento"
     },
     "correct_letter": "b",
     "explanation": "Esempio: Variabile = \"Colore occhi\". Modalità = \"Verdi\", \"Azzurri\", \"Marroni\" (i modi in cui si manifesta)."
@@ -644,7 +644,7 @@ const ALL=[
     "answers": {
       "a": "E' la sua dipendenza dall'unità di misura usata per i valori",
       "b": "Che è una misura relativa rispetto all'unità di misura scelta",
-      "c": "che possiamo gonfiare il fattore covarianza...",
+      "c": "che possiamo gonfiare artificialmente il valore della covarianza cambiando l'unità di misura",
       "d": "Che un valore positivo indica una variazione di X e Y nella stessa direzione, un valore negativo l'opposto"
     },
     "correct_letter": "d",
@@ -654,8 +654,8 @@ const ALL=[
     "title": "SQL Injection",
     "text": "Cosa si intende con \"SQL Injection\" nel contesto della sicurezza informatica?",
     "answers": {
-      "a": "Un attacco informatico che prevede la manipolazione di un DBMS...",
-      "b": "Un attacco informatico che prevede l'aggiunta di record...",
+      "a": "Un attacco informatico che prevede la manipolazione di un DBMS tramite comandi interni del sistema operativo.",
+      "b": "Un attacco informatico che prevede l'aggiunta di record fittizi tramite brute forcing del protocollo.",
       "c": "Un attacco informatico che prevede l'ignezione di SQL in una pagina web non interattiva",
       "d": "Un attacco informatico che prevede l'ignezione di codice SQL attraverso campi di input testuali o numerici"
     },
@@ -666,9 +666,9 @@ const ALL=[
     "title": "Varianza Pandas (Campionaria vs Popolazione)",
     "text": "Qual è la differenza tra la varianza campionaria e quella della popolazione in Pandas?",
     "answers": {
-      "a": "La varianza campionaria si basa su tutti i valori...",
-      "b": "La varianza campionaria è calcolata usando la funzione var()...",
-      "c": "La varianza campionaria è sempre maggiore...",
+      "a": "La varianza campionaria si basa su tutti i valori tranne la media aritmetica calcolata.",
+      "b": "La varianza campionaria è calcolata usando la funzione var() e richiede l'inserimento manuale delle deviazioni standard.",
+      "c": "La varianza campionaria è sempre maggiore della deviazione standard per definizione matematica.",
       "d": "La varianza campionaria è calcolata dividendo per n-1, mentre quella della popolazione è calcolata dividendo per n."
     },
     "correct_letter": "d",
@@ -693,7 +693,7 @@ const ALL=[
       "a": "Solo che le due variabili sono linearmente indipendenti",
       "b": "La relazione tra i dati è quadratica",
       "c": "Indica che le due variabili sono linearmente indipendenti o che potrebbero essere non linearmente dipendenti",
-      "d": "L'indice può risultare vicino a 0 solo se esiste una relazione non lineare..."
+      "d": "L'indice può risultare vicino a 0 solo se esiste una relazione non lineare e non monotona tra le variabili."
     },
     "correct_letter": "c",
     "explanation": "La correlazione (Pearson) misura solo legami lineari (rette). Se è 0, non c'è una retta, ma potrebbe esserci una parabola o un cerchio (relazione non lineare)."
@@ -702,10 +702,10 @@ const ALL=[
     "title": "Seaborn Hue",
     "text": "Nel comando sns.barplot cosa rappresenta il parametro Hue?",
     "answers": {
-      "a": "Quale colore delle barre viene preso...",
+      "a": "Quale colore delle barre viene preso in considerazione per la palette principale",
       "b": "Quale colonna del dataset rappresenta il colore delle barre",
-      "c": "Il parametro esclude le colonne...",
-      "d": "Quale palette di colori viene usata..."
+      "c": "Il parametro esclude le colonne numeriche dalla rappresentazione grafica",
+      "d": "Quale palette di colori viene usata come impostazione predefinita del sistema"
     },
     "correct_letter": "b",
     "explanation": "Hue (tonalità) permette di aggiungere una terza dimensione al grafico, colorando le barre in base a una categoria specifica (es. Maschi/Femmine)."
@@ -714,10 +714,10 @@ const ALL=[
     "title": "Definizione Covarianza",
     "text": "Cosa è la co-varianza?",
     "answers": {
-      "a": "La covarianza è la media del prodotto delle deviazioni al quadrato...",
-      "b": "La covarianza è la media della somma delle deviazioni...",
+      "a": "La covarianza è la media del prodotto delle deviazioni al quadrato dei singoli valori di una singola variabile.",
+      "b": "La covarianza è la media della somma delle deviazioni assolute di ciascun valore dalla propria media.",
       "c": "La covarianza è la media del prodotto delle deviazioni dei valori dalla media degli insiemi dei dati",
-      "d": "La covarianza è la deviazione dei valori..."
+      "d": "La covarianza è la deviazione dei valori massimi rispetto al valore atteso."
     },
     "correct_letter": "c",
     "explanation": "La formula moltiplica lo scarto di X dalla sua media per lo scarto di Y dalla sua media, e poi ne fa la media."
@@ -726,9 +726,9 @@ const ALL=[
     "title": "Pandas Rank",
     "text": "Qual è il risultato del metodo .rank() applicato a un DataFrame di Pandas?",
     "answers": {
-      "a": "Il metodo calcola la mediana...",
-      "b": "Il metodo calcola la media...",
-      "c": "Il metodo assegna a ogni valore della colonna il suo rango in base all'ordine di grandezza, ovvero il primo valore ha rank n...",
+      "a": "Il metodo calcola la mediana ponderata dei valori ordinati in senso decrescente.",
+      "b": "Il metodo calcola la media dei ranghi per le sole righe duplicate del dataset.",
+      "c": "Il metodo assegna a ogni valore della colonna il suo rango in base all'ordine di grandezza, ovvero il primo valore ha rank n e l'ultimo ha rank 1.",
       "d": "Il metodo assegna a ogni valore della colonna il suo rango in base all'ordine di grandezza, ovvero il primo valore ha rank 1, il secondo valore ha rank 2, ecc."
     },
     "correct_letter": "d",
@@ -753,7 +753,7 @@ const ALL=[
       "a": "Nessuna della altre risposte",
       "b": "Vincoli che esprimono quali attributi di una relazione fanno riferimento alla chiave primaria di un'altra relazione",
       "c": "Vincoli che esprimono quali attributi non possono essere nulli",
-      "d": "Vincoli che esprimono quali attributi devono essere unici..."
+      "d": "Vincoli che esprimono quali attributi devono essere unici all'interno di tutto il database distribuito."
     },
     "correct_letter": "b",
     "explanation": "È la regola delle Chiavi Esterne (Foreign Keys): se una tabella punta a un ID di un'altra tabella, quell'ID deve esistere veramente."
@@ -762,10 +762,10 @@ const ALL=[
     "title": "Pandas Reset Index",
     "text": "Che effetto ha su un dataframe il comando reset_index(drop=True)?",
     "answers": {
-      "a": "Mantiene l'indice delle righe...",
-      "b": "cancella l'indice delle colonne...",
+      "a": "Mantiene l'indice delle righe inserendolo come una nuova colonna ordinaria.",
+      "b": "cancella l'indice delle colonne ripristinando la numerazione intera da 0.",
       "c": "cancella l'indice delle righe quando si crea il nuovo dataframe",
-      "d": "Mantiene l'indice delle colonne..."
+      "d": "Mantiene l'indice delle colonne eliminando l'indice gerarchico preesistente."
     },
     "correct_letter": "c",
     "explanation": "Normalmente reset_index trasforma il vecchio indice in una colonna nuova. Mettendo drop=True, il vecchio indice viene buttato via definitivamente."
@@ -786,10 +786,10 @@ const ALL=[
     "title": "Distribuzione di Frequenza",
     "text": "In una Distribuzione di Frequenze:",
     "answers": {
-      "a": "viene presentato il numero...",
+      "a": "viene presentato il numero complessivo delle unità statistiche che appartengono al campione preso in esame",
       "b": "viene presentato il numero (assoluto, relativo, percentuale) di unità sulle quali viene rilevata ciascuna modalità del carattere",
-      "c": "viene presentato il numero (assoluto e relativo)...",
-      "d": "viene presentato il numero... ciascuna media delle frequenze"
+      "c": "viene presentato il numero (assoluto e relativo) delle classi di ampiezza uniforme nel dataset",
+      "d": "viene presentato il numero di intervalli in cui si divide ciascuna media delle frequenze campionarie"
     },
     "correct_letter": "b",
     "explanation": "Una tabella di frequenza riassume quante volte appare ogni valore (assoluta), la proporzione (relativa) e la percentuale."
@@ -798,10 +798,10 @@ const ALL=[
     "title": "Calcolo della Moda",
     "text": "Cosa richiede il calcolo della Moda?",
     "answers": {
-      "a": "Il calcolo della moda richiede solamente di raggruppare le unità rispetto allo scarto medio...",
-      "b": "(Opzione vuota o simile alla precedente)",
+      "a": "Il calcolo della moda richiede solamente di raggruppare le unità rispetto allo scarto medio assoluto.",
+      "b": "Il calcolo della moda richiede che le modalità del carattere siano quantitative e discrete.",
       "c": "Il calcolo della moda richiede solamente di raggruppare le unità rispetto alle modalità del carattere. E' quindi possibile calcolare la moda per ogni tipo di carattere",
-      "d": "Il calcolo della moda richiede solamente di raggruppare le unità rispetto alla varianza..."
+      "d": "Il calcolo della moda richiede solamente di raggruppare le unità rispetto alla varianza e alla covarianza campionaria."
     },
     "correct_letter": "c",
     "explanation": "La Moda è semplicemente il valore più frequente. Si può calcolare su tutto, anche su dati qualitativi (es. Colore preferito), a differenza della Media."
@@ -810,10 +810,10 @@ const ALL=[
     "title": "Z-Score = 0",
     "text": "Cosa indica uno z-score pari a 0 in una distribuzione normale standardizzata?",
     "answers": {
-      "a": "Il punto di dati si trova a una deviazione standard sotto la media...",
+      "a": "Il punto di dati si trova a una deviazione standard sotto la media campionaria.",
       "b": "Il valore del punto di dati corrisponde alla media della distribuzione.",
-      "c": "Il punto di dati si trova a una deviazione standard sopra la media...",
-      "d": "Non è possibile determinare..."
+      "c": "Il punto di dati si trova a una deviazione standard sopra la media campionaria.",
+      "d": "Non è possibile determinare alcuna informazione sulla posizione rispetto alla media."
     },
     "correct_letter": "b",
     "explanation": "Lo Z-score misura quante deviazioni standard disti dalla media. Se sei a distanza 0, sei esattamente sulla media."
@@ -823,7 +823,7 @@ const ALL=[
     "text": "Per cosa è utile lo scatter plot matrix?",
     "answers": {
       "a": "Correlazioni non lineari",
-      "b": "Rappresentare alcune coppie di variabili...",
+      "b": "Rappresentare solo coppie specifiche di variabili selezionate dall'utente in base al tipo.",
       "c": "Correlazioni lineari",
       "d": "Effetti multivariati"
     },
@@ -835,9 +835,9 @@ const ALL=[
     "text": "Qual è il concetto statistico di base del test di kurtosis?",
     "answers": {
       "a": "Il test di kurtosis verifica se la distribuzione di una popolazione ha una coda più lunga o più corta rispetto a quella di una distribuzione normale.",
-      "b": "Il test di kurtosis verifica se la distribuzione... è bimodale.",
-      "c": "Il test di kurtosis verifica se la distribuzione... è simmetrica.",
-      "d": "Il test di kurtosis verifica se la distribuzione... ha una varianza significativamente diversa..."
+      "b": "Il test di kurtosis verifica se la distribuzione della popolazione presenta un andamento bimodale o multimodale.",
+      "c": "Il test di kurtosis verifica se la distribuzione della popolazione è perfettamente simmetrica o asimmetrica.",
+      "d": "Il test di kurtosis verifica se la distribuzione della popolazione ha una varianza significativamente diversa da un valore prefissato."
     },
     "correct_letter": "a",
     "explanation": "La curtosi misura la \"pesantezza delle code\" o quanto la distribuzione è appuntita rispetto alla normale (Gaussiana)."
@@ -2316,6 +2316,7 @@ function showResults(){
   document.getElementById('RT').textContent=title;document.getElementById('RSB').textContent=sub;
   document.getElementById('RP').textContent=pct+'%';document.getElementById('RF').textContent=ok+' corrette su '+tot;
   document.getElementById('STC').textContent=ok;document.getElementById('STW').textContent=ko;
+  document.querySelectorAll('.repeat-wrong').forEach(b => b.style.display = ko > 0 ? '' : 'none');
   const rl=document.getElementById('RL');rl.innerHTML='';
   hist.forEach((h,i)=>{
     const d=document.createElement('div');d.className='rvi '+(h.good?'ok':'ko');
@@ -2329,6 +2330,21 @@ function showResults(){
   });
 }
 function restartFromResults(){restartQuiz();}
+function restartWrong(){
+  const wrongQs = hist.filter(h => !h.good).map(h => h.q);
+  if(wrongQs.length === 0) return;
+  quiz = wrongQs;
+  cur = 0;
+  ok = 0;
+  ko = 0;
+  hist = [];
+  answered = false;
+  hide('RS');
+  show('QHD');
+  show('QC','block');
+  showQ();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
 function startFlash(){fcDeck=(sel===ALL.length)?(rnd?sh(ALL):ALL.slice()):sh(ALL).slice(0,sel);fcCur=0;hide('SS');show('FCHD');document.getElementById('FC').className='show';renderFlashcard();}
 function renderFlashcard(){
