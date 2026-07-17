@@ -126,6 +126,8 @@ body{
 .bnxt.show{display:block}
 .bnxt:hover{filter:brightness(1.1)}.bnxt:active{transform:scale(.985)}
 .btn-row{display:flex;gap:10px;margin-top:12px}
+.qtimer{position:fixed;bottom:14px;right:14px;z-index:60;display:none;align-items:center;gap:6px;padding:6px 11px;background:var(--surface2);border:1px solid var(--border);border-radius:999px;font-size:12.5px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.qtimer svg{width:13px;height:13px;fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .btn-sec{flex:1;padding:13px 10px;background:var(--surface2);color:var(--text2);
   font-size:14px;font-weight:600;border:1px solid var(--border);border-radius:12px;
   cursor:pointer;font-family:inherit;transition:background .15s;
@@ -485,6 +487,8 @@ mark{background:rgba(176,168,255,.35);color:var(--text);padding:0 3px;border-rad
   <div class="revhd">Riepilogo risposte</div>
   <div class="revl" id="RL"></div>
 </div>
+
+<div class="qtimer" id="QTMR"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="QTMRV">0:00</span></div>
 
 <script>
 const ALL=[
@@ -2244,9 +2248,14 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 function hide(...ids){ids.forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.className=el.className.replace(/\bshow\b/,'').trim();}});}
 function show(id,d='flex'){document.getElementById(id).style.display=d;}
 
-function backToStart(){hide('QHD','QC','FCHD','RS');document.getElementById('FC').className='';document.getElementById('RS').className='results';show('SS');}
+let tmrInt=null,tmrStart=0;
+function tmrTick(){const s=Math.floor((Date.now()-tmrStart)/1000);document.getElementById('QTMRV').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function startTimer(){tmrStart=Date.now();clearInterval(tmrInt);document.getElementById('QTMR').style.display='flex';tmrTick();tmrInt=setInterval(tmrTick,1000);}
+function stopTimer(){clearInterval(tmrInt);tmrInt=null;document.getElementById('QTMR').style.display='none';}
 
-function startSession(){if(mode==='flash'){startFlash();return;}quiz=(sel===ALL.length)?(rnd?sh(ALL):ALL.slice()):sh(ALL).slice(0,sel);cur=0;ok=0;ko=0;hist=[];answered=false;hide('SS');show('QHD');show('QC','block');showQ();}
+function backToStart(){stopTimer();hide('QHD','QC','FCHD','RS');document.getElementById('FC').className='';document.getElementById('RS').className='results';show('SS');}
+
+function startSession(){if(mode==='flash'){startFlash();return;}quiz=(sel===ALL.length)?(rnd?sh(ALL):ALL.slice()):sh(ALL).slice(0,sel);cur=0;ok=0;ko=0;hist=[];answered=false;hide('SS');show('QHD');show('QC','block');startTimer();showQ();}
 
 function showQ(){
   answered=false;
@@ -2298,10 +2307,10 @@ function pick(letter,q){
 }
 
 function nextQ(){cur++;if(cur>=quiz.length){showResults();return;}showQ();window.scrollTo({top:0,behavior:'smooth'});}
-function restartQuiz(){quiz=(sel===ALL.length)?(rnd?sh(ALL):ALL.slice()):sh(ALL).slice(0,sel);cur=0;ok=0;ko=0;hist=[];answered=false;hide('RS');show('QHD');show('QC','block');showQ();window.scrollTo({top:0,behavior:'smooth'});}
+function restartQuiz(){quiz=(sel===ALL.length)?(rnd?sh(ALL):ALL.slice()):sh(ALL).slice(0,sel);cur=0;ok=0;ko=0;hist=[];answered=false;hide('RS');show('QHD');show('QC','block');startTimer();showQ();window.scrollTo({top:0,behavior:'smooth'});}
 
 function showResults(){
-  hide('QHD','QC');const rs=document.getElementById('RS');rs.style.display='';rs.className='results show';window.scrollTo({top:0,behavior:'smooth'});
+  stopTimer();hide('QHD','QC');const rs=document.getElementById('RS');rs.style.display='';rs.className='results show';window.scrollTo({top:0,behavior:'smooth'});
   const tot=quiz.length,pct=Math.round(ok/tot*100);
   let title,sub;
   if(pct>=90){title='Eccellente!';sub='Preparazione solida.';}
@@ -2337,6 +2346,7 @@ function restartWrong(){
   hide('RS');
   show('QHD');
   show('QC','block');
+  startTimer();
   showQ();
   window.scrollTo({top:0,behavior:'smooth'});
 }
