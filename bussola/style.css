@@ -1,5 +1,5 @@
-/* Font extra per i temi — caricati via theme.js, qui solo fallback */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=VT323&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+/* Font dei temi: caricati on-demand da theme.js (loadFont), niente @import
+   qui — bloccava il rendering scaricando TUTTE le famiglie di TUTTI i temi. */
 
 :root {
     color-scheme: dark;

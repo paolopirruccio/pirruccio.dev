@@ -7,9 +7,9 @@ const projectData = [
         // logo mancante → forniscilo in assets/logos/sarcofago.png (fallback: solo nome)
         logo: "assets/logos/sarcofago.png",
         images: [
-            "assets/3d.png",
-            "assets/3d-2.png",
-            "assets/3d-3.png"
+            "assets/opt/3d.webp",
+            "assets/opt/3d-2.webp",
+            "assets/opt/3d-3.webp"
         ],
         link: {
             url: "3D/index.html",
@@ -26,7 +26,7 @@ const projectData = [
         // logo mancante → forniscilo in assets/logos/laprendo.png
         logo: "assets/logos/laprendo.png",
         images: [
-            "assets/laprendoconsport.jpg"
+            "assets/opt/laprendoconsport.webp"
         ],
         link: {
             url: "laprendoconsport.html",
@@ -39,11 +39,11 @@ const projectData = [
         color: "#6d5210",
         title: "La Bussola di Infouma",
         descI18n: "proj_bussola_desc",
-        logo: "bussola/assets/compass.png",
+        logo: "assets/opt/compass-logo.webp",
         images: [
-            "assets/bussola.jpeg",
-            "assets/bussola-2.jpeg",
-            "assets/bussola-3.jpeg"
+            "assets/opt/bussola.webp",
+            "assets/opt/bussola-2.webp",
+            "assets/opt/bussola-3.webp"
         ],
         link: {
             url: "bussola/index.html",
@@ -57,7 +57,7 @@ const projectData = [
         descI18n: "proj_blogowl_desc",
         logo: "bdd/illustrazioni/logo-navbar.svg",
         images: [
-            "assets/blogowl.jpg"
+            "assets/opt/blogowl.webp"
         ],
         link: {
             url: "bdd/login.html",
@@ -71,9 +71,9 @@ const projectData = [
         descI18n: "proj_codifica_desc",
         logo: "codifica/immagini/logo.webp",
         images: [
-            "assets/codifica.jpeg",
-            "assets/codifica-2.jpeg",
-            "assets/codifica-3.jpeg"
+            "assets/opt/codifica.webp",
+            "assets/opt/codifica-2.webp",
+            "assets/opt/codifica-3.webp"
         ],
         link: {
             url: "codifica/codifica.html",
@@ -88,7 +88,7 @@ const projectData = [
         // logo mancante → forniscilo in assets/logos/astergift.png
         logo: "assets/logos/astergift.png",
         images: [
-            "assets/astergift.jpg"
+            "assets/opt/astergift.webp"
         ],
         link: null
     },
@@ -99,9 +99,9 @@ const projectData = [
         descI18n: "proj_nasa_desc",
         logo: "ppw/images/green-logo.png",
         images: [
-            "assets/ppw.jpeg",
-            "assets/ppw-2.jpeg",
-            "assets/ppw-3.jpeg"
+            "assets/opt/ppw.webp",
+            "assets/opt/ppw-2.webp",
+            "assets/opt/ppw-3.webp"
         ],
         link: {
             url: "ppw/index.html",
