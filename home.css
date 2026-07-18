@@ -419,6 +419,13 @@
     }
 }
 
+/* canvas WebGL unico: disegna tutti gli sticker (peel incluso) */
+.sticker-band canvas.sticker-gl {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
 .sticker-band canvas.word-sticker {
     position: absolute;
     left: 0;
