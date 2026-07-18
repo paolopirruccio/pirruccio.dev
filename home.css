@@ -910,3 +910,75 @@
         gap: 28px 18px;
     }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   VIAGGI — modalità "foto sul tavolo": sparse e trascinabili
+   (attiva via JS solo su desktop, senza reduced-motion)
+   ══════════════════════════════════════════════════════════════ */
+.polaroid-grid.scattered {
+    display: block;
+    position: relative;
+}
+
+.polaroid-grid.scattered .polaroid {
+    position: absolute;
+    width: 240px;
+    max-width: none;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.polaroid-grid.scattered .polaroid.dragging {
+    cursor: grabbing;
+    transform: rotate(0deg) scale(1.04);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24), 0 4px 10px rgba(0, 0, 0, 0.14);
+    transition: box-shadow 0.2s ease;
+}
+
+/* nota a mano: le foto si possono trascinare (visibile solo desktop) */
+.viaggi-drag-hint {
+    display: none;
+    font-family: 'Caveat', cursive;
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    transform: rotate(-2deg);
+    margin: 6px 0 0;
+}
+
+@media (min-width: 768px) {
+    .viaggi-drag-hint {
+        display: block;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SPLASH — "Ciao! Benvenuto" a puntini (symbols/halftone effect)
+   ══════════════════════════════════════════════════════════════ */
+#splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background: var(--bg-color);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    /* rete di sicurezza: se il JS non parte, la splash sparisce da sola */
+    animation: splash-failsafe 3.2s forwards;
+}
+
+#splash.leaving {
+    opacity: 0;
+    transition: opacity 0.45s ease;
+}
+
+#splash canvas {
+    max-width: 92vw;
+    max-height: 60vh;
+}
+
+@keyframes splash-failsafe {
+    0%, 88% { opacity: 1; visibility: visible; pointer-events: auto; }
+    100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}

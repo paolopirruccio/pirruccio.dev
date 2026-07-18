@@ -53,6 +53,93 @@ window.VIAGGI = [
         });
 
         list.appendChild(frag);
+        maybeScatter(list);
+    }
+
+    /* ── Modalità "foto sul tavolo": sparse e trascinabili (solo desktop) ── */
+    var zTop = 10; // contatore per portare in cima la foto afferrata
+
+    function canScatter() {
+        return window.matchMedia('(min-width: 768px)').matches &&
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function maybeScatter(list) {
+        if (!canScatter()) return;
+        list.classList.add('scattered');
+        layoutScatter(list);
+        enableDrag(list);
+
+        var t;
+        window.addEventListener('resize', function () {
+            clearTimeout(t);
+            t = setTimeout(function () {
+                if (canScatter()) {
+                    list.classList.add('scattered');
+                    layoutScatter(list);
+                } else {
+                    list.classList.remove('scattered');
+                    list.style.height = '';
+                    list.querySelectorAll('.polaroid').forEach(function (c) {
+                        c.style.left = c.style.top = '';
+                    });
+                }
+            }, 180);
+        });
+    }
+
+    function layoutScatter(list) {
+        var cards = [...list.querySelectorAll('.polaroid')];
+        if (!cards.length) return;
+        var W = list.clientWidth;
+        var cardW = 240, cellH = 320;
+        var cols = Math.max(2, Math.floor(W / (cardW + 70)));
+        var cellW = W / cols;
+        var rows = Math.ceil(cards.length / cols);
+        var jitter = function (max) { return (Math.random() * 2 - 1) * max; };
+
+        cards.forEach(function (c, i) {
+            var col = i % cols, row = Math.floor(i / cols);
+            var x = col * cellW + (cellW - cardW) / 2 + jitter(Math.min(46, cellW * 0.16));
+            var y = row * cellH + 24 + jitter(34);
+            c.style.left = Math.max(0, Math.min(W - cardW, x)) + 'px';
+            c.style.top = Math.max(0, y) + 'px';
+            c.style.setProperty('--pc-rot', (jitter(8)).toFixed(1) + 'deg');
+        });
+        list.style.height = (rows * cellH + 90) + 'px';
+    }
+
+    function enableDrag(list) {
+        var drag = null;
+
+        list.addEventListener('pointerdown', function (e) {
+            var card = e.target.closest('.polaroid');
+            if (!card || !list.classList.contains('scattered')) return;
+            if (e.button !== undefined && e.button !== 0) return;
+            drag = {
+                card: card,
+                dx: e.clientX - card.offsetLeft,
+                dy: e.clientY - card.offsetTop
+            };
+            card.style.zIndex = ++zTop;
+            card.classList.add('dragging');
+            card.setPointerCapture(e.pointerId);
+            e.preventDefault();
+        });
+
+        list.addEventListener('pointermove', function (e) {
+            if (!drag) return;
+            drag.card.style.left = (e.clientX - drag.dx) + 'px';
+            drag.card.style.top = (e.clientY - drag.dy) + 'px';
+        });
+
+        var release = function () {
+            if (!drag) return;
+            drag.card.classList.remove('dragging');
+            drag = null;
+        };
+        list.addEventListener('pointerup', release);
+        list.addEventListener('pointercancel', release);
     }
 
     if (document.readyState === 'loading') {
