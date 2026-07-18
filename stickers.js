@@ -95,8 +95,9 @@
     }
 
     function place(it) {
+        var s = it.scale * it.appear;
         var t = 'translate(' + it.x + 'px,' + it.y + 'px) rotate(' + it.rot + 'deg)' +
-            (it.scale !== 1 ? ' scale(' + it.scale + ')' : '');
+            (s !== 1 ? ' scale(' + s + ')' : '');
         it.canvas.style.transform = t;
         it.hit.style.transform = t;
     }
@@ -121,8 +122,9 @@
                 def: def, canvas: r.canvas, hit: hit, w: r.w, h: r.h,
                 x: def.x * band.clientWidth - r.w / 2,
                 y: def.y * band.clientHeight - r.h / 2,
+                tx: 0, ty: 0, moved: 0,
                 vx: 0, vy: 0, rot: def.rot, vrot: 0,
-                scale: REDUCED ? 1 : 0,
+                scale: 1, appear: REDUCED ? 1 : 0,
                 dragging: false, appearAt: performance.now() + 200 + i * 110
             };
             clamp(it);
@@ -135,63 +137,63 @@
         });
     }
 
-    /* ── Drag & fling ── */
+    /* ── Drag col follow elastico: il pointer muove solo il TARGET (tx,ty);
+       è il loop rAF a far inseguire lo sticker con easing, così resta un
+       filo indietro ("gommoso") e la velocità di lancio nasce dai delta
+       per-frame di quel moto smorzato. ── */
     function bindDrag(it) {
-        var drag = null;
-
         it.hit.addEventListener('pointerdown', function (e) {
             if (e.button !== undefined && e.button !== 0) return;
             e.preventDefault();
             it.dragging = true;
             it.vx = it.vy = it.vrot = 0;
+            it.tx = it.x; it.ty = it.y;
+            it.moved = 0;
             it.canvas.style.zIndex = it.hit.style.zIndex = ++zTop;
             it.hit.classList.add('grabbing');
-            drag = {
-                dx: e.clientX - it.x, dy: e.clientY - it.y,
-                lastX: e.clientX, lastY: e.clientY, lastT: performance.now(),
-                svx: 0, svy: 0, moved: 0
-            };
-            it.hit.setPointerCapture(e.pointerId);
+            it.canvas.classList.add('held');
+            it._dx = e.clientX - it.x;
+            it._dy = e.clientY - it.y;
+            it._lastX = e.clientX; it._lastY = e.clientY;
             wake();
+            try { it.hit.setPointerCapture(e.pointerId); } catch (err) { /* pointer sintetici/edge case */ }
         });
 
         it.hit.addEventListener('pointermove', function (e) {
-            if (!drag) return;
-            var now = performance.now();
-            var dt = Math.max(1, now - drag.lastT);
-            // velocità istantanea smussata (px/frame a ~60fps)
-            drag.svx = drag.svx * 0.4 + ((e.clientX - drag.lastX) / dt * 16.7) * 0.6;
-            drag.svy = drag.svy * 0.4 + ((e.clientY - drag.lastY) / dt * 16.7) * 0.6;
-            drag.moved += Math.hypot(e.clientX - drag.lastX, e.clientY - drag.lastY);
-            drag.lastX = e.clientX; drag.lastY = e.clientY; drag.lastT = now;
-            it.x = e.clientX - drag.dx;
-            it.y = e.clientY - drag.dy;
-            clamp(it);
-            place(it);
+            if (!it.dragging) return;
+            it.moved += Math.hypot(e.clientX - it._lastX, e.clientY - it._lastY);
+            it._lastX = e.clientX; it._lastY = e.clientY;
+            it.tx = e.clientX - it._dx;
+            it.ty = e.clientY - it._dy;
         });
 
-        function release(e) {
-            if (!drag) return;
+        function release() {
+            if (!it.dragging) return;
             it.dragging = false;
             it.hit.classList.remove('grabbing');
-            if (drag.moved < 6) {
+            it.canvas.classList.remove('held');
+            if (it.moved < 6) {
                 // tap: lo sticker "viaggi" naviga, gli altri fanno un wobble
-                if (it.def.href) { location.href = it.def.href; drag = null; return; }
+                if (it.def.href) { location.href = it.def.href; return; }
                 it.vrot = (Math.random() < 0.5 ? -1 : 1) * 4;
             } else {
-                // lancio con momento + un filo di spin
-                it.vx = drag.svx * THROW_SCALE;
-                it.vy = drag.svy * THROW_SCALE;
-                it.vrot = drag.svx * SPIN_FROM_THROW;
+                // la velocità è già quella per-frame del follow: smorzala e lancia
+                it.vx *= THROW_SCALE;
+                it.vy *= THROW_SCALE;
+                it.vrot = it.vx * SPIN_FROM_THROW;
             }
-            drag = null;
             wake();
         }
         it.hit.addEventListener('pointerup', release);
         it.hit.addEventListener('pointercancel', release);
     }
 
-    /* ── Fisica: integrazione + attrito + rimbalzi sui bordi ── */
+    /* ── Fisica: follow elastico, integrazione, attrito, rimbalzi ── */
+    var DRAG_EASE = 0.12;   // inseguimento del target durante il drag (gommoso, come l'originale)
+    var GRAB_SCALE = 1.12;  // cresce mentre lo tieni
+    var SCALE_EASE = 0.12;
+    var TILT_MAX = 9;       // inclinazione max nella direzione del moto
+
     function loop() {
         var active = false;
         var now = performance.now();
@@ -200,18 +202,39 @@
             var it = items[i];
 
             // entrata: pop-in scalare sfalsato
-            if (it.scale < 1 && now >= it.appearAt) {
-                it.scale += (1 - it.scale) * 0.12;
-                if (it.scale > 0.995) it.scale = 1;
+            if (it.appear < 1 && now >= it.appearAt) {
+                it.appear += (1 - it.appear) * 0.12;
+                if (it.appear > 0.995) it.appear = 1;
                 place(it);
                 active = true;
                 continue;
             }
-            if (it.scale < 1) { active = true; continue; }
-            if (it.dragging) { active = true; continue; }
+            if (it.appear < 1) { active = true; continue; }
+
+            // grab scale: eased verso 1.12 da premuto, torna a 1 al rilascio
+            var targetScale = it.dragging ? GRAB_SCALE : 1;
+            if (Math.abs(targetScale - it.scale) > 0.001) {
+                it.scale += (targetScale - it.scale) * SCALE_EASE;
+                active = true;
+            }
+
+            if (it.dragging) {
+                var nx = it.x + (it.tx - it.x) * DRAG_EASE;
+                var ny = it.y + (it.ty - it.y) * DRAG_EASE;
+                it.vx = nx - it.x;
+                it.vy = ny - it.y;
+                it.x = nx; it.y = ny;
+                clamp(it);
+                // lift: inclina leggermente nella direzione del movimento
+                var tilt = Math.max(-TILT_MAX, Math.min(TILT_MAX, it.vx * 0.9));
+                it.rot += (it.def.rot + tilt - it.rot) * 0.18;
+                place(it);
+                active = true;
+                continue;
+            }
 
             var moving = Math.abs(it.vx) > MIN_VEL || Math.abs(it.vy) > MIN_VEL || Math.abs(it.vrot) > 0.05;
-            if (!moving) continue;
+            if (!moving) { if (active) place(it); continue; }
 
             it.x += it.vx;
             it.y += it.vy;

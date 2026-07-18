@@ -425,6 +425,12 @@
     top: 0;
     will-change: transform;
     pointer-events: none;
+    transition: filter 0.25s ease;
+}
+
+/* lift: mentre lo tieni, l'ombra si allarga e lo sticker "si stacca" */
+.sticker-band canvas.word-sticker.held {
+    filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.22));
 }
 
 .sticker-band .word-sticker-hit {
