@@ -285,17 +285,25 @@
     padding: 13px 13px 0;
     border-radius: 3px;
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.10);
-    transform: rotate(var(--pc-rot, -2deg));
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    /* --sx/--sy/--rr: deriva legata allo scroll (ghost-scroll, pagina viaggi) */
+    transform: translate(var(--sx, 0px), var(--sy, 0px)) rotate(calc(var(--pc-rot, -2deg) + var(--rr, 0deg)));
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.9s ease, filter 0.9s ease;
     -webkit-tap-highlight-color: transparent;
 }
 
 /* hover: raddrizza e ingrandisce appena, SENZA cambiare l'ombra */
 .polaroid:hover,
 .polaroid:focus-visible {
-    transform: rotate(0deg) scale(1.03);
+    transform: translate(var(--sx, 0px), var(--sy, 0px)) rotate(0deg) scale(1.03);
     z-index: 3;
     outline: none;
+}
+
+/* ghosty reveal: entra evanescente e sfocata, poi si assesta */
+.polaroid.ghost {
+    opacity: 0;
+    filter: blur(14px);
 }
 
 .polaroid-photo {
@@ -370,128 +378,81 @@
 }
 
 /* ══════════════════════════════════════════════════════════════
-   PASSIONI — sticker a fondo pagina, mezzi fuori schermo
+   PASSIONI — vinyl word stickers: afferrali e lanciali.
+   Render e fisica in stickers.js (canvas 2D, zero librerie).
    ══════════════════════════════════════════════════════════════ */
 .sticker-band {
     position: relative;
     width: 100%;
-    height: 160px;
-    margin-top: 12px;
-    /* nessun buffer fisso: il taglio cade a filo del fondo pagina (niente
-       "riga" a mezz'aria). Solo la safe-area iOS come margine. */
+    height: 200px;
+    margin-top: 8px;
     margin-bottom: env(safe-area-inset-bottom, 0px);
     overflow: hidden;
-    pointer-events: none;
-    /* sopra al footer: gli adesivi non devono mai finirci sotto */
     z-index: 11;
 }
 
-.passion-sticker {
+/* ── Dia-style gradient: aurora sfumata dietro gli sticker ── */
+.sticker-band::before {
+    content: '';
     position: absolute;
-    width: 94px;
-    height: 94px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 2.3rem;
-    color: #fff;
-    text-decoration: none;
-    opacity: 0.52;
-    pointer-events: auto;
-    cursor: pointer;
-    /* bordo bianco die-cut + ombra da adesivo appiccicato */
-    box-shadow:
-        0 0 0 5px #fdfcf6,
-        0 9px 20px rgba(0, 0, 0, 0.18),
-        0 2px 5px rgba(0, 0, 0, 0.12);
-    /* leggermente sbiaditi */
-    filter: saturate(0.82) contrast(0.96);
-    transform: translate(var(--st-jx, 0), 0) rotate(var(--st-rot, -10deg));
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.45s ease, filter 0.45s ease;
-    will-change: transform;
-}
-
-.passion-sticker i {
-    /* alone chiaro interno per far "staccare" l'icona come stampa serigrafica */
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-}
-
-.passion-sticker:hover,
-.passion-sticker:focus-visible {
-    opacity: 1;
-    filter: saturate(1) contrast(1);
-    /* niente sollevamento: solo raddrizza e ingrandisce appena */
-    transform: translate(var(--st-jx, 0), 0) rotate(0deg) scale(1.05);
-    /* niente ombra in hover: solo il bordo bianco die-cut */
-    box-shadow: 0 0 0 5px #fdfcf6;
-    z-index: 12;
-    outline: none;
-}
-
-/* ── Colori per passione (toni un po' vintage/sbiaditi) ── */
-.st-apple    { background: #1d1d1f; }
-.st-travel   { background: #2f7d8a; }
-.st-politics { background: #8c4a52; }
-.st-books    { background: #b07d3c; }
-
-/* ── Posizioni base (mezzi fuori dai bordi della fascia) ──
-   Il JS randomizza rotazione e coordinata lungo il bordo a ogni load;
-   questi sono i fallback se il JS non gira. */
-.st-apple {
-    left: -40px;
-    bottom: 30px;
-    --st-rot: -16deg;
-}
-
-.st-politics {
-    right: -38px;
-    bottom: 26px;
-    --st-rot: 15deg;
-}
-
-.st-travel {
-    left: 52%;
-    bottom: -26px;
-    --st-rot: -8deg;
-}
-
-.st-books {
-    left: 20%;
-    bottom: -30px;
-    --st-rot: 11deg;
+    left: 50%;
+    bottom: -120px;
+    transform: translateX(-50%);
+    width: min(1100px, 96vw);
+    height: 260px;
+    background: radial-gradient(ellipse at 50% 100%,
+            rgba(255, 94, 247, 0.38) 0%,
+            rgba(124, 77, 255, 0.26) 38%,
+            rgba(255, 122, 26, 0.14) 62%,
+            transparent 78%);
+    filter: blur(48px);
+    pointer-events: none;
 }
 
 @media (prefers-color-scheme: dark) {
-    .passion-sticker {
-        box-shadow:
-            0 0 0 5px #ecebe4,
-            0 9px 22px rgba(0, 0, 0, 0.5),
-            0 2px 5px rgba(0, 0, 0, 0.4);
-        opacity: 0.5;
+    .sticker-band::before {
+        background: radial-gradient(ellipse at 50% 100%,
+                rgba(255, 94, 247, 0.30) 0%,
+                rgba(124, 77, 255, 0.22) 38%,
+                rgba(255, 122, 26, 0.10) 62%,
+                transparent 78%);
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .passion-sticker {
-        transition: opacity 0.3s ease;
-    }
+.sticker-band canvas.word-sticker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    will-change: transform;
+    pointer-events: none;
+}
 
-    .passion-sticker:hover,
-    .passion-sticker:focus-visible {
-        transform: translate(var(--st-jx, 0), 0) rotate(var(--st-rot, -10deg));
-    }
+.sticker-band .word-sticker-hit {
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: grab;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sticker-band .word-sticker-hit.grabbing {
+    cursor: grabbing;
+}
+
+/* link accessibile alla pagina viaggi (lo sticker "viaggi" fa da bottone) */
+.sticker-band .sr-viaggi-link {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
 
 @media (max-width: 600px) {
     .sticker-band {
-        height: 132px;
-    }
-
-    .passion-sticker {
-        width: 78px;
-        height: 78px;
-        font-size: 1.9rem;
+        height: 160px;
     }
 }
 

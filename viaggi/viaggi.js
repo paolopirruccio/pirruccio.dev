@@ -54,6 +54,58 @@ window.VIAGGI = [
 
         list.appendChild(frag);
         maybeScatter(list);
+        initGhostScroll(list);
+    }
+
+    /* ── Ghosty reveal + deriva disordinata legata allo scroll ──
+       Le foto entrano sfocate/evanescenti e si assestano; scrollando,
+       ognuna deriva con velocità e direzione proprie (disordinate). ── */
+    function initGhostScroll(list) {
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) return;
+
+        var cards = [...list.querySelectorAll('.polaroid')];
+
+        // reveal: sfocata → nitida quando entra in viewport, a scaglioni
+        cards.forEach(function (c, i) {
+            c.classList.add('ghost');
+            c.style.transitionDelay = (i % 6) * 90 + 'ms';
+        });
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (en.isIntersecting) {
+                    en.target.classList.remove('ghost');
+                    io.unobserve(en.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        cards.forEach(function (c) { io.observe(c); });
+
+        // deriva: fattori casuali per carta, applicati via CSS vars
+        cards.forEach(function (c) {
+            c._fx = (Math.random() * 2 - 1) * 0.10;
+            c._fy = (Math.random() * 2 - 1) * 0.16;
+            c._fr = (Math.random() * 2 - 1) * 0.012;
+        });
+
+        var ticking = false;
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () {
+                var s = window.scrollY;
+                cards.forEach(function (c) {
+                    var sx = Math.max(-70, Math.min(70, s * c._fx));
+                    var sy = Math.max(-90, Math.min(90, s * c._fy));
+                    c.style.setProperty('--sx', sx.toFixed(1) + 'px');
+                    c.style.setProperty('--sy', sy.toFixed(1) + 'px');
+                    c.style.setProperty('--rr', (s * c._fr).toFixed(2) + 'deg');
+                });
+                ticking = false;
+            });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
     }
 
     /* ── Modalità "foto sul tavolo": sparse e trascinabili (solo desktop) ── */

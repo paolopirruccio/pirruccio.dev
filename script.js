@@ -269,23 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Sticker passioni: rotazione e posizione lungo il bordo randomizzate a ogni load
-    const rand = (min, max) => Math.random() * (max - min) + min;
-    // I laterali restano in basso (cima sempre dentro la fascia, mai tagliata);
-    // i due sul bordo inferiore sbucano da sotto.
-    const stickerConfig = {
-        'st-apple':    { rotBase: -16, edge: 'side', prop: 'bottom', min: 8,  max: 30 },
-        'st-politics': { rotBase: 15,  edge: 'side', prop: 'bottom', min: 8,  max: 30 },
-        'st-travel':   { rotBase: -8,  edge: 'bottom', prop: 'left', min: 46, max: 60 },
-        'st-books':    { rotBase: 11,  edge: 'bottom', prop: 'left', min: 14, max: 32 }
-    };
-    Object.entries(stickerConfig).forEach(([cls, cfg]) => {
-        const el = document.querySelector('.' + cls);
-        if (!el) return;
-        el.style.setProperty('--st-rot', (cfg.rotBase + rand(-7, 7)).toFixed(1) + 'deg');
-        el.style.setProperty('--st-jx', rand(-6, 6).toFixed(1) + 'px');
-        el.style[cfg.prop] = cfg.prop === 'left'
-            ? rand(cfg.min, cfg.max).toFixed(1) + '%'
-            : rand(cfg.min, cfg.max).toFixed(0) + 'px';
-    });
+    // (i vecchi sticker-icona sono stati sostituiti dai vinyl word sticker
+    //  con fisica: vedi stickers.js)
 });
