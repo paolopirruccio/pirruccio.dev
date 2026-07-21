@@ -913,30 +913,6 @@ const ALL=[
     "explanation": "Il parametro hue aggiunge una terza dimensione semantica al grafico, colorando (raggruppando) le barre in base alle categorie presenti nella colonna specificata."
   },
   {
-    "title": "Domanda 2",
-    "text": "Qual'e' il tipo di grafico migliore per confrontare valori relativi?",
-    "answers": {
-      "a": "Il Pie chart",
-      "b": "Il Bar graph",
-      "c": "Lo Scatter plot",
-      "d": "Il Line graph"
-    },
-    "correct_letter": "b",
-    "explanation": "I grafici a barre sono superiori per i confronti perché l'occhio umano confronta le lunghezze molto meglio delle aree o degli angoli (tipici dei pie chart)."
-  },
-  {
-    "title": "Domanda 5",
-    "text": "Qual è il comando in Python per generare una heatmap a partire da un dataset rappresentato da un DataFrame di Pandas utilizzando la libreria Seaborn? Tutte le risposte:",
-    "answers": {
-      "a": "df.plot(kind='heatmap')",
-      "b": "sns.create_heatmap(df)",
-      "c": "sns.heatmap(df)",
-      "d": "plt.imshow(df)"
-    },
-    "correct_letter": "c",
-    "explanation": "È la sintassi diretta di Seaborn (sns) per creare mappe di calore passando semplicemente il DataFrame come argomento principale."
-  },
-  {
     "title": "Domanda 8",
     "text": "Cosa non e' una limitazione della misura di covarianza?",
     "answers": {
@@ -973,18 +949,6 @@ const ALL=[
     "explanation": "Sebbene i dati sembrino categorici, il metodo .plot() di Pandas crea di default un grafico a linee se non viene specificato il parametro kind (es. kind='bar')."
   },
   {
-    "title": "Domanda 11",
-    "text": "Cosa e' la modalita' di una variabile?",
-    "answers": {
-      "a": "è la modalità con cui si presenta la caratteristica nell'unità statistica u",
-      "b": "è il fenomeno, caratteristica o proprietà osservabile sugli individui di una popolazione, il cui diverso modo di manifestarsi è oggetto di indagine",
-      "c": "è una parte rappresentativa della popolazione su cui è effettivamente svolta l'indagine relativa al fenomeno di interesse, quando, per motivi vari, l'indagine non può essere svolta su tutta la popolazione",
-      "d": "è ognuno dei modi in cui si può manifestare la caratteristica negli individui della popolazione"
-    },
-    "correct_letter": "d",
-    "explanation": "In statistica, le \"modalità\" sono i possibili valori o categorie che una variabile può assumere (es. per la variabile \"Colore Occhi\", le modalità sono \"Verdi\", \"Azzurri\", ecc.)."
-  },
-  {
     "title": "Domanda 12",
     "text": "Qual è l'argomento opzionale per specificare la scala di colore di una heatmap in Python?",
     "answers": {
@@ -1009,18 +973,6 @@ const ALL=[
     "explanation": "È il linguaggio standardizzato per interagire con i database relazionali (creare, leggere, aggiornare ed eliminare dati)."
   },
   {
-    "title": "Domanda 14",
-    "text": "L'IQR (Inter Quartile Range) e':",
-    "answers": {
-      "a": "La differenza tra il primo e l'ultimo quartile",
-      "b": "La differenza tra il quarto e il primo quartile",
-      "c": "La differenza tra il secondo e il terzo quartile",
-      "d": "La differenza tra il terzo e il primo quartile"
-    },
-    "correct_letter": "d",
-    "explanation": "L'IQR misura la dispersione statistica dei dati centrali. Si calcola come e rappresenta l'intervallo in cui cade il 50% centrale delle osservazioni."
-  },
-  {
     "title": "Domanda 15",
     "text": "Qual è l'effetto dell'opzione nan_policy=\"omit\" nel metodo mean() di Pandas quando applicato a un DataFrame?",
     "answers": {
@@ -1031,30 +983,6 @@ const ALL=[
     },
     "correct_letter": "c",
     "explanation": "Sebbene in Pandas il default sia skipna=True, l'impostazione logica (spesso esplicita in Scipy come nan_policy) è quella di escludere i nulli dal calcolo per non falsare la media."
-  },
-  {
-    "title": "Domanda 16",
-    "text": "Quali dei seguenti non e' un limite del coefficiente di correlazione?",
-    "answers": {
-      "a": "Un valore tra 0 e 1 indica una correlazione positiva solo nel caso di relazione lineare tra le variabili",
-      "b": "È molto sensibile ai dati atipici",
-      "c": "Quantifica solo la forza della relazione lineare tra due variabili (se la relazione non è lineare esso non fornisce una misura valida)",
-      "d": "La correlazione stimata non deve essere estrapolata oltre i range osservati"
-    },
-    "correct_letter": "a",
-    "explanation": "Le opzioni b, c e d sono effettivamente limiti o debolezze della correlazione di Pearson. L'opzione a descrive invece correttamente la sua interpretazione nel contesto lineare, quindi \"non è un limite\" (inteso come difetto)."
-  },
-  {
-    "title": "Domanda 17",
-    "text": "Cosa e' la co-varianza?",
-    "answers": {
-      "a": "La covarianza e' la media del prodotto delle deviazioni dei valori dalla media degli insiemi dei dati",
-      "b": "La covarianza e' la media della somma delle deviazioni dei valori dalla media degli insiemi dei dati",
-      "c": "La covarianza e' la media del prodotto delle deviazioni al quadrato dei valori dalla media degli insiemi dei dati",
-      "d": "La covarianza e' la deviazione dei valori dalla media degli insiemi dei dati"
-    },
-    "correct_letter": "a",
-    "explanation": "Matematicamente è . Misura come due variabili variano insieme."
   },
   {
     "title": "Domanda 18",
@@ -1069,42 +997,6 @@ const ALL=[
     "explanation": "axvline disegna una linea verticale sull'asse x (ascissa) al valore specificato. \"k\" sta per nero (black) e \"--\" indica lo stile tratteggiato."
   },
   {
-    "title": "Domanda 19",
-    "text": "Data la seguente base di dati: IMPIEGATI (...) DIPARTIMENTI (...) Qual'è la query corrispondente per \"Elencare Nome, Cognome e Stipendio degli impiegati di cognome «Rossi»\"?",
-    "answers": {
-      "a": "SELECT Nome, Cognome, Stipendio WHERE Cognome=\"Rossi\" FROM IMPIEGATI",
-      "b": "SELECT Nome, Cognome, Stipendio FROM IMPIEGATI WHERE Cognome=\"Rossi\"",
-      "c": "SELECT Nome, Cognome, Stipendio FROM DIPARTIMENTI WHERE Cognome=\"Rossi\"",
-      "d": "SELECT Nome, Cognome, Stipendio FROM IMPIEGATI WHERE Nome=\"Rossi\""
-    },
-    "correct_letter": "b",
-    "explanation": "La sintassi SQL corretta richiede l'ordine: SELECT (colonne), FROM (tabella), WHERE (condizione)."
-  },
-  {
-    "title": "Domanda 22",
-    "text": "Quali delle seguenti non e' una caratteristica dei grafici a barre (bar graphs)?",
-    "answers": {
-      "a": "Presentare variabili categoriche",
-      "b": "L'altezza delle barre indica il valore",
-      "c": "Presentare variabili dipendenti",
-      "d": "Le barre possono essere orizzontali"
-    },
-    "correct_letter": "c",
-    "explanation": "Solitamente sull'asse delle categorie (x) si ha una variabile indipendente/categorica. Dire che serve a presentare \"variabili dipendenti\" è impreciso rispetto alla sua funzione primaria di confronto tra categorie."
-  },
-  {
-    "title": "Domanda 24",
-    "text": "In un pairplot cosa e' rappresentato sulla diagonale?",
-    "answers": {
-      "a": "Lo scatterplot di due variabili con correlazione negativa",
-      "b": "Lo scatterplot di due variabili con correlazione positiva",
-      "c": "Lo scatterplot di due variabili",
-      "d": "La distribuzione di una singola variabile in forma di istogramma"
-    },
-    "correct_letter": "d",
-    "explanation": "Poiché sulla diagonale incrocio una variabile con se stessa (es. X vs X), uno scatterplot non avrebbe senso; si mostra quindi la distribuzione (istogramma o densità) di quella variabile."
-  },
-  {
     "title": "Domanda 25",
     "text": "Quando e' efficace lo scatter plot?",
     "answers": {
@@ -1115,18 +1007,6 @@ const ALL=[
     },
     "correct_letter": "b",
     "explanation": "Lo scatter plot è utile per visualizzare qualsiasi tipo di relazione (lineare, non lineare, o assenza di relazione) tra due variabili quantitative."
-  },
-  {
-    "title": "Domanda 26",
-    "text": "Quali sei [dei] seguenti e' un esempio di variabile quantitativa ordinale?",
-    "answers": {
-      "a": "Il colore degli occhi",
-      "b": "Livello di istruzione",
-      "c": "Il reddito",
-      "d": "Il sesso"
-    },
-    "correct_letter": "b",
-    "explanation": "Anche se tecnicamente è una variabile \"qualitativa ordinale\", nel contesto del quiz è l'unica che possiede un ordine intrinseco (Elementare < Media < Superiore...), a differenza di sesso o colore occhi."
   },
   {
     "title": "Domanda 27",
@@ -1201,43 +1081,6 @@ const ALL=[
     "explanation": "Una chiave primaria deve identificare univocamente l'esame. Uno studente ha un solo voto per corso, non un solo voto in assoluto. La chiave corretta sarebbe (Studente, Corso)."
   },
   {
-    "title": "Q001",
-    "text": "Qual è il modulo Python utilizzato per creare heatmaps? [Forse ha corretto la risposta in seaborn]",
-    "answers": {
-      "a": "pandas",
-      "b": "numpy",
-      "c": "seaborn",
-      "d": "matplotlib"
-    },
-    "correct_letter": "c",
-    "explanation": "Sebbene seaborn sia la libreria principale e corretta per creare heatmap (sns.heatmap), il professore aveva indicato matplotlib. È stata impostata seaborn come corretta oggettivamente.",
-    "prof_letter": "d"
-  },
-  {
-    "title": "Q002",
-    "text": "Quando una variabile e’ qualitativa ordinale?",
-    "answers": {
-      "a": "Quando può assumere valori che sono numeri che rappresentano quantità realmente misurabili",
-      "b": "Quando i valori che può assumere sono numeri discreti",
-      "c": "Quando può assumere valori che rientrano in categorie o classi non ordinate",
-      "d": "Quando può assumere valori che rientrano in categorie o classi ordinate"
-    },
-    "correct_letter": "d",
-    "explanation": ""
-  },
-  {
-    "title": "Q003",
-    "text": "Quale dei seguenti è un esempio di variabile quantitativa ordinale?",
-    "answers": {
-      "a": "Il reddito",
-      "b": "Livello di istruzione",
-      "c": "Il colore degli occhi",
-      "d": "Il sesso"
-    },
-    "correct_letter": "b",
-    "explanation": ""
-  },
-  {
     "title": "Q010",
     "text": "Che effetto ha sul grafico il seguente comando di matplotlib.pyplot: plt.xticks(roation=-45)?",
     "answers": {
@@ -1250,18 +1093,6 @@ const ALL=[
     "explanation": ""
   },
   {
-    "title": "Q014",
-    "text": "Come può essere meglio tradotta la seguente espressione in algebra relazionale? π(Nome,Cognome) (σ(Voto≥25)(STUDENTI M(Matricola=Studente) ESAMI))",
-    "answers": {
-      "a": "Selezionare il \"Nome\" e \"Cognome\" in ordine decrescente dei soli studenti che abbiamo almeno un esame con voto maggiore di 25.",
-      "b": "Selezionare il \"Nome\" e \"Cognome\" dei soli studenti che abbiamo tutti gli esami con voto maggiore o uguale di 25.",
-      "c": "Selezionare il \"Nome\" e \"Cognome\" dei soli studenti che abbiamo tutti gli esami con voto maggiore o uguale di 25 e minore di 30.",
-      "d": "Selezionare il \"Nome\" e \"Cognome\" dei soli studenti che abbiamo almeno un esame con voto maggiore o uguale di 25."
-    },
-    "correct_letter": "d",
-    "explanation": ""
-  },
-  {
     "title": "Q015",
     "text": "Il calcolo del coefficiente di determinazione R² misura:",
     "answers": {
@@ -1271,54 +1102,6 @@ const ALL=[
       "d": "la percentuale di variazione della variabile indipendente spiegata dalla variazione del coefficiente."
     },
     "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Q020",
-    "text": "Dato il seguente codice: Lowerfence = Q1 - 1.5*IQR, Upperfence = Q3 + 1.5*IQR dove IQR = Q3-Q1. Cosa stiamo calcolando?",
-    "answers": {
-      "a": "Le soglie per outliers moderati",
-      "b": "La differenza interquartile di un boxplot",
-      "c": "Lo Z score",
-      "d": "Le soglie per outliers estremi"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Q022",
-    "text": "La retta di regressione è descritta da una equazione y= a + bx:",
-    "answers": {
-      "a": "dove y è la variabile indipendente e x la variabile dipendente: a e b i coefficienti, rispettivamente il termine costante e b il coefficiente angolare (slope)",
-      "b": "dove y è la variabile dipendente e x la variabile indipendente: a e b i coefficienti, rispettivamente il termine costante e b il coefficiente angolare (slope)",
-      "c": "dove y è la variabile indipendente e x la variabile dipendente: a e b i coefficienti, rispettivamente il termine variabile e b il coefficiente angolare (slope)",
-      "d": "dove y è la variabile indipendente e x la variabile indipendente: a e b i coefficienti, rispettivamente a termine costante e b il coefficiente angolare (slope)"
-    },
-    "correct_letter": "b",
-    "explanation": ""
-  },
-  {
-    "title": "Q028",
-    "text": "Cosa si intende con \"VINCOLI DI INTEGRITA' REFERENZIALE\"?",
-    "answers": {
-      "a": "Nessuna della altre risposte",
-      "b": "Vincoli che esprimono quali attributi di una relazione fanno riferimento alla chiave primaria di un'altra relazione",
-      "c": "Vincoli che esprimono quali attributi non possono essere nulli",
-      "d": "Vincoli che esprimono quali attributi devono essere unici in una relazione"
-    },
-    "correct_letter": "b",
-    "explanation": ""
-  },
-  {
-    "title": "Q030",
-    "text": "Cosa produce questo comando: plt.pie(sizes, labels = labels, autopct = '%1.11%%', shadow = True, startangle = 180)",
-    "answers": {
-      "a": "Un grafico a torta con le percentuali calcolate a partire da sizes, con etichette da labels, con percentuali con due decimale e angolo iniziale del grafico di 180 gradi",
-      "b": "Un grafico a torta con le etichette da sizes, con percentuali da labels con un decimale e angolo iniziale del grafico di 180 gradi",
-      "c": "Un grafico a torta con le percentuali calcolate a partire da sizes, con etichette da labels, con percentuali con un decimale e angolo iniziale del grafico di 180 gradi e con colori da colors",
-      "d": "Un grafico a torta con le percentuali calcolate a partire da sizes, con etichette da labels, con percentuali con un decimale e angolo iniziale del grafico di 180 gradi"
-    },
-    "correct_letter": "d",
     "explanation": ""
   },
   {
@@ -1430,18 +1213,6 @@ const ALL=[
     "explanation": ""
   },
   {
-    "title": "Q047",
-    "text": "Dato un comando crosstab, cosa effettua la funzione aggfunc=np.sum?",
-    "answers": {
-      "a": "Aggrega i valori sommandoli e restituendo una tupla.",
-      "b": "Aggrega i valori sommandoli e restituendo un solo valore usando la funzione di somma di numpy.",
-      "c": "Effettua una JOIN e usa la somma come operatore aggregato.",
-      "d": "Aggrega i valori sommandoli e restituendo un solo valore usando la funzione somma di pandas."
-    },
-    "correct_letter": "b",
-    "explanation": ""
-  },
-  {
     "title": "Q048",
     "text": "Cos'è la statistica descrittiva?",
     "answers": {
@@ -1547,18 +1318,6 @@ const ALL=[
       "d": "La distribuzione di una singola variabile in forma di istogramma"
     },
     "correct_letter": "d",
-    "explanation": ""
-  },
-  {
-    "title": "Q062",
-    "text": "Dato lo schema di base di dati seguente: STUDENTI (Matricola, Cognome, Nome, Data di nascita) CORSI (Codice, Titolo, Docente) ESAMI (Studente, Voto, Lode, Corso) Quali delle seguenti risposte non è un vincolo appropriato?",
-    "answers": {
-      "a": "\"Matricola\" è chiave primaria della relazione STUDENTI.",
-      "b": "((Voto<30) AND (Lode=\"\")) OR ((Voto=30) AND (Lode=\"lode\")).",
-      "c": "\"Studente\" e \"Voto\" costituiscono la chiave primaria di ESAMI.",
-      "d": "(Voto≥18) AND (Voto≤30)."
-    },
-    "correct_letter": "c",
     "explanation": ""
   },
   {
@@ -1719,78 +1478,6 @@ const ALL=[
     "explanation": ""
   },
   {
-    "title": "Domanda 10",
-    "text": "Quale dei seguenti rappresenta un ordine corretto dei comandi SQL?",
-    "answers": {
-      "a": "SELECT, WHERE, GROUP BY, HAVING",
-      "b": "SELECT, HAVING, WHERE, GROUP BY",
-      "c": "SELECT, WHERE, HAVING, GROUP BY",
-      "d": "SELECT, GROUP BY, WHERE, HAVING"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 11",
-    "text": "Data l'operazione JOIN tra due tabelle di dimensioni 3x4 e 2x6 (righe x colonne), qual è la dimensione della tabella risultante?",
-    "answers": {
-      "a": "5x9",
-      "b": "5x10",
-      "c": "6x9",
-      "d": "6x10"
-    },
-    "correct_letter": "d",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 13",
-    "text": "Data la base di dati IMPIEGATI(Nome, Cognome, Dipart, Ufficio, Stipendio, Città), quale query calcola lo stipendio mensile dell'impiegato \"Carlo Bianchi\"?",
-    "answers": {
-      "a": "SELECT Stipendio/12 FROM IMPIEGATI WHERE Nome=\"Carlo\" AND Cognome=\"Bianchi\"",
-      "b": "SELECT Stipendio/24 FROM IMPIEGATI WHERE Nome=\"Carlo\" AND Cognome=\"Bianchi\"",
-      "c": "SELECT avg(Stipendio) FROM IMPIEGATI WHERE Nome=\"Bianchi\" AND Cognome=\"Carlo\"",
-      "d": "SELECT Stipendio/24 FROM STUDENTI WHERE Nome=\"Carlo\" AND Cognome=\"Bianchi\""
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 14",
-    "text": "Data la base di dati IMPIEGATI(Nome, Cognome, Dipart, Ufficio, Stipendio, Città), quale query elenca \"Nome, Cognome e Stipendio degli impiegati di cognome Rossi\"?",
-    "answers": {
-      "a": "SELECT Nome, Cognome, Stipendio FROM IMPIEGATI WHERE Cognome=\"Rossi\"",
-      "b": "SELECT Nome, Cognome, Stipendio WHERE Cognome=\"Rossi\" FROM IMPIEGATI",
-      "c": "SELECT Nome, Cognome, Stipendio FROM DIPARTIMENTI WHERE Cognome=\"Rossi\"",
-      "d": "SELECT Nome, Cognome, Stipendio FROM IMPIEGATI WHERE Nome=\"Rossi\""
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 15",
-    "text": "Dato lo schema STUDENTI(Matricola, Cognome, Nome, Data di nascita), CORSI(Codice, Titolo, Docente), ESAMI(Studente, Voto, Lode, Corso), quale risposta NON è un vincolo appropriato?",
-    "answers": {
-      "a": "\"Studente\" e \"Voto\" costituiscono la chiave primaria di ESAMI",
-      "b": "\"Matricola\" è chiave primaria della relazione STUDENTI",
-      "c": "(Voto>=18) AND (Voto<=30)",
-      "d": "((Voto<=30) AND (Lode=\"\")) OR ((Voto=30) AND (Lode=\"lode\"))"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 16",
-    "text": "Come può essere tradotta la seguente espressione in algebra relazionale? π(Nome,Cognome)(σ(Voto>=25)(STUDENTI ⋈(Matricola=Studente) ESAMI))",
-    "answers": {
-      "a": "Selezionare il \"Nome\" e \"Cognome\" dei soli studenti che hanno almeno un esame con voto maggiore o uguale di 25",
-      "b": "Selezionare il \"Nome\" e \"Cognome\" dei soli studenti che hanno tutti gli esami con voto maggiore o uguale di 25",
-      "c": "Selezionare il \"Nome\" e \"Cognome\" dei soli studenti che hanno tutti gli esami con voto maggiore o uguale di 25 e minore di 30",
-      "d": "Selezionare il \"Nome\" e \"Cognome\" in ordine decrescente dei soli studenti che hanno almeno un esame con voto maggiore di 25"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
     "title": "Domanda 18",
     "text": "Cos'è la modalità di una variabile?",
     "answers": {
@@ -1863,66 +1550,6 @@ const ALL=[
     "explanation": "L'affermazione errata è la a: è la deviazione standard a essere la radice quadrata della varianza (σ = √σ²), mentre la varianza è il quadrato della deviazione standard, non la sua radice."
   },
   {
-    "title": "Domanda 30",
-    "text": "Dato il codice Lowerfence = Q1 - 1.5*IQR, Upperfence = Q3 + 1.5*IQR (con IQR = Q3-Q1), cosa stiamo calcolando?",
-    "answers": {
-      "a": "Le soglie per outliers moderati",
-      "b": "Le soglie per outliers estremi",
-      "c": "La differenza interquartile di un boxplot",
-      "d": "Lo Z-score"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 33",
-    "text": "In un istogramma di frequenza ad ogni categoria è associato un rettangolo. Quale delle seguenti affermazioni NON è vera?",
-    "answers": {
-      "a": "La base del rettangolo è pari alla densità di frequenza",
-      "b": "La base del rettangolo è pari all'ampiezza della categoria",
-      "c": "L'altezza del rettangolo è pari alla densità di frequenza",
-      "d": "L'area del rettangolo è per costruzione la frequenza (assoluta o relativa) associata alla classe"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 34",
-    "text": "Il rapporto tra la frequenza e l'ampiezza di una classe è detto densità di frequenza. Quale delle seguenti affermazioni NON è vera?",
-    "answers": {
-      "a": "La densità di frequenza è sempre relativa indipendentemente dal tipo di frequenza utilizzato nel calcolo",
-      "b": "La densità di frequenza è assoluta o relativa a seconda del tipo di frequenza utilizzato nel calcolo",
-      "c": "Le densità di frequenza sono fra loro confrontabili",
-      "d": "La densità di frequenza si calcola come il rapporto tra la frequenza e l'ampiezza di una classe"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 36",
-    "text": "Cos'è la co-varianza?",
-    "answers": {
-      "a": "La covarianza è la media del prodotto delle deviazioni dei valori dalla media degli insiemi dei dati",
-      "b": "La covarianza è la media del prodotto delle deviazioni al quadrato dei valori dalla media degli insiemi dei dati",
-      "c": "La covarianza è la media della somma delle deviazioni dei valori dalla media degli insiemi dei dati",
-      "d": "La covarianza è la deviazione dei valori dalla media degli insiemi dei dati"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 40",
-    "text": "Quale dei seguenti NON è un limite del coefficiente di correlazione?",
-    "answers": {
-      "a": "Un valore tra 0 e 1 indica una correlazione positiva solo nel caso di relazione lineare tra le variabili",
-      "b": "È molto sensibile ai dati atipici",
-      "c": "Quantifica solo la forza della relazione lineare tra due variabili (se la relazione non è lineare non fornisce una misura valida)",
-      "d": "La correlazione stimata non deve essere estrapolata oltre i range osservati"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
     "title": "Domanda 50",
     "text": "Quale delle seguenti è una rappresentazione usuale per le variabili qualitative?",
     "answers": {
@@ -1966,18 +1593,6 @@ const ALL=[
       "b": "0.0",
       "c": "0.5",
       "d": "-0.5"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 55",
-    "text": "Quale dei seguenti costituisce un problema classico di machine learning?",
-    "answers": {
-      "a": "Regressione",
-      "b": "Predizione",
-      "c": "Pianificazione",
-      "d": "Varianza"
     },
     "correct_letter": "a",
     "explanation": ""
@@ -2031,30 +1646,6 @@ const ALL=[
     "explanation": ""
   },
   {
-    "title": "Domanda 62",
-    "text": "Volendo rappresentare in forma di boxplot orizzontali due distribuzioni di due colonne chiamate age e fare (con seaborn importata come sns), quale comando è corretto?",
-    "answers": {
-      "a": "sns.boxplot(data=df[[\"age\", \"fare\"]], orient=\"h\")",
-      "b": "sns.boxplot(data=df[[\"age\", \"fare\"]], orient=\"v\")",
-      "c": "sns.boxplot(data=df[\"age\", \"fare\"], orient=\"h\")",
-      "d": "sns.boxplot(data=df[[\"age\"+\"fare\"]], orient=\"h\")"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 63",
-    "text": "Qual è il comando in Python per generare una heatmap a partire da un DataFrame di Pandas utilizzando la libreria Seaborn?",
-    "answers": {
-      "a": "sns.heatmap(df)",
-      "b": "plt.imshow(df)",
-      "c": "sns.create_heatmap(df)",
-      "d": "df.plot(kind='heatmap')"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
     "title": "Domanda 64",
     "text": "Qual è il modulo Python tipicamente utilizzato per creare heatmaps?",
     "answers": {
@@ -2062,30 +1653,6 @@ const ALL=[
       "b": "numpy",
       "c": "pandas",
       "d": "matplotlib"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 69",
-    "text": "Che grafico rappresenta il comando df.plot(x=\"Countries\", y=[\"Males\", \"Females\"])?",
-    "answers": {
-      "a": "Un line graph",
-      "b": "Un histogram graph",
-      "c": "Uno stackbar graph",
-      "d": "Un bar graph"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 70",
-    "text": "Cosa produce il codice plt.subplot(1,2,1) ... plt.pie(...) ... plt.subplot(1,2,2) ... plt.pie(...)?",
-    "answers": {
-      "a": "Due grafici a torta sulla stessa riga",
-      "b": "Due grafici a torta sulla stessa colonna",
-      "c": "Due grafici a barre sulla stessa riga",
-      "d": "Due grafici a barre sulla stessa colonna"
     },
     "correct_letter": "a",
     "explanation": ""
@@ -2139,18 +1706,6 @@ const ALL=[
     "explanation": ""
   },
   {
-    "title": "Domanda 78",
-    "text": "Nel comando plt.pie(..., colors=colors), come viene specificato il parametro colors?",
-    "answers": {
-      "a": "Una lista di valori esadecimali racchiusi tra parentesi quadre e separati da virgole",
-      "b": "Una lista di valori decimali racchiusi tra parentesi quadre e separati da virgole",
-      "c": "Una lista di valori binari racchiusi tra parentesi tonde e separati da virgole",
-      "d": "Una lista di valori esadecimali racchiusi tra parentesi tonde e separati da virgole"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
     "title": "Domanda 80",
     "text": "Qual è il risultato della funzione groupby di Pandas applicata a un DataFrame, specificando una colonna come parametro di raggruppamento?",
     "answers": {
@@ -2175,18 +1730,6 @@ const ALL=[
     "explanation": ""
   },
   {
-    "title": "Domanda 83",
-    "text": "Qual è il risultato della funzione skew() applicata a una colonna di un DataFrame di Pandas?",
-    "answers": {
-      "a": "L'asimmetria della distribuzione della colonna",
-      "b": "La deviazione standard della colonna",
-      "c": "La media della colonna",
-      "d": "L'entropia della distribuzione della colonna"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
     "title": "Domanda 84",
     "text": "Qual è il risultato della funzione .sem() applicata a una colonna di un DataFrame di Pandas?",
     "answers": {
@@ -2194,30 +1737,6 @@ const ALL=[
       "b": "La somma degli errori standard della colonna diviso la radice quadrata del numero di elementi",
       "c": "La media della colonna diviso la radice quadrata del numero di elementi nella colonna",
       "d": "La varianza della colonna diviso la radice quadrata del numero di elementi nella colonna"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 85",
-    "text": "Quale effetto ha il comando dropna() in Pandas quando applicato a un DataFrame?",
-    "answers": {
-      "a": "Rimuove le righe contenenti valori mancanti (NaN) dal DataFrame",
-      "b": "Rimuove le colonne contenenti valori mancanti (NaN) dal DataFrame",
-      "c": "Sostituisce i valori mancanti (NaN) con un valore specifico indicato come argomento",
-      "d": "Aggiunge una nuova colonna al DataFrame contenente i valori mancanti (NaN)"
-    },
-    "correct_letter": "a",
-    "explanation": ""
-  },
-  {
-    "title": "Domanda 86",
-    "text": "Qual è l'effetto dell'opzione nan_policy=\"omit\" nel metodo mean() di Pandas applicato a un DataFrame?",
-    "answers": {
-      "a": "Calcola la media ignorando i valori mancanti (NaN)",
-      "b": "Restituisce un errore se ci sono valori mancanti (NaN) nel DataFrame",
-      "c": "Rimuove tutte le righe contenenti valori mancanti (NaN) prima di calcolare la media",
-      "d": "Sostituisce tutti i valori mancanti (NaN) con zero prima di calcolare la media"
     },
     "correct_letter": "a",
     "explanation": ""
