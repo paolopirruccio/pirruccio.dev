@@ -300,10 +300,9 @@ mark{background:rgba(176,168,255,.35);color:var(--text);padding:0 3px;border-rad
 }
 #GATE{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--bg);color:var(--text);padding:24px;font-family:'Inter',system-ui,sans-serif}
 #GATE .g404{display:flex;gap:10px;font-size:clamp(78px,24vw,160px);font-weight:700;line-height:1;letter-spacing:2px}
-#GATE .g404 span{cursor:default;user-select:none;-webkit-user-select:none;transition:transform .12s ease;color:var(--text)}
+#GATE .g404 span{cursor:default;user-select:none;-webkit-user-select:none;transition:transform .12s ease,color .12s ease;color:var(--text)}
+#GATE .g404 span.hit{color:var(--accent)}
 #GATE .gmsg{margin-top:20px;font-size:16px;opacity:.55}
-#GATE .gback{margin-top:26px;padding:11px 22px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;transition:background .2s}
-#GATE .gback:hover{background:var(--border)}
 </style>
 </head>
 <body>
@@ -312,18 +311,17 @@ mark{background:rgba(176,168,255,.35);color:var(--text);padding:0 3px;border-rad
 <div id="GATE">
   <div class="g404"><span data-d="4">4</span><span data-d="0">0</span><span data-d="4">4</span></div>
   <div class="gmsg">Pagina non trovata.</div>
-  <a class="gback" href="/">Torna alla home</a>
 </div>
 <script>
 (function(){
   var seq=['4','0','4'],pos=0,g=document.getElementById('GATE');
-  if(sessionStorage.getItem('a_ok')==='1'){g.style.display='none';return;}
   g.querySelectorAll('.g404 span').forEach(function(el){
     el.addEventListener('click',function(){
       var d=el.getAttribute('data-d');
       pos=(d===seq[pos])?pos+1:(d===seq[0]?1:0);
+      el.classList.add('hit');
       el.style.transform='scale(1.18)';setTimeout(function(){el.style.transform='';},120);
-      if(pos===seq.length){sessionStorage.setItem('a_ok','1');g.style.display='none';}
+      if(pos===seq.length){g.style.display='none';}
     });
   });
 })();
