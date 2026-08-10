@@ -34,20 +34,6 @@
 </head>
 
 <body>
-    <div id="splash" aria-hidden="true" role="presentation"></div>
-    <script>
-        /* gate sincrono: niente flash se la splash è già stata vista
-           in questa sessione o se l'utente preferisce meno animazioni */
-        (function () {
-            var s = document.getElementById('splash');
-            try {
-                if (sessionStorage.getItem('splashShown') ||
-                    window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                    s.remove();
-                }
-            } catch (e) { s.remove(); }
-        })();
-    </script>
     <div class="main-container">
         <header class="artistic-header">
             <h1 class="hero-text">
@@ -394,9 +380,6 @@
             </div>
         </footer>
     </div>
-    <div class="sticker-band" id="sticker-band">
-        <a href="viaggi.html" class="sr-viaggi-link">Apri la galleria dei viaggi</a>
-    </div>
     <div id="qr-modal" class="modal-backdrop">
         <div class="modal-content">
             <button class="modal-close" id="modal-close">&times;</button>
@@ -407,8 +390,6 @@
         </div>
     </div>
     
-    <script src="splash.js"></script>
-    <script src="stickers.js"></script>
     <script src="links.js"></script>
     <script src="scriptlinks.js"></script>
     <script src="projectsData.js"></script>
