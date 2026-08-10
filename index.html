@@ -378,6 +378,16 @@
                     Pirruccio</span>. All rights reserved.</p>
             <div class="footer-socials">
             </div>
+            <div class="footer-controls">
+                <button class="pill-btn footer-search-btn" id="search-btn" aria-label="Cerca">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span class="search-btn-text" data-i18n="search">Cerca</span>
+                </button>
+                <div class="profile-switch" role="group" aria-label="Modalità portfolio">
+                    <button class="profile-switch-option active" type="button" data-profile-mode="personal" aria-pressed="true" data-i18n="profile_personal">Io</button>
+                    <button class="profile-switch-option" type="button" data-profile-mode="agency" aria-pressed="false" data-i18n="profile_agency">Agenzia</button>
+                </div>
+            </div>
         </footer>
     </div>
     <div id="qr-modal" class="modal-backdrop">
@@ -396,10 +406,6 @@
     <script src="script.js"></script>
     <script src="blog/posts.js"></script>
     <div class="top-pill-bar">
-        <button class="pill-btn" id="search-btn" aria-label="Search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <span class="search-btn-text" data-i18n="search">Cerca</span>
-        </button>
         <button class="pill-btn" id="lang-btn">
             <span id="lang-toggle-text">EN</span>
         </button>

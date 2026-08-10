@@ -116,6 +116,8 @@ const translations = {
         "pricing_pro_f4": "<i class='fa-solid fa-check'></i> Consulenza UX/UI",
         "pricing_pro_f5": "<i class='fa-solid fa-check'></i> Revisioni incluse",
         "pricing_note": "<i class='fa-solid fa-circle-info'></i> Prestazione occasionale con ricevuta. Nessuna P.IVA richiesta sotto i 5.000€/anno.",
+        "profile_personal": "Io",
+        "profile_agency": "Agenzia",
     },
     en: {
         "back_home": "Back to Portfolio",
@@ -234,6 +236,8 @@ const translations = {
         "pricing_pro_f4": "<i class='fa-solid fa-check'></i> UX/UI consulting",
         "pricing_pro_f5": "<i class='fa-solid fa-check'></i> Revisions included",
         "pricing_note": "<i class='fa-solid fa-circle-info'></i> Occasional service with receipt. No VAT number required under €5,000/year.",
+        "profile_personal": "Me",
+        "profile_agency": "Agency",
     }
 };
 

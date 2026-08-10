@@ -7,6 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const profileModeButtons = document.querySelectorAll("[data-profile-mode]");
+    const setProfileMode = (mode) => {
+        document.body.dataset.profileMode = mode;
+        localStorage.setItem("profileMode", mode);
+        profileModeButtons.forEach((button) => {
+            const isActive = button.dataset.profileMode === mode;
+            button.classList.toggle("active", isActive);
+            button.setAttribute("aria-pressed", String(isActive));
+        });
+    };
+
+    if (profileModeButtons.length) {
+        setProfileMode(localStorage.getItem("profileMode") || "personal");
+        profileModeButtons.forEach((button) => {
+            button.addEventListener("click", () => setProfileMode(button.dataset.profileMode));
+        });
+    }
+
     const toggleAccordion = (toggleId, listId, chevronId) => {
         const toggle = document.getElementById(toggleId);
         const list = document.getElementById(listId);

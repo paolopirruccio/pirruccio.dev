@@ -281,12 +281,6 @@
     backdrop.addEventListener('click', closeSpotlight);
     document.getElementById('spotlight-close-btn')?.addEventListener('click', closeSpotlight);
 
-    window.addEventListener('scroll', () => {
-        const scrollPos = window.scrollY + window.innerHeight;
-        const bottomPos = document.body.offsetHeight - 100;
-        searchBtn.classList.toggle('expanded', scrollPos >= bottomPos);
-    });
-
     input.addEventListener('input', () => {
         const raw = input.value;
         const q = raw.toLowerCase().trim();

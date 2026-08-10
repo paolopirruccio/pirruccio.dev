@@ -1815,3 +1815,12 @@ body {
         order: -1;
     }
 }
+/* Footer controls */
+.footer-controls { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 18px; }
+.footer-search-btn#search-btn { width: auto; min-width: 46px; max-width: none; padding: 0 18px; gap: 9px; overflow: visible; }
+.footer-search-btn .search-btn-text { max-width: 100px; opacity: 1; white-space: nowrap; overflow: visible; font-weight: 600; }
+.profile-switch { display: inline-flex; padding: 3px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 999px; background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06); }
+.profile-switch-option { border: 0; border-radius: 999px; padding: 10px 14px; background: transparent; color: var(--text-secondary); font: 600 0.82rem 'Inter', sans-serif; cursor: pointer; transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
+.profile-switch-option.active { background: var(--text-primary); color: var(--bg-color); box-shadow: 0 1px 5px rgba(0, 0, 0, 0.14); }
+.profile-switch-option:focus-visible, .footer-search-btn:focus-visible { outline: 2px solid var(--accent-yellow); outline-offset: 2px; }
+@media (prefers-color-scheme: dark) { .profile-switch { background: rgba(40, 40, 40, 0.65); border-color: rgba(255, 255, 255, 0.12); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25); } .profile-switch-option.active { background: #fff; color: #1a1a1a; } }
