@@ -1,0 +1,834 @@
+/* Curriculum Styles */
+.cv-container {
+    padding: 10px 20px;
+    color: var(--text-primary);
+}
+
+.cv-header-block {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.cv-main-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2rem;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.cv-main-role {
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+
+.cv-section {
+    margin-bottom: 40px;
+}
+
+.cv-section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.cv-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.cv-text.small {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.cv-timeline-item {
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 15px;
+    border-left: 2px solid var(--accent-yellow);
+}
+
+.cv-timeline-entry {
+    margin-bottom: 15px;
+}
+
+.cv-item-title {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.cv-item-meta {
+    display: block;
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 2px;
+}
+
+.cv-detail {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.cv-list {
+    list-style: none;
+    padding: 0;
+}
+
+.cv-list li {
+    padding-left: 15px;
+    position: relative;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.cv-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent-yellow);
+}
+
+.cv-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.cv-skill-tag {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.cv-skill-tag strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.cv-skill-tag small {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+::selection {
+    background: var(--accent-yellow);
+    color: #000000;
+    text-shadow: none;
+}
+
+.cv-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+}
+
+.cv-sidebar {
+    border-right: 1px solid var(--card-border);
+    padding-right: 30px;
+}
+
+.cv-main {
+    padding-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .cv-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .cv-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--card-border);
+        padding-right: 0;
+        padding-bottom: 30px;
+    }
+
+    .cv-main {
+        padding-left: 0;
+    }
+}
+
+.cv-profile-header {
+    margin-bottom: 30px;
+}
+
+.cv-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+.cv-role {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.cv-block {
+    margin-bottom: 30px;
+}
+
+.cv-block-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 5px;
+}
+
+.cv-block-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.cv-list-clean {
+    list-style: none;
+    padding: 0;
+}
+
+.cv-list-clean li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.cv-list-clean i {
+    font-size: 0.8rem;
+    color: var(--accent-yellow);
+    width: 15px;
+}
+
+.cv-exp-item {
+    margin-bottom: 25px;
+}
+
+.cv-exp-role {
+    font-weight: 600;
+    display: block;
+    font-size: 1.05rem;
+}
+
+.cv-exp-place {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.cv-exp-desc {
+    font-size: 0.90rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+    .card.vsco .card-inner {
+        background: #222;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card.vsco .card-title,
+    .card.vsco .card-label,
+    .card.vsco .card-icon {
+        color: #fff;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   VIAGGI — foto polaroid
+   ══════════════════════════════════════════════════════════════ */
+.polaroid-rack {
+    align-items: flex-start;
+    gap: 26px;
+    padding: 14px 6px 18px 10px;
+    scroll-snap-type: x proximity;
+}
+
+.polaroid-rack.open {
+    padding-top: 26px;
+    padding-bottom: 30px;
+}
+
+.polaroid {
+    flex: 0 0 auto;
+    width: 234px;
+    scroll-snap-align: center;
+    position: relative;
+    /* cornice bianca polaroid: bordi sottili in alto/lati, spessa in basso */
+    background: #fdfcf6;
+    padding: 13px 13px 0;
+    border-radius: 3px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.10);
+    /* --sx/--sy/--rr: deriva legata allo scroll (ghost-scroll, pagina viaggi) */
+    transform: translate(var(--sx, 0px), var(--sy, 0px)) rotate(calc(var(--pc-rot, -2deg) + var(--rr, 0deg)));
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.9s ease, filter 0.9s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* hover: raddrizza e ingrandisce appena, SENZA cambiare l'ombra */
+.polaroid:hover,
+.polaroid:focus-visible {
+    transform: translate(var(--sx, 0px), var(--sy, 0px)) rotate(0deg) scale(1.03);
+    z-index: 3;
+    outline: none;
+}
+
+/* ghosty reveal: entra evanescente e sfocata, poi si assesta */
+.polaroid.ghost {
+    opacity: 0;
+    filter: blur(14px);
+}
+
+.polaroid-photo {
+    overflow: hidden;
+    background: #e8e4da;
+    position: relative;
+    line-height: 0;
+}
+
+.polaroid-photo::after {
+    /* leggera vignettatura fotografica */
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 30px rgba(30, 20, 5, 0.16);
+    pointer-events: none;
+}
+
+/* qualsiasi proporzione: la polaroid si adatta all'altezza della foto */
+.polaroid-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: saturate(1.03) contrast(1.02);
+}
+
+.polaroid-caption {
+    padding: 12px 6px 16px;
+    text-align: center;
+}
+
+.polaroid-place {
+    display: block;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #2c2416;
+}
+
+.polaroid-year {
+    display: block;
+    margin-top: 1px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: #a89e88;
+}
+
+/* Dark mode: la polaroid resta "di carta", cambia solo l'ombra */
+@media (prefers-color-scheme: dark) {
+    .polaroid {
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .polaroid {
+        transition: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .polaroid {
+        width: 200px;
+    }
+
+    .polaroid-rack {
+        gap: 20px;
+    }
+}
+   HOME — progetti in focus
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Progetti: sezione sempre visibile (niente accordion) ── */
+.projects-header {
+    cursor: default;
+}
+
+.projects-list-open {
+    width: 100%;
+}
+
+/* full-bleed fino ai bordi schermo + spazio per il trasbordo delle miniature.
+   Niente sfumatura ai lati (a differenza dei contatti). */
+#home-projects-slider {
+    width: 100vw;
+    margin-left: calc(-1 * var(--page-gutter));
+    padding: 14px 0 50px var(--page-gutter);
+    scroll-padding-left: var(--page-gutter);
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+/* ── Card progetto: sfondo brand, logo protagonista, miniature storte stile Mac ── */
+.proj-card {
+    --proj-color: #444444;
+    position: relative;
+    flex: 0 0 auto;
+    width: 360px;
+    min-height: 252px;
+    scroll-snap-align: start;
+    display: block;
+    border-radius: 20px;
+    overflow: visible;
+    background: var(--proj-color);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+    transition: transform 0.35s cubic-bezier(0.22, 0.68, 0, 1.2), box-shadow 0.35s ease;
+}
+
+.proj-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+}
+
+/* corpo: logo + nome + descrizione, tenuti a sinistra */
+.proj-card-body {
+    position: relative;
+    z-index: 2;
+    padding: 22px 22px 24px;
+}
+
+.proj-card-logo-wrap {
+    width: 58px;
+    height: 58px;
+    border-radius: 15px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.22);
+    margin-bottom: 16px;
+}
+
+.proj-card-logo {
+    max-width: 74%;
+    max-height: 74%;
+    object-fit: contain;
+    display: block;
+}
+
+.proj-card-monogram {
+    display: none;
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.9rem;
+    line-height: 1;
+    color: var(--proj-color);
+}
+
+.proj-card-logo-wrap.mono .proj-card-monogram {
+    display: flex;
+}
+
+.proj-card-name {
+    display: block;
+    max-width: 84%;
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    color: #fff;
+    overflow-wrap: break-word;
+}
+
+.proj-card-desc {
+    margin: 0;
+    max-width: 45%;
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.82);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* miniature screenshot, storte nell'angolo e che trasbordano, stile anteprime macOS */
+.proj-card-thumbs {
+    position: absolute;
+    right: 4px;
+    bottom: -18px;
+    width: 170px;
+    height: 132px;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.proj-thumb {
+    position: absolute;
+    width: 142px;
+    height: 94px;
+    object-fit: cover;
+    border-radius: 7px;
+    border: 3px solid #fff;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.38);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.proj-thumb-back {
+    right: 24px;
+    bottom: 34px;
+    transform: rotate(-18deg);
+    filter: brightness(0.94);
+    opacity: 0.92;
+}
+
+.proj-thumb-front {
+    right: 0;
+    bottom: 0;
+    transform: rotate(-8deg);
+    transition: transform 0.4s cubic-bezier(0.22, 0.68, 0, 1.2);
+}
+
+.proj-card:hover .proj-thumb-front {
+    transform: rotate(-4deg) translate(-4px, -6px);
+}
+
+.proj-card-arrow {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 3;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+    transition: transform 0.3s ease;
+}
+
+.proj-card:hover .proj-card-arrow {
+    transform: translateX(3px);
+}
+
+@media (max-width: 600px) {
+    .proj-card {
+        width: 306px;
+        min-height: 240px;
+    }
+
+    .proj-card-thumbs {
+        width: 138px;
+        height: 118px;
+    }
+
+    .proj-thumb {
+        width: 126px;
+        height: 84px;
+    }
+}
+
+/* Distanza fra il bordo schermo e la colonna del testo (main-container:
+   max-width 1200 + padding 40, che scende a 20 sotto i 768px).
+   Usata dalle strip full-bleed per riallineare la prima card al testo. */
+:root {
+    --page-gutter: max(40px, calc((100vw - 1200px) / 2 + 40px));
+}
+
+@media (max-width: 768px) {
+    :root {
+        --page-gutter: 20px;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Contatti: strip a scorrimento ORIZZONTALE (come lo slider progetti),
+   dimensioni card invariate
+   ══════════════════════════════════════════════════════════════ */
+.card-deck {
+    display: flex;
+    flex-wrap: nowrap;
+    grid-template-columns: none;
+    gap: 24px;
+    overflow-x: auto;
+    /* full-bleed: la strip arriva ai bordi dello schermo (niente "bordo" di
+       pagina a sx/dx); il padding-left riallinea la prima card al testo */
+    width: 100vw;
+    margin-left: calc(-1 * var(--page-gutter));
+    padding: 14px 0 20px var(--page-gutter);
+    /* senza questo lo snap allineerebbe la prima card al bordo schermo
+       invece che alla colonna del testo */
+    scroll-padding-left: var(--page-gutter);
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    /* niente sfumatura ai lati: le card arrivano nette al bordo schermo */
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+.card-deck::-webkit-scrollbar {
+    display: none;
+}
+
+.card-deck .card {
+    flex: 0 0 auto;
+    width: 300px;
+    opacity: 1;
+    transform: translateY(0);
+    scroll-snap-align: start;
+}
+
+.card-deck .card:hover {
+    transform: translateY(-8px);
+}
+
+/* ══ Card progetto anche in gallery.html (layout a griglia) ══ */
+.gallery-grid .proj-card {
+    width: auto;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PAGINA VIAGGI — header stile cartolina + griglia polaroid
+   ══════════════════════════════════════════════════════════════ */
+.viaggi-header {
+    position: relative;
+    margin: 10px 0 54px;
+    padding: 40px 0 34px;
+}
+
+/* bordo "par avion" a strisce rosse/blu */
+.viaggi-airmail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7px;
+    border-radius: 4px;
+    background: repeating-linear-gradient(115deg,
+            #c8102e 0 12px,
+            #fdfcf6 12px 24px,
+            #1c3f94 24px 36px,
+            #fdfcf6 36px 48px);
+    opacity: 0.85;
+}
+
+.viaggi-deco {
+    position: absolute;
+    top: 26px;
+    right: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    pointer-events: none;
+}
+
+/* francobollo dentellato */
+.viaggi-stamp {
+    width: 78px;
+    height: 92px;
+    background: #fffdf4;
+    border: 1px solid rgba(120, 96, 60, 0.35);
+    outline: 2px dashed rgba(120, 96, 60, 0.4);
+    outline-offset: -6px;
+    box-shadow: 0 0 0 4px #fffdf4, 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: rotate(4deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.viaggi-stamp-art {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.viaggi-stamp-val {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.42rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #8a6d3b;
+}
+
+/* timbro postale circolare */
+.viaggi-postmark {
+    width: 84px;
+    height: 84px;
+    margin-left: -22px;
+    margin-top: 26px;
+    border: 2px solid rgba(90, 70, 40, 0.42);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    transform: rotate(-12deg);
+    color: rgba(90, 70, 40, 0.6);
+}
+
+.viaggi-postmark-top {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.42rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.viaggi-postmark-mid {
+    font-family: 'Instrument Serif', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+}
+
+.viaggi-kicker {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    transform: rotate(-2deg);
+    margin: 0 0 2px;
+}
+
+/* titolo serif decorato */
+.viaggi-title {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(3.4rem, 11vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.viaggi-rule {
+    width: 132px;
+    height: 0;
+    margin: 16px 0 14px;
+    border-top: 2px solid var(--accent-yellow);
+    position: relative;
+}
+
+.viaggi-rule::after {
+    content: '✦';
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-color);
+    padding: 0 8px;
+    font-size: 0.8rem;
+    color: var(--accent-yellow);
+}
+
+.viaggi-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 42ch;
+}
+
+/* griglia polaroid */
+.polaroid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 40px 30px;
+    align-items: start;
+    justify-items: center;
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.polaroid-grid .polaroid {
+    width: 100%;
+    max-width: 260px;
+}
+
+@media (max-width: 600px) {
+    .viaggi-deco {
+        transform: scale(0.72);
+        transform-origin: top right;
+        top: 18px;
+    }
+
+    .viaggi-header {
+        margin-bottom: 36px;
+    }
+
+    .polaroid-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 28px 18px;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   VIAGGI — modalità "foto sul tavolo": sparse e trascinabili
+   (attiva via JS solo su desktop, senza reduced-motion)
+   ══════════════════════════════════════════════════════════════ */
+.polaroid-grid.scattered {
+    display: block;
+    position: relative;
+}
+
+.polaroid-grid.scattered .polaroid {
+    position: absolute;
+    width: 240px;
+    max-width: none;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.polaroid-grid.scattered .polaroid.dragging {
+    cursor: grabbing;
+    transform: rotate(0deg) scale(1.04);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24), 0 4px 10px rgba(0, 0, 0, 0.14);
+    transition: box-shadow 0.2s ease;
+}
+
+/* nota a mano: le foto si possono trascinare (visibile solo desktop) */
+.viaggi-drag-hint {
+    display: none;
+    font-family: 'Caveat', cursive;
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    transform: rotate(-2deg);
+    margin: 6px 0 0;
+}
+
+@media (min-width: 768px) {
+    .viaggi-drag-hint {
+        display: block;
+    }
+}

@@ -1,0 +1,1920 @@
+/* =========================================================
+   CINEO - Collezione di Film
+   tema: marquee neon retro (insegna cinema anni '50)
+   caricato per ultimo -> vince sul default (+ !important)
+   ========================================================= */
+
+/* =========================================================
+   ADATTATORE STATICO
+   Mantiene il tema Greenstone originale e sostituisce soltanto
+   il markup/comportamento fornito in origine dal server Greenstone.
+   ========================================================= */
+.static-rebuild-banner {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 9px var(--gutter);
+  background: var(--gold);
+  color: var(--notte-900);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: .06em;
+  text-align: center;
+}
+.static-rebuild-banner i { color: var(--velluto-700); }
+#gs-nav button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 18px;
+  border: 0;
+  background: transparent;
+  color: var(--crema-dim);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  cursor: pointer;
+}
+#gs-nav button i { color: var(--gold); }
+#gs-nav li.ui-state-active button { color:#fff; font-weight:600; text-shadow:0 0 8px rgba(255,46,99,.9); }
+.foyer-card { width:100%; text-align:left; cursor:pointer; font:inherit; }
+.browse-heading { margin-bottom:28px; }
+.browse-kicker { margin:0 0 6px; color:var(--neon-rosa)!important; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.2em; }
+.browse-heading h2 { font-family:var(--font-marquee)!important; font-size:clamp(28px,4vw,48px)!important; color:#fff!important; text-transform:uppercase!important; }
+#group-filter { padding-left:0!important; padding-right:0!important; margin-bottom:30px!important; }
+#group-filter button { padding:2px 11px; border:1px solid rgba(245,233,208,.18); border-radius:3px; background:transparent; color:var(--crema-dim); font-family:var(--font-sans); cursor:pointer; }
+#group-filter button:hover { color:var(--gold); border-color:var(--gold); }
+.poster-link { display:block; width:100%; padding:0; border:0; background:transparent; text-align:left; cursor:pointer; }
+.poster-link:hover .poster-frame { border-color:var(--neon-rosa)!important; box-shadow:0 16px 40px rgba(0,0,0,.7),0 0 26px rgba(255,46,99,.4)!important; }
+.poster-link:hover .poster-title { color:var(--gold)!important; }
+.empty-state { color:var(--crema-dim); }
+.back-to-browse { margin:0 0 26px; padding:8px 0; border:0; border-bottom:1px solid rgba(255,209,102,.35); background:transparent; color:var(--gold); font-family:var(--font-sans); text-transform:uppercase; letter-spacing:.12em; cursor:pointer; }
+.static-dc { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:rgba(255,209,102,.16); }
+.static-dc div { background:var(--notte-800); padding:12px 14px; }
+.static-dc dt { color:var(--gold); font-size:10px; text-transform:uppercase; letter-spacing:.16em; }
+.static-dc dd { margin:4px 0 0; color:var(--crema-dim); }
+[hidden] { display:none!important; }
+@media(max-width:760px){
+  .static-rebuild-banner{padding:8px 16px;font-size:11px}
+  #gs_banner{padding-left:20px!important;padding-right:20px!important}
+  #titlesearchcontainer{align-items:flex-start!important}
+  #quicksearcharea{width:100%;align-items:stretch!important}
+  #quicksearcharea form{display:grid!important;grid-template-columns:1fr auto!important}
+  #quicksearcharea .querybox{grid-column:1/-1!important}
+  #quicksearcharea input[type="text"]{width:100%!important;max-width:none!important}
+  #gs-nav{margin-left:-20px!important;margin-right:-20px!important;padding-left:20px!important;padding-right:20px!important;overflow-x:auto!important;flex-wrap:nowrap!important}
+  #gs_content{padding-left:20px!important;padding-right:20px!important}
+  .childrenlist>tbody{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:24px 14px!important}
+  .static-dc{grid-template-columns:1fr}
+}
+
+/* ---- TOKEN ---- */
+:root {
+  /* palette cinema notturno */
+  --notte-900: #0d0812;        /* sfondo pagina, quasi nero violaceo */
+  --notte-800: #161022;
+  --notte-700: #1f1830;
+  --velluto-900: #3d0a14;      /* rosso velluto scuro */
+  --velluto-700: #6e1122;
+  --velluto-500: #a3162e;      /* sipario */
+  --neon-rosa: #ff2e63;        /* neon principale */
+  --neon-oro: #ffd166;         /* lampadine marquee */
+  --neon-cielo: #4cc9f0;       /* accento secondario */
+  --crema: #f5e9d0;            /* testo su scuro */
+  --crema-dim: rgba(245, 233, 208, 0.62);
+
+  --bg-page: var(--notte-900);
+  --surface-card: var(--notte-800);
+  --text-body: var(--crema-dim);
+  --text-strong: var(--crema);
+  --accent: var(--neon-rosa);
+  --gold: var(--neon-oro);
+
+  --font-marquee: 'Limelight', 'Georgia', serif;
+  --font-sans: 'Oswald', 'Helvetica Neue', sans-serif;
+
+  --glow-rosa: 0 0 6px rgba(255, 46, 99, 0.85), 0 0 18px rgba(255, 46, 99, 0.5),
+               0 0 42px rgba(255, 46, 99, 0.3);
+  --glow-oro: 0 0 5px rgba(255, 209, 102, 0.9), 0 0 14px rgba(255, 209, 102, 0.45);
+  --radius: 10px;
+  --gutter: 48px;
+  --dur: 180ms;
+}
+
+/* ================================================================
+   BASE
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.6 !important;
+  background: var(--bg-page) !important;
+  /* texture: stelle finissime */
+  background-image:
+    radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px) !important;
+  background-size: 90px 90px, 55px 55px !important;
+  background-position: 0 0, 28px 40px !important;
+  color: var(--text-body) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  -webkit-font-smoothing: antialiased !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#container { flex: 1 !important; display: flex !important; flex-direction: column !important; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  color: var(--text-strong) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  margin: 0 !important;
+}
+
+a { color: var(--neon-cielo) !important; text-decoration: none !important; transition: color var(--dur), text-shadow var(--dur) !important; }
+a:hover { color: var(--neon-rosa) !important; text-decoration: none !important; text-shadow: none !important; }
+
+::selection { background: var(--neon-rosa); color: var(--notte-900); }
+
+#topArea, #container {
+  max-width: 100% !important; width: 100% !important; margin: 0 !important;
+  background: transparent !important; padding: 0 !important;
+  border: none !important; box-shadow: none !important;
+}
+
+/* ================================================================
+   TOP BAR - biglietteria (breadcrumb + Preferenze/Aiuto/Accedi)
+   la <table> nativa viene "sciolta" con display:contents ->
+   i due td diventano flex item di #topArea (markup intatto)
+   ================================================================ */
+#topArea {
+  background: repeating-linear-gradient(90deg,
+    var(--velluto-900) 0px, var(--velluto-700) 40px, var(--velluto-900) 80px) !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 209, 102, 0.3) !important;
+  padding: 0 var(--gutter) !important;
+  height: 56px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+#topArea table, #topArea tbody, #topArea tr { display: contents !important; }
+#topArea td {
+  padding: 0 !important; border: none !important;
+  background: transparent !important;
+  display: flex !important; align-items: center !important;
+}
+/* le due celle si spartiscono la barra a meta' (comportamento tabella):
+   allineiamo il contenuto della prima a sinistra, della seconda a destra,
+   cosi' breadcrumb e bottoni finiscono ai due bordi. */
+#topArea td:first-child { justify-content: flex-start !important; }
+#topArea td:last-child  { justify-content: flex-end !important; }
+
+#breadcrumbs, #breadcrumbs a, #breadcrumbs span {
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.14em !important;
+  color: var(--crema-dim) !important;
+}
+#breadcrumbs a:hover { color: var(--gold) !important; text-shadow: none !important; }
+
+/* link in alto a destra come biglietti del cinema */
+#bannerLinks { list-style: none !important; display: flex !important; gap: 10px !important; margin: 0 !important; padding: 0 !important; }
+#bannerLinks li { float: none !important; display: inline-block !important; padding: 0 !important; }
+
+#bannerLinks li a {
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: var(--notte-900) !important;
+  background: var(--gold) !important;
+  padding: 6px 18px !important;
+  display: inline-block !important;
+  /* forma "biglietto": tacche semicircolari ai lati */
+  -webkit-mask: radial-gradient(circle 5px at 0 50%, transparent 98%, #000) left,
+                radial-gradient(circle 5px at 100% 50%, transparent 98%, #000) right !important;
+  -webkit-mask-size: 51% 100% !important;
+  -webkit-mask-repeat: no-repeat !important;
+  border: none !important;
+  border-radius: 3px !important;
+  box-shadow: none !important;
+  transition: background var(--dur), transform var(--dur) !important;
+}
+#bannerLinks li a:hover {
+  background: var(--neon-rosa) !important;
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+/* reset degli span jQuery UI dentro i bottoni */
+#bannerLinks .ui-button, #bannerLinks .ui-state-default,
+#bannerLinks .ui-widget, #bannerLinks span[id$="Button"] {
+  background: transparent !important; background-image: none !important;
+  border: none !important; box-shadow: none !important; border-radius: 0 !important;
+  padding: 0 !important; margin: 0 !important;
+  font: inherit !important; color: inherit !important;
+  display: inline-flex !important; align-items: center !important; gap: 5px !important;
+}
+#bannerLinks .ui-icon { display: none !important; }
+#bannerLinks .ui-button-text { padding: 0 !important; color: inherit !important; }
+
+/* ================================================================
+   BANNER — l'insegna marquee vera e propria
+   ================================================================ */
+/* si stila direttamente il markup nativo: #titlesearchcontainer + #gs-nav */
+#gs_banner {
+  position: relative !important;
+  background:
+    /* pieghe del sipario di velluto */
+    repeating-linear-gradient(90deg,
+      var(--velluto-900) 0px, var(--velluto-700) 40px,
+      var(--velluto-900) 80px) !important;
+  border: none !important;
+  border-bottom: 6px double var(--gold) !important;
+  padding: 26px var(--gutter) 0 !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* vignettatura da proiettore sul sipario */
+#gs_banner::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, transparent 30%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none;
+}
+
+/* titolo + ricerca in flex; z-index per stare sopra la vignettatura */
+#titlesearchcontainer {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 32px !important;
+  padding-bottom: 22px !important;
+}
+/* il clear:both nativo e' inutile in flex */
+#titlesearchcontainer > div[style*="clear"] { display: none !important; }
+
+/* ---- strisce di lampadine (riempite dal custom.js) ---- */
+.marquee-bulbs {
+  position: relative !important;
+  z-index: 2 !important;
+  display: flex !important;
+  justify-content: space-around !important;
+  padding: 7px 12px !important;
+  background: rgba(0, 0, 0, 0.35) !important;
+}
+.marquee-bulbs .bulb {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: var(--glow-oro);
+  animation: bulbBlink 1.4s infinite;
+}
+.marquee-bulbs .bulb:nth-child(2n) { animation-delay: 0.7s; }
+@keyframes bulbBlink {
+  0%, 100% { opacity: 1; box-shadow: var(--glow-oro); }
+  50%      { opacity: 0.25; box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-bulbs .bulb { animation: none !important; }
+}
+
+/* ---- il titolo: insegna al neon ---- */
+#titlearea {
+  float: none !important; padding: 0 !important; margin: 0 !important;
+  position: relative !important; z-index: 1 !important; flex-shrink: 0 !important;
+}
+
+#titlearea h2, #gs_banner h2 {
+  font-family: var(--font-marquee) !important;
+  font-size: clamp(34px, 4.6vw, 58px) !important;
+  font-weight: 400 !important;
+  text-transform: none !important; /* il marchio e' "CINeo", non "CINEO" */
+  letter-spacing: 0.08em !important;
+  line-height: 1.05 !important;
+  color: #fff !important;
+  text-shadow: none !important;
+  margin: 0 !important; padding: 0 !important;
+}
+
+/* sfarfallio da insegna vera: brevi cali di luce */
+@keyframes neonFlicker {
+  0%, 6%, 8%, 100% { opacity: 1; text-shadow: var(--glow-rosa); }
+  7%               { opacity: 0.6; text-shadow: none; }
+  57%, 59%         { opacity: 1; }
+  58%              { opacity: 0.75; text-shadow: 0 0 4px rgba(255,46,99,0.4); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-title { animation: none !important; }
+}
+
+/* kicker "NOW SHOWING" iniettato dal JS sopra il titolo */
+.now-showing {
+  display: inline-block !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.42em !important;
+  color: var(--gold) !important;
+  text-shadow: none !important;
+  border: 1px solid rgba(255, 209, 102, 0.5) !important;
+  border-radius: 3px !important;
+  padding: 3px 12px 3px 16px !important;
+  margin-bottom: 12px !important;
+}
+
+/* ---- quick search: botteghino ---- */
+#quicksearcharea {
+  float: none !important; padding: 0 !important;
+  position: relative !important; z-index: 1 !important; flex-shrink: 0 !important;
+  display: flex !important; flex-direction: column !important; align-items: flex-end !important;
+}
+
+#quicksearcharea form {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: var(--notte-900) !important;
+  border: 1px solid rgba(255, 209, 102, 0.4) !important;
+  border-radius: var(--radius) !important;
+  padding: 8px 8px 8px 16px !important;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.6), 0 0 0 4px rgba(0,0,0,0.25) !important;
+  transition: border-color var(--dur), box-shadow var(--dur) !important;
+}
+#quicksearcharea form:focus-within {
+  border-color: var(--neon-rosa) !important;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.6), 0 0 14px rgba(255, 46, 99, 0.35) !important;
+}
+
+#quicksearcharea .querybox, #quicksearcharea nobr {
+  display: inline-flex !important; align-items: center !important; flex: 1 !important;
+}
+
+#quicksearcharea input[type="text"] {
+  background: transparent !important;
+  border: none !important; outline: none !important;
+  color: var(--crema) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 15px !important; font-weight: 300 !important;
+  width: 280px !important; max-width: 34vw !important;
+  padding: 4px 0 !important; box-shadow: none !important;
+}
+#quicksearcharea input[type="text"]::placeholder { color: rgba(245,233,208,0.35) !important; }
+
+#quicksearcharea select {
+  background: var(--notte-700) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  border-radius: 6px !important;
+  color: var(--crema-dim) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  padding: 5px 10px !important;
+  outline: none !important; box-shadow: none !important; cursor: pointer !important;
+}
+
+#quickSearchSubmitButton {
+  background: var(--neon-rosa) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 8px 24px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important; font-weight: 600 !important;
+  text-transform: uppercase !important; letter-spacing: 0.1em !important;
+  cursor: pointer !important;
+  /* forma "biglietto": tacche semicircolari ai lati (come i ticket in alto) */
+  -webkit-mask: radial-gradient(circle 5px at 0 50%, transparent 98%, #000) left,
+                radial-gradient(circle 5px at 100% 50%, transparent 98%, #000) right !important;
+  -webkit-mask-size: 51% 100% !important;
+  -webkit-mask-repeat: no-repeat !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 8px rgba(255, 46, 99, 0.5)) !important;
+  transition: filter var(--dur) !important;
+}
+#quickSearchSubmitButton:hover {
+  filter: drop-shadow(0 0 14px rgba(255, 46, 99, 0.85)) !important;
+}
+
+/* link tipi di ricerca sotto la barra */
+#quicksearcharea ul {
+  list-style: none !important; display: flex !important; justify-content: flex-end !important;
+  gap: 14px !important; margin: 8px 0 0 0 !important; padding: 0 !important;
+}
+#quicksearcharea li { display: inline !important; background: transparent !important; border: none !important; padding: 0 !important; margin: 0 !important; }
+#quicksearcharea li a {
+  font-size: 11px !important; font-weight: 400 !important;
+  text-transform: uppercase !important; letter-spacing: 0.12em !important;
+  color: rgba(245, 233, 208, 0.45) !important;
+}
+#quicksearcharea li a:hover { color: var(--gold) !important; text-shadow: none !important; }
+
+/* ================================================================
+   NAV — programma in cartellone (tab classificatori)
+   ================================================================ */
+/* le tab stanno sopra la vignettatura del banner (era .banner-navigation-row) */
+#gs_banner #gs-nav { position: relative !important; z-index: 1 !important; }
+
+#gs-nav {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: none !important;
+  border-top: 1px solid rgba(255, 209, 102, 0.3) !important;
+  padding: 10px var(--gutter) !important;
+  margin: 0 calc(-1 * var(--gutter)) !important;
+  list-style: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+
+#gs-nav li {
+  float: none !important;
+  display: flex !important;
+  margin: 0 !important; padding: 0 !important;
+  background: transparent !important;
+  border: 1px solid rgba(245, 233, 208, 0.2) !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  transition: border-color var(--dur), background var(--dur) !important;
+}
+#gs-nav li:hover {
+  border-color: var(--gold) !important;
+  background: rgba(255, 209, 102, 0.08) !important;
+}
+
+#gs-nav li > a, #gs-nav li > span {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  height: 36px !important;
+  padding: 0 18px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1 !important;
+  color: var(--crema-dim) !important;
+  background: transparent !important;
+  border: none !important; border-radius: 0 !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  transition: color var(--dur), text-shadow var(--dur) !important;
+}
+#gs-nav li > a > i, #gs-nav li > span > i {
+  width: 14px !important; font-size: 12px !important; text-align: center !important;
+  color: var(--gold) !important; flex-shrink: 0 !important;
+}
+#gs-nav li > a > span {
+  display: inline !important; height: auto !important; padding: 0 !important;
+  background: transparent !important; font: inherit !important; color: inherit !important;
+}
+#gs-nav li:hover > a { color: var(--crema) !important; }
+
+/* tab attiva: illuminata come la voce in cartellone stasera */
+#gs-nav li.ui-state-active, #gs-nav li.ui-tabs-selected {
+  border-color: var(--neon-rosa) !important;
+  background: rgba(255, 46, 99, 0.12) !important;
+  box-shadow: 0 0 14px rgba(255, 46, 99, 0.35), inset 0 0 10px rgba(255, 46, 99, 0.12) !important;
+}
+#gs-nav li.ui-state-active > a, #gs-nav li.ui-tabs-selected > a {
+  color: #fff !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 8px rgba(255, 46, 99, 0.9) !important;
+}
+
+/* ================================================================
+   BARRA ALFABETICA (.navList)
+   ================================================================ */
+.navList {
+  background: var(--notte-800) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+  padding: 12px var(--gutter) !important;
+  margin: 0 !important;
+}
+.navList ul { display: flex !important; flex-wrap: wrap !important; gap: 5px !important; list-style: none !important; margin: 0 !important; padding: 0 !important; }
+.navList td { padding: 2px !important; }
+
+.navList li a, .navList li span, .navList td a {
+  display: inline-block !important;
+  padding: 2px 11px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important; font-weight: 400 !important;
+  color: var(--crema-dim) !important;
+  border: 1px solid rgba(245, 233, 208, 0.18) !important;
+  border-radius: 3px !important;
+  background: transparent !important;
+  transition: all var(--dur) !important;
+}
+.navList li a:hover {
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+  text-shadow: none !important;
+}
+.navList td.current, .navList li.current a, .navList li.current span {
+  background: var(--neon-rosa) !important;
+  color: #fff !important;
+  border-color: var(--neon-rosa) !important;
+  box-shadow: 0 0 10px rgba(255, 46, 99, 0.5) !important;
+}
+
+/* ================================================================
+   CONTENT AREA — la sala
+   ================================================================ */
+#gs_content {
+  background: transparent !important;
+  border: none !important;
+  padding: 40px var(--gutter) 56px !important;
+  flex: 1 !important;
+}
+#gs_content p { color: var(--text-body) !important; line-height: 1.7 !important; max-width: 900px; }
+#gs_content h3 { color: var(--gold) !important; }
+
+/* ================================================================
+   MURO DI LOCANDINE — griglia poster (ricerca e sfoglia)
+   Greenstone impagina i documenti come righe di tabella; qui
+   trasformiamo il contenitore in una griglia responsive di poster.
+   ================================================================ */
+
+/* la tabella esterna resta un blocco a piena larghezza... */
+.childrenlist, #resultsTable {
+  display: block !important;
+  width: 100% !important;
+  border-spacing: 0 !important;
+  background: transparent !important;
+}
+
+/* ...e SOLO il tbody diventa la griglia dei poster */
+.childrenlist > tbody,
+#resultsTable > tbody {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)) !important;
+  gap: 30px 24px !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+
+/* le righe collassano: le celle diventano figlie dirette della griglia */
+.childrenlist > tbody > tr,
+#resultsTable > tbody > tr {
+  display: contents !important;
+}
+
+/* SFOGLIA: il <td> che avvolge la tabella #divHASH è la tessera */
+.childrenlist > tbody > tr > td {
+  display: block !important;
+  padding: 0 !important; margin: 0 !important;
+  border: none !important; background: transparent !important;
+}
+
+/* neutralizza la tabella #divHASH annidata (era la vecchia card) */
+table[id^="divfilm"],
+table[id^="divfilm"] > tbody,
+table[id^="divfilm"] > tbody > tr {
+  display: block !important;
+  width: 100% !important; margin: 0 !important; padding: 0 !important;
+  border: none !important; background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* via la vecchia cella-icona vuota, in sfoglia e in ricerca */
+table[id^="divfilm"] td:not(.poster-cell):not(:has(img)),
+#resultsTable > tbody > tr > td:not(.poster-cell):not(:has(img)) {
+  display: none !important;
+}
+/* cella della stella preferiti: piccola, sopra la tessera */
+table[id^="divfilm"] td:has(> img[id*="favourite" i]),
+table[id^="divfilm"] td:has(> img[src*="star" i]) {
+  display: block !important;
+  padding: 0 0 6px 2px !important;
+  border: none !important; background: transparent !important;
+}
+table[id^="divfilm"] td img[src*="star" i] {
+  width: 18px !important; height: 18px !important;
+  cursor: pointer !important;
+  filter: sepia(1) saturate(3) hue-rotate(5deg) brightness(1.1);
+  opacity: 0.85;
+}
+
+/* la cella poster è la tessera vera e propria */
+td.poster-cell {
+  display: block !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  vertical-align: top !important;
+}
+
+td.poster-cell > a {
+  display: block !important;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* cornice della locandina */
+.poster-frame {
+  position: relative !important;
+  aspect-ratio: 2 / 3 !important;
+  border-radius: var(--radius) !important;
+  overflow: hidden !important;
+  background: var(--notte-800) !important;
+  border: 1px solid rgba(255, 209, 102, 0.25) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  transition: transform var(--dur), box-shadow var(--dur), border-color var(--dur) !important;
+}
+.poster-frame img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  border: none !important;
+}
+/* velo scuro che si dissolve all'hover */
+.poster-frame::after {
+  content: '' !important;
+  position: absolute !important; inset: 0 !important;
+  background: linear-gradient(180deg, transparent 55%, rgba(13, 8, 18, 0.55) 100%) !important;
+  opacity: 0.9 !important;
+  transition: opacity var(--dur) !important;
+  pointer-events: none !important;
+}
+
+td.poster-cell > a:hover .poster-frame {
+  border-color: var(--neon-rosa) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 26px rgba(255, 46, 99, 0.4) !important;
+}
+td.poster-cell > a:hover .poster-frame::after { opacity: 0.35 !important; }
+
+/* didascalia sotto la locandina */
+.poster-caption {
+  padding: 12px 4px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+}
+.poster-title {
+  font-family: var(--font-sans) !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.03em !important;
+  color: var(--crema) !important;
+  line-height: 1.25 !important;
+  transition: color var(--dur), text-shadow var(--dur) !important;
+}
+td.poster-cell > a:hover .poster-title {
+  color: var(--gold) !important;
+  text-shadow: none !important;
+}
+.poster-director {
+  font-family: var(--font-sans) !important;
+  font-size: 12.5px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.04em !important;
+  color: rgba(245, 233, 208, 0.72) !important;
+  line-height: 1.3 !important;
+}
+.poster-sub {
+  font-family: var(--font-sans) !important;
+  font-size: 11.5px !important;
+  font-weight: 300 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: rgba(245, 233, 208, 0.5) !important;
+}
+
+/* scaffali / partizioni (lettere AZList) sopra la griglia */
+#resultsTable .shelf > a, .bookshelf a,
+td[class*="partition"] a {
+  font-family: var(--font-marquee) !important;
+  font-size: 16px !important;
+  color: var(--gold) !important;
+  letter-spacing: 0.14em !important;
+}
+
+/* ---- TARGA REGISTA: scaffali dei classificatori (AZCompactList) ---- */
+/* Struttura reale: childrenlist > tr > td > table#titleCLx.y > tr > (td.headerTD + td.shelf-cell)
+   e i figli espansi stanno in una childrenlist ANNIDATA in un'altra cella.
+   Le celle esterne che contengono targhe o sotto-liste devono occupare
+   tutta la riga della griglia, non una colonna da poster. */
+.childrenlist > tbody > tr > td:has(table[id^="titleCL"]),
+.childrenlist > tbody > tr > td:has(.childrenlist) {
+  grid-column: 1 / -1 !important;
+}
+
+/* neutralizza la tabella titleCL (come le divHASH dei poster) */
+table[id^="titleCL"],
+table[id^="titleCL"] > tbody,
+table[id^="titleCL"] > tbody > tr {
+  display: block !important;
+  width: 100% !important; margin: 0 !important; padding: 0 !important;
+  border: none !important; background: transparent !important;
+  box-shadow: none !important;
+}
+/* via il vecchio +/- di espansione: la targa è già tutta cliccabile */
+table[id^="titleCL"] td.headerTD { display: none !important; }
+
+td.shelf-cell {
+  display: block !important;
+  padding: 0 !important;
+  margin-top: 14px !important;
+  border: none !important;
+  background: transparent !important;
+}
+td.shelf-cell > a { display: block !important; text-decoration: none !important; }
+
+.shelf-card {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  background: linear-gradient(180deg, #191223, #221833) !important;
+  border: 1px solid rgba(255, 209, 102, 0.35) !important;
+  border-radius: 6px !important;
+  padding: 18px 20px !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5) !important;
+  transition: border-color var(--dur), box-shadow var(--dur) !important;
+}
+.shelf-card:hover {
+  border-color: var(--neon-rosa) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 46, 99, 0.3) !important;
+}
+
+.shelf-ic {
+  flex-shrink: 0 !important;
+  width: 42px !important; height: 42px !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(255, 209, 102, 0.5) !important;
+  border-radius: 50% !important;
+  color: var(--gold) !important;
+  font-size: 16px !important;
+  text-shadow: none !important;
+}
+
+.shelf-name {
+  flex: 1 !important;
+  font-family: var(--font-marquee) !important;
+  font-size: clamp(18px, 2.2vw, 26px) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #fff !important;
+  text-shadow: none !important;
+  line-height: 1.15 !important;
+}
+.shelf-card:hover .shelf-name { text-shadow: none !important; }
+
+.shelf-count {
+  flex-shrink: 0 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.14em !important;
+  color: var(--gold) !important;
+  border: 1px solid rgba(255, 209, 102, 0.5) !important;
+  border-radius: 999px !important;
+  padding: 4px 14px !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+.shelf-go {
+  flex-shrink: 0 !important;
+  color: rgba(245, 233, 208, 0.5) !important;
+  font-size: 14px !important;
+  transition: transform var(--dur), color var(--dur) !important;
+}
+.shelf-card:hover .shelf-go {
+  color: var(--neon-rosa) !important;
+}
+
+/* respiro tra la targa e i contenuti dello scaffale espanso */
+.childrenlist > tbody > tr > td:has(.childrenlist) {
+  margin-top: 22px !important;
+  margin-bottom: 10px !important;
+}
+/* stacco fra la targa aperta e la griglia/righe che seguono */
+td.shelf-cell { margin-bottom: 14px !important; }
+.childrenlist .childrenlist > tbody { padding-top: 8px !important; }
+
+/* ---- RIGA MATERIALE: documenti satellite (trame, citazioni, pdf, mp3) ---- */
+/* nella griglia occupa tutta la riga, non una colonna da poster */
+td.poster-cell:has(.doc-row) { grid-column: span 2 !important; }
+
+.doc-row {
+  display: grid !important;
+  grid-template-columns: 58px 1fr 30px !important;
+  grid-template-rows: auto auto !important;
+  align-items: center !important;
+  column-gap: 16px !important;
+  min-height: 74px !important;
+  background: linear-gradient(160deg, var(--notte-800), var(--notte-700)) !important;
+  border: 1px solid rgba(245, 233, 208, 0.14) !important;
+  border-radius: 10px !important;
+  padding: 0 14px 0 0 !important;
+  overflow: hidden !important;
+  transition: border-color var(--dur), box-shadow var(--dur) !important;
+}
+.doc-row:hover {
+  border-color: rgba(255, 209, 102, 0.6) !important;
+  box-shadow: 0 0 18px rgba(255, 209, 102, 0.15) !important;
+}
+/* dorso della scheda: banda oro a tutta altezza con bordo strappato */
+.doc-row i {
+  grid-row: 1 / 3 !important; grid-column: 1 !important;
+  align-self: stretch !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important; height: auto !important;
+  background: linear-gradient(180deg, rgba(255, 209, 102, 0.18), rgba(255, 209, 102, 0.06)) !important;
+  border: none !important;
+  border-right: 1px dashed rgba(255, 209, 102, 0.45) !important;
+  border-radius: 0 !important;
+  color: var(--gold) !important;
+  font-size: 18px !important;
+}
+.doc-row-title {
+  grid-row: 1 !important; grid-column: 2 !important;
+  align-self: end !important;
+  font-family: var(--font-sans) !important;
+  font-size: 15.5px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.04em !important;
+  color: var(--crema) !important;
+  padding-top: 12px !important;
+}
+.doc-row-type {
+  grid-row: 2 !important; grid-column: 2 !important;
+  align-self: start !important;
+  font-size: 10.5px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.2em !important;
+  color: rgba(255, 209, 102, 0.7) !important;
+  border: none !important;
+  padding: 2px 0 12px !important;
+}
+.doc-row::after {
+  content: "\f054" !important;
+  grid-row: 1 / 3 !important; grid-column: 3 !important;
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
+  font-size: 12px !important;
+  text-align: center !important;
+  color: rgba(245, 233, 208, 0.3) !important;
+  transition: color var(--dur) !important;
+}
+.doc-row:hover::after { color: var(--gold) !important; }
+
+/* ---- LETTURA MATERIALE: documento txt aperto ---- */
+.orig-doc { max-width: 820px !important; }
+.orig-doc-title {
+  font-family: var(--font-marquee) !important;
+  font-size: clamp(22px, 2.6vw, 32px) !important;
+  color: #fff !important;
+  text-shadow: none !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  border-bottom: 1px solid rgba(255, 209, 102, 0.3) !important;
+  padding-bottom: 14px !important;
+  margin-bottom: 22px !important;
+}
+.orig-doc-text, .orig-doc-text pre {
+  font-family: var(--font-sans) !important;
+  font-size: 17px !important;
+  font-weight: 300 !important;
+  line-height: 1.85 !important;
+  color: var(--text-body) !important;
+  white-space: pre-wrap !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+
+/* ================================================================
+   SCHEDA FILM — documento aperto (locandina + trama + citazioni)
+   ================================================================ */
+.film-sheet {
+  display: grid !important;
+  grid-template-columns: minmax(220px, 320px) 1fr !important;
+  gap: 40px !important;
+  align-items: start !important;
+  max-width: 1080px !important;
+}
+.film-sheet-poster {
+  position: sticky !important;
+  top: 20px !important;
+}
+.film-sheet-poster img {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: var(--radius) !important;
+  border: 4px solid var(--gold) !important;
+  box-shadow: 0 0 0 1px var(--notte-900), 0 18px 50px rgba(0,0,0,0.75),
+              0 0 34px rgba(255, 209, 102, 0.18) !important;
+}
+.film-sheet-title {
+  font-family: var(--font-marquee) !important;
+  font-size: clamp(28px, 3.4vw, 44px) !important;
+  color: #fff !important;
+  text-shadow: none !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1.1 !important;
+  display: block !important;
+  margin-bottom: 16px !important;
+}
+.film-sheet-meta {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px 14px !important;
+  padding-bottom: 20px !important;
+  margin-bottom: 20px !important;
+  border-bottom: 1px solid rgba(255, 209, 102, 0.25) !important;
+}
+.film-sheet-meta .fm {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: var(--crema-dim) !important;
+  border: 2px solid rgba(245, 233, 208, 0.3) !important;
+  border-radius: var(--radius-pill, 999px) !important;
+  padding: 5px 14px !important;
+}
+.film-sheet-meta .fm i { color: var(--gold) !important; font-size: 12px !important; }
+.film-sheet-meta .fm-year { color: var(--gold) !important; border-color: rgba(255,209,102,0.4) !important; }
+.film-sheet-meta .fm-genre i { color: var(--neon-cielo) !important; }
+.film-sheet-meta .fm-recommended { border-color: rgba(255, 46, 99, 0.5) !important; }
+.film-sheet-meta .fm-recommended i { color: var(--neon-rosa) !important; }
+.film-sheet-meta .fm-cast i { color: var(--neon-cielo) !important; }
+.film-sheet-meta .fm-composer i { color: var(--gold) !important; }
+.film-sheet-meta .fm-composer { border-color: rgba(255,209,102,0.5) !important; }
+
+/* player audio (colonna sonora) */
+.audio-player-wrap {
+  display: flex !important; align-items: center !important; gap: 16px !important;
+  margin-top: 16px !important; padding: 16px 20px !important;
+  background: linear-gradient(160deg, var(--notte-800), var(--notte-700)) !important;
+  border: 1px solid rgba(255,209,102,0.3) !important; border-radius: 10px !important;
+  max-width: 560px !important;
+}
+.audio-disc { font-size: 34px !important; color: var(--gold) !important; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .audio-disc { animation: none !important; } }
+.audio-player { flex: 1 !important; height: 40px !important; }
+.film-sheet-meta .fm-rec i { color: var(--neon-rosa) !important; }
+
+.film-sheet-section { margin-bottom: 26px !important; }
+.film-sheet-h {
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.2em !important;
+  color: var(--gold) !important;
+  margin-bottom: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+}
+.film-sheet-h i { text-shadow: none !important; }
+.film-sheet-h .sheet-link {
+  color: var(--gold) !important;
+  letter-spacing: inherit !important;
+  transition: color var(--dur), text-shadow var(--dur) !important;
+}
+.film-sheet-h .sheet-link:hover {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+.sheet-link-ic { font-size: 10px !important; opacity: 0.7 !important; margin-left: 2px !important; }
+
+.dl-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  margin-top: 14px !important;
+  padding: 7px 16px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: var(--crema-dim) !important;
+  background: transparent !important;
+  border: 2px solid rgba(255, 209, 102, 0.55) !important;
+  border-radius: 999px !important;
+  cursor: pointer !important;
+  transition: border-color var(--dur), color var(--dur), background var(--dur) !important;
+}
+.dl-btn i { color: var(--gold) !important; }
+a:hover > .dl-btn {
+  border-color: var(--gold) !important;
+  color: var(--crema) !important;
+  background: rgba(255, 209, 102, 0.07) !important;
+  text-shadow: none !important;
+}
+.film-sheet-poster .dl-btn { width: 100% !important; justify-content: center !important; }
+
+.film-script-note {
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  color: rgba(245, 233, 208, 0.55) !important;
+  margin: 0 !important;
+}
+.film-trama {
+  font-family: var(--font-sans) !important;
+  font-size: 17px !important;
+  font-weight: 300 !important;
+  line-height: 1.8 !important;
+  color: var(--text-body) !important;
+  margin: 0 !important;
+}
+.film-citazioni {
+  font-family: 'Georgia', serif !important;
+  font-size: 16px !important;
+  font-style: italic !important;
+  line-height: 2 !important;
+  color: rgba(245, 233, 208, 0.78) !important;
+  border-left: 3px solid var(--neon-rosa) !important;
+  padding-left: 18px !important;
+}
+.film-citazioni .film-quote { margin-bottom: 10px !important; }
+.film-citazioni .film-quote:last-child { margin-bottom: 0 !important; }
+
+/* eventuale testo documento generico (fallback) */
+.sectionContainer, #gs-document-text {
+  font-family: var(--font-sans) !important;
+  font-size: 16.5px !important;
+  font-weight: 300 !important;
+  color: var(--text-body) !important;
+  line-height: 1.8 !important;
+}
+
+@media (max-width: 720px) {
+  .film-sheet { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .film-sheet-poster { position: static !important; max-width: 260px !important; }
+}
+
+/* evidenziazione termini di ricerca */
+.termHighlight {
+  background: rgba(255, 209, 102, 0.2) !important;
+  color: var(--gold) !important;
+  font-weight: 500 !important;
+  padding: 0 3px !important;
+  border-radius: 2px !important;
+  border-bottom: 1px solid var(--gold) !important;
+}
+.noTermHighlight { background: transparent !important; }
+
+
+
+/* ================================================================
+   FORM (ricerca avanzata, preferenze)
+   ================================================================ */
+input[type="text"], input[type="search"], select, textarea {
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  color: var(--crema) !important;
+  background: var(--notte-800) !important;
+  border: 1px solid rgba(245, 233, 208, 0.25) !important;
+  border-radius: 6px !important;
+  padding: 7px 12px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: border-color var(--dur), box-shadow var(--dur) !important;
+}
+input[type="text"]:focus, input[type="search"]:focus, select:focus, textarea:focus {
+  border-color: var(--neon-rosa) !important;
+  box-shadow: 0 0 10px rgba(255, 46, 99, 0.3) !important;
+}
+
+input[type="submit"], button[type="submit"], .submitButton {
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important; font-weight: 600 !important;
+  text-transform: uppercase !important; letter-spacing: 0.1em !important;
+  color: #fff !important;
+  background: var(--neon-rosa) !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 8px 22px !important;
+  cursor: pointer !important;
+  box-shadow: 0 0 12px rgba(255, 46, 99, 0.4) !important;
+  transition: box-shadow var(--dur), transform var(--dur) !important;
+}
+input[type="submit"]:hover, button[type="submit"]:hover {
+  box-shadow: 0 0 22px rgba(255, 46, 99, 0.75) !important;
+}
+
+/* widget preferiti (ripristinato): pannello scuro a tema */
+#float-anchor, #rightSidebar {
+  background: var(--notte-800) !important;
+  border: 1px solid rgba(255, 209, 102, 0.35) !important;
+  border-radius: 8px !important;
+  color: var(--crema-dim) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  padding: 8px 12px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6) !important;
+}
+#float-anchor a, #rightSidebar a { color: var(--gold) !important; }
+
+/* ================================================================
+   FORM RICERCA TESTUALE — etichette e info risultati
+   (paramLabel/paramValue/termInfo/matchdocs non hanno stili nostri
+   e usciva il grigio scuro di default: illeggibile sul fondo notte)
+   ================================================================ */
+.paramLabel {
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.16em !important;
+  color: var(--gold) !important;
+  padding: 8px 0 !important;
+  width: 220px !important;
+}
+.paramValue {
+  color: var(--crema-dim) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  padding: 6px 0 !important;
+}
+.paramValue label, .paramValue span { color: var(--crema-dim) !important; }
+
+/* radio e checkbox visibili sul fondo scuro */
+.paramValue input[type="radio"], .paramValue input[type="checkbox"] {
+  accent-color: var(--neon-rosa) !important;
+}
+
+/* "2 documents match the query" */
+#matchdocs, .matchdocs {
+  font-family: var(--font-marquee) !important;
+  font-size: 20px !important;
+  letter-spacing: 0.06em !important;
+  color: var(--crema) !important;
+  text-shadow: none !important;
+  margin: 6px 0 4px !important;
+}
+
+/* "'lang' occurs 3 times in 2 documents" */
+.termInfo, .termList {
+  display: block !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 300 !important;
+  font-style: italic !important;
+  letter-spacing: 0.04em !important;
+  color: rgba(245, 233, 208, 0.5) !important;
+  margin-bottom: 22px !important;
+}
+
+/* ricerca per campi: intestazioni e celle della tabella */
+td.queryfieldname {
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.16em !important;
+  color: var(--gold) !important;
+  padding: 10px 8px 6px 0 !important;
+}
+td.queryfieldcell { padding: 4px 8px 4px 0 !important; }
+tr.queryfieldrow select, tr.queryfieldrow input[type="text"] { margin: 2px 0 !important; }
+
+/* area risultati: respiro sopra il muro */
+.resultsArea { margin-top: 6px !important; }
+
+/* ================================================================
+   FOOTER — uscita dalla sala
+   ================================================================ */
+#gs_footer {
+  background: var(--notte-800) !important;
+  border: none !important;
+  border-top: 1px solid rgba(255, 209, 102, 0.25) !important;
+  color: rgba(245, 233, 208, 0.4) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.08em !important;
+  padding: 22px var(--gutter) !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+#gs_footer a { color: rgba(245, 233, 208, 0.45) !important; }
+#gs_footer a:hover { color: var(--gold) !important; text-shadow: none !important; }
+
+/* barra top spostata nel footer dal custom.js */
+.footer-top-bar {
+  background: transparent !important;
+  border-bottom: none !important;
+  border-top: 1px solid rgba(245, 233, 208, 0.12) !important;
+  height: auto !important;
+  padding: 16px 0 0 !important;
+  margin-top: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+}
+.footer-top-bar #breadcrumbs,
+.footer-top-bar #breadcrumbs a,
+.footer-top-bar #breadcrumbs span {
+  font-size: 11px !important;
+  color: rgba(245, 233, 208, 0.4) !important;
+}
+.footer-top-bar #breadcrumbs a:hover { color: var(--gold) !important; }
+
+/* riga "THE END" iniettata dal JS */
+.the-end {
+  font-family: var(--font-marquee) !important;
+  font-size: 22px !important;
+  letter-spacing: 0.3em !important;
+  color: var(--crema-dim) !important;
+  margin-bottom: 6px !important;
+}
+
+/* ================================================================
+   FOYER — pagina about / home della collezione
+   ================================================================ */
+#cineo-landing { max-width: 1120px !important; margin: 0 auto !important; }
+
+.foyer-lead p {
+  font-size: 19px !important;
+  font-weight: 300 !important;
+  line-height: 1.75 !important;
+  color: var(--crema-dim) !important;
+  max-width: 780px !important;
+  margin: 0 0 14px 0 !important;
+}
+.foyer-lead b { color: var(--gold) !important; font-weight: 600 !important; }
+
+/* statistiche da botteghino */
+.foyer-stats {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 14px !important;
+  margin: 26px 0 40px !important;
+}
+.foyer-stat {
+  text-align: center !important;
+  align-items: center !important;
+  /* texture: raggiera art deco che sale dal fondo della card */
+  background:
+    repeating-conic-gradient(from -90deg at 50% 130%, rgba(255, 209, 102, 0.055) 0 5deg, transparent 5deg 11deg),
+    linear-gradient(160deg, var(--notte-800), var(--notte-700)) !important;
+  border: 1px solid rgba(255, 209, 102, 0.25) !important;
+  border-radius: var(--radius) !important;
+  padding: 22px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  transition: transform var(--dur), border-color var(--dur), box-shadow var(--dur) !important;
+}
+.foyer-stat-n {
+  font-family: var(--font-marquee) !important;
+  font-size: clamp(34px, 4vw, 48px) !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  text-shadow: none !important;
+}
+.foyer-stat-l {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.16em !important;
+  color: rgba(245, 233, 208, 0.55) !important;
+  margin-top: 6px !important;
+}
+
+/* titoli di sezione del foyer */
+.foyer-h {
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.24em !important;
+  color: var(--gold) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 38px 0 18px !important;
+}
+.foyer-h i { text-shadow: none !important; }
+.foyer-h::after {
+  content: '' !important;
+  flex: 1 !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, rgba(255, 209, 102, 0.4), transparent) !important;
+}
+
+#cineo-landing { text-align: initial !important; }
+
+/* biglietti dei percorsi di sfoglia */
+.foyer-cards {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 16px !important;
+}
+.foyer-card {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  /* texture: righe orizzontali sottili da biglietto stampato */
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 5px),
+    linear-gradient(160deg, var(--notte-800), var(--notte-700)) !important;
+  border: 1px dashed rgba(255, 209, 102, 0.35) !important;
+  border-radius: 8px !important;
+  padding: 18px 20px !important;
+  text-decoration: none !important;
+  transition: transform var(--dur), border-color var(--dur), box-shadow var(--dur) !important;
+}
+.foyer-card:hover {
+  border-color: var(--neon-rosa) !important;
+  border-style: solid !important;
+  box-shadow: 0 0 20px rgba(255, 46, 99, 0.3) !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+}
+.foyer-card-ic {
+  flex-shrink: 0 !important;
+  width: 48px !important; height: 48px !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  background: rgba(255, 209, 102, 0.12) !important;
+  border: 1px solid rgba(255, 209, 102, 0.4) !important;
+  border-radius: 50% !important;
+  color: var(--gold) !important;
+  font-size: 18px !important;
+  transition: background var(--dur), color var(--dur) !important;
+}
+.foyer-card:hover .foyer-card-ic {
+  background: var(--neon-rosa) !important;
+  border-color: var(--neon-rosa) !important;
+  color: #fff !important;
+}
+.foyer-card-body { flex: 1 !important; display: flex !important; flex-direction: column !important; gap: 2px !important; }
+.foyer-card-t {
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: var(--crema) !important;
+}
+.foyer-card-s {
+  font-size: 13.5px !important;
+  font-weight: 300 !important;
+  color: rgba(245, 233, 208, 0.5) !important;
+}
+.foyer-card-go {
+  color: rgba(245, 233, 208, 0.35) !important;
+  transition: transform var(--dur), color var(--dur) !important;
+}
+.foyer-card:hover .foyer-card-go {
+  color: var(--neon-rosa) !important;
+}
+
+/* nota di sala */
+.foyer-note {
+  margin-top: 8px !important;
+  padding-top: 0 !important;
+  border-top: none !important; /* il divisore deco fa da stacco */
+  text-align: center !important;
+  font-size: 14px !important;
+  color: rgba(245, 233, 208, 0.45) !important;
+  line-height: 1.7 !important;
+}
+.foyer-note b { color: var(--gold) !important; font-weight: 600 !important; }
+.foyer-note i { color: rgba(245, 233, 208, 0.35) !important; }
+
+@media (max-width: 760px) {
+  .foyer-stats { grid-template-columns: repeat(2, 1fr) !important; }
+  .foyer-cards { grid-template-columns: 1fr !important; }
+}
+
+.foyer-credits {
+  margin-top: 10px !important;
+  font-size: 13px !important;
+  letter-spacing: 0.04em !important;
+  color: rgba(245, 233, 208, 0.55) !important;
+}
+.foyer-credits b { color: var(--gold) !important; font-weight: 600 !important; }
+
+/* ================================================================
+   FIX CHIUSURA SCAFFALI — il toggleSection nativo chiude impostando
+   display:none inline; deve vincere sui nostri display !important
+   ================================================================ */
+#gs_content table[style*="display: none"], #gs_content table[style*="display:none"],
+#gs_content div[style*="display: none"], #gs_content div[style*="display:none"],
+#gs_content tbody[style*="display: none"], #gs_content tbody[style*="display:none"] {
+  display: none !important;
+}
+
+/* ================================================================
+   PREFERITI — stelle sulle tessere, badge in nav, pagina dedicata
+   ================================================================ */
+
+/* icone dei cerchi (scaffali/card): il nbsp anti-collasso non deve spostarle */
+.shelf-ic i, .foyer-card-ic i { font-size: 0 !important; line-height: 1 !important; }
+.shelf-ic i::before { font-size: 16px !important; }
+.foyer-card-ic i::before { font-size: 20px !important; }
+
+/* stelle native: SOLO sui film; nascoste sulle righe materiale */
+table[id^="divfilm"]:has(td.poster-cell .doc-row) td:has(> img[onclick*="toggleFavourite"]) {
+  display: none !important;
+}
+/* stella nativa di Greenstone sulle tessere */
+table[id^="divfilm"] td:has(> img[onclick*="toggleFavourite"]) {
+  display: block !important;
+  padding: 0 0 6px 2px !important;
+  border: none !important; background: transparent !important;
+}
+img[onclick*="toggleFavourite"] {
+  cursor: pointer !important;
+  opacity: 0.75;
+  transition: opacity 150ms, filter 150ms;
+}
+
+/* chip "Aggiungi ai preferiti" sulle pagine documento */
+.doc-fav-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: var(--crema-dim) !important;
+  background: transparent !important;
+  border: 2px solid rgba(255, 209, 102, 0.55) !important;
+  border-radius: 999px !important;
+  padding: 7px 16px !important;
+  cursor: pointer !important;
+  margin: 0 0 0 4px !important;
+  transition: border-color var(--dur), color var(--dur), background var(--dur) !important;
+}
+.film-sheet-poster .doc-fav-btn img {
+  width: 18px !important; height: 18px !important;
+  border: none !important; box-shadow: none !important;
+  border-radius: 0 !important; margin: 0 !important;
+}
+.doc-fav-btn--poster {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: center !important;
+  margin: 10px 0 0 !important;
+}
+.film-sheet-poster { display: flex !important; flex-direction: column !important; }
+.doc-fav-btn:hover {
+  border-color: var(--gold) !important;
+  color: var(--crema) !important;
+  background: rgba(255, 209, 102, 0.07) !important;
+}
+.film-sheet-poster .doc-fav-btn img {
+  width: 18px !important; height: 18px !important;
+  border: none !important; box-shadow: none !important;
+  border-radius: 0 !important; margin: 0 !important;
+}
+.doc-fav-btn--poster {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: center !important;
+  margin: 10px 0 0 !important;
+}
+.film-sheet-poster { display: flex !important; flex-direction: column !important; }
+.doc-fav-btn:hover { border-color: var(--gold) !important; color: var(--crema) !important; }
+.doc-fav-btn img { cursor: pointer !important; }
+.orig-doc .doc-fav-btn { margin: 10px 0 0 !important; }
+
+/* conteggio nativo dentro il chip Preferiti */
+.fav-count-native {
+  color: var(--gold) !important;
+  font-size: 11px !important;
+  margin-left: 4px !important;
+}
+
+/* widget flottante nativo: il suo contenuto vive nel chip di navigazione */
+#float-anchor { display: none !important; }
+#rightSidebar { display: none !important; }
+/* pagine PDF: i tool nativi del documento (espandi, sommario) tornano visibili */
+body.pdf-doc-page #rightSidebar { display: block !important; }
+
+
+/* ================================================================
+   SCHEDA CATALOGRAFICA — record Dublin Core nella scheda film
+   ================================================================ */
+.cat-record { margin-top: 34px !important; }
+.cat-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(245, 233, 208, 0.14) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+.cat-table tr { border-bottom: 1px solid rgba(245, 233, 208, 0.08) !important; }
+.cat-table tr:last-child { border-bottom: none !important; }
+.cat-table th {
+  width: 160px !important;
+  padding: 8px 16px !important;
+  text-align: left !important;
+  vertical-align: top !important;
+  font-family: var(--font-sans) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.16em !important;
+  color: var(--gold) !important;
+  background: rgba(255, 209, 102, 0.05) !important;
+  border-right: 1px dashed rgba(255, 209, 102, 0.25) !important;
+}
+.cat-table td {
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  color: var(--crema-dim) !important;
+  border: none !important;
+}
+
+
+/* ================================================================
+   VISORE LOCANDINA — lightbox a tema per "Apri l'immagine"
+   ================================================================ */
+.pv-lightbox {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  background: rgba(13, 8, 18, 0.93) !important;
+  backdrop-filter: blur(4px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
+  cursor: zoom-out !important;
+  animation: pvFade 160ms ease-out !important;
+}
+@keyframes pvFade { from { opacity: 0; } to { opacity: 1; } }
+.pv-lightbox img {
+  max-width: min(86vw, 900px) !important;
+  max-height: 82vh !important;
+  border: 4px solid var(--gold) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 0 0 1px var(--notte-900), 0 24px 80px rgba(0, 0, 0, 0.85),
+              0 0 40px rgba(255, 209, 102, 0.2) !important;
+}
+.pv-lightbox-caption {
+  font-family: var(--font-marquee) !important;
+  font-size: clamp(18px, 2.4vw, 28px) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #fff !important;
+  text-shadow: none !important;
+}
+.pv-lightbox-caption span {
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  color: var(--gold) !important;
+  text-shadow: none !important;
+  letter-spacing: 0.14em !important;
+}
+.pv-lightbox-close {
+  position: absolute !important;
+  top: 22px !important; right: 28px !important;
+  width: 40px !important; height: 40px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(245, 233, 208, 0.4) !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  color: var(--crema-dim) !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  transition: color var(--dur), border-color var(--dur) !important;
+}
+.pv-lightbox-close:hover { color: var(--neon-rosa) !important; border-color: var(--neon-rosa) !important; }
+
+/* ================================================================
+   TRAILER — player video nella pagina del materiale
+   ================================================================ */
+.trailer-player {
+  display: block !important;
+  width: 100% !important;
+  max-width: 860px !important;
+  margin-top: 16px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 209, 102, 0.35) !important;
+  background: #000 !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6) !important;
+}
+
+
+/* ---- Pagina Informazioni: hero di presentazione + lampadine ---- */
+.about-bulbs {
+  border-radius: 6px !important;
+  margin: 0 0 6px !important;
+  background: rgba(0,0,0,0.28) !important;
+  border: 1px solid rgba(255,209,102,0.25) !important;
+}
+.about-hero { text-align: center !important; padding: 26px 0 34px !important; }
+.about-presentano {
+  display: block !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.28em !important;
+  color: var(--gold) !important;
+  text-shadow: none !important;
+  margin-bottom: 12px !important;
+}
+.about-title {
+  display: block !important;
+  font-family: var(--font-marquee) !important;
+  font-size: clamp(30px, 4vw, 46px) !important;
+  text-transform: none !important;
+  letter-spacing: 0.06em !important;
+  color: #fff !important;
+  text-shadow: var(--glow-rosa) !important;
+  animation: neonFlicker 6s infinite !important;
+  line-height: 1.02 !important;
+  margin-bottom: 22px !important;
+}
+.about-lead {
+  max-width: 760px !important;
+  margin: 0 auto 14px !important;
+  font-size: 17px !important;
+  font-weight: 300 !important;
+  line-height: 1.75 !important;
+  color: var(--crema-dim) !important;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 860px) {
+  :root { --gutter: 20px; }
+  #titlesearchcontainer { flex-direction: column !important; align-items: stretch !important; gap: 18px !important; }
+  #quicksearcharea { align-items: stretch !important; }
+  #quicksearcharea input[type="text"] { width: 100% !important; max-width: none !important; }
+}
+
+/* ================================================================
+   SCROLLBAR
+   ================================================================ */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: var(--notte-900); }
+::-webkit-scrollbar-thumb { background: var(--velluto-700); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-rosa); }
+
+
+/* ---- riga azioni nelle pagine materiale: Scarica + Preferiti allineati ---- */
+.doc-actions-row {
+  display: flex !important; align-items: center !important;
+  gap: 12px !important; flex-wrap: wrap !important;
+  margin: 14px 0 !important;
+}
+.doc-actions-row a { display: inline-flex !important; }
+.doc-actions-row .dl-btn, .doc-actions-row .doc-fav-btn {
+  display: inline-flex !important; align-items: center !important;
+  gap: 8px !important; margin: 0 !important; vertical-align: middle !important;
+}
+
+/* ---- crediti nel footer, sotto THE END ---- */
+.footer-credits {
+  text-align: center !important;
+  font-size: 12.5px !important;
+  color: var(--crema-dim) !important;
+  opacity: 0.85 !important;
+  margin: 6px auto 14px !important;
+  max-width: 640px !important;
+  line-height: 1.6 !important;
+}
+.footer-credits b { color: var(--gold) !important; font-weight: 600 !important; }
+
+
+/* ---- hero della pagina Info: tagline sobria, il neon resta all'insegna ---- */
+.about-tagline {
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-style: italic !important;
+  font-size: clamp(22px, 3vw, 32px) !important;
+  font-weight: 400 !important;
+  line-height: 1.35 !important;
+  color: var(--crema) !important;
+  text-shadow: none !important;
+  text-transform: none !important;
+  letter-spacing: 0.01em !important;
+  margin: 10px auto 20px !important;
+  max-width: 720px !important;
+}
+.about-hero .about-lead { max-width: 700px !important; }
+
+/* card dispari finale (Consigliati): occupa tutta la riga, niente orfani */
+.foyer-cards > .foyer-card:last-child:nth-child(odd) { grid-column: 1 / -1 !important; }
+
+/* ================================================================
+   ORNAMENTI ART DECO — pagina Info
+   ================================================================ */
+
+/* divisore: doppio filetto dorato + tre diamanti */
+.deco-divider {
+  display: flex !important; align-items: center !important;
+  justify-content: center !important; gap: 12px !important;
+  max-width: 620px !important; margin: 8px auto 26px !important;
+}
+.deco-divider::before, .deco-divider::after {
+  content: "" !important; flex: 1 !important; height: 5px !important;
+  background:
+    linear-gradient(rgba(255,209,102,.55), rgba(255,209,102,.55)) 0 0 / 100% 1px no-repeat,
+    linear-gradient(rgba(255,209,102,.28), rgba(255,209,102,.28)) 0 4px / 100% 1px no-repeat !important;
+}
+.deco-diamond {
+  font-size: 0 !important; line-height: 0 !important;
+  width: 9px !important; height: 9px !important; flex: none !important;
+  transform: rotate(45deg) !important;
+  border: 1px solid var(--gold) !important;
+  box-shadow: 0 0 8px rgba(255,209,102,.35) !important;
+}
+.deco-diamond--s {
+  width: 5px !important; height: 5px !important;
+  border-color: rgba(255,209,102,.55) !important;
+  box-shadow: none !important;
+}
+
+/* kicker con filetti laterali */
+.about-presentano {
+  display: flex !important; align-items: center !important;
+  justify-content: center !important; gap: 16px !important;
+  max-width: 560px !important; margin-left: auto !important; margin-right: auto !important;
+}
+.about-presentano::before, .about-presentano::after {
+  content: "" !important; flex: 1 !important; height: 1px !important;
+  background: linear-gradient(90deg, transparent, rgba(255,209,102,.5)) !important;
+}
+.about-presentano::after {
+  background: linear-gradient(90deg, rgba(255,209,102,.5), transparent) !important;
+}
+
+/* box statistiche: diamante dorato a cavallo del bordo superiore */
+.foyer-stat { position: relative !important; overflow: visible !important; }
+.foyer-stat::before {
+  content: "" !important; position: absolute !important;
+  top: -5px !important; left: 50% !important;
+  width: 8px !important; height: 8px !important;
+  transform: translateX(-50%) rotate(45deg) !important;
+  background: var(--notte-900) !important;
+  border: 1px solid var(--gold) !important;
+}
+
+/* icone delle card: doppio anello déco */
+.foyer-card-ic {
+  box-shadow:
+    0 0 0 2px var(--notte-800),
+    0 0 0 3px rgba(255, 209, 102, 0.45) !important;
+}
+
+/* intestazione di sezione: centrata tra doppi filetti */
+.foyer-h {
+  display: flex !important; align-items: center !important;
+  justify-content: center !important; gap: 16px !important;
+  text-align: center !important;
+}
+.foyer-h::before, .foyer-h::after {
+  content: "" !important; flex: 1 !important; height: 5px !important;
+  background:
+    linear-gradient(rgba(255,209,102,.45), rgba(255,209,102,.45)) 0 0 / 100% 1px no-repeat,
+    linear-gradient(rgba(255,209,102,.22), rgba(255,209,102,.22)) 0 4px / 100% 1px no-repeat !important;
+}
+
+/* titoletto nativo duplicato sopra il nostro H2 nelle pagine materiale */
+#gs_content:has(.orig-doc) > span { display: none !important; }
+
+/* nota di build: spostata dal JS nel footer, sotto i crediti */
+.footer-note {
+  text-align: center !important;
+  margin: 4px auto 12px !important;
+  padding: 0 !important;
+  border: none !important;
+  font-size: 12px !important;
+  color: rgba(245, 233, 208, 0.4) !important;
+  max-width: 640px !important;
+}
+
+/* elenco "Esplora / Cerca" nella pagina Info */
+.about-actions {
+  list-style: none !important;
+  max-width: 940px !important;
+  margin: 22px auto 0 !important;
+  padding: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 12px !important;
+  text-align: left !important;
+}
+@media (max-width: 860px) { .about-actions { grid-template-columns: 1fr !important; } }
+.about-actions li {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+  padding: 14px 18px !important;
+  background: linear-gradient(160deg, var(--notte-800), var(--notte-700)) !important;
+  border: 1px solid rgba(255, 209, 102, 0.22) !important;
+  border-radius: var(--radius) !important;
+  font-size: 15.5px !important;
+  font-weight: 300 !important;
+  line-height: 1.6 !important;
+  color: var(--crema-dim) !important;
+}
+.about-actions li i {
+  font-size: 0 !important; line-height: 1 !important;
+  flex: none !important; margin-top: 3px !important;
+}
+.about-actions li i::before { font-size: 16px !important; color: var(--gold) !important; }
+.about-actions b { color: var(--gold) !important; font-weight: 600 !important; }
+
+/* L'esperienza Greenstone originale non era progettata per schermi piccoli. */
+.mobile-unsupported { display: none; }
+
+@media (max-width: 720px) {
+  body {
+    min-height: 100svh !important;
+    display: block !important;
+  }
+
+  .static-rebuild-banner,
+  #container {
+    display: none !important;
+  }
+
+  .mobile-unsupported {
+    box-sizing: border-box;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 32px 24px;
+    background:
+      radial-gradient(circle at 80% 18%, rgba(255, 46, 99, 0.18), transparent 30%),
+      var(--notte-900);
+    color: var(--crema);
+    font-family: var(--font-sans);
+  }
+
+  .mobile-unsupported img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 18px;
+  }
+
+  .mobile-unsupported > p:first-of-type {
+    margin: 0;
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .mobile-unsupported h1 {
+    margin: 0 !important;
+    font-family: var(--font-marquee) !important;
+    font-size: clamp(38px, 12vw, 58px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: 0.02em !important;
+    text-transform: none !important;
+  }
+
+  .mobile-unsupported > p:last-child {
+    max-width: 36ch;
+    margin: 6px 0 0;
+    color: var(--crema-dim);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+}

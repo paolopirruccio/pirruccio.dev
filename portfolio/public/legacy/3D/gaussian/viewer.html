@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaussian Splat – Camposanto Monumentale</title>
+
+  <!--
+    viewer.html — gaussian splat del Camposanto Monumentale dentro un <iframe>.
+
+    Funzionamento: carica la cattura Luma, poi aspetta il messaggio
+    "luma-start-pan" dal parent (inviato da site.js quando l'iframe
+    entra in viewport). A quel punto anima la camera da startPos a endPos
+    in ~4.5 s e al termine manda "luma-arrived" per far comparire il pin oro.
+
+    Messaggi verso il parent: luma-loaded, luma-arrived, luma-camera (dev-mode)
+    Messaggi dal parent: luma-start-pan, luma-cmd (dev-mode)
+  -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+    #canvas-wrap { position: fixed; inset: 0; }
+    canvas { display: block; width: 100% !important; height: 100% !important; }
+
+    /* Overlay di caricamento con barra di progresso dorata. */
+    #loading {
+      position: fixed; inset: 0; background: #000;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 20px; z-index: 99;
+      transition: opacity 1s ease;
+    }
+    #loading.done { opacity: 0; pointer-events: none; }
+    #loading-label {
+      font-family: ui-monospace, monospace; font-size: 11px;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(232, 201, 122, 0.7);
+    }
+    #loading-bar-wrap { width: 200px; height: 1px; background: rgba(255,255,255,0.12); }
+    #loading-bar     { height: 100%; width: 0%; background: #e8c97a; transition: width 0.3s ease; }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div id="loading-label">Caricamento gaussian splat</div>
+    <div id="loading-bar-wrap"><div id="loading-bar"></div></div>
+  </div>
+  <div id="canvas-wrap"></div>
+
+  <!-- importmap: necessario perché luma-web.module.js importa internamente
+       'three' come bare specifier. Il browser usa questa mappa per risolverlo.
+       Vite non si lamenta perché nei nostri import usiamo URL CDN completi. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+      "three/examples/jsm/controls/OrbitControls.js": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/controls/OrbitControls.js",
+      "@lumaai/luma-web": "https://cdn.jsdelivr.net/npm/@lumaai/luma-web@0.2.2/dist/library/luma-web.module.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js';
+    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/controls/OrbitControls.js';
+    import { LumaSplatsThree } from 'https://cdn.jsdelivr.net/npm/@lumaai/luma-web@0.2.2/dist/library/luma-web.module.js';
+
+    // URL della cattura Luma pubblicata online.
+    const CAPTURE_URL = 'https://lumalabs.ai/capture/0DAC0353-C9EF-4B92-B8C5-57C5F47E22B4';
+
+    /* alpha:true per il fondo trasparente; pixelRatio limitato così non spreco GPU sui retina */
+    const wrap = document.getElementById('canvas-wrap');
+    const renderer = new THREE.WebGLRenderer({
+      antialias: false, alpha: true, powerPreference: 'high-performance',
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setClearColor(0x000000, 0);
+    wrap.appendChild(renderer.domElement);
+
+    /* scena, camera, controlli */
+    const scene = new THREE.Scene();
+    scene.background = null;
+
+    const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(1.922, -0.409, 0.526);
+    camera.lookAt(1.456, 0.147, -1.326);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.rotateSpeed = 0.7;
+    controls.panSpeed = 0.8;
+    controls.zoomSpeed = 1.0;
+    controls.screenSpacePanning = true;
+    controls.target.set(1.456, 0.147, -1.326);
+    controls.update();
+
+    /* carico lo splat senza semanticsMask così rimane anche il cielo */
+    const loadBar   = document.getElementById('loading-bar');
+    const loadingEl = document.getElementById('loading');
+
+    const splat = new LumaSplatsThree({
+      source: CAPTURE_URL,
+      enableThreeShaderIntegration: false,
+      loadingAnimationEnabled: true,
+      particleRevealEnabled: true,
+    });
+    scene.add(splat);
+
+    splat.onProgress = (e) => {
+      // Lasciamo l'ultimo 5% per la transizione finale di onLoad.
+      loadBar.style.width = `${Math.round(e.progress * 95)}%`;
+    };
+
+    /* pose di partenza e arrivo della pan automatica; easing in-out quadratico */
+    const startPos    = new THREE.Vector3(0.912, 0.043,  0.704);
+    const startTarget = new THREE.Vector3(0.438, 0.451, -0.698);
+    const endPos      = new THREE.Vector3(-1.630, -0.404, 0.531);
+    const endTarget   = new THREE.Vector3(-1.408, -0.399,  2.050);
+
+    // tre flag per gestire il caso in cui il parent mandi luma-start-pan
+    // prima che lo splat abbia finito di caricare
+    let splatLoaded = false;
+    let panRequested = false;
+    let panStarted = false;
+
+    function startPan() {
+      // ogni chiamata riparte da capo, così il parent può ritriggerare la pan
+      if (!splatLoaded) return;
+      panStarted = true;
+      camera.position.copy(startPos);
+      controls.target.copy(startTarget);
+      controls.enabled = false;
+
+      const ANIM_MS = 4500;
+      const startTime = performance.now();
+      function animateCamera() {
+        const t = Math.min((performance.now() - startTime) / ANIM_MS, 1);
+        const e = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        camera.position.lerpVectors(startPos, endPos, e);
+        controls.target.lerpVectors(startTarget, endTarget, e);
+        controls.update();
+        if (t < 1) {
+          requestAnimationFrame(animateCamera);
+        } else {
+          // animazione finita: dico al parent di mostrare il pin oro
+          if (window.parent !== window) {
+            window.parent.postMessage({ type: 'luma-arrived' }, '*');
+          }
+          controls.enabled = true;
+        }
+      }
+      requestAnimationFrame(animateCamera);
+    }
+
+    splat.onLoad = () => {
+      // Chiusura morbida dell'overlay di caricamento.
+      loadBar.style.width = '100%';
+      setTimeout(() => {
+        loadingEl.classList.add('done');
+        setTimeout(() => { loadingEl.style.display = 'none'; }, 1100);
+      }, 300);
+
+      splatLoaded = true;
+      // Posa iniziale: aspettiamo il segnale dal parent.
+      camera.position.copy(startPos);
+      controls.target.copy(startTarget);
+      controls.update();
+
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'luma-loaded' }, '*');
+      }
+      if (panRequested) startPan();
+    };
+
+    // se dopo 15 s lo splat non è ancora caricato, nascondo l'overlay comunque
+    setTimeout(() => {
+      if (!splatLoaded) console.warn('[Luma] Timeout caricamento gaussian splat (15 s).');
+      loadBar.style.width = '100%';
+      loadingEl.classList.add('done');
+      setTimeout(() => { loadingEl.style.display = 'none'; }, 1100);
+    }, 15000);
+
+    /* mando la posa della camera ogni 500 ms al parent, utile in dev-mode
+       per leggere le coordinate col pulsante "Copia Coordinate" */
+    setInterval(() => {
+      if (window.parent !== window) {
+        window.parent.postMessage({
+          type:   'luma-camera',
+          pos:    [camera.position.x, camera.position.y, camera.position.z],
+          target: [controls.target.x, controls.target.y, controls.target.z],
+        }, '*');
+      }
+    }, 500);
+
+    /* messaggi dal parent: luma-start-pan avvia la pan,
+       luma-cmd fa piccoli movimenti in dev-mode */
+    window.addEventListener('message', (e) => {
+      if (!e.data) return;
+      if (e.data.type === 'luma-start-pan') {
+        panRequested = true;
+        startPan();
+        return;
+      }
+      if (e.data.type !== 'luma-cmd') return;
+
+      const STEP = e.data.step || 0.3;
+      const { action } = e.data;
+
+      // calcolo i tre assi di movimento rispetto all'orientamento attuale della camera
+      const fwd   = new THREE.Vector3().subVectors(controls.target, camera.position).normalize();
+      const right = new THREE.Vector3().crossVectors(fwd, camera.up).normalize();
+      const up    = camera.up.clone();
+
+      if (action === 'zoomin')  { camera.position.addScaledVector(fwd,   STEP); controls.target.addScaledVector(fwd,   STEP); }
+      else if (action === 'zoomout') { camera.position.addScaledVector(fwd,  -STEP); controls.target.addScaledVector(fwd,  -STEP); }
+      else if (action === 'up')      { camera.position.addScaledVector(up,    STEP); controls.target.addScaledVector(up,    STEP); }
+      else if (action === 'down')    { camera.position.addScaledVector(up,   -STEP); controls.target.addScaledVector(up,   -STEP); }
+      else if (action === 'left')    { camera.position.addScaledVector(right,-STEP); controls.target.addScaledVector(right,-STEP); }
+      else if (action === 'right')   { camera.position.addScaledVector(right, STEP); controls.target.addScaledVector(right, STEP); }
+      controls.update();
+    });
+
+    /* aggiorno aspect ratio e dimensione del renderer quando la finestra cambia */
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    /* loop di render */
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Il Sarcofago Tebanianus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="3dhop/stylesheet/3dhop.css">
+  <link rel="stylesheet" href="3dhop/stylesheet/3dhop_panels.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="3dhop/js/spidergl.js"></script>
+  <script src="3dhop/js/jquery.js"></script>
+  <script src="3dhop/js/presenter.js"></script>
+  <script src="3dhop/js/nexus.js"></script>
+  <script src="3dhop/js/ply.js"></script>
+  <script src="3dhop/js/trackball_sphere.js"></script>
+  <script src="3dhop/js/trackball_turntable.js"></script>
+  <script src="3dhop/js/trackball_turntable_pan.js"></script>
+  <script src="3dhop/js/trackball_pantilt.js"></script>
+  <script src="3dhop/js/init.js"></script>
+</head>
+
+<body>
+  <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
+    <div class="intro-inner">
+      <p>Il Sarcofago Tebanianus</p>
+      <div id="intro-art" class="intro-art"></div>
+    </div>
+    <div class="intro-progress"><span></span></div>
+  </div>
+
+  <header class="site-header">
+    <a href="#top" class="brand" aria-label="Torna all'inizio">
+      <span id="brand-mark" class="brand-mark"></span>
+      <span>Il Sarcofago Tebanianus</span>
+    </a>
+    <nav aria-label="Sezioni">
+      <a href="#storia">Storia</a>
+      <a href="#modello">Modello</a>
+      <a href="#luogo">Dove si trova</a>
+      <a href="#esplora">Esplora</a>
+    </nav>
+  </header>
+
+  <!-- Blocco mobile: il viewer 3DHOP e il layout scrollytelling richiedono
+       almeno 900px di larghezza per funzionare correttamente. -->
+  <div id="mobile-block" class="mobile-block" aria-hidden="true">
+    <div class="mobile-block-inner">
+      <div class="mobile-block-brand">Il Sarcofago Tebanianus</div>
+      <p class="mobile-block-body">Mi dispiace ma questo sito è progettato per schermi desktop.<br>Aprilo da un computer
+        per
+        esplorare più comodamente.</p>
+      <p class="mobile-block-meta">Risoluzione minima consigliata · 1280 × 720</p>
+    </div>
+  </div>
+
+  <main id="top">
+    <!-- HERO: sezione alta 350vh con contenitore sticky a 100vh.
+         Quattro layer impilati (background, ornamenti SVG, testo titolo,
+         viewer 3D) governati da JS in due fasi: testo → modello. -->
+    <section class="hero-scroll" aria-labelledby="hero-title">
+      <div class="hero-sticky" id="hero-sticky">
+
+        <!-- Layer 1 — fondo nero con leggero alone radiale dorato. -->
+        <div class="hero-bg"></div>
+
+        <!-- Layer 2 — cinque slot d'angolo in cui JS fa ruotare gli SVG. -->
+        <div class="hero-ornaments" aria-hidden="true">
+          <span class="ornament orn-tl" id="orn-0"></span>
+          <span class="ornament orn-tr" id="orn-1"></span>
+          <span class="ornament orn-bl" id="orn-2"></span>
+          <span class="ornament orn-br" id="orn-3"></span>
+          <span class="ornament orn-bc" id="orn-4"></span>
+        </div>
+
+        <!-- Layer 3 — titolo, sottotitolo e occhiello (fase A). -->
+        <div class="hero-copy" id="hero-copy">
+          <p class="eyebrow">Camposanto Monumentale · Pisa</p>
+          <h1 id="hero-title">Il Sarcofago<br><em>Tebanianus</em></h1>
+          <p class="hero-sub">II secolo d.C. &ensp;·&ensp; Il più antico sarcofago romano databile</p>
+        </div>
+
+        <!-- Layer 4 — slot in cui viene spostato il viewer 3DHOP (fase B). -->
+        <div id="hero-viewer-home" class="hero-viewer-home" aria-hidden="true"></div>
+
+      </div>
+    </section>
+
+
+
+    <!-- STORIA: introduzione + tre paragrafi + iscrizione -->
+    <section id="storia" class="intro-text">
+      <div class="section-kicker">Inizio II secolo d.C.</div>
+      <div class="text-column">
+        <p>Il sarcofago di Caius Bellicus Natalis Tebanianus è conservato nel Camposanto Monumentale di Pisa ed è
+          considerato il più antico sarcofago romano databile con una certa esattezza, dopo i rari esempi repubblicani e
+          il problematico sarcofago Caffarelli.</p>
+        <p>L'iscrizione informa che appartenne a Caius Bellicus Natalis Tebanianus, console nell'87 d.C. e
+          morto attorno al 110. La fronte, alta 0,78 metri, è decorata da festoni popolati da figure e piccole scene
+          romane.</p>
+        <blockquote class="inscription-quote">
+          <span class="inscription-label">CIL XI, 1430 — Iscrizione</span>
+          <p>G(aius) Bellicus Natalis Tebanianus co(n)s(ul) /<br>XVvir Flavialium.</p>
+        </blockquote>
+        <p style="margin-top: 2em;">La sua importanza sta nella ripresa dell'inumazione nel mondo romano a partire dal
+          tardo I secolo d.C. I
+          prototipi dell'Asia Minore erano scolpiti su quattro lati; nella produzione romana, pensata spesso per essere
+          allineata lungo le pareti, la scultura si concentrava su tre lati.</p>
+
+      </div>
+    </section>
+
+    <!-- MODELLO: lettura guidata.
+         Griglia 2 colonne: a sinistra lo slot del viewer (sticky a 100vh),
+         a destra 6 story-card. Ogni card ha `data-view` con l'indice nel
+         vettore `guidedViews[]` di site.js: l'IntersectionObserver legge
+         l'attributo e anima la trackball 3DHOP verso quella vista. -->
+    <section id="modello" class="model-story">
+      <div class="model-sticky">
+        <div id="viewer-home" class="viewer-slot" aria-label="Modello 3DHOP del sarcofago"></div>
+      </div>
+      <div class="story-cards" aria-label="Lettura guidata del sarcofago">
+        <article class="story-card is-active" data-view="0">
+          <p class="card-count">01 / 06</p>
+          <h2>Struttura e rilievo</h2>
+          <p>Il sarcofago è in alto rilievo, con figure e decorazioni volumetriche. Si nota un cornicione superiore
+            modanato e un plinto di base liscio.</p>
+          <div class="card-svg" data-svg="sarcofago" aria-hidden="true"></div>
+        </article>
+        <article class="story-card" data-view="1">
+          <p class="card-count">02 / 06</p>
+          <h2>I festoni e le figure</h2>
+          <p>Il fronte è strutturato attorno a una figura che tiene due grandi festoni centrali, carichi di frutti
+            (come uva e fichi) e fiori; negli spazi liberi — i "campi" — sono inserite piccole scene.</p>
+          <div class="card-svg" data-svg="dettaglio1" aria-hidden="true"></div>
+        </article>
+        <article class="story-card" data-view="2">
+          <p class="card-count">03 / 06</p>
+          <h2>Il campo sinistro</h2>
+          <p>Nel campo a sinistra una figura femminile drappeggiata è sdraiata e solleva un lembo di stoffa, con un
+            satiro al suo fianco che la osserva.</p>
+          <div class="card-svg" data-svg="campo_sx" aria-hidden="true"></div>
+        </article>
+        <article class="story-card" data-view="3">
+          <p class="card-count">04 / 06</p>
+          <h2>Il campo destro</h2>
+          <p>Nel campo di destra appare una figura femminile con l'elmo: probabilmente un munus funebre, giochi
+            gladiatori in onore del Console defunto. Le figure con le mani legate rappresentano i prigionieri
+            condannati; una figura maschile nuda e muscolosa assiste alla scena.</p>
+          <div class="card-svg" data-svg="campo_dx" aria-hidden="true"></div>
+        </article>
+        <article class="story-card" data-view="4">
+          <p class="card-count">05 / 06</p>
+          <h2>Il retro liscio</h2>
+          <p>I sarcofagi romani di questo tipo erano scolpiti solo su tre lati; il retro era liscio per l'allineamento
+            lungo le pareti della camera funeraria. Pertanto, il lato posteriore non è scolpito.</p>
+          <div class="card-svg" data-svg="retro" aria-hidden="true"></div>
+        </article>
+        <article class="story-card" data-view="5">
+          <p class="card-count">06 / 06</p>
+          <h2>I lati minori</h2>
+          <p>Nei lati minori campeggia una grande maschera bacchica con espressione grottesca e corrucciata, bocca
+            aperta e capelli folti. Sotto la maschera lo stesso ricco festone di frutti forma un semicerchio,
+            affiancato da un erote di sostegno nude.</p>
+          <div class="card-svg" data-svg="lato" aria-hidden="true"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- LUOGO: iframe del Gaussian Splat Luma + testo allineato al frame.
+         L'iframe è pointer-events:none di default; in dev-mode (tasto 'd')
+         diventa interattivo e compaiono i pulsanti .luma-dev-tools. -->
+    <section id="luogo" class="place-section">
+      <div class="place-copy">
+        <p class="eyebrow">Dove si trova</p>
+        <h2>Nel Camposanto Monumentale di Pisa</h2>
+      </div>
+      <div class="gaussian-card">
+        <div class="gaussian-frame">
+          <iframe src="gaussian/viewer.html" title="Gaussian splat del Camposanto"
+            allow="fullscreen; xr-spatial-tracking" style="pointer-events:none;"></iframe>
+          <p class="gaussian-credit">Posizione del sarcofago nel <strong>camposanto monumentale</strong></p>
+          <div class="map-pin" id="gaussian-pin" aria-hidden="true" style="display:none"><span></span></div>
+        </div>
+        <div class="luma-dev-tools dev-mode-only">
+          <button data-luma="copy">Copia Coordinate</button>
+          <button data-luma="zoomin">Zoom In</button>
+          <button data-luma="zoomout">Zoom Out</button>
+          <button data-luma="up">Su</button>
+          <button data-luma="down">Giù</button>
+          <button data-luma="left">Sinistra</button>
+          <button data-luma="right">Destra</button>
+        </div>
+      </div>
+      <div class="text-column place-text">
+        <p>Fondato nel 1277 per volere dell’Arcivescovo Federico Visconti, il Camposanto nacque come luogo «ampio e
+          decoroso, appartato e chiuso» per raccogliere le tombe fino ad allora sparse attorno alla Cattedrale. È
+          l’ultimo dei grandi monumenti della Piazza del Duomo e la sua lunga parete marmorea ne chiude il lato
+          settentrionale.</p>
+        <p>Nel Trecento le pareti interne si animarono di affreschi sul tema della Vita e della Morte: Francesco Traini
+          e Bonamico Buffalmacco vi lavorarono ispirandosi alle prediche del domenicano Cavalca e alle visioni
+          dantesche. Il ciclo si estese poi con le opere di Andrea Bonaiuti, Antonio Veneziano, Spinello Aretino e, nel
+          Quattrocento, di Benozzo Gozzoli.</p>
+      </div>
+    </section>
+
+    <!-- GALLERIA: striscia orizzontale di foto.
+         Sezione alta 230vh; la striscia interna trasla di --gallery-x
+         (px), variabile aggiornata da setupScrollMotion in funzione dello
+         scroll relativo della sezione. -->
+    <section class="photo-gallery" aria-label="Galleria fotografica">
+      <div class="gallery-sticky">
+        <div class="gallery-head">
+          <p class="eyebrow">Archivio</p>
+          <h2>Il camposanto, in foto</h2>
+        </div>
+        <div class="gallery-track">
+          <figure><img src="resources/img/1.jpg" alt="Camposanto Monumentale">
+            <figcaption>Camposanto Monumentale</figcaption>
+          </figure>
+          <figure><img src="resources/img/2.jpg" alt="Galleria del Camposanto">
+            <figcaption>Le gallerie</figcaption>
+          </figure>
+          <figure><img src="resources/img/3.jpg" alt="Dettaglio del Camposanto">
+            <figcaption>Il giardino</figcaption>
+          </figure>
+          <figure><img src="resources/img/4.jpg" alt="Affresco del Camposanto">
+            <figcaption>Gli affreschi</figcaption>
+          </figure>
+          <figure><img src="resources/img/5.jpg" alt="Sarcofago nel percorso">
+            <figcaption>I sarcofagi</figcaption>
+          </figure>
+          <figure><img src="resources/img/6.jpg" alt="Iscrizione del sarcofago">
+            <figcaption>I sarcofagi e gli affreschi</figcaption>
+          </figure>
+          <figure><img src="resources/img/7.jpg" alt="Rilievo del sarcofago">
+            <figcaption>Le statue</figcaption>
+          </figure>
+          <figure><img src="resources/img/8.jpg" alt="Dettaglio scolpito">
+            <figcaption>I monumenti funebri</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPLORA: playground 3DHOP libero.
+         Griglia 2 colonne: a sinistra il canvas interattivo, a destra
+         la sidebar con la toolbar (ogni button ha `data-action` consumato
+         da actionsToolbar in site.js) e i box di output di misura / pick
+         / camera. Il pulsante "copy" è visibile solo in dev-mode. -->
+    <section id="esplora" class="free-section">
+      <div class="free-copy">
+        <p class="eyebrow">Esplora liberamente</p>
+        <h2 style="font-size: clamp(22px, 3vw, 42px);">Esplora il modello in prima persona</h2>
+        <p>Ruota il sarcofago a piacere, misura le proporzioni reali, cambia l'illuminazione o salva uno screenshot del
+          punto di vista che preferisci.</p>
+      </div>
+      <div id="free-viewer-home" class="free-viewer-slot" aria-label="Viewer libero 3DHOP del sarcofago">
+        <p class="viewer-3dhop-credit">sarcofago.nxz &ensp;·&ensp; Powered by <strong>3DHOP</strong> — CNR-ISTI</p>
+      </div>
+      <aside class="tool-sidebar">
+
+        <!-- viste preimpostate -->
+        <div class="sb-section">
+          <span class="sb-label">Vista</span>
+          <div class="tool-panel">
+            <button data-action="front" title="Vista frontale" aria-label="Vista frontale"><svg viewBox="0 0 24 24">
+                <rect x="4" y="6" width="16" height="12" rx="1" />
+                <path d="M8 10h8M8 14h8" />
+              </svg></button>
+            <button data-action="left" title="Vista sinistra" aria-label="Vista sinistra"><svg viewBox="0 0 24 24">
+                <path d="M5 5h10l4 4v10H9l-4-4z" />
+                <path d="M15 5v10H5" />
+              </svg></button>
+            <button data-action="right" title="Vista destra" aria-label="Vista destra"><svg viewBox="0 0 24 24">
+                <path d="M19 5H9L5 9v10h10l4-4z" />
+                <path d="M9 5v10h10" />
+              </svg></button>
+            <button data-action="zoomin" title="Zoom in" aria-label="Zoom in"><svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-4-4" />
+                <path d="M11 8v6M8 11h6" />
+              </svg></button>
+            <button data-action="zoomout" title="Zoom out" aria-label="Zoom out"><svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-4-4" />
+                <path d="M8 11h6" />
+              </svg></button>
+            <button data-action="top" title="Vista dall'alto" aria-label="Vista dall'alto"><svg viewBox="0 0 24 24">
+                <path d="M12 4v16" />
+                <path d="m7 9 5-5 5 5" />
+                <path d="M5 20h14" />
+              </svg></button>
+          </div>
+        </div>
+
+        <!-- pan cross — centrepiece della sidebar -->
+        <div class="sb-section pan-section" aria-label="Sposta inquadratura">
+          <span class="sb-label">Inquadratura</span>
+          <div class="pan-frame">
+            <div class="pan-cross">
+              <button class="pan-btn pan-up" onclick="panViewer(0, 0.07)" title="Su"><svg viewBox="0 0 24 24">
+                  <polyline points="6 15 12 9 18 15" />
+                </svg></button>
+              <button class="pan-btn pan-center" data-action="home" title="Home" aria-label="Home"><svg
+                  viewBox="0 0 24 24">
+                  <path d="M3 11 12 4l9 7" />
+                  <path d="M5 10v10h14V10" />
+                  <path d="M10 20v-6h4v6" />
+                </svg></button>
+              <button class="pan-btn pan-left" onclick="panViewer(-0.07, 0)" title="Sinistra"><svg viewBox="0 0 24 24">
+                  <polyline points="15 6 9 12 15 18" />
+                </svg></button>
+              <button class="pan-btn pan-right" onclick="panViewer(0.07, 0)" title="Destra"><svg viewBox="0 0 24 24">
+                  <polyline points="9 6 15 12 9 18" />
+                </svg></button>
+              <button class="pan-btn pan-down" onclick="panViewer(0, -0.07)" title="Giù"><svg viewBox="0 0 24 24">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- strumenti di analisi -->
+        <div class="sb-section">
+          <span class="sb-label">Strumenti</span>
+          <div class="tool-panel">
+            <button data-action="measure" title="Misura" aria-label="Misura"><svg viewBox="0 0 24 24">
+                <path d="M4 17 17 4l3 3L7 20z" />
+                <path d="M8 13l3 3M11 10l2 2M14 7l3 3" />
+              </svg></button>
+            <button data-action="pick" title="Punto" aria-label="Punto"><svg viewBox="0 0 24 24">
+                <path d="M12 21s7-5.1 7-11a7 7 0 0 0-14 0c0 5.9 7 11 7 11z" />
+                <circle cx="12" cy="10" r="2" />
+              </svg></button>
+            <button data-action="screenshot" title="Screenshot" aria-label="Screenshot"><svg viewBox="0 0 24 24">
+                <path d="M4 8h4l2-3h4l2 3h4v12H4z" />
+                <circle cx="12" cy="14" r="3" />
+              </svg></button>
+            <button data-action="light" title="Ruota luce" aria-label="Ruota luce"><svg viewBox="0 0 24 24">
+                <path d="M9 18h6" />
+                <path d="M10 22h4" />
+                <path d="M8 14a6 6 0 1 1 8 0c-1 1-1 2-1 3H9c0-1 0-2-1-3z" />
+              </svg></button>
+            <button data-action="lighting" title="Luce scena" aria-label="Luce scena"><svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" />
+              </svg></button>
+            <button data-action="color" title="Colore solido" aria-label="Colore solido"><svg viewBox="0 0 24 24">
+                <path d="M12 3a9 9 0 1 0 0 18 2 2 0 0 0 2-2 2 2 0 0 1 2-2h1a4 4 0 0 0 4-4A10 10 0 0 0 12 3z" />
+                <circle cx="7.5" cy="10.5" r="1" />
+                <circle cx="12" cy="7.5" r="1" />
+                <circle cx="16.5" cy="10.5" r="1" />
+              </svg></button>
+            <button data-action="copy" class="dev-mode-only" title="Copia posizione" aria-label="Copia posizione"><svg
+                viewBox="0 0 24 24">
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+              </svg></button>
+          </div>
+        </div>
+        <div class="viewer-readouts">
+          <div id="measure-box" class="output-box">
+            <span class="output-label">Misura</span>
+            <span id="measure-output" class="output-text">strumento pronto</span>
+          </div>
+          <div id="pickpoint-box" class="output-box">
+            <span class="output-label">Punto XYZ</span>
+            <span id="pickpoint-output" class="output-text">[ 0, 0, 0 ]</span>
+          </div>
+          <div id="copy-box" class="output-box">
+            <span class="output-label">Camera</span>
+            <span class="output-text">copia posizione</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-eyebrow">Software utilizzati</div>
+        <ul>
+          <li><span>Sensore Frontale</span><strong>iPhone 15 Pro Max</strong></li>
+          <li><span>Fotogrammetria</span><strong>Photocatch</strong></li>
+          <li><span>Modello e software</span><strong>.nxz con MeshLab</strong></li>
+          <li><span>Gaussian Splatting</span><strong>Luma Labs</strong></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-eyebrow">Crediti</div>
+        <ul>
+          <li><span>CNR-ISTI</span><strong>3DHOP</strong></li>
+          <li><span>Foto degli ambienti</span><strong>Opapisa.it</strong></li>
+          <li><span>Testi</span><strong>Wikipedia · LeAudioGuide · opapisa.it</strong></li>
+          <li><span>Generazione modello 3d</span><strong>Paolo Pirruccio</strong></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-eyebrow">Chi sono</div>
+        <p>Sito web realizzato da Paolo Pirruccio per l'esame Grafica 3D per i Beni Culturali per il corso di studi
+          magistrale in Informatica Umanistica · A.A. 2025 / 2026. Solo per finalità didattiche.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- UI fluttuanti: indicatore di scroll + pulsante "torna in cima". -->
+  <div id="scroll-hint" class="scroll-hint" aria-hidden="true">
+    <span class="scroll-hint-label">Scorri per esplorare</span>
+    <span class="scroll-hint-arrow">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 5v14" />
+        <path d="m6 13 6 6 6-6" />
+      </svg>
+    </span>
+  </div>
+
+  <button id="go-to-top" class="go-to-top" aria-label="Torna in cima" title="Torna in cima">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 19V5" />
+      <path d="m6 11 6-6 6 6" />
+    </svg>
+  </button>
+
+  <!-- Viewer 3DHOP unico, condiviso fra hero / modello / esplora.
+       site.js lo sposta nel contenitore opportuno (#hero-viewer-home,
+       #viewer-home, #free-viewer-home) tramite appendChild: c'è un solo
+       Presenter perché 3DHOP non supporta più istanze sulla stessa pagina.
+       #tdhlg (logo) e #toolbar (toolbar nativa) restano nascosti via CSS
+       perché abbiamo la nostra UI personalizzata a lato. -->
+  <div id="viewer-shell" class="viewer-shell">
+    <div id="3dhop" class="tdhop">
+      <div id="tdhlg"></div>
+      <div id="toolbar" aria-hidden="true"></div>
+      <canvas id="draw-canvas"></canvas>
+    </div>
+
+
+    <!-- ══ FLASHCARD HEADER ══ -->
+    <div class="fc-hdr" id="FCHD" style="display:none">
+      <div class="fc-hdr-top">
+        <div class="hdr-left">
+          <button class="ibtn" onclick="backToStart()">
+            <svg viewBox="0 0 24 24">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <div class="lbl">Flashcard</div>
+        </div>
+        <button class="ibtn" onclick="restartFlash()">
+          <svg viewBox="0 0 24 24">
+            <polyline points="1 4 1 10 7 10" />
+            <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+          </svg>
+        </button>
+      </div>
+      <div class="track">
+        <div class="fill" id="FCF" style="width:0%"></div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+        <button class="ibtn"
+          style="height:26px; min-width:auto; font-size:12px; padding:0 8px; border-color:var(--accent); color:var(--accent);"
+          onclick="jumpTo(true)">Vai a...</button>
+        <div class="plbl" id="FCPL" style="margin:0;"></div>
+      </div>
+    </div>
+
+  </div>
+  <script src="js/site.js"></script>
+</body>
+
+</html>

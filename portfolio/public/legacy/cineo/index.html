@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3d0a14">
+  <meta name="description" content="CINeo, collezione digitale dedicata al grande cinema.">
+  <title>CINeo — Collezione di film</title>
+  <link rel="icon" href="assets/cineo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Limelight&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="static-rebuild-banner" role="note"><i class="fa-solid fa-code" aria-hidden="true"></i><span><b>Ricostruzione HTML statica</b> del progetto accademico originale realizzato con Greenstone 3.</span></div>
+  <section class="mobile-unsupported" aria-labelledby="mobile-title">
+    <img src="assets/cineo-icon.png" alt="" width="72" height="72">
+    <p>Biblioteca digitale</p>
+    <h1 id="mobile-title">CINeo richiede uno schermo più grande.</h1>
+    <p>Il progetto originale Greenstone non supporta l’esperienza mobile. Aprilo da tablet in orizzontale o da desktop per esplorare la collezione.</p>
+  </section>
+  <div id="container">
+    <div id="gs_banner">
+      <div id="titlesearchcontainer">
+        <div id="titlearea"><h2>CINeo</h2></div>
+        <div id="quicksearcharea">
+          <form id="search-form" role="search"><span class="querybox"><input id="search" type="search" placeholder="Digita per cercare…" aria-label="Cerca nella collezione"></span><select id="search-field" aria-label="Campo di ricerca"><option value="all">dappertutto</option><option value="title">titoli dei film</option><option value="director">registi</option><option value="genre">generi e soggetti</option><option value="screenwriter">sceneggiatori</option><option value="composer">colonne sonore</option><option value="production">case di produzione</option></select><button id="quickSearchSubmitButton" type="submit">Cerca</button></form>
+        </div>
+      </div>
+      <ul id="gs-nav" aria-label="Navigazione della collezione">
+        <li class="ui-state-active"><button type="button" data-view="about"><i class="fa-solid fa-circle-info"></i><span>Info</span></button></li>
+        <li><button type="button" data-view="title"><i class="fa-solid fa-clapperboard"></i><span>Per titolo</span></button></li>
+        <li><button type="button" data-view="director"><i class="fa-solid fa-user-tie"></i><span>Per regista</span></button></li>
+        <li><button type="button" data-view="genre"><i class="fa-solid fa-masks-theater"></i><span>Per genere</span></button></li>
+        <li><button type="button" data-view="year"><i class="fa-solid fa-calendar-days"></i><span>Per anno</span></button></li>
+        <li><button type="button" data-view="recommended"><i class="fa-solid fa-heart"></i><span>Consigliati</span></button></li>
+      </ul>
+    </div>
+
+    <main id="gs_content">
+      <section id="about-view">
+        <div id="cineo-landing">
+          <div class="marquee-bulbs about-bulbs" aria-hidden="true"></div>
+          <div class="about-hero">
+            <p class="about-tagline">Un viaggio in trenta pellicole.</p>
+            <p class="about-lead">Trenta film che mi hanno lasciato il segno, custoditi e organizzati in una biblioteca digitale.</p>
+            <p class="about-lead">Qui ogni opera ha un intero ecosistema da scoprire. Grazie allo standard <b>Dublin Core</b>, ogni pellicola è mappata nei dettagli e circondata dai suoi materiali satelliti: trame, sceneggiature, colonne sonore e citazioni iconiche, oltre al rimando al trailer ufficiale.</p>
+            <ul class="about-actions">
+              <li><i class="fa-solid fa-compass"></i><span><b>Esplora</b>: sfoglia il muro di locandine filtrando per titolo, regista, genere o anno.</span></li>
+              <li><i class="fa-solid fa-magnifying-glass"></i><span><b>Cerca</b>: usa i metadati originali per trovare film, autori e soggetti.</span></li>
+              <li><i class="fa-solid fa-clapperboard"></i><span><b>Pagina film</b>: consulta la scheda, i metadati e tutti i materiali collegati.</span></li>
+              <li><i class="fa-solid fa-headphones"></i><span><b>Ascolta</b>: un estratto della colonna sonora di ogni film.</span></li>
+            </ul>
+          </div>
+          <div class="deco-divider"><span class="deco-diamond deco-diamond--s"></span><span class="deco-diamond"></span><span class="deco-diamond deco-diamond--s"></span></div>
+          <div class="foyer-stats"><div class="foyer-stat"><span class="foyer-stat-n">150</span><span class="foyer-stat-l">documenti catalogati</span></div><div class="foyer-stat"><span class="foyer-stat-n">7</span><span class="foyer-stat-l">percorsi di esplorazione</span></div><div class="foyer-stat"><span class="foyer-stat-n">12</span><span class="foyer-stat-l">elementi Dublin Core</span></div><div class="foyer-stat"><span class="foyer-stat-n">120</span><span class="foyer-stat-l">materiali collegati ai film</span></div></div>
+          <h3 class="foyer-h"><i class="fa-solid fa-ticket"></i> Sfoglia la biblioteca</h3>
+          <div class="foyer-cards">
+            <button class="foyer-card" type="button" data-view="title"><span class="foyer-card-ic"><i class="fa-solid fa-clapperboard"></i></span><span class="foyer-card-body"><span class="foyer-card-t">Per Titolo</span><span class="foyer-card-s">Tutti i film dalla A alla Z</span></span><i class="fa-solid fa-arrow-right foyer-card-go"></i></button>
+            <button class="foyer-card" type="button" data-view="director"><span class="foyer-card-ic"><i class="fa-solid fa-user-tie"></i></span><span class="foyer-card-body"><span class="foyer-card-t">Per Regista</span><span class="foyer-card-s">I grandi autori dietro la macchina da presa</span></span><i class="fa-solid fa-arrow-right foyer-card-go"></i></button>
+            <button class="foyer-card" type="button" data-view="genre"><span class="foyer-card-ic"><i class="fa-solid fa-masks-theater"></i></span><span class="foyer-card-body"><span class="foyer-card-t">Per Genere</span><span class="foyer-card-s">Fantascienza, horror, commedia e altro</span></span><i class="fa-solid fa-arrow-right foyer-card-go"></i></button>
+            <button class="foyer-card" type="button" data-view="year"><span class="foyer-card-ic"><i class="fa-solid fa-calendar-days"></i></span><span class="foyer-card-body"><span class="foyer-card-t">Per Anno</span><span class="foyer-card-s">Dal 1972 al 2024, anno per anno</span></span><i class="fa-solid fa-arrow-right foyer-card-go"></i></button>
+            <button class="foyer-card" type="button" data-view="recommended"><span class="foyer-card-ic"><i class="fa-solid fa-heart"></i></span><span class="foyer-card-body"><span class="foyer-card-t">Consigliati</span><span class="foyer-card-s">I film che consiglio</span></span><i class="fa-solid fa-arrow-right foyer-card-go"></i></button>
+          </div>
+          <div class="deco-divider"><span class="deco-diamond deco-diamond--s"></span><span class="deco-diamond"></span><span class="deco-diamond deco-diamond--s"></span></div>
+          <p class="foyer-note"><i>Collezione costruita originariamente con Greenstone 3.</i></p>
+          <div class="marquee-bulbs about-bulbs" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section id="browse-view" hidden><div class="browse-heading"><p class="browse-kicker">Esplora la collezione</p><h2 id="browse-title">Per titolo</h2><p id="matchdocs">30 documenti</p></div><div id="group-filter" class="navList" hidden></div><table class="childrenlist"><tbody id="poster-grid"></tbody></table><p class="empty-state" hidden>Nessun documento corrisponde alla ricerca.</p></section>
+      <section id="film-view" hidden><button class="back-to-browse" type="button"><i class="fa-solid fa-arrow-left"></i> Torna alle locandine</button><div id="film-sheet-host"></div></section>
+    </main>
+
+    <footer id="gs_footer"><div class="the-end">THE END</div><p>CINeo · Collezione digitale del cinema</p><div class="footer-top-bar"><span>Paolo Pirruccio · Progetto accademico</span><span>Ricostruzione HTML statica da Greenstone 3</span></div></footer>
+  </div>
+  <script src="data.js"></script><script src="app.js"></script>
+</body>
+</html>

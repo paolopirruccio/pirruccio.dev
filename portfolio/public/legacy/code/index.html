@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Bento | Premium Reference Guide</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for elegant UI icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Highlight.js for beautiful code syntax -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="noise-overlay"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo" id="logo-btn">
+                <i class="ph-fill ph-circles-four"></i>
+                <span>Code<span class="highlight">Bento</span></span>
+            </div>
+            
+            <!-- Dynamic Subheader controls based on view -->
+            <div class="header-controls">
+                <div class="breadcrumbs hidden" id="breadcrumbs">
+                    <span class="breadcrumb-item" id="back-home"><i class="ph ph-house"></i> Home</span>
+                    <i class="ph ph-caret-right separator"></i>
+                    <span class="breadcrumb-item active" id="current-lang">Python</span>
+                </div>
+                
+                <div class="search-container hidden" id="search-container">
+                    <i class="ph ph-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search syntax..." class="search-input">
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-content">
+            
+            <!-- HOME VIEW: Select a Language -->
+            <section id="home-view" class="view active">
+                <div class="bento-grid home-grid" id="language-grid">
+                    <!-- Cards will be injected by script.js -->
+                </div>
+            </section>
+
+            <!-- LANGUAGE VIEW: Syntax Bento Grid -->
+            <section id="language-view" class="view">
+                <div class="bento-grid syntax-grid" id="syntax-grid">
+                    <!-- Syntax bento cards injected here -->
+                </div>
+            </section>
+            
+            <!-- NO RESULTS VIEW -->
+            <section id="no-results" class="view hidden">
+                <div class="empty-state">
+                    <i class="ph ph-ghost"></i>
+                    <h2>No syntax found</h2>
+                    <p>Try adjusting your search terms.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Data and App Logic -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

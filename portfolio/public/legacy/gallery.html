@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f8f8f8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Portfolio">
+    <meta name="description" content="Paolo - Projects Gallery">
+    <title>Projects Gallery</title>
+    <link rel="stylesheet" href="stylelinks.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/webp" href="icon.webp">
+    <link rel="apple-touch-icon" href="assets/icon-180.png">
+</head>
+<body>
+    <div class="main-container">
+        <div class="nav-header">
+            <a href="index.html" class="back-button">
+                <i class="fa-solid fa-arrow-left"></i> <span data-i18n="back_home">Back to Portfolio</span>
+            </a>
+        </div>
+        <header class="artistic-header gallery-header">
+            <h1 class="hero-text">
+                <span class="line" data-i18n="gallery_title">Projects Gallery</span>
+                <span class="line indent" data-i18n="gallery_subtitle">Selected Works.</span>
+            </h1>
+        </header>
+        <div class="gallery-container">
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Projects injected by projectsData.js -->
+            </div>
+            <script src="projectsData.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    renderProjects('gallery-grid', false);
+                    // Ensure i18n is applied to dynamically added content
+                    if (typeof setLanguage === 'function') {
+                        setLanguage(localStorage.getItem('preferredLanguage') || 'en');
+                    }
+                });
+            </script>
+        </div>
+        <footer class="site-footer">
+            <p>&copy; <span id="current-year"></span> Paolo Pirruccio. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="mailto:pirruccio.01@gmail.com" class="footer-social-link" title="Email"><i
+                        class="fa-solid fa-envelope"></i></a>
+                <a href="https://www.instagram.com/pirruccio_paolo/" class="footer-social-link" target="_blank" rel="noopener noreferrer"
+                    title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/paolopirruccio/" class="footer-social-link" target="_blank" rel="noopener noreferrer"
+                    title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://t.me/sunriseshy" class="footer-social-link" target="_blank" rel="noopener noreferrer" title="Telegram"><i
+                        class="fa-brands fa-telegram"></i></a>
+            </div>
+        </footer>
+    </div>
+    
+    <div id="language-toggle"
+        style="position: fixed; top: 20px; right: 20px; z-index: 9999; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 600; background: rgba(255,255,255,0.0); padding: 5px; transition: opacity 0.2s;">
+        <span id="lang-toggle-text"
+            onclick="const current = localStorage.getItem('preferredLanguage') || 'en'; setLanguage(current === 'it' ? 'en' : 'it');"
+            style="color: #333;">IT</span>
+    </div>
+    <script src="translations.js"></script>
+    <script src="scriptlinks.js"></script>
+    <script src="version.js"></script>
+</body>
+</html>

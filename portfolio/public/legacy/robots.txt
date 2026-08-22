@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /analisi/
+Disallow: /3D/

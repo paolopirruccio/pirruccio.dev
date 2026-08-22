@@ -1,0 +1,88 @@
+qr icon -> Il mio id studente → https://agendadidattica.unipi.it/Prod/Docs
+bell icon -> le mie notifiche → https://agendadidattica.unipi.it/Prod/Home/Notifications
+
+
+CARDS PRINCIPALI
+Portale Alice (Studenti) → https://www.studenti.unipi.it/Home.do
+iscrizione esame → https://esami.unipi.it/elencoappelli.php
+le mie iscrizioni agli esami → https://esami.unipi.it/elencoappelli.php
+i miei insegnamenti scelti → https://agendadidattica.unipi.it/Prod/Home/Classes
+il mio calendario lezioni → https://agendadidattica.unipi.it/Prod/Home/Calendar
+Il mio libretto → https://libretto.unipi.it/
+la mia mail → https://outlook.com/
+registro lezioni → https://unimap.unipi.it/cercapersone/cercapersone.php
+
+
+CATEGORIA DIDATTICA & CARRIERA
+Sito Ufficiale IU Triennale → https://www.fileli.unipi.it/informatica-umanistica/
+Sito Ufficiale IU Magistrale → https://www.fileli.unipi.it/informatica-umanistica-lm/
+Piano di studio Triennale (Cineca) → 
+Piano di studio Magistrale (Cineca) → 
+Google Drive Appunti → https://drive.google.com/drive/folders/1-E3zn-oEyeut67agQEV5XQ4qH-pWLKAD?usp=sharing
+Sistema Bibliotecario di Ateneo → https://www.sba.unipi.it
+Onesearch Biblioteca → https://onesearch.unipi.it/discovery/search?vid=39SBART_UPI:39UPI_V2
+Cerca corso/insegnamento/docente → https://unipi.coursecatalogue.cineca.it
+cerca personale → https://unimap.unipi.it/cercapersone/cercapersone.php
+Cerca organizzazioni → https://unimap.unipi.it/organizzazione/lista.php?f=1CEN@D
+Survey Unipi → https://agendadidattica.unipi.it/Prod/Home/Survey
+Orario Pubblico Cineca → https://unipi.prod.up.cineca.it/calendarioPubblico/linkCalendarioId=6319d6a9f7245e0c5c9094e3
+Calendario Sospensioni → 
+Aule unipi → https://unipi.prod.up.cineca.it/calendarioPubblico/linkCalendarioId=63223a029f080a0aab032afc
+Ammissione →  https://ammissionelm.adm.unipi.it/
+
+
+CATEGORIA MAPPE & LOGISTICA
+Mappa punti di interesse → https://www.google.com/maps/d/u/0/viewer?mid=1q4ousVeGWQnZX-5K3i_SYE3bBsky2tkv&ll=43.696373493015706%2C10.437086399999984&z=12
+Mappa Musei di Ateneo → https://maps.app.goo.gl/m2AwsozWfqktJrCb7
+Google Maps (Polo Fibonacci) → https://maps.apple.com/place?address=Largo%20Bruno%20Pontecorvo%203,%2056127%20Pisa,%20Italy&coordinate=43.721188,10.407775&name=Polo%20Fibonacci&place-id=I88E823420B8E0D9F&map=explore
+Apple Maps (Polo Fibonacci) → https://maps.app.goo.gl/iYCT6VaziEFsiam16?g_st=ic
+Guida Fibonacci → https://plumkewe.github.io/dove-unipi/?p=fibonacci&b=a&f=0&v=top
+Aule studio → https://www.unipi.it/campus-e-servizi/servizi/biblioteche-e-sale-studio/
+Mappe bus pisa → https://files.at-bus.it/s3fs-public/documents/AT_Pisa_110x110_web.pdf
+Collocazione aule -> https://www.fileli.unipi.it/didattica/collocazione-aule/
+
+CATEGORIA SOFTARE 
+Microsoft 365 →   https://m365.cloud.microsoft/apps/ 
+Google Drive → https://drive.google.com/drive/my-drive%3Fhl%3Dit&ved=2ahUKEwjsnaeP_quRAxWeOfsDHXXPCXkQFnoECAwQAQ&usg=AOvVaw2GMTqVupizsilv2uqasqIg
+OneDrive → https://onedrive.live.com/
+Impostazioni Microsoft -> https://myaccount.microsoft.com/?ref=MeControl&login_hint=
+
+CATEGORIA MENSA & SERVIZI
+Ricarica tessera mensa  →  https://ricarichiamoci.dsu.toscana.it/ricarichiamoci/index.html
+Menu mensa -> https://canteen.dsutoscana.cloud/menu
+App MyDSU (Android) → https://play.google.com/store/apps/details?id=com.ristocloudgroup.mydsu&pcampaignid=web_share
+App MyDSU (iOS) → https://apps.apple.com/app/id6738960806
+Carta dello Studente → https://www.regione.toscana.it/-/studente-della-toscana-la-nuova-carta-unica-dello-studente-universitario
+Medico convenzionato → https://unipi.it/AssistenzaMedica
+Chiosco Fibonacci -> https://www.ilchiosco.info
+
+
+
+CATEGORIA COMMUNITY
+Community Telegram  → https://t.me/+6mN2nZaSPtcyM2I0
+Gruppo WhatsApp 1º Anno → https://chat.whatsapp.com/BT3OUD6YQKK5OX4uHXo9Vk
+Gruppo WhatsApp 2º Anno → https://chat.whatsapp.com/CYcHWJHMqMg4zq1POUrpPK
+Gruppo WhatsApp 3º Anno → https://chat.whatsapp.com/Gru75fkLIsN0wUaJwvfl0P
+Gruppo WhatsApp Magistrale → 
+
+
+CATEGORIA CONVENZIONI & SCONTI
+Notion → 
+Figma → 
+Autodesk Suite → https://www.autodesk.com/it/education/edu-software/overview
+Espresso (The Economist Student) -> https://subscribenow.economist.com/student
+UNiDAYS → https://www.myunidays.com/
+UniversityBox → https://www.universitybox.com/
+Framer → https://www.framer.com/students/
+Whimsical → https://help.whimsical.com/billing/pricing#discounts
+Sketch → https://www.sketch.com/education/
+GitHub Student Developer Pack → https://education.github.com/pack
+Convenzioni di ateneo → https://www.unipi.it/campus-e-servizi/opportunita-e-tempo-libero/convenzioni-di-ateneo-gli-sconti-per-studenti/
+
+
+CATEGORIA CONSIGLI & ALTRO
+Reddit r/universitaly → https://www.reddit.com/r/Universitaly/
+FOTOCOPIE -> https://print.copyboom.it/
+QUIZLET -> https://www.quizlet.com
+
+

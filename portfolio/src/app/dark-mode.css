@@ -1,0 +1,40 @@
+@media (prefers-color-scheme: dark) {
+  :root { color-scheme: dark; }
+  html, body { background: #111; color: #f4f4f2; }
+  .app-shell::after { background:#000; }
+  .app-shell.mode-personal, .app-shell.mode-personal .view-stage { background: #111; }
+  .mode-personal .personal-hero-shell,.mode-personal .personal-hero h1,.mode-personal .personal-contacts,.mode-personal .react-portfolio { color: #f4f4f2; }
+  .mode-personal .personal-line.muted,.mode-personal .personal-status,.mode-personal .travel-stack-copy>span,.mode-personal .travel-stack-copy p,.mode-personal .travel-stack-copy small,.mode-personal .react-footer,.mode-personal .footer-socials-react a { color: #aaa9a4; }
+  .mode-personal .react-section,.mode-personal .react-footer-meta { border-color: #ffffff1a; }
+  .mode-personal .contact-card-inner,.mode-personal .contact-card:hover .contact-card-inner { border-color:transparent;box-shadow:none!important; }
+  .mode-personal .contact-card-inner::after { background:linear-gradient(135deg,#ffffff18 0%,transparent 34%,transparent 76%); }
+  .mode-personal .shell-segmented,.mode-personal .shell-language,.mode-agency .shell-segmented,.mode-agency .shell-language { --glass-fill:rgba(38,38,38,.72);--glass-stroke:rgba(255,255,255,.2);border-color:#ffffff24;background:linear-gradient(135deg,rgba(62,62,62,.82),rgba(28,28,28,.68));box-shadow:inset 0 1px 1px #ffffff2b,inset 0 -1px 1px #0009; }
+  .shell-segmented::after,.shell-language::after { background:linear-gradient(118deg,#ffffff1e,transparent 38%,transparent 72%,#ffd70010); }
+  .mode-personal .shell-segmented button[aria-pressed=true],.mode-agency .shell-segmented button[aria-pressed=true] { background:#1b1b1b;color:#fff!important; }
+  .mode-personal .view-all-card,.mode-personal .react-arrow { background:#1d1d1d;color:#f4f4f2;border-color:#ffffff1c; }
+  .mode-personal .react-cv aside,.mode-personal .cv-info h4 { border-color:#ffffff1c; }
+  .mode-personal .cv-info p { color:#ededeb; }
+  .mode-personal .cv-entry span,.mode-personal .cv-info h4,.mode-personal .react-cv .role { color:#aaa9a4; }
+  .mode-personal .travel-stack-card { border-color:#ffffff18;box-shadow:0 4px 12px #0006; }
+  .mode-personal .travel-stack-card.is-front { box-shadow:0 10px 24px #0008,0 30px 54px #0005; }
+  .mode-personal .travel-stack-card.is-behind { box-shadow:0 5px 14px #0004; }
+  .mode-personal .travel-editorial-marks { color:#b8ad9a; }
+  .mode-personal .travel-postmark { border-color:#b8ad9a99;color:#b8ad9ab8; }
+  .mode-personal .travel-postmark::after { background:#b8ad9a80;box-shadow:0 7px #b8ad9a80,0 14px #b8ad9a80; }
+  .mode-personal .passion-footer-head { color:#f4f4f2; }
+  .mode-personal .react-footer-meta>button { border-color:#ffffff20;background:linear-gradient(135deg,#333d,#1e1e1ecc);color:#f4f4f2; }
+  .mode-personal .react-search-overlay { background:#0505058f; }
+  .mode-personal .react-search { --glass-fill:rgba(24,24,24,.9);background:#181818f2;border-color:#ffffff20; }
+  .mode-personal .search-head { border-color:#ffffff1c; }
+  .mode-personal .search-head input,.mode-personal .search-list>a { color:#f4f4f2; }
+  .mode-personal .search-list>a:hover { background:#ffffff10; }
+  .mode-agency,.mode-agency .view-stage { background:#f4f1e9;color-scheme:light; }
+  .mode-agency .visual-caption {
+    --glass-fill:rgba(255,255,255,.72);
+    border-color:#ffffffc7;
+    background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(244,241,233,.68));
+    color:#171717;
+  }
+  .mode-agency .studio-cycle-bottom .studio-hero-cta { color:#171717;box-shadow:inset 0 1px #ffffff80,0 8px 24px #00000016!important; }
+  .mode-agency .studio-cycle-bottom>div>a:last-child { color:#171717;text-shadow:0 1px 12px #ffffff80; }
+}

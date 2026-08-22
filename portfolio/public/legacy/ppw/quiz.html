@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+	<meta charset="utf-8" />
+	<script src="scripts/quiz.js" async></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quiz – Missione sul Pianeta Rosso</title>
+	<meta name="author" content="Paolo Pirruccio" />
+	<meta name="description" content="Metti alla prova le tue conoscenze sulla missione Perseverance e decifra il messaggio segreto nascosto nel paracadute." />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="style/stile.css" />
+	<link rel="icon" type="image/webp" href="favicon.webp" />
+</head>
+
+<body class="page_3">
+	<header class="header">
+		<img src="images/violet-logo.png" alt="Logo Missione Pianeta Rosso" class="logo" />
+		<nav class="header-right" aria-label="Navigazione principale">
+			<a href="index.html">La missione</a>
+			<a href="tech.html">Dalla Terra a Marte</a>
+			<a class="active" href="quiz.html">Quiz</a>
+			<a href="about.html">Su di me</a>
+		</nav>
+	</header>
+	<h1>DECIFRA IL MESSAGGIO<br>NASCOSTO</h1>
+	<img src="svgs/segreto.svg" alt="biglietto partenza" class="illustrazione">
+	<div class="mini_box">
+		<h3>Gli ingegneri hanno nascosto nel disegno del paracadute di Perseverance un messaggio segreto. Rispondi
+			correttamente alle domande del quiz e scopri il messaggio nascosto!</h3>
+	</div>
+	<div class="card_quiz">
+		<div class="quiz">
+			<img src="images/parac.png" alt="paracadute di Perseverance" class="image-rover">
+			<span id="numeroDomanda"></span>
+			<br>
+			<span id="testoDomanda"></span>
+			<br>
+			<input type="radio" name="risposte" id="risposta0" />
+			<span id="testoRisposta0"></span>
+			<br>
+			<input type="radio" name="risposte" id="risposta1" />
+			<span id="testoRisposta1"></span>
+			<br>
+			<input type="radio" name="risposte" id="risposta2" />
+			<span id="testoRisposta2"></span>
+			<br>
+			<input type="button" value="Avanti" id="avanti" />
+			<input type="button" value="Ritenta" id="inizia" />
+			<br>
+			<span id="risultato"></span>
+			<br>
+		</div>
+	</div>
+	<div class="card_quiz" id="nascosto">
+		<p>Congratulazioni! Gli ingegneri NASA nel paracadute del rover hanno nascosto il messaggio:</p>
+		<h1>DARE MIGHTY THINGS<br>OSA GRANDI COSE</h1>
+		<p>Come si arriva a questo testo? Si assegna al colore arancione il valore di 1 e al bianco il valore di 0, si
+			raggruppano poi gli 0 e gli 1 in blocchi di 10 caratteri ciascuno. A questo punto, si aggiunge al valore
+			ottenuto 64 per tradurre dal binario al codice ASCII.<br>Per esempio: sette strisce bianche, una rossa e due
+			bianche, ossia 0000000100, equivale a 4 in codice binario. Aggiungendo 64 si arriva a 68, il codice ASCII
+			per la D, lettera iniziale di "Dare".<br>Sul bordo esterno del paracadute si trovano invece, sempre in
+			codice, le coordinate geografiche del Jet Propulsion Laboratory (34°11'58" N 118°10'31" W) , sede del centro
+			di controllo missione di Perseverance.</p>
+		<img src="images/parachute_expl.png" alt="spiegazione del codice nel paracadute" class="image-rover">
+	</div>
+	<footer class="footer">
+		<div class="footer-links">
+			<a href="mailto:p.pirruccio@studenti.unipi.it" class="mail">Contattami</a>
+			<a href="https://www.instagram.com/pirruccio_paolo/?hl=en" class="fa fa-instagram" aria-label="Instagram di Paolo Pirruccio"></a>
+		</div>
+		<p class="credits">All rights reserved | © 2021 | Created by Paolo Pirruccio</p>
+	</footer>
+	<script src="../version.js"></script>
+</body>
+
+</html>

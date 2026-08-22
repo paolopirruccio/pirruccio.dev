@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Bussola</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #030305;
+            color: white !important;
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+            color: white !important;
+        }
+
+        h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+            color: white !important;
+            -webkit-text-fill-color: white !important;
+        }
+
+        p {
+            opacity: 0.7;
+            margin-bottom: 2rem;
+            font-family: 'Inter', sans-serif;
+            color: white !important;
+        }
+
+        .btn-back {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: white !important;
+            text-decoration: none;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container fade-in" style="display: flex; flex-direction: column; align-items: center;">
+        <i class="ri-compass-discovery-line error-icon"></i>
+        <h1>404</h1>
+        <p>Direzione persa. Questa pagina non esiste.</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+            <a href="index.html" class="btn-back">
+                <i class="ri-arrow-left-line"></i>
+                Ritorna alla Bussola
+            </a>
+            <a href="faq.html" class="btn-back" style="background: rgba(255, 255, 255, 0.05);">
+                <i class="ri-book-open-line"></i>
+                Consulta le FAQ
+            </a>
+        </div>
+    </div>
+    <script src="../version.js"></script>
+</body>
+
+</html>

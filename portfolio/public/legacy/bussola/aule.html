@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Aule - InfoUma</title>
+    <meta name="color-scheme" content="dark">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Aule">
+    <link rel="apple-touch-icon" href="assets/door.png">
+    <link rel="icon" type="image/png" href="assets/door.png">
+    <link rel="manifest" href="./aule.manifest.json">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Aule - InfoUma">
+    <meta property="og:description"
+        content="Trova un'aula libera, controlla che lezione c'è e quando finisce al polo Fibonacci.">
+    <meta property="og:image" content="https://vostro-dominio.com/assets/compass.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
+</head>
+
+<body>
+
+    <script src="navbar.js"></script>
+    <div class="container fade-in">
+        <header>
+            <picture class="site-logo-container">
+                <img src="assets/door.webp" alt="Cerca Aule Logo" class="site-logo">
+            </picture>
+            <div class="version-badge beta">Beta</div>
+            <h1 data-i18n="aule_h1">Cerca Aule</h1>
+            <p data-i18n="aule_desc"
+                style="text-align: center; color: var(--text-secondary); font-size: 1rem; margin-top: -0.5rem; margin-bottom: 2rem;">
+                Trova un'aula libera, controlla che lezione c'è e quando finisce al Polo Fibonacci.
+            </p>
+            <div class="filter-controls">
+                <div class="datetime-controls">
+                    <div class="input-group" onclick="try{document.getElementById('date-input').showPicker()}catch(e){}" style="cursor:pointer;">
+                        <i class="ri-calendar-event-line input-icon"></i>
+                        <input type="date" id="date-input">
+                    </div>
+                    <div class="input-group" onclick="try{document.getElementById('time-input').showPicker()}catch(e){}" style="cursor:pointer;">
+                        <i class="ri-time-line input-icon"></i>
+                        <input type="time" id="time-input">
+                    </div>
+                </div>
+                <div class="datetime-shortcuts">
+                    <button id="tomorrow-btn" class="tomorrow-btn" onclick="toggleTomorrow()">
+                        <i class="ri-skip-right-line"></i> <span id="tomorrow-label" data-i18n="aule_tomorrow">Domani</span>
+                    </button>
+                </div>
+                <div class="search-container" style="margin-top: 0; width: 100%;">
+                    <i class="ri-search-line search-icon"></i>
+                    <input type="text" id="search-input" data-i18n="aule_placeholder" placeholder="Cerca aule del Fibonacci...">
+                    <i class="ri-close-line search-clear" id="search-clear"></i>
+                </div>
+            </div>
+        </header>
+        <main id="main-scroll">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; padding: 0 0.5rem; color: var(--text-secondary); font-size: 0.95rem;">
+                <span style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span data-i18n="aule_free_label">Aule libere:</span>
+                    <strong id="free-total" style="color: var(--text-primary); font-size: 1.1rem;">0</strong>
+                </span>
+                <span class="version-badge"
+                    style="margin-bottom: 0; padding: 0.25rem 0.6rem; font-size: 0.65rem; background: rgba(46, 204, 113, 0.12); color: var(--free); border-color: rgba(46, 204, 113, 0.25); display: inline-flex; align-items: center; gap: 0.3rem;">
+                    <i class="ri-refresh-line"></i> <span data-i18n="aule_sync">Sinc. Cineca UP</span>
+                </span>
+            </div>
+            <div id="fav-row" style="display:none; margin-bottom:0.5rem;">
+                <button id="fav-chip" class="chip" onclick="toggleFavFilter()" style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                    <i class="ri-heart-3-fill" style="font-size:0.95rem;"></i>
+                    <span id="fav-chip-label">Preferiti</span>
+                </button>
+            </div>
+            <div id="building-chips" class="chip-container" style="margin-bottom: 0.5rem;">
+
+            </div>
+            <div id="floor-chips" class="chip-container" style="margin-bottom: 1rem; display: none;">
+
+            </div>
+            <div id="results-list">
+            </div>
+            <a href="https://plumkewe.github.io/dove-unipi/" target="_blank" rel="noopener noreferrer" class="suggest-cta"
+                style="margin-top: 1.5rem; text-decoration: none;">
+                <div class="suggest-icon"
+                    style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <img src="assets/doveunipi.webp" alt="Dove UniPi Logo" style="width: 24px; height: 24px;">
+                </div>
+                <div class="suggest-content">
+                    <span class="suggest-title" data-i18n="aule_map_title">Apri mappa completa</span>
+                    <span class="suggest-desc" data-i18n="aule_map_desc">Esplora tutte le aule e i poli su Dove UniPi.</span>
+                </div>
+                <i class="ri-external-link-line suggest-arrow"></i>
+            </a>
+        </main>
+        <footer>
+            <img src="assets/compass.webp" alt="logo"
+                style="width: 40px; height: 40px; margin-bottom: 0.5rem; opacity: 0.9;">
+            <div
+                style="font-family: var(--font-display); font-size: 1.8rem; font-style: italic; margin-bottom: 1rem; color: var(--text-primary);">
+                La Bussola di InfoUma</div>
+            <p class="disclaimer">
+                by <strong style="color: var(--text-primary);">Paolo Pirruccio</strong>.<br>
+                Ispirato al lavoro di <a href="https://github.com/plumkewe" target="_blank" rel="noopener noreferrer"
+                    style="color: var(--text-primary); text-decoration: underline;">Lyubomyr Malay</a>.<br>
+                <span style="font-size: 0.75rem; opacity: 0.8; display: inline-block; margin-top: 0.3rem;">
+                    Le informazioni riportate potrebbero essere inesatte.<br>
+                    Non affiliato all'Università di Pisa o a Cineca.
+                </span>
+            </p>
+            <a href="mailto:pirruccio.01@gmail.com?subject=Segnalazione%20Bug%20Aule"
+                style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.3rem; font-size: 0.8rem; margin-top: 1rem; transition: color 0.2s;">
+                <i class="ri-bug-line"></i> Segnala un bug
+            </a>
+        </footer>
+    </div>
+    <script>
+        const API_URL = "https://unipi.prod.up.cineca.it/api/Impegni/getImpegniCalendarioPubblico";
+        const AULE_API_URL = "https://unipi.prod.up.cineca.it/api/Aule/getAulePerCalendarioPubblico";
+        const DATA_URL = "https://raw.githubusercontent.com/plumkewe/dove-unipi/main/data/unified.json";
+        const CLIENTE_ID = "628de8b9b63679f193b87046";
+
+        const SERVICE_ICONS = {
+            'A': { icon: 'ri-volume-up-line', label: 'Audio' },
+            'H': { icon: 'ri-wheelchair-line', label: 'Accessibile' },
+            'R': { icon: 'ri-wifi-line', label: 'Rete' },
+            'T': { icon: 'ri-camera-lens-line', label: 'Telecamera' },
+            'V': { icon: 'ri-projector-line', label: 'Proiettore' }
+        };
+        let aulaServizi = {};
+        const POLES = {
+            fibonacci: { name: "Polo Fibonacci", id: "63223a029f080a0aab032afc" }
+        };
+        const POLO_MAPPING = {
+            fibonacci: "Polo Fibonacci"
+        };
+        const OPENING_HOUR = 8;
+        const CLOSING_HOUR = 19;
+        const CLOSING_MINUTE = 30;
+        function isBuildingOpen(dateObj) {
+            const day = dateObj.getDay();
+            const hours = dateObj.getHours();
+            const minutes = dateObj.getMinutes();
+
+            if (day === 0 || day === 6) return false;
+
+            if (hours < OPENING_HOUR) return false;
+            if (hours > CLOSING_HOUR || (hours === CLOSING_HOUR && minutes >= CLOSING_MINUTE)) return false;
+            return true;
+        }
+        function matchesRoom(aula, room) {
+            const code = aula.codice.toUpperCase().trim();
+
+            const roomCode = code.replace(/^(FIB|ING)\s+/i, '').trim();
+
+            const roomName = room.name.toUpperCase().replace(/^(AULA|SALA)\s+/i, '').trim();
+            return roomCode === roomName;
+        }
+        let roomsData = [];
+        let eventsData = [];
+        let dataError = false;
+        let selectedBuilding = 'TUTTI';
+        let selectedFloor = 'TUTTI';
+        let showOnlyFavs = false;
+
+        // ── Preferiti ──
+        function getFavs() {
+            try { return JSON.parse(localStorage.getItem('bussola_favs') || '[]'); } catch { return []; }
+        }
+        function isFav(name) { return getFavs().includes(name); }
+        function toggleFav(name) {
+            const favs = getFavs();
+            const idx = favs.indexOf(name);
+            if (idx >= 0) favs.splice(idx, 1); else favs.push(name);
+            localStorage.setItem('bussola_favs', JSON.stringify(favs));
+            updateFavUi();
+            if (showOnlyFavs) renderList();
+        }
+        function handleFavClick(e, btn, name) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFav(name);
+            const saved = isFav(name);
+            btn.classList.toggle('saved', saved);
+            btn.querySelector('i').className = saved ? 'ri-heart-3-fill' : 'ri-heart-3-line';
+            btn.title = saved ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti';
+        }
+        function updateFavUi() {
+            const count = getFavs().length;
+            const row   = document.getElementById('fav-row');
+            const label = document.getElementById('fav-chip-label');
+            if (row)   row.style.display = count > 0 ? 'flex' : 'none';
+            if (label) label.textContent = `${BussolaI18n.t('aule_favorites')} (${count})`;
+            if (showOnlyFavs && count === 0) { showOnlyFavs = false; }
+            const chip = document.getElementById('fav-chip');
+            if (chip) chip.classList.toggle('fav-chip-active', showOnlyFavs);
+        }
+        function toggleFavFilter() {
+            showOnlyFavs = !showOnlyFavs;
+            document.getElementById('fav-chip').classList.toggle('fav-chip-active', showOnlyFavs);
+            renderList();
+        }
+        const dateInput = document.getElementById('date-input');
+        const timeInput = document.getElementById('time-input');
+        const resultsList = document.getElementById('results-list');
+        const freeTotal = document.getElementById('free-total');
+        const chipContainer = document.getElementById('building-chips');
+        const floorChipContainer = document.getElementById('floor-chips');
+
+        const now = new Date();
+        dateInput.value = now.toISOString().split('T')[0];
+        timeInput.value = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+        // ── Domani / Oggi button ──
+        let _isTomorrow = false;
+        function toggleTomorrow() {
+            _isTomorrow = !_isTomorrow;
+            const btn = document.getElementById('tomorrow-btn');
+            const label = document.getElementById('tomorrow-label');
+            if (_isTomorrow) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dateInput.value = tomorrow.toISOString().split('T')[0];
+                timeInput.value = '08:30';
+                if (label) label.textContent = BussolaI18n.t('aule_today_btn');
+                btn.classList.add('active');
+            } else {
+                const todayNow = new Date();
+                dateInput.value = todayNow.toISOString().split('T')[0];
+                timeInput.value = todayNow.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', hour12: false });
+                if (label) label.textContent = BussolaI18n.t('aule_tomorrow');
+                btn.classList.remove('active');
+            }
+            renderList();
+        }
+        // Reset isTomorrow se l'utente cambia manualmente la data
+        dateInput.addEventListener('change', function() {
+            const today = new Date().toISOString().split('T')[0];
+            if (dateInput.value === today && _isTomorrow) {
+                _isTomorrow = false;
+                const btn = document.getElementById('tomorrow-btn');
+                btn.innerHTML = '<i class="ri-calendar-2-line"></i> Domani';
+                btn.classList.remove('active');
+            }
+        });
+        async function init() {
+            try {
+                await Promise.all([fetchRooms(), fetchAuleServizi()]);
+                generateChips();
+                await syncCineca();
+                bindUI();
+                updateFavUi();
+            } catch (err) {
+                console.error(err);
+                resultsList.innerHTML = `
+                    <div style="padding: 3rem 1rem; text-align: center; color: var(--text-secondary);">
+                        <i class="ri-wifi-off-line" style="font-size: 2.5rem; display: block; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p style="font-size: 0.95rem;">Impossibile caricare i dati. Controlla la connessione e ricarica la pagina.</p>
+                    </div>`;
+            }
+        }
+        async function fetchRooms() {
+            const res = await fetch(DATA_URL);
+            const data = await res.json();
+
+            const fib = data.polo.fibonacci.edificio;
+            for (const eId in fib) parseBuilding(fib[eId], 'fibonacci');
+        }
+        async function fetchAuleServizi() {
+            try {
+                const res = await fetch(AULE_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        linkCalendarioId: POLES.fibonacci.id,
+                        clienteId: CLIENTE_ID,
+                        auleIds: [],
+                        edificiIds: [],
+                        order: 'edificio.codice, descrizione',
+                        limit: 250
+                    })
+                });
+                if (res.ok) {
+                    const aule = await res.json();
+                    aule.forEach(a => {
+                        aulaServizi[a.codice.toUpperCase().trim()] = (a.serviziAula || []).filter(s => s.attivo);
+                    });
+                }
+            } catch (e) {
+                console.warn('Errore fetch servizi aule:', e);
+            }
+        }
+        function parseBuilding(b, pKey, isIng = false) {
+            const bName = b.alias ? b.alias[0] : (b.text || "Edificio");
+            for (const fId in b.piano) {
+                b.piano[fId].forEach(r => {
+                    if (r.type === 'aula' || r.hasStatus) {
+                        let routeCode = r.link ? new URLSearchParams(r.link.split('?')[1]).get('c') : null;
+                        if (!routeCode) routeCode = r.nome.replace(/^(Aula|Sala)\s+/i, '').toLowerCase().replace(/\s/g, '');
+                        roomsData.push({
+                            id: r.id,
+                            name: r.nome,
+                            building: bName,
+                            floor: fId,
+                            cap: r.capienza || '?',
+                            pKey: pKey,
+                            group: isIng ? 'ingegneria' : 'fibonacci',
+                            routeCode: routeCode
+                        });
+                    }
+                });
+            }
+        }
+        function generateChips() {
+            const buildings = ['TUTTI', ...new Set(roomsData.map(r => r.building).sort())];
+            chipContainer.innerHTML = buildings.map(b => {
+                let label = b;
+                let icon = '';
+                if (b === 'TUTTI') {
+                    label = BussolaI18n.t('aule_all_buildings');
+                    icon = '<i class="ri-building-line" style="margin-right: 4px;"></i>';
+                } else if (b.length <= 2) {
+
+                    label = b;
+                    icon = '<i class="ri-building-4-line" style="margin-right: 4px;"></i>';
+                }
+                return `
+                    <div class="chip ${b === selectedBuilding ? 'active' : ''}" data-building="${b}">
+                        ${icon}${label}
+                    </div>
+                    `;
+            }).join('');
+            chipContainer.querySelectorAll('.chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    selectedBuilding = chip.dataset.building;
+                    selectedFloor = 'TUTTI';
+                    chipContainer.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    generateFloorChips();
+                    renderList();
+                });
+            });
+        }
+        function generateFloorChips() {
+            if (selectedBuilding === 'TUTTI') {
+                floorChipContainer.style.display = 'none';
+                return;
+            }
+            const floors = ['TUTTI', ...new Set(roomsData.filter(r => r.building === selectedBuilding).map(r => String(r.floor)).sort())];
+            if (floors.length <= 2) {
+                floorChipContainer.style.display = 'none';
+                return;
+            }
+            floorChipContainer.style.display = 'flex';
+            floorChipContainer.innerHTML = floors.map(f => {
+                let label = f === 'TUTTI' ? BussolaI18n.t('aule_all_floors') : `${BussolaI18n.t('aule_floor')} ${f}`;
+                return `
+                    <div class="chip ${f === selectedFloor ? 'active' : ''}" data-floor="${f}">
+                        ${label}
+                    </div>
+                    `;
+            }).join('');
+            floorChipContainer.querySelectorAll('.chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    selectedFloor = chip.dataset.floor;
+                    floorChipContainer.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    renderList();
+                });
+            });
+        }
+        async function syncCineca() {
+            const time = timeInput.value;
+            const date = dateInput.value;
+            const check = new Date(`${date}T${time}`);
+
+            if (!isBuildingOpen(check)) {
+                eventsData = [];
+                renderList();
+                return;
+            }
+
+            resultsList.innerHTML = `<div style="display: flex; justify-content: center; padding: 4rem 0;"><div class="spinner"></div></div>`;
+            dataError = false;
+            try {
+                const day = dateInput.value;
+                const bodyTemplate = {
+                    mostraImpegniAnnullati: true,
+                    mostraIndisponibilitaTotali: true,
+                    clienteId: CLIENTE_ID,
+                    limitaRisultati: false,
+                    dataInizio: `${day}T00:00:00.000Z`,
+                    dataFine: `${day}T23:59:59.999Z`
+                };
+
+                let hasError = false;
+                const requests = Object.entries(POLES).map(async ([key, val]) => {
+                    try {
+                        const res = await fetch(API_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ ...bodyTemplate, linkCalendarioId: val.id })
+                        });
+                        if (res.ok) {
+                            const data = await res.json();
+                            return data.map(e => {
+                                const aule = (e.risorse || []).filter(r => r.aula).map(r => r.aula);
+                                const nome = e.evento?.dettagliDidattici?.[0]?.nome || e.evento?.tipoAttivita?.descrizione || 'Occupata';
+                                const nomeEn = BussolaI18n.getCourseName(e.evento);
+                            return { ...e, aule, nomeLezione: nome, nomeLezioneEn: nomeEn, poloKey: key };
+                            });
+                        } else {
+                            hasError = true;
+                            console.warn(`Polo ${key}: HTTP ${res.status}`);
+                        }
+                    } catch (e) {
+                        hasError = true;
+                        console.warn(`Errore fetch polo ${key}: `, e);
+                    }
+                    return [];
+                });
+                const results = await Promise.all(requests);
+                eventsData = results.flat();
+                dataError = hasError && eventsData.length === 0;
+                renderList();
+            } catch (err) {
+                console.error('Errore sincronizzazione Cineca:', err);
+                dataError = true;
+                renderList();
+            } finally {
+
+            }
+        }
+        function getServicesHtml(roomName) {
+
+            const cleanName = roomName.toUpperCase().replace(/^(AULA|SALA)\s+/i, '').trim();
+            const code = `FIB ${cleanName}`;
+            const servizi = aulaServizi[code];
+            if (!servizi || servizi.length === 0) return '';
+            const icons = servizi.map(s => {
+                const mapping = SERVICE_ICONS[s.codice];
+                if (!mapping) return '';
+                return `<span class="service-icon" title="${s.descrizione}"><i class="${mapping.icon}"></i> ${mapping.label}</span>`;
+            }).filter(Boolean).join('');
+            return icons ? `<div class="services-row">${icons}</div>` : '';
+        }
+        function formatRemainingTime(minutes) {
+            const lang = BussolaI18n.getLang();
+            if (minutes < 1) return BussolaI18n.t('aule_remaining_under1');
+            if (lang === 'en') {
+                if (minutes < 60) return `${minutes} min left`;
+                const hours = Math.floor(minutes / 60);
+                const mins = minutes % 60;
+                return mins > 0 ? `${hours}h ${mins}min left` : `${hours}h left`;
+            }
+            if (minutes < 60) return `Ancora per ${minutes} min`;
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            let hText = hours === 1 ? "un'ora" : `${hours} ore`;
+            let mText = mins > 0 ? ` e ${mins} min` : "";
+            return `Ancora per ${hText}${mText}`;
+        }
+        function renderList() {
+            const time = timeInput.value;
+            const date = dateInput.value;
+            const check = new Date(`${date}T${time}`);
+            const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+
+            if (!isBuildingOpen(check)) {
+                freeTotal.textContent = "0";
+                chipContainer.style.display = 'none';
+                floorChipContainer.style.display = 'none';
+                resultsList.innerHTML = `
+                        <div style="padding: 3rem; text-align: center; color: var(--text-muted); background: var(--card-bg); border-radius: 16px; border: 1px solid var(--card-border);">
+                            <i class="ri-door-lock-line" style="font-size: 3rem; display: block; margin-bottom: 1rem; color: var(--text-secondary);"></i>
+                            <h3 style="margin-bottom: 0.5rem; color: var(--text-primary); font-family: var(--font-display); font-size: 1.8rem; font-weight: 400;">${BussolaI18n.t('aule_polo_closed_title')}</h3>
+                            <p style="font-size: 0.95rem; line-height: 1.5;">${BussolaI18n.t('aule_polo_closed_desc')}</p>
+                        </div>`;
+                return;
+            }
+
+            if (dataError) {
+                resultsList.innerHTML = `
+                    <div style="padding: 3rem 1rem; text-align: center; background: rgba(255,255,255,0.03); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-top: 1rem;">
+                        <i class="ri-server-line" style="font-size: 3rem; display: block; margin-bottom: 1.5rem; color: var(--text-secondary); opacity: 0.5;"></i>
+                        <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--text-primary); margin-bottom: 0.5rem; font-weight: 400;">${BussolaI18n.t('aule_error_title')}</h3>
+                        <p style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 2rem; max-width: 400px; margin-left: auto; margin-right: auto;">${BussolaI18n.t('aule_error_desc')}</p>
+                        <button onclick="syncCineca()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: var(--text-primary); padding: 0.8rem 2rem; border-radius: 14px; font-family: var(--font-family); font-size: 1rem; cursor: pointer; transition: all 0.2s;">${BussolaI18n.t('aule_retry')}</button>
+                    </div>`;
+                freeTotal.textContent = "0";
+                chipContainer.style.display = 'none';
+                floorChipContainer.style.display = 'none';
+                return;
+            }
+
+            resultsList.innerHTML = `<div style="display: flex; justify-content: center; padding: 4rem 0;"><div class="spinner"></div></div>`;
+            setTimeout(() => {
+                chipContainer.style.display = 'flex';
+                if (selectedBuilding !== 'TUTTI') floorChipContainer.style.display = 'flex';
+                const _favs = getFavs();
+                const processed = roomsData
+                    .filter(r => {
+                        const matchesSearch = !searchQuery || r.name.toLowerCase().includes(searchQuery) || r.building.toLowerCase().includes(searchQuery);
+                        const matchesBuilding = selectedBuilding === 'TUTTI' || r.building === selectedBuilding;
+                        const matchesFloor = selectedFloor === 'TUTTI' || String(r.floor) === selectedFloor;
+                        const matchesFav = !showOnlyFavs || _favs.includes(r.name);
+                        return matchesSearch && matchesBuilding && matchesFloor && matchesFav;
+                    })
+                    .map(room => {
+                        const event = eventsData.find(e => {
+                            const start = new Date(e.dataInizio);
+                            const end = new Date(e.dataFine);
+                            if (check < start || check >= end) return false;
+                            return e.aule.some(a => matchesRoom(a, room));
+                        });
+                        let outcome = { room, busy: !!event, current: event, next: null, freeAt: null };
+                        if (event) {
+                            let currentEventEnd = new Date(event.dataFine);
+                            const roomEvents = eventsData
+                                .filter(e => e.aule.some(a => matchesRoom(a, room)))
+                                .sort((a, b) => new Date(a.dataInizio) - new Date(b.dataInizio));
+
+                            for (let e of roomEvents) {
+                                let eStart = new Date(e.dataInizio);
+                                let eEnd = new Date(e.dataFine);
+                                if (eStart <= currentEventEnd && eEnd > currentEventEnd) {
+                                    currentEventEnd = eEnd;
+                                }
+                            }
+                            outcome.freeAt = currentEventEnd;
+                        } else {
+                            outcome.next = eventsData.filter(e => {
+                                return new Date(e.dataInizio) >= check && e.aule.some(a => matchesRoom(a, room));
+                            }).sort((a, b) => new Date(a.dataInizio) - new Date(b.dataInizio))[0];
+                        }
+                        return outcome;
+                    });
+                processed.sort((a, b) => {
+                    if (a.busy !== b.busy) return a.busy ? 1 : -1;
+
+                    if (a.busy) {
+                        return (a.freeAt || 0) - (b.freeAt || 0);
+                    } else {
+                        const getLimitTime = (item) => item.next ? new Date(item.next.dataInizio) : new Date(new Date(check).setHours(CLOSING_HOUR, CLOSING_MINUTE, 0, 0));
+                        const durationA = getLimitTime(a) - check;
+                        const durationB = getLimitTime(b) - check;
+
+                        if (durationA !== durationB) return durationB - durationA; // Longer duration first
+
+                        const capA = parseInt(a.room.cap) || 0;
+                        const capB = parseInt(b.room.cap) || 0;
+                        return capB - capA;
+                    }
+                });
+                const filtered = processed;
+                freeTotal.textContent = filtered.filter(p => !p.busy).length;
+                let html = "";
+                filtered.forEach(item => {
+                    const cleanRoomName = item.room.routeCode || item.room.name.replace(/^(Aula|Sala)\s+/i, '').toLowerCase().replace(/\s/g, '');
+                    const mapUrl = `https://plumkewe.github.io/dove-unipi/?p=${item.room.group}&c=${cleanRoomName}`;
+                    let untilText = "";
+                    let timeRemainingText = "";
+                    let showMinutes = false;
+                    if (!item.busy) {
+                        const limitTime = item.next ? new Date(item.next.dataInizio) : new Date(new Date(check).setHours(CLOSING_HOUR, CLOSING_MINUTE, 0, 0));
+                        const minutesLeft = Math.floor((limitTime - check) / (1000 * 60));
+                        const timeStr = limitTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        untilText = `${BussolaI18n.t('aule_free_until')} ${timeStr}`;
+                        const realNow = new Date();
+                        const isToday = new Date(dateInput.value).toDateString() === realNow.toDateString();
+                        const isCurrentTime = Math.abs(realNow - check) < 120000;
+                        if (isToday && isCurrentTime && minutesLeft > 0) {
+                            showMinutes = true;
+                            timeRemainingText = formatRemainingTime(minutesLeft);
+                        }
+                    } else {
+                        const timeStr = item.freeAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        const freeAtHours = item.freeAt.getHours();
+                        const freeAtMinutes = item.freeAt.getMinutes();
+                        const isAfterClosing = freeAtHours > CLOSING_HOUR || (freeAtHours === CLOSING_HOUR && freeAtMinutes >= CLOSING_MINUTE);
+                        untilText = isAfterClosing ? BussolaI18n.t('aule_free_until_close') : `${BussolaI18n.t('aule_free_from')} ${timeStr}`;
+                    }
+                    const _favSaved = isFav(item.room.name);
+                    const _rn = item.room.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                    html += `
+                        <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="search-result-item fade-in-card">
+                            <div class="room-top-actions">
+                                <button class="fav-btn${_favSaved ? ' saved' : ''}"
+                                        onclick="handleFavClick(event,this,'${_rn}')"
+                                        title="${_favSaved ? BussolaI18n.t('aule_fav_remove') : BussolaI18n.t('aule_fav_add')}">
+                                    <i class="${_favSaved ? 'ri-heart-3-fill' : 'ri-heart-3-line'}"></i>
+                                </button>
+                                <i class="ri-map-pin-line map-icon"></i>
+                            </div>
+                            <div class="result-content">
+                                <div class="result-title">${item.room.name}</div>
+                                <div class="result-details">
+                                    <i class="ri-building-4-line"></i> ${item.room.building} &middot; ${BussolaI18n.t('aule_floor')} ${item.room.floor}
+                                </div>
+                                ${getServicesHtml(item.room.name)}
+                            </div>
+                            <div class="occupancy-status-bar ${item.busy ? 'occupied' : 'free'}">
+                                <i class="${item.busy ? 'ri-presentation-line' : 'ri-checkbox-circle-fill'}" style="font-size: 1.1rem;"></i>
+                                <div class="occupancy-text">
+                                    ${item.busy
+                            ? (() => {
+                                const nowReal = new Date();
+                                const isToday = new Date(dateInput.value).toDateString() === nowReal.toDateString();
+                                const minutesLeft = Math.floor((item.freeAt - check) / (1000 * 60));
+                                let subText = untilText;
+                                if (isToday && minutesLeft > 0 && minutesLeft < 60) {
+                                    subText = `${BussolaI18n.t('aule_free_in')} ${minutesLeft} min`;
+                                }
+                                const displayName = (BussolaI18n.getLang() === 'en' && item.current.nomeLezioneEn ? item.current.nomeLezioneEn : item.current.nomeLezione).split('-')[0].trim();
+                                return `<span>${displayName}</span><br><span style="font-size: 0.75rem; opacity: 0.8;">${subText}</span>`;
+                            })()
+                            : `<span>${untilText}</span>${showMinutes ? `<br><span style="font-size: 0.75rem; opacity: 0.8;">${timeRemainingText}</span>` : ''}`
+                        }
+                                </div>
+                                <div class="capacity-badge">
+                                    <i class="ri-group-line"></i>
+                                    ${item.room.cap}
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+                resultsList.innerHTML = html || `<div style="padding: 3rem; text-align: center; color: var(--text-muted);"><i class="ri-search-eye-line" style="font-size: 2rem; display: block; margin-bottom: 1rem;"></i>${BussolaI18n.t('aule_no_results')}</div>`;
+            }, 10);
+        }
+        function updateDateDisplay() {
+            const date = new Date(dateInput.value);
+            const options = { day: 'numeric', month: 'short' };
+            const formatted = date.toLocaleDateString('it-IT', options);
+            dateInput.setAttribute('data-display', formatted);
+        }
+
+        function bindUI() {
+            updateDateDisplay();
+            dateInput.addEventListener('change', () => {
+                updateDateDisplay();
+                syncCineca();
+            });
+            timeInput.addEventListener('input', renderList);
+            const searchInput = document.getElementById('search-input');
+            const clearBtn = document.getElementById('search-clear');
+
+            searchInput.addEventListener('input', () => {
+                if (clearBtn) {
+                    if (searchInput.value.length > 0) {
+                        clearBtn.classList.add('visible');
+                    } else {
+                        clearBtn.classList.remove('visible');
+                    }
+                }
+                renderList();
+            });
+
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    clearBtn.classList.remove('visible');
+                    renderList();
+                    searchInput.focus();
+                });
+            }
+        }
+        init();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+
+        const originalRenderList = renderList;
+        renderList = function () {
+            originalRenderList();
+
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in-card:not(.visible)').forEach(card => {
+                    observer.observe(card);
+                });
+            }, 50);
+        };
+
+        window.addEventListener('scroll', () => {
+            const scrollBtn = document.querySelector('.scroll-buttons');
+            if (!scrollBtn) return;
+            if (window.scrollY > 200) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+        window.dispatchEvent(new Event('scroll'));
+
+        /* Global applyLang — called by BussolaSettings when user switches language */
+        function applyLang(lang) {
+            localStorage.setItem('bussola_lang', lang);
+            BussolaI18n.applyDataI18n(lang);
+            // Rebuild chips with new language
+            generateChips();
+            generateFloorChips();
+            // Re-render list
+            renderList();
+            // Update fav UI
+            updateFavUi();
+        }
+
+        // Apply lang on load
+        document.addEventListener('DOMContentLoaded', function () {
+            BussolaI18n.applyDataI18n(BussolaI18n.getLang());
+        });
+    </script>
+    <script src="../version.js"></script>
+    <div class="scroll-buttons">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="scroll-btn" title="Torna su">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+    </div>
+</body>
+
+</html>

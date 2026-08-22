@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/stile.css">
+    <link rel="stylesheet" href="css/overlay_account.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" type="image/webp" href="../blog/icon.webp">
+    <link rel="apple-touch-icon" href="../blog/icon.webp">
+</head>
+<body>
+    <!-- Navbar injected via components.js -->
+    <div style="margin-top: 80px; text-align: center;">
+        <h1>Il tuo Account</h1>
+        <button class="bottone-logout" onclick="window.mockDB.logoutUser()"><i class="fas fa-sign-out-alt"></i>
+            Logout</button>
+    </div>
+    <div class="contenitore">
+        <div class="sezione-account">
+            <div class="immagine-account">
+                <img id="acc-img" src="immagini_profilo/Pic1.webp" alt="Immagine Account">
+            </div>
+            <div class="dettagli-account">
+                <h1 id="acc-nomecompleto">Caricamento...</h1>
+                <h3 id="acc-username">...</h3>
+                <div id="acc-piano-badge">
+                    <!-- badge js injected -->
+                </div>
+                <p id="acc-email"></p>
+            </div>
+        </div>
+        <div class="scatola sezione-bio" id="acc-bio-container" style="display: none;">
+            <h3>La tua bio</h3>
+            <p id="acc-bio-testo"></p>
+        </div>
+        <div class="statistiche-account">
+            <div class="statistica">
+                <div class="statistica-numero" id="stat-post">0</div>
+                <div class="statistica-label">Post scritti</div>
+            </div>
+            <div class="statistica">
+                <div class="statistica-numero" id="stat-seguiti">0</div>
+                <div class="statistica-label">Blog seguiti</div>
+            </div>
+            <div class="statistica">
+                <div class="statistica-numero" id="stat-gestiti">0</div>
+                <div class="statistica-label">Blog gestiti</div>
+            </div>
+        </div>
+        <p style="text-align: center;">Vuoi <a href="impostazioni.html">modificare qualche informazione? </a></p>
+        <h1 style="text-align: center;">Il tuo piano</h1>
+        <div class="scatola sezione-piano">
+            <div class="piano-header">
+                <div class="piano-titolo" id="piano-titolo-container">
+                    <!-- Injected -->
+                </div>
+                <div class="piano-illustrazione">
+                    <img src="illustrazioni/account-pro-ill.svg" alt="Plan Illustration" class="illustration"
+                        style="max-height: 150px;">
+                </div>
+            </div>
+            <div class="piano-descrizione">
+                <p>Il piano pro si raggiunge ottenendo almeno 3 recensioni a 5 stelle in un tuo blog. (Mockato:
+                    modificabile in test)</p>
+            </div>
+            <!-- Benefiti Generici -->
+            <h4>I vantaggi del Piano Pro</h4>
+            <div class="vantaggi-grid">
+                <div class="vantaggio-item"><i class="fas fa-palette"></i><span>Temi personalizzati per i
+                        blog</span></div>
+                <div class="vantaggio-item"><i class="fas fa-file-pen"></i><span>Salvataggio dei post come
+                        bozze</span></div>
+                <div class="vantaggio-item"><i class="fas fa-crown"></i><span>Badge Premium. Fatti notare.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="illustrazioni/logo-footer.svg" alt="BlogOwl Logo" class="footer-logo">
+        </div>
+        <div class="footer-disclaimer">
+            Progetto di Basi di Dati e Laboratorio Web 2023/2024.<br>©Paolo Pirruccio (614754) ©Francisco LeYucra
+            (659528).
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="db.js"></script>
+    <script src="mostra_messaggio.js"></script>
+    <script src="components/components.js"></script>
+    <script src="account_logic.js"></script>
+</body>
+</html>

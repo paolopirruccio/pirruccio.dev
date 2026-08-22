@@ -1,0 +1,22 @@
+/* Shadows drawn on the old rounded rectangles looked like a second grey shape. */
+.shell-segmented,.shell-language,.shell-segmented button[aria-pressed=true],.contact-arrow,.react-arrow,.react-footer>button,.cv-download,.react-pricing article{box-shadow:none}
+.contact-card-inner,.contact-card:hover .contact-card-inner{box-shadow:none}
+.contact-card{filter:drop-shadow(0 5px 10px #00000016);transition:transform .3s ease,filter .3s ease}
+.contact-card:hover{filter:drop-shadow(0 12px 16px #00000024)}
+.react-pricing article{filter:drop-shadow(0 4px 10px #0000000d)}
+@media(prefers-color-scheme:dark){.contact-card{filter:drop-shadow(0 5px 10px #0005)}.contact-card:hover{filter:drop-shadow(0 12px 16px #0007)}}
+
+/* Emboss surface study: raking light from top-left, pressed edge and fine grain. */
+.contact-card-inner,.project-card-surface,.view-all-card,.react-pricing article{isolation:isolate;box-shadow:inset 1px 1px 0 #ffffff70,inset -2px -2px 4px #00000024,inset 5px 5px 12px #ffffff14}
+.project-card-surface{overflow:hidden}
+.project-card-surface::before,.project-card-surface::after{border-radius:inherit}
+.contact-card:hover .contact-card-inner{box-shadow:inset 1px 1px 0 #ffffff70,inset -2px -2px 4px #00000024,inset 5px 5px 12px #ffffff14}
+.contact-card-inner::before,.project-card-surface::before,.view-all-card::before,.react-pricing article::before{content:"";position:absolute;z-index:0;inset:0;pointer-events:none;background:repeating-radial-gradient(circle at 28% 22%,#fff 0 .45px,transparent .7px 3px);mix-blend-mode:soft-light;opacity:.22}
+.contact-card-inner::after,.project-card-surface::after,.view-all-card::after,.react-pricing article::after{content:"";position:absolute;z-index:0;inset:0;pointer-events:none;background:linear-gradient(135deg,#ffffff2e 0%,transparent 32%,transparent 68%,#0000001c 100%)}
+.contact-card-inner>*:not(.contact-visual){position:relative;z-index:1}
+.view-all-card>*,.react-pricing article>*:not(.pricing-badge){position:relative;z-index:1}
+.view-all-card,.react-pricing article{position:relative}
+@media(prefers-color-scheme:dark){.contact-card-inner,.contact-card:hover .contact-card-inner,.project-card-surface,.view-all-card,.react-pricing article{box-shadow:inset 1px 1px 0 #ffffff30,inset -2px -2px 5px #0008,inset 5px 5px 12px #ffffff0a}}
+.contact-deck{padding-right:max(72px,calc((100vw - 1200px)/2 + 72px))}
+.react-project-deck{padding-right:max(72px,calc((100vw - 1200px)/2 + 72px))}
+@media(max-width:768px){.contact-deck,.react-project-deck{padding-right:40px}}

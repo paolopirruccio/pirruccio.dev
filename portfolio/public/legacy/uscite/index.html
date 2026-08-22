@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="ChiDoQuà">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0A0A0F">
+    <title>ChiDoQuà - Organizziamo qualcosa</title>
+    <link rel="icon" type="image/webp" href="logo.webp">
+    <link rel="apple-touch-icon" href="logo.webp">
+    <meta name="description" content="Chi, Dove, Cosa, Quando - L'app per organizzare qualche diamine di cosa!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+    <script src="google-sheets-api.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="progress-bar" id="progress-bar">
+            <div class="progress-step active" data-step="1"></div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="2"></div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="3"></div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="4"></div>
+        </div>
+        <section id="step-1" class="step-container">
+            <div class="welcome-screen">
+                <div class="beta-badge">BETA v2</div>
+                <div class="logo">
+                    <img src="logo.webp" alt="ChiDoQuà">
+                </div>
+                <div>
+                    <p class="welcome-subtitle">Organizziamoci per l'amor del cielo</p>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Come ti chiami, bro?</label>
+                    <input type="text" id="user-name-input" class="input-field" placeholder="Il tuo nome..."
+                        autocomplete="off" autocapitalize="words">
+                </div>
+                <button class="btn btn-primary" onclick="goToStep(2)" id="btn-next-1">
+                    Iniziamo
+                    <span class="material-icons-round">arrow_forward</span>
+                </button>
+                <div class="home-buttons">
+                    <button class="btn btn-secondary btn-qr" onclick="showQRCode()">
+                        <span class="material-icons-round">qr_code_2</span>
+                        QR
+                    </button>
+                    <a href="admin.html" class="btn btn-secondary btn-results">
+                        <span class="material-icons-round">leaderboard</span>
+                        Risultati
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="step-2" class="step-container hidden">
+            <div class="events-header">
+                <h2>Cosa ti piacerebbe fare?</h2>
+                <p class="events-instruction">
+                    <span class="icon">👆</span>
+                    Trascina in ordine di preferenza
+                </p>
+            </div>
+            <div class="events-list" id="events-list">
+            </div>
+            <div class="nope-zone" id="nope-zone">
+                <span class="nope-zone-icon">🙅</span>
+                <span class="nope-zone-text">Trascina qui se no grazie</span>
+                <div class="refused-list" id="refused-list"></div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="goToStep(1)">
+                    <span class="material-icons-round">arrow_back</span>
+                </button>
+                <button class="btn btn-primary" onclick="goToStep(3)" id="btn-next-2">
+                    Avanti
+                    <span class="material-icons-round">arrow_forward</span>
+                </button>
+            </div>
+        </section>
+        <section id="step-3" class="step-container hidden">
+            <div class="availability-header">
+                <h2>Quando preferiresti?</h2>
+                <p class="events-instruction">Seleziona le date 📅</p>
+            </div>
+            <div class="availability-section">
+                <div class="date-picker-group">
+                    <div class="date-picker-label preferred">
+                        <span class="material-icons-round">thumb_up</span>
+                        Quando ci stai?
+                    </div>
+                    <div class="date-chips" id="preferred-dates">
+                        <button class="date-chip add-date" onclick="addDate('preferred')">
+                            <span class="material-icons-round">add</span>
+                            Aggiungi data
+                        </button>
+                    </div>
+                </div>
+                <div class="date-picker-group">
+                    <div class="date-picker-label unavailable">
+                        <span class="material-icons-round">block</span>
+                        Quando NON puoi?
+                    </div>
+                    <div class="date-chips" id="unavailable-dates">
+                        <button class="date-chip add-date" onclick="addDate('unavailable')">
+                            <span class="material-icons-round">add</span>
+                            Aggiungi data
+                        </button>
+                    </div>
+                </div>
+                <div class="notes-group">
+                    <label class="input-label">Note extra? (opzionale)</label>
+                    <textarea id="availability-notes" class="notes-textarea"
+                        placeholder="Es: Weekend meglio, dopo le 19..."></textarea>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="goToStep(2)">
+                    <span class="material-icons-round">arrow_back</span>
+                </button>
+                <button class="btn btn-primary" onclick="submitAll()" id="btn-submit">
+                    Invia 💫
+                </button>
+            </div>
+        </section>
+        <section id="step-4" class="step-container hidden">
+            <div class="confirmation-screen">
+                <div class="success-animation">🎊</div>
+                <h2 class="success-title text-gradient">Fatto!</h2>
+                <p class="success-subtitle">
+                    Grazie <span id="success-name">amico</span>! Le tue preferenze sono state registrate 💫
+                </p>
+                <div class="success-buttons">
+                    <button class="btn btn-secondary" onclick="resetApp()">
+                        <span class="material-icons-round">refresh</span>
+                        Ricomincia
+                    </button>
+                    <a href="admin.html" class="btn btn-primary">
+                        <span class="material-icons-round">dashboard</span>
+                        Vedi Risultati
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="step-5" class="step-container hidden">
+            <div class="confirmation-screen">
+                <div class="success-animation"
+                    style="background: linear-gradient(135deg, var(--coral-warm), var(--orange-fizz));">🙈</div>
+                <h2 class="success-title">Ma come?!</h2>
+                <p class="success-subtitle">
+                    <span id="pooper-name">bro</span>, hai rifiutato tutto...
+                </p>
+                <p class="success-subtitle" style="margin-top: 0;">
+                    Va bene, registriamo comunque il tuo... entusiasmo.
+                </p>
+                <div class="success-buttons">
+                    <button class="btn btn-secondary" onclick="resetApp()">
+                        <span class="material-icons-round">replay</span>
+                        Riprova dai
+                    </button>
+                    <a href="admin.html" class="btn btn-primary">
+                        <span class="material-icons-round">dashboard</span>
+                        Vedi Risultati
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="date-modal" class="modal hidden">
+        <div class="modal-backdrop" onclick="closeDateModal()"></div>
+        <div class="modal-content">
+            <h3>Scegli una data</h3>
+            <input type="date" id="date-input" class="input-field">
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeDateModal()">Annulla</button>
+                <button class="btn btn-primary" onclick="confirmDate()">Aggiungi</button>
+            </div>
+        </div>
+    </div>
+    <div id="qr-modal" class="modal hidden">
+        <div class="modal-backdrop" onclick="hideQRCode()"></div>
+        <div class="modal-content qr-modal-content">
+            <h3>Scansionate per aprire il sito</h3>
+            <div class="qr-code-wrapper">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://paolopirruccio.xyz/uscite"
+                    alt="QR Code" class="qr-code-img">
+            </div>
+            <p class="qr-url">paolopirruccio.xyz/uscite</p>
+            <button class="btn btn-primary" onclick="hideQRCode()">Chiudi</button>
+        </div>
+    </div>
+    <div id="comic-loading" class="comic-loading hidden">
+        <div class="comic-content">
+            <div class="comic-bubble" id="comic-bubble-1">
+                <span class="comic-emoji">📡</span>
+                <p>Comunico col potentissimo server di Paolo...</p>
+            </div>
+            <div class="comic-bubble hidden" id="comic-bubble-2">
+                <span class="comic-emoji">📝</span>
+                <p>(Scrivo in un foglio Excel)</p>
+            </div>
+            <div class="comic-bubble hidden" id="comic-bubble-3">
+                <span class="comic-emoji">👋</span>
+                <p>Ti rubo i dati...</p>
+            </div>
+            <div class="comic-bubble hidden" id="comic-bubble-4">
+                <span class="comic-emoji">📨</span>
+                <p>Avverto Gloria Penso...</p>
+            </div>
+            <div class="comic-bubble hidden" id="comic-bubble-5">
+                <span class="comic-emoji">✅</span>
+                <p>Fatto</p>
+            </div>
+        </div>
+    </div>
+    <div id="confetti" class="confetti"></div>
+    <script src="app.js"></script>
+    <script src="../version.js"></script>
+</body>
+
+</html>

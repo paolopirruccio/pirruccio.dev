@@ -1,0 +1,22 @@
+[
+    {
+        "id": "test-style",
+        "title": "Typography Test",
+        "date": "2024-02-06",
+        "summary": "Un articolo di prova per verificare stili, quote, codice e liste.",
+        "file": "test-style.md",
+        "icon": "fa-solid fa-paintbrush",
+        "color_bg": "#dbeafe",
+        "color_text": "#1e40af"
+    },
+    {
+        "id": "benvenuto",
+        "title": "Benvenuto nel mio Blog",
+        "date": "2024-02-06",
+        "summary": "Il primo post di benvenuto nel mio spazio personale. Di cosa parleremo?",
+        "file": "benvenuto.md",
+        "icon": "fa-solid fa-hand-sparkles",
+        "color_bg": "#fce7f3",
+        "color_text": "#db2777"
+    }
+]

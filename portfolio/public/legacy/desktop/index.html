@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paolo Pirruccio - Desktop Environment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="msapplication-TileColor" content="#1a1a2e">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/webp" href="icon.webp">
+    <link rel="apple-touch-icon" href="icon.webp">
+</head>
+<body>
+    <div id="mobile-warning">
+        <div class="warning-content">
+            <i class="fas fa-desktop"></i>
+            <h2>Desktop Only</h2>
+            <p>This experience is designed for desktop screens. Please switch to a larger device.</p>
+        </div>
+    </div>
+    <div class="desktop">
+        <div class="credits-button glass">
+            <i class="fas fa-info"></i>
+            <div class="credits-info glass">
+                <p><strong>Desktop Environment</strong><br>
+                    Designed & Developed by Paolo Pirruccio<br>
+                    © <span id="current-year"></span> - All rights reserved</p>
+            </div>
+        </div>
+        <div class="contact-button glass" onclick="openContactMail()">
+            <i class="fas fa-envelope"></i>
+        </div>
+        <div class="springboard">
+            <div class="springboard-grid">
+                <div class="springboard-app glass" onclick="openMobileApp('pomodoro')">
+                    <i class="fas fa-clock"></i>
+                    <div class="springboard-label">Pomodoro</div>
+                </div>
+                <div class="springboard-app glass" onclick="openMobileApp('calculator')">
+                    <i class="fas fa-calculator"></i>
+                    <div class="springboard-label">Calculator</div>
+                </div>
+                <div class="springboard-app glass" onclick="openMobileApp('notes')">
+                    <i class="fas fa-sticky-note"></i>
+                    <div class="springboard-label">Notes</div>
+                </div>
+                <div class="springboard-app glass" onclick="openMobileApp('drawings')">
+                    <i class="fas fa-paint-brush"></i>
+                    <div class="springboard-label">Drawings</div>
+                </div>
+                <div class="springboard-app glass" onclick="openMobileApp('stopwatch')">
+                    <i class="fas fa-stopwatch"></i>
+                    <div class="springboard-label">Stopwatch</div>
+                </div>
+                <div class="springboard-app glass" onclick="openMobileApp('timer')">
+                    <i class="fas fa-hourglass-half"></i>
+                    <div class="springboard-label">Timer</div>
+                </div>
+                <div class="springboard-app glass" onclick="openMobileApp('spotify')">
+                    <i class="fab fa-spotify"></i>
+                    <div class="springboard-label">Spotify</div>
+                </div>
+                <div class="springboard-app glass" onclick="openMobileApp('wallpapers')">
+                    <i class="fas fa-images"></i>
+                    <div class="springboard-label">Wallpapers</div>
+                </div>
+            </div>
+        </div>
+        <div class="dock glass" id="dock">
+            <div class="dock-icon glass" onclick="openWindow('pomodoro')">
+                <i class="fas fa-clock"></i>
+                <div class="app-name">Pomodoro</div>
+            </div>
+            <div class="dock-icon glass" onclick="openWindow('calculator')">
+                <i class="fas fa-calculator"></i>
+                <div class="app-name">Calculator</div>
+            </div>
+            <div class="dock-icon glass" onclick="openWindow('notes')">
+                <i class="fas fa-sticky-note"></i>
+                <div class="app-name">Notes</div>
+            </div>
+            <div class="dock-icon glass" onclick="openWindow('drawings')">
+                <i class="fas fa-paint-brush"></i>
+                <div class="app-name">Drawings</div>
+            </div>
+            <div class="dock-icon glass" onclick="openWindow('stopwatch')">
+                <i class="fas fa-stopwatch"></i>
+                <div class="app-name">Stopwatch</div>
+            </div>
+            <div class="dock-icon glass" onclick="openWindow('timer')">
+                <i class="fas fa-hourglass-half"></i>
+                <div class="app-name">Timer</div>
+            </div>
+            <div class="dock-icon glass" onclick="openWindow('spotify')">
+                <i class="fab fa-spotify"></i>
+                <div class="app-name">Spotify</div>
+            </div>
+            <div class="dock-icon glass" onclick="openWindow('wallpapers')">
+                <i class="fas fa-images"></i>
+                <div class="app-name">Wallpapers</div>
+            </div>
+        </div>
+        <div id="pomodoro" class="window glass">
+            <div class="window-header">
+                <span class="window-title">Pomodoro Timer</span>
+                <div class="window-controls">
+                    <div class="window-control close" onclick="closeWindow('pomodoro')"></div>
+                    <div class="window-control maximize" onclick="maximizeWindow('pomodoro')"></div>
+                </div>
+            </div>
+            <div class="window-content center-content">
+                <div class="pomodoro-container">
+                    <div class="timer-display" id="pomodoro-display">25:00</div>
+                    <div class="timer-controls">
+                        <button class="glass-button" onclick="startPomodoro()">Start</button>
+                        <button class="glass-button" onclick="pausePomodoro()">Pause</button>
+                        <button class="glass-button" onclick="resetPomodoro()">Reset</button>
+                    </div>
+                    <div class="mode-switch">
+                        <button class="glass-button small" onclick="setPomodoroMode('focus')">Focus</button>
+                        <button class="glass-button small" onclick="setPomodoroMode('short')">Short Break</button>
+                        <button class="glass-button small" onclick="setPomodoroMode('long')">Long Break</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="calculator" class="window glass">
+            <div class="window-header">
+                <span class="window-title">Calculator</span>
+                <div class="window-controls">
+                    <div class="window-control close" onclick="closeWindow('calculator')"></div>
+                    <div class="window-control maximize" onclick="maximizeWindow('calculator')"></div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="calculator-container">
+                    <input type="text" class="calc-display" id="calc-display" readonly>
+                    <div class="calc-grid">
+                        <button class="calc-btn op" onclick="calcClear()">C</button>
+                        <button class="calc-btn op" onclick="calcAppend('(')">(</button>
+                        <button class="calc-btn op" onclick="calcAppend(')')">)</button>
+                        <button class="calc-btn op" onclick="calcAppend('/')">÷</button>
+                        <button class="calc-btn" onclick="calcAppend('7')">7</button>
+                        <button class="calc-btn" onclick="calcAppend('8')">8</button>
+                        <button class="calc-btn" onclick="calcAppend('9')">9</button>
+                        <button class="calc-btn op" onclick="calcAppend('*')">×</button>
+                        <button class="calc-btn" onclick="calcAppend('4')">4</button>
+                        <button class="calc-btn" onclick="calcAppend('5')">5</button>
+                        <button class="calc-btn" onclick="calcAppend('6')">6</button>
+                        <button class="calc-btn op" onclick="calcAppend('-')">-</button>
+                        <button class="calc-btn" onclick="calcAppend('1')">1</button>
+                        <button class="calc-btn" onclick="calcAppend('2')">2</button>
+                        <button class="calc-btn" onclick="calcAppend('3')">3</button>
+                        <button class="calc-btn op" onclick="calcAppend('+')">+</button>
+                        <button class="calc-btn zero" onclick="calcAppend('0')">0</button>
+                        <button class="calc-btn" onclick="calcAppend('.')">.</button>
+                        <button class="calc-btn eq" onclick="calcCalculate()">=</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="notes" class="window glass">
+            <div class="window-header">
+                <span class="window-title">Quick Notes</span>
+                <div class="window-controls">
+                    <div class="window-control close" onclick="closeWindow('notes')"></div>
+                    <div class="window-control maximize" onclick="maximizeWindow('notes')"></div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="notes-container">
+                    <textarea id="notes-area" placeholder="Type your notes here..."></textarea>
+                    <div class="notes-status" id="notes-status">Saved</div>
+                </div>
+            </div>
+        </div>
+        <div id="drawings" class="window glass">
+            <div class="window-header">
+                <span class="window-title">Drawings</span>
+                <div class="window-controls">
+                    <div class="window-control close" onclick="closeWindow('drawings')"></div>
+                    <div class="window-control maximize" onclick="maximizeWindow('drawings')"></div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="drawing-controls">
+                    <input type="color" id="draw-color" value="#ffffff">
+                    <input type="range" id="draw-size" min="1" max="20" value="5">
+                    <button class="glass-button small" onclick="clearCanvas()">Clear</button>
+                </div>
+                <canvas id="drawing-canvas"></canvas>
+            </div>
+        </div>
+        <div id="stopwatch" class="window glass">
+            <div class="window-header">
+                <span class="window-title">Stopwatch</span>
+                <div class="window-controls">
+                    <div class="window-control close" onclick="closeWindow('stopwatch')"></div>
+                    <div class="window-control maximize" onclick="maximizeWindow('stopwatch')"></div>
+                </div>
+            </div>
+            <div class="window-content center-content">
+                <div class="stopwatch-container">
+                    <div class="timer-display" id="stopwatch-display">00:00.00</div>
+                    <div class="timer-controls">
+                        <button class="glass-button" onclick="startStopwatch()">Start</button>
+                        <button class="glass-button" onclick="stopStopwatch()">Stop</button>
+                        <button class="glass-button" onclick="lapStopwatch()">Lap</button>
+                        <button class="glass-button" onclick="resetStopwatch()">Reset</button>
+                    </div>
+                    <div class="laps-list" id="laps-list"></div>
+                </div>
+            </div>
+        </div>
+        <div id="timer" class="window glass">
+            <div class="window-header">
+                <span class="window-title">Timer</span>
+                <div class="window-controls">
+                    <div class="window-control close" onclick="closeWindow('timer')"></div>
+                    <div class="window-control maximize" onclick="maximizeWindow('timer')"></div>
+                </div>
+            </div>
+            <div class="window-content center-content">
+                <div class="timer-container">
+                    <div class="timer-inputs" id="timer-inputs">
+                        <input type="number" id="timer-h" placeholder="00" min="0" max="23"> :
+                        <input type="number" id="timer-m" placeholder="00" min="0" max="59"> :
+                        <input type="number" id="timer-s" placeholder="00" min="0" max="59">
+                    </div>
+                    <div class="timer-display" id="timer-display" style="display:none;">00:00:00</div>
+                    <div class="timer-controls">
+                        <button class="glass-button" onclick="startTimer()">Start</button>
+                        <button class="glass-button" onclick="stopTimer()">Stop</button>
+                        <button class="glass-button" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="spotify" class="window glass">
+            <div class="window-header">
+                <span class="window-title">My Music</span>
+                <div class="window-controls">
+                    <div class="window-control close" onclick="closeWindow('spotify')"></div>
+                    <div class="window-control maximize" onclick="maximizeWindow('spotify')"></div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="spotify-player">
+                    <iframe style="border-radius:12px"
+                        src="https://open.spotify.com/embed/playlist/4jZewD1ibeylaOwXASx98z?utm_source=generator&theme=0"
+                        width="100%" height="380" frameborder="0" allowfullscreen
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+        <div id="wallpapers" class="window glass">
+            <div class="window-header">
+                <span class="window-title">Wallpapers</span>
+                <div class="window-controls">
+                    <div class="window-control close" onclick="closeWindow('wallpapers')"></div>
+                    <div class="window-control maximize" onclick="maximizeWindow('wallpapers')"></div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="wallpapers-container">
+                    <h3 style="margin-bottom: 15px; font-weight: 600;">Choose a Theme</h3>
+                    <div class="wallpaper-grid">
+                        <button class="wallpaper-btn" onclick="setWallpaper('nature')">
+                            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400&q=80"
+                                alt="Nature">
+                            <span>Nature</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('abstract')">
+                            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&q=80"
+                                alt="Abstract">
+                            <span>Abstract</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('space')">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80"
+                                alt="Space">
+                            <span>Space</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('minimal')">
+                            <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=400&q=80"
+                                alt="Minimal">
+                            <span>Minimal</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('architecture')">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80"
+                                alt="Architecture">
+                            <span>Architecture</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('dark')">
+                            <img src="https://images.unsplash.com/photo-1550684847-75bdda21cc95?w=400&q=80" alt="Dark">
+                            <span>Dark</span>
+                        </button>
+                    </div>
+                    <div class="wallpaper-actions" style="margin-top: 20px; text-align: center;">
+                        <button class="glass-button" onclick="setRandomWallpaper()">
+                            <i class="fas fa-random"></i> Random
+                        </button>
+                        <button class="glass-button" onclick="resetWallpaper()">
+                            <i class="fas fa-undo"></i> Reset to Default
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-pomodoro" class="mobile-app glass">
+            <div class="mobile-app-content center-content">
+                <div class="pomodoro-container">
+                    <div class="timer-display" id="mobile-pomodoro-display">25:00</div>
+                    <div class="timer-controls">
+                        <button class="glass-button" onclick="startPomodoro(true)">Start</button>
+                        <button class="glass-button" onclick="pausePomodoro(true)">Pause</button>
+                        <button class="glass-button" onclick="resetPomodoro(true)">Reset</button>
+                    </div>
+                    <div class="mode-switch">
+                        <button class="glass-button small" onclick="setPomodoroMode('focus', true)">Focus</button>
+                        <button class="glass-button small" onclick="setPomodoroMode('short', true)">Short</button>
+                        <button class="glass-button small" onclick="setPomodoroMode('long', true)">Long</button>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-back-button" onclick="closeMobileApp('pomodoro')"><i
+                    class="fas fa-chevron-left"></i></button>
+        </div>
+        <div id="mobile-calculator" class="mobile-app glass">
+            <div class="mobile-app-content">
+                <div class="calculator-container">
+                    <input type="text" class="calc-display" id="mobile-calc-display" readonly>
+                    <div class="calc-grid">
+                        <button class="calc-btn op" onclick="calcClear(true)">C</button>
+                        <button class="calc-btn op" onclick="calcAppend('(', true)">(</button>
+                        <button class="calc-btn op" onclick="calcAppend(')', true)">)</button>
+                        <button class="calc-btn op" onclick="calcAppend('/', true)">÷</button>
+                        <button class="calc-btn" onclick="calcAppend('7', true)">7</button>
+                        <button class="calc-btn" onclick="calcAppend('8', true)">8</button>
+                        <button class="calc-btn" onclick="calcAppend('9', true)">9</button>
+                        <button class="calc-btn op" onclick="calcAppend('*', true)">×</button>
+                        <button class="calc-btn" onclick="calcAppend('4', true)">4</button>
+                        <button class="calc-btn" onclick="calcAppend('5', true)">5</button>
+                        <button class="calc-btn" onclick="calcAppend('6', true)">6</button>
+                        <button class="calc-btn op" onclick="calcAppend('-', true)">-</button>
+                        <button class="calc-btn" onclick="calcAppend('1', true)">1</button>
+                        <button class="calc-btn" onclick="calcAppend('2', true)">2</button>
+                        <button class="calc-btn" onclick="calcAppend('3', true)">3</button>
+                        <button class="calc-btn op" onclick="calcAppend('+', true)">+</button>
+                        <button class="calc-btn zero" onclick="calcAppend('0', true)">0</button>
+                        <button class="calc-btn" onclick="calcAppend('.', true)">.</button>
+                        <button class="calc-btn eq" onclick="calcCalculate(true)">=</button>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-back-button" onclick="closeMobileApp('calculator')"><i
+                    class="fas fa-chevron-left"></i></button>
+        </div>
+        <div id="mobile-notes" class="mobile-app glass">
+            <div class="mobile-app-content">
+                <div class="notes-container">
+                    <textarea id="mobile-notes-area" placeholder="Type your notes here..."></textarea>
+                    <div class="notes-status" id="mobile-notes-status">Saved</div>
+                </div>
+            </div>
+            <button class="mobile-back-button" onclick="closeMobileApp('notes')"><i
+                    class="fas fa-chevron-left"></i></button>
+        </div>
+        <div id="mobile-drawings" class="mobile-app glass">
+            <div class="mobile-app-content">
+                <div class="drawing-controls">
+                    <input type="color" id="mobile-draw-color" value="#ffffff">
+                    <input type="range" id="mobile-draw-size" min="1" max="20" value="5">
+                    <button class="glass-button small" onclick="clearCanvas(true)">Clear</button>
+                </div>
+                <canvas id="mobile-drawing-canvas"></canvas>
+            </div>
+            <button class="mobile-back-button" onclick="closeMobileApp('drawings')"><i
+                    class="fas fa-chevron-left"></i></button>
+        </div>
+        <div id="mobile-stopwatch" class="mobile-app glass">
+            <div class="mobile-app-content center-content">
+                <div class="stopwatch-container">
+                    <div class="timer-display" id="mobile-stopwatch-display">00:00.00</div>
+                    <div class="timer-controls">
+                        <button class="glass-button" onclick="startStopwatch(true)">Start</button>
+                        <button class="glass-button" onclick="stopStopwatch(true)">Stop</button>
+                        <button class="glass-button" onclick="lapStopwatch(true)">Lap</button>
+                        <button class="glass-button" onclick="resetStopwatch(true)">Reset</button>
+                    </div>
+                    <div class="laps-list" id="mobile-laps-list"></div>
+                </div>
+            </div>
+            <button class="mobile-back-button" onclick="closeMobileApp('stopwatch')"><i
+                    class="fas fa-chevron-left"></i></button>
+        </div>
+        <div id="mobile-timer" class="mobile-app glass">
+            <div class="mobile-app-content center-content">
+                <div class="timer-container">
+                    <div class="timer-inputs" id="mobile-timer-inputs">
+                        <input type="number" id="mobile-timer-h" placeholder="00" min="0" max="23"> :
+                        <input type="number" id="mobile-timer-m" placeholder="00" min="0" max="59"> :
+                        <input type="number" id="mobile-timer-s" placeholder="00" min="0" max="59">
+                    </div>
+                    <div class="timer-display" id="mobile-timer-display" style="display:none;">00:00:00</div>
+                    <div class="timer-controls">
+                        <button class="glass-button" onclick="startTimer(true)">Start</button>
+                        <button class="glass-button" onclick="stopTimer(true)">Stop</button>
+                        <button class="glass-button" onclick="resetTimer(true)">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-back-button" onclick="closeMobileApp('timer')"><i
+                    class="fas fa-chevron-left"></i></button>
+        </div>
+        <div id="mobile-spotify" class="mobile-app glass">
+            <div class="mobile-app-content">
+                <div class="spotify-player">
+                    <iframe style="border-radius:12px"
+                        src="https://open.spotify.com/embed/playlist/4jZewD1ibeylaOwXASx98z?utm_source=generator&theme=0"
+                        width="100%" height="380" frameborder="0" allowfullscreen
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+            <button class="mobile-back-button" onclick="closeMobileApp('spotify')"><i
+                    class="fas fa-chevron-left"></i></button>
+        </div>
+        <div id="mobile-wallpapers" class="mobile-app glass">
+            <div class="mobile-app-content">
+                <div class="wallpapers-container">
+                    <h3 style="margin-bottom: 15px; font-weight: 600; text-align: center;">Choose a Theme</h3>
+                    <div class="wallpaper-grid">
+                        <button class="wallpaper-btn" onclick="setWallpaper('nature')">
+                            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400&q=80"
+                                alt="Nature">
+                            <span>Nature</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('abstract')">
+                            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&q=80"
+                                alt="Abstract">
+                            <span>Abstract</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('space')">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80"
+                                alt="Space">
+                            <span>Space</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('minimal')">
+                            <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=400&q=80"
+                                alt="Minimal">
+                            <span>Minimal</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('architecture')">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80"
+                                alt="Architecture">
+                            <span>Architecture</span>
+                        </button>
+                        <button class="wallpaper-btn" onclick="setWallpaper('dark')">
+                            <img src="https://images.unsplash.com/photo-1550684847-75bdda21cc95?w=400&q=80" alt="Dark">
+                            <span>Dark</span>
+                        </button>
+                    </div>
+                    <div class="wallpaper-actions" style="margin-top: 20px; text-align: center;">
+                        <button class="glass-button" onclick="setRandomWallpaper()">
+                            <i class="fas fa-random"></i> Random
+                        </button>
+                        <button class="glass-button" onclick="resetWallpaper()">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-back-button" onclick="closeMobileApp('wallpapers')"><i
+                    class="fas fa-chevron-left"></i></button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+<script src="../version.js"></script>
+</body>
+</html>

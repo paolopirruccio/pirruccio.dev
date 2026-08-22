@@ -1,0 +1,12 @@
+"use client";
+
+import {animate,useAnimationFrame,useMotionValue,useReducedMotion} from "motion/react";
+import {useEffect,useRef} from "react";
+
+export function ElasticSeparator({label="Separatore elastico"}:{label?:string}){
+  const host=useRef<SVGSVGElement>(null),path=useRef<SVGPathElement>(null),dragging=useRef(false),moved=useRef(false),startY=useRef(0),width=useMotionValue(1),x=useMotionValue(.5),y=useMotionValue(0),reduced=useReducedMotion();
+  useEffect(()=>{const svg=host.current;if(!svg)return;const update=()=>width.set(svg.getBoundingClientRect().width||1);update();const observer=new ResizeObserver(update);observer.observe(svg);return()=>observer.disconnect()},[width]);
+  useAnimationFrame(()=>{const w=width.get(),cx=Math.max(0,Math.min(w,x.get())),cy=36+y.get();path.current?.setAttribute("d",`M0 36 Q${cx} ${cy} ${w} 36`)});
+  const release=(pointerId?:number)=>{if(!dragging.current)return;dragging.current=false;const svg=host.current;if(pointerId!==undefined&&svg?.hasPointerCapture(pointerId))svg.releasePointerCapture(pointerId);const w=width.get();if(!reduced&&!moved.current){y.set(startY.current<=36?16:-16)}animate(x,w/2,{type:"spring",stiffness:250,damping:16});animate(y,0,reduced?{duration:0}:{type:"spring",stiffness:225,damping:5.8,mass:.58})};
+  return <svg ref={host} className="elastic-separator" role="button" aria-label={label} tabIndex={0} preserveAspectRatio="none" onPointerDown={event=>{const rect=event.currentTarget.getBoundingClientRect();dragging.current=true;moved.current=false;startY.current=event.clientY-rect.top;x.set(event.clientX-rect.left);event.currentTarget.setPointerCapture(event.pointerId)}} onPointerMove={event=>{if(!dragging.current)return;const rect=event.currentTarget.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom){release(event.pointerId);return}const offset=event.clientY-rect.top-36;moved.current=moved.current||Math.abs(offset)>4;x.set(event.clientX-rect.left);y.set(Math.max(-54,Math.min(54,offset*1.35)))}} onPointerLeave={event=>release(event.pointerId)} onPointerUp={event=>release(event.pointerId)} onPointerCancel={event=>release(event.pointerId)} onKeyDown={event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();if(!reduced){y.set(18);animate(y,0,{type:"spring",stiffness:225,damping:5.8,mass:.58})}}}}><path ref={path} fill="none" vectorEffect="non-scaling-stroke"/></svg>
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Playfair+Display:wght@800&family=DynaPuff&family=Syne:wght@800&family=Comic+Neue&family=Orbitron&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/stile.css">
+    <link rel="stylesheet" href="css/overlay_menu.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" type="image/webp" href="../blog/icon.webp">
+    <link rel="apple-touch-icon" href="../blog/icon.webp">
+</head>
+<body id="blog-body">
+    <!-- Navbar injected via components.js -->
+    <!-- Info blog -->
+    <div class="contenitore" style="margin-top: 80px;">
+        <header class="blog-header" id="blog-header-container">
+            <!-- Populated via JS -->
+            <h1 class="blog-title" id="blog-titolo">Caricamento...</h1>
+            <p class="blog-description" id="blog-descrizione"></p>
+            <div class="blog-meta" id="blog-meta-container">
+                <!-- Meta tags js mapped -->
+            </div>
+            <div class="blog-stats" id="blog-stats-container">
+                <!-- Stats mapped -->
+            </div>
+            <div class="user-role-message" id="user-role-msg" style="display: none;"></div>
+        </header>
+        <!-- Operazioni blog -->
+        <main class="blog-content">
+            <div class="blog-actions" id="blog-actions-container">
+                <!-- Buttons mapped by JS depending on role -->
+            </div>
+            <div id="postsContainer">
+                <!-- Posts will appear here dynamically -->
+            </div>
+            <div id="loading" class="loading" style="display: none;">Caricamento...</div>
+        </main>
+    </div>
+    <img src="illustrazioni/nulla.svg" alt="Home Illustration" class="illustration centered-illustration"
+        style="width: 300px; display: block; margin-left: auto; margin-right: auto;">
+    <!-- Overlay di info -->
+    <div class="overlay" id="infoOverlay">
+        <div class="overlay-content">
+            <span class="close-btn"
+                onclick="document.getElementById('infoOverlay').classList.remove('active')">&times;</span>
+            <h3>Informazioni sul Blog</h3>
+            <p id="info-descrizione"></p>
+            <p><strong>Proprietario:</strong> <span id="info-proprietario"></span></p>
+        </div>
+    </div>
+    <!-- Overlay Lascia Recensione -->
+    <div class="overlay" id="overlayRecensione">
+        <div class="overlay-content" style="text-align: center;">
+            <span class="close-btn"
+                onclick="document.getElementById('overlayRecensione').classList.remove('active')">&times;</span>
+            <h3 style="color: #6a0dad; margin-bottom: 20px;">Lascia una Recensione</h3>
+            <div class="rating-stars" id="starContainer" style="font-size: 30px; margin-bottom: 15px; color: #ccc;">
+                <i class="fas fa-star star" data-value="1"></i>
+                <i class="fas fa-star star" data-value="2"></i>
+                <i class="fas fa-star star" data-value="3"></i>
+                <i class="fas fa-star star" data-value="4"></i>
+                <i class="fas fa-star star" data-value="5"></i>
+            </div>
+            <textarea id="testoRecensione" placeholder="Cosa ne pensi di questo blog?"
+                style="width: 100%; height: 80px; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: inherit;"></textarea>
+            <button class="action-btn primary" id="btn-salva-recensione" style="width: 100%;">Invia Recensione</button>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="illustrazioni/logo-footer.svg" alt="BlogOwl Logo" class="footer-logo">
+        </div>
+        <div class="footer-disclaimer">
+            Progetto di Basi di Dati e Laboratorio Web 2023/2024.<br>©Paolo Pirruccio (614754) ©Francisco LeYucra
+            (659528).
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="db.js"></script>
+    <script src="mostra_messaggio.js"></script>
+    <script src="components/components.js"></script>
+    <script src="blog_profile_logic.js"></script>
+    <script src="post_like.js"></script>
+    <script src="commento_gestisci.js"></script>
+</body>
+</html>

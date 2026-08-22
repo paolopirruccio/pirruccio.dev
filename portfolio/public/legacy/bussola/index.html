@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#030305">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bussola">
+    <meta name="color-scheme" content="dark">
+    <title>Bussola - InfoUma</title>
+    <link rel="icon" type="image/png" href="assets/compass-192.png" />
+    <link rel="apple-touch-icon" href="assets/compass-192.png" />
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
+    <style>
+        /* Home card-grid overrides per tema chiaro */
+        @media (prefers-color-scheme: light) {
+            .bussola-home-card {
+                background: #ffffff;
+                border-color: rgba(0,0,0,0.08);
+                box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            }
+            .bussola-home-card:hover {
+                background: #f8f9fa;
+                border-color: rgba(0,0,0,0.15);
+            }
+        }
+        html[data-theme="letterato"] .bussola-home-card {
+            background: rgba(60,40,10,0.03);
+            border-color: rgba(80,50,20,0.14);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="info-modal-overlay" id="infouma-modal">
+        <div class="info-modal-content">
+            <button class="info-modal-close"
+                onclick="document.getElementById('infouma-modal').classList.remove('active')"><i
+                    class="ri-close-line"></i></button>
+            <img src="assets/compass.webp" alt="InfoUma Logo" class="info-modal-logo">
+            <h2
+                style="font-family: var(--font-display); font-size: 2.2rem; font-style: italic; margin-bottom: 0.5rem; color: var(--text-primary); text-transform:none; letter-spacing:0;">
+                La Bussola di InfoUma</h2>
+            <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+                Il portale essenziale per gli studenti di Informatica Umanistica dell'Università di Pisa. Raccoglie le
+                risorse più importanti in un unico sito interattivo.
+            </p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+                Progetto a cura di <strong style="color: var(--text-primary);">Paolo Pirruccio</strong>.
+            </p>
+        </div>
+    </div>
+
+    <script src="navbar.js"></script>
+
+    <div class="container fade-in">
+
+        <!-- Original Header Restored -->
+        <header>
+            <picture class="site-logo-container">
+                <img src="assets/compass.webp" alt="Bussola Logo" class="site-logo" style="height: 140px;">
+            </picture>
+            <div class="version-badge beta" style="margin-bottom: 1rem;">BETA</div>
+            <h1>La Bussola di InfoUma</h1>
+            <p
+                style="text-align: center; color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; margin-bottom: 1.5rem; max-width: 600px; line-height: 1.5;">
+                Il portale essenziale per gli studenti di Informatica Umanistica dell'Università di Pisa. Raccoglie le
+                risorse più importanti in un unico sito interattivo.
+            </p>
+            <button onclick="BussolaSettings.open()" class="home-settings-btn">
+                <i class="ri-settings-3-line"></i>
+                <span>Impostazioni</span>
+            </button>
+        </header>
+
+        <!-- Card Grid Menu -->
+        <main class="bussola-home-grid">
+
+            <a href="./links.html" class="bussola-home-card card-links">
+                <i class="ri-bookmark-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="links_title">Link utili</span>
+                <span class="bussola-card-desc" data-i18n="links_desc">Portali, servizi e risorse</span>
+                <i class="ri-arrow-right-line bussola-card-arrow"></i>
+            </a>
+
+            <a href="./lezioni.html" class="bussola-home-card card-lezioni">
+                <i class="ri-presentation-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="lezioni_title">Lezioni</span>
+                <span class="bussola-card-desc" data-i18n="lezioni_desc">Orari al Polo Fibonacci</span>
+                <i class="ri-arrow-right-line bussola-card-arrow"></i>
+            </a>
+
+            <a href="./aule.html" class="bussola-home-card card-aule">
+                <i class="ri-door-open-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="aule_title">Aule libere</span>
+                <span class="bussola-card-desc" data-i18n="aule_desc">Trova un posto al Fibonacci</span>
+                <i class="ri-arrow-right-line bussola-card-arrow"></i>
+            </a>
+
+            <a href="./faq.html" class="bussola-home-card card-faq">
+                <i class="ri-question-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="faq_title">FAQ</span>
+                <span class="bussola-card-desc" data-i18n="faq_desc">Domande frequenti</span>
+                <i class="ri-arrow-right-line bussola-card-arrow"></i>
+            </a>
+
+            <a href="https://plumkewe.github.io/dove-unipi/" target="_blank" rel="noopener noreferrer"
+               class="bussola-home-card card-map full-width">
+                <i class="ri-map-pin-line bussola-card-icon"></i>
+                <div>
+                    <span class="bussola-card-title" data-i18n="map_title">Mappa dei Poli</span>
+                    <span class="bussola-card-desc" style="display:block;" data-i18n="map_desc">Dove UniPi — naviga il campus</span>
+                </div>
+                <i class="ri-external-link-line bussola-card-arrow"></i>
+            </a>
+
+        </main>
+
+        <!-- ── Banner installazione PWA (inline, al posto del floating) ── -->
+        <div class="pwa-home-banner" id="pwaBannerHome">
+            <div class="pwa-home-banner-icon">🧭</div>
+            <div class="pwa-home-banner-text">
+                <strong id="pwaTitle">Installa la Bussola</strong>
+                <span id="pwaDesc">Aggiungila alla schermata home per accedere più velocemente.</span>
+            </div>
+            <div class="pwa-home-banner-actions">
+                <button class="pwa-home-install-btn" id="pwaInstallBtn" onclick="handlePwaInstall()">Installa</button>
+                <button class="pwa-home-dismiss-btn" onclick="dismissPwa()"><i class="ri-close-line"></i></button>
+            </div>
+        </div>
+
+        <footer style="margin-top: 5rem;">
+            <img src="assets/compass.webp" alt="logo"
+                style="width: 40px; height: 40px; margin-bottom: 0.5rem; opacity: 0.9;">
+            <div
+                style="font-family: var(--font-display); font-size: 1.8rem; font-style: italic; margin-bottom: 1rem; color: var(--text-primary);">
+                La Bussola di InfoUma</div>
+            <p class="disclaimer">
+                by <strong style="color: var(--text-primary);">Paolo Pirruccio</strong>.<br>
+                <span style="font-size: 0.75rem; opacity: 0.8; display: inline-block; margin-top: 0.3rem;">
+                    Non affiliato all'Università di Pisa o a Cineca.
+                </span>
+            </p>
+            <a href="mailto:pirruccio.01@gmail.com?subject=Segnalazione%20Bug%20Bussola"
+                style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.3rem; font-size: 0.8rem; margin-top: 1rem; transition: color 0.2s;">
+                <i class="ri-bug-line"></i> Segnala un bug
+            </a>
+        </footer>
+    </div>
+
+    <script src="../version.js"></script>
+    <script>
+    /* ────────────────────────────────────────────
+       i18n — traduzioni home
+    ──────────────────────────────────────────── */
+    const I18N = {
+        it: {
+            links_title:   'Link utili',
+            links_desc:    'Portali, servizi e risorse',
+            lezioni_title: 'Lezioni',
+            lezioni_desc:  'Orari al Polo Fibonacci',
+            aule_title:    'Aule libere',
+            aule_desc:     'Trova un posto al Fibonacci',
+            faq_title:     'FAQ',
+            faq_desc:      'Domande frequenti',
+            map_title:     'Mappa dei Poli',
+            map_desc:      'Dove UniPi — naviga il campus',
+        },
+        en: {
+            links_title:   'Useful links',
+            links_desc:    'Portals, services & resources',
+            lezioni_title: 'Lectures',
+            lezioni_desc:  'Schedule at Polo Fibonacci',
+            aule_title:    'Free rooms',
+            aule_desc:     'Find a spot at Fibonacci',
+            faq_title:     'FAQ',
+            faq_desc:      'Frequently asked questions',
+            map_title:     'Campus map',
+            map_desc:      'Dove UniPi — explore the campus',
+        }
+    };
+
+    function applyLang(lang) {
+        localStorage.setItem('bussola_lang', lang);
+        document.documentElement.setAttribute('lang', lang === 'en' ? 'en' : 'it');
+        // Applica traduzioni locali (home cards)
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+            const key = el.dataset.i18n;
+            if (I18N[lang] && I18N[lang][key]) el.textContent = I18N[lang][key];
+        });
+        // Applica traduzioni globali (navbar e altri elementi con BussolaI18n)
+        if (window.BussolaI18n) BussolaI18n.applyDataI18n(lang);
+        // Aggiorna bottoni lingua nell'overlay globale
+        var it = document.getElementById('bussolaLangIT');
+        var en = document.getElementById('bussolaLangEN');
+        if (it) it.classList.toggle('active', lang === 'it');
+        if (en) en.classList.toggle('active', lang === 'en');
+    }
+
+    function refreshThemeGrid() {
+        // Delega all'overlay globale iniettato da theme.js
+        var cur = BussolaTheme.get();
+        document.querySelectorAll('#bussolaThemeGrid .theme-card').forEach(function(card) {
+            card.classList.toggle('active', card.dataset.theme === cur);
+        });
+    }
+
+    /* ────────────────────────────────────────────
+       PWA install
+    ──────────────────────────────────────────── */
+    var _deferredPrompt = null;
+
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        _deferredPrompt = e;
+        if (!localStorage.getItem('bussola_pwa_dismissed')) showPwaBanner('android');
+    });
+
+    function showPwaBanner(os) {
+        var banner = document.getElementById('pwaBannerHome');
+        if (!banner) return;
+        var btn  = document.getElementById('pwaInstallBtn');
+        var desc = document.getElementById('pwaDesc');
+        if (os === 'ios') {
+            if (btn) btn.style.display = 'none';
+            if (desc) desc.innerHTML = 'Tocca <i class="ri-share-box-line" style="vertical-align:middle"></i> poi <strong>Aggiungi alla schermata Home</strong>';
+            var title = document.getElementById('pwaTitle');
+            if (title) title.textContent = 'Installa la Bussola';
+        }
+        setTimeout(function() { banner.classList.add('show'); }, 800);
+    }
+
+    function handlePwaInstall() {
+        if (!_deferredPrompt) return;
+        _deferredPrompt.prompt();
+        _deferredPrompt.userChoice.then(function() {
+            _deferredPrompt = null;
+            dismissPwa();
+        });
+    }
+
+    function dismissPwa() {
+        var banner = document.getElementById('pwaBannerHome');
+        if (banner) banner.classList.remove('show');
+        localStorage.setItem('bussola_pwa_dismissed', '1');
+    }
+
+    /* ────────────────────────────────────────────
+       Init
+    ──────────────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lingua
+        var lang = localStorage.getItem('bussola_lang') || 'it';
+        applyLang(lang);
+
+        // iOS PWA check
+        var isIOS    = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        var standalone = window.navigator.standalone === true;
+        if (isIOS && isSafari && !standalone && !localStorage.getItem('bussola_pwa_dismissed')) {
+            showPwaBanner('ios');
+        }
+    });
+    </script>
+</body>
+
+</html>

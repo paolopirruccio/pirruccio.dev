@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esplora</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&display=swap">
+    <link rel="stylesheet" href="css/stile.css">
+    <link rel="stylesheet" href="css/overlay_menu.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" type="image/webp" href="../blog/icon.webp">
+    <link rel="apple-touch-icon" href="../blog/icon.webp">
+</head>
+<body>
+    <!-- Navbar injected via components.js -->
+    <div style="margin-top: 80px; text-align: center;">
+        <img src="illustrazioni/cerca-ill.svg" alt="Home Illustration" class="illustration" style="width: 150px;">
+        <h1>Cerca in BlogOwl</h1>
+    </div>
+    <!-- Filtri Ricerca -->
+    <!-- Overlay Menu Crea -->
+    <div id="overlay-menu-crea" class="overlay-menu-crea" style="display: none;">
+        <div class="menu-crea-content">
+            <span class="close-crea">&times;</span>
+            <h2>Cosa vuoi creare?</h2>
+            <div class="opzioni-crea">
+                <a href="crea_post.html" class="opzione-crea">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                    <span>Nuovo Post</span>
+                </a>
+                <a href="crea_blog.html" class="opzione-crea">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Nuovo Blog</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="contenitore-filtri">
+        <div class="pillola-filtro active" data-filter="post">
+            <i class="fa-solid fa-quote-right"></i> Post
+        </div>
+        <div class="pillola-filtro" data-filter="autore">
+            <i class="fas fa-user"></i> Autore
+        </div>
+        <div class="pillola-filtro" data-filter="blog">
+            <i class="fa-solid fa-layer-group"></i> Blog
+        </div>
+        <div class="pillola-filtro" data-filter="categoria">
+            <i class="fas fa-tags"></i> Categoria
+        </div>
+    </div>
+    <div id="scatolaRicerca">
+        <i id="iconaRicerca" class="fas fa-search"></i>
+        <input type="text" id="inputRicerca" placeholder="Cerca post...">
+    </div>
+    <div id="loading" class="loading" style="display: none;">Caricamento...</div>
+    <!-- Risultati Ricerca -->
+    <div class="contenitore-risultati">
+        <p style="text-align: center;">Oppure <a href="esplora_blog.html">scopri qualche blog interessante.</a></p>
+        <div class="illustration-container"
+            style="display: flex; justify-content: center; align-items: center; flex-direction: column;"
+            id="risultatiRicerca">
+            <!-- I risultati della ricerca verranno inseriti qui da cerca_logic.js -->
+        </div>
+    </div>
+    <button class="bottone-crea" id="bottoneCreaOverlay">
+        Crea <i class="fa-solid fa-circle-plus"></i>
+    </button>
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="illustrazioni/logo-footer.svg" alt="BlogOwl Logo" class="footer-logo">
+        </div>
+        <div class="footer-disclaimer">
+            Progetto di Basi di Dati e Laboratorio Web 2023/2024.<br>©Paolo Pirruccio (614754) ©Francisco LeYucra
+            (659528).
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="db.js"></script>
+    <script src="mostra_messaggio.js"></script>
+    <script src="components/components.js"></script>
+    <script src="cerca_logic.js"></script>
+    <script src="post_like.js"></script>
+    <script src="commento_gestisci.js"></script>
+    <!-- Script Toggle Crea Menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnCrea = document.getElementById('bottoneCreaOverlay');
+            const overlayCrea = document.getElementById('overlay-menu-crea');
+            if (btnCrea && overlayCrea) {
+                btnCrea.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    overlayCrea.style.display = 'flex';
+                });
+                const closeBtn = overlayCrea.querySelector('.close-crea');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        overlayCrea.style.display = 'none';
+                    });
+                }
+                overlayCrea.addEventListener('click', (e) => {
+                    if (e.target === overlayCrea) {
+                        overlayCrea.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

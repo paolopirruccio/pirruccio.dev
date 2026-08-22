@@ -1,0 +1,15 @@
+.shell-language{border:1px solid #00000014!important}
+.mode-switch-rim{border-radius:22px}
+.mode-switch-rim .rim-face{padding:0;border:0;border-radius:22px;background:transparent;box-shadow:none}
+.mode-switch-rim .rim-layers{z-index:-1}
+.mode-switch-rim[data-playing] .rim-layer{display:block}
+.mode-switch-rim:not([data-playing]) .rim-layer{display:none}
+.mode-switch-rim button:disabled{cursor:wait}
+.app-shell::after{content:"";position:fixed;z-index:900;inset:0;pointer-events:none;background:#fff;opacity:0;transition:opacity .34s ease}
+.app-shell.is-leaving::after{opacity:1}
+.view-stage{transition:filter .34s ease,opacity .22s ease}
+.is-changing .view-stage{opacity:1;filter:none}
+.is-changing.is-leaving .view-stage{opacity:0;filter:blur(14px)}
+.is-changing .shell-language{opacity:.55;pointer-events:none}
+.shell-language{transition:opacity .2s ease,border-color .2s ease}
+@media(prefers-color-scheme:dark){.shell-language{border-color:#ffffff1f!important}.app-shell::after{background:#fff}}

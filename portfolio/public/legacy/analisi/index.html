@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Analisi Dati">
+<meta name="theme-color" content="#7b74f0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjN2I3NGYwIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjU0IiB3aWR0aD0iMTQiIGhlaWdodD0iMzAiIHJ4PSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+CiAgPHJlY3QgeD0iMzQiIHk9IjM4IiB3aWR0aD0iMTQiIGhlaWdodD0iNDYiIHJ4PSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+CiAgPHJlY3QgeD0iNTQiIHk9IjI2IiB3aWR0aD0iMTQiIGhlaWdodD0iNTgiIHJ4PSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+CiAgPHJlY3QgeD0iNzQiIHk9IjE0IiB3aWR0aD0iMTQiIGhlaWdodD0iNzAiIHJ4PSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+CiAgPHBvbHlsaW5lIHBvaW50cz0iMjEsNTIgNDEsMzYgNjEsMjQgODEsMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZDE2NiIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxjaXJjbGUgY3g9IjIxIiBjeT0iNTIiIHI9IjMuNSIgZmlsbD0iI2ZmZDE2NiIvPgogIDxjaXJjbGUgY3g9IjQxIiBjeT0iMzYiIHI9IjMuNSIgZmlsbD0iI2ZmZDE2NiIvPgogIDxjaXJjbGUgY3g9IjYxIiBjeT0iMjQiIHI9IjMuNSIgZmlsbD0iI2ZmZDE2NiIvPgogIDxjaXJjbGUgY3g9IjgxIiBjeT0iMTIiIHI9IjMuNSIgZmlsbD0iI2ZmZDE2NiIvPgo8L3N2Zz4=">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjN2I3NGYwIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjU0IiB3aWR0aD0iMTQiIGhlaWdodD0iMzAiIHJ4PSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+CiAgPHJlY3QgeD0iMzQiIHk9IjM4IiB3aWR0aD0iMTQiIGhlaWdodD0iNDYiIHJ4PSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+CiAgPHJlY3QgeD0iNTQiIHk9IjI2IiB3aWR0aD0iMTQiIGhlaWdodD0iNTgiIHJ4PSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+CiAgPHJlY3QgeD0iNzQiIHk9IjE0IiB3aWR0aD0iMTQiIGhlaWdodD0iNzAiIHJ4PSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+CiAgPHBvbHlsaW5lIHBvaW50cz0iMjEsNTIgNDEsMzYgNjEsMjQgODEsMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZDE2NiIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxjaXJjbGUgY3g9IjIxIiBjeT0iNTIiIHI9IjMuNSIgZmlsbD0iI2ZmZDE2NiIvPgogIDxjaXJjbGUgY3g9IjQxIiBjeT0iMzYiIHI9IjMuNSIgZmlsbD0iI2ZmZDE2NiIvPgogIDxjaXJjbGUgY3g9IjYxIiBjeT0iMjQiIHI9IjMuNSIgZmlsbD0iI2ZmZDE2NiIvPgogIDxjaXJjbGUgY3g9IjgxIiBjeT0iMTIiIHI9IjMuNSIgZmlsbD0iI2ZmZDE2NiIvPgo8L3N2Zz4=">
+<title>Domande Analisi di dati</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg:#1c1e26;--surface:#252830;--surface2:#2e3140;--border:#3a3f55;
+  --accent:#7b74f0;--accent2:#b0a8ff;
+  --green:#4ade80;--gbg:rgba(74,222,128,.1);--gbd:rgba(74,222,128,.3);
+  --red:#f87171;--rbg:rgba(248,113,113,.1);--rbd:rgba(248,113,113,.3);
+  --text:#dde1f0;--text2:#8b93b0;--r:14px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+@media(prefers-color-scheme:light){
+  :root{
+    --bg:#f4f5f9;--surface:#fff;--surface2:#eef0f6;--border:#d8dce8;
+    --accent:#5b52e0;--accent2:#7b74f0;
+    --green:#16a34a;--gbg:rgba(22,163,74,.08);--gbd:rgba(22,163,74,.3);
+    --red:#dc2626;--rbg:rgba(220,38,38,.08);--rbd:rgba(220,38,38,.3);
+    --text:#1e2030;--text2:#5a6080;
+  }
+  .opt.prof-correct{background:rgba(202,138,4,.1);border-color:rgba(202,138,4,.4)}
+  .opt.prof-correct .olt{background:#ca8a04;color:#fff}
+  .fb.prof{background:rgba(202,138,4,.1);border:1px solid rgba(202,138,4,.4);color:#ca8a04}
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{height:100%}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;line-height:1.6;min-height:100%;
+  display:flex;flex-direction:column;align-items:center;
+  padding: calc(20px + var(--safe-top)) 14px calc(60px + var(--safe-bottom));
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:contain;
+}
+
+/* ── HEADER ── */
+.hdr{width:100%;max-width:700px;display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.hdr-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.hdr-left{display:flex;align-items:center;gap:8px}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2)}
+.score{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:700}
+.score-item{display:flex;align-items:center;gap:5px;color:var(--text2)}
+.score-item span{color:var(--text)}
+.track{width:100%;height:5px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .4s ease}
+.plbl{font-size:13px;color:var(--text2);text-align:right}
+
+/* icon buttons */
+.ibtn{background:var(--surface2);border:1px solid var(--border);border-radius:9px;
+  min-width:40px;height:40px;padding:0 10px;display:flex;align-items:center;justify-content:center;gap:5px;
+  cursor:pointer;transition:background .15s;flex-shrink:0;font-size:13px;font-weight:600;color:var(--text2);font-family:inherit}
+.ibtn:hover{background:var(--border)}
+.ibtn:active{transform:scale(.95)}
+.pdf-link{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:11px 18px;
+  background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+  color:var(--accent2);text-decoration:none;font-size:14px;font-weight:600;
+  transition:background .15s,transform .1s}
+.pdf-link:hover{background:var(--border)}
+.pdf-link:active{transform:scale(.97)}
+.ibtn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* ── CARD ── */
+.card{width:100%;max-width:700px;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:22px 18px;box-shadow:0 2px 12px rgba(0,0,0,.08);animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.qmeta{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.qnum{background:var(--accent);color:#fff;font-size:11px;font-weight:700;
+  padding:4px 11px;border-radius:6px;flex-shrink:0;letter-spacing:.04em}
+.qtit{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;line-height:1.4}
+.qtxt{font-size:16px;line-height:1.65;font-weight:500;margin-bottom:22px;color:var(--text)}
+
+/* ── OPTIONS ── */
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;background:var(--surface2);
+  border:1.5px solid var(--border);border-radius:12px;padding:13px 15px;cursor:pointer;
+  transition:border-color .15s,background .15s,transform .1s;user-select:none;
+  min-height:52px;}
+.opt:hover:not(.done){border-color:var(--accent);background:rgba(123,116,240,.08)}
+.opt.kbd:not(.done){border-color:var(--accent);background:rgba(123,116,240,.14);box-shadow:0 0 0 2px rgba(123,116,240,.35)}
+.opt:active:not(.done){transform:scale(.985)}
+.olt{flex-shrink:0;width:30px;height:30px;border-radius:8px;background:var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--text2);transition:background .2s,color .2s}
+.otxt{font-size:15px;line-height:1.5;color:var(--text);flex:1}
+.opt.correct{background:var(--gbg);border-color:var(--gbd)}
+.opt.correct .olt{background:var(--green);color:#fff}
+.opt.wrong{background:var(--rbg);border-color:var(--rbd)}
+.opt.prof-correct{background:rgba(234,179,8,.15);border-color:rgba(234,179,8,.4)}
+.opt.prof-correct .olt{background:#eab308;color:#fff}
+.fb.prof{background:rgba(234,179,8,.15);border:1px solid rgba(234,179,8,.4);color:#eab308}
+.opt.wrong .olt{background:var(--red);color:#fff}
+.opt.dim{opacity:.3}.opt.done{cursor:default}
+
+/* ── FEEDBACK ── */
+.fb{margin-top:18px;padding:14px 16px;border-radius:12px;font-size:14px;
+  line-height:1.6;display:none;animation:fi .25s ease}
+.fb.show{display:block}
+.fb.ok{background:var(--gbg);border:1px solid var(--gbd);color:var(--green)}
+.fb.ko{background:var(--rbg);border:1px solid var(--rbd);color:var(--red)}
+.fbh{font-weight:700;font-size:15px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.fbc{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);color:var(--text2);font-size:14px}
+.fbc strong{color:var(--text)}
+.fbe{margin-top:10px;padding:11px 14px;background:var(--surface2);border-radius:9px;
+  font-size:13.5px;color:var(--text2);line-height:1.55;border:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:8px}
+.fbe svg{flex-shrink:0;margin-top:2px;width:16px;height:16px;stroke:var(--accent2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── BUTTONS ── */
+.bnxt{width:100%;padding:15px;background:var(--accent);color:#fff;font-size:16px;font-weight:700;
+  border:none;border-radius:12px;cursor:pointer;font-family:inherit;
+  transition:filter .15s,transform .1s;margin-top:16px;display:none;
+  min-height:52px}
+.bnxt.show{display:block}
+.bnxt:hover{filter:brightness(1.1)}.bnxt:active{transform:scale(.985)}
+.btn-row{display:flex;gap:10px;margin-top:12px}
+.qtimer{position:fixed;bottom:14px;right:14px;z-index:60;display:none;align-items:center;gap:6px;padding:6px 11px;background:var(--surface2);border:1px solid var(--border);border-radius:999px;font-size:12.5px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.qtimer svg{width:13px;height:13px;fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.btn-sec{flex:1;padding:13px 10px;background:var(--surface2);color:var(--text2);
+  font-size:14px;font-weight:600;border:1px solid var(--border);border-radius:12px;
+  cursor:pointer;font-family:inherit;transition:background .15s;
+  display:flex;align-items:center;justify-content:center;gap:7px;min-height:48px}
+.btn-sec:hover{background:var(--border)}
+.btn-sec svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* ── START SCREEN ── */
+.start{width:100%;max-width:700px;display:flex;flex-direction:column;align-items:center;gap:20px;animation:fi .35s ease}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:36px 24px;text-align:center;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.sc-icon{width:80px;height:80px;margin:0 auto 20px;display:block}
+.sct{font-size:24px;font-weight:700;margin-bottom:8px;letter-spacing:-.02em}
+.scs{font-size:15px;color:var(--text2);margin-bottom:28px;line-height:1.55}
+.mode-row{display:flex;gap:10px;margin-bottom:28px}
+.mode-btn{flex:1;padding:16px 10px;background:var(--surface2);border:1.5px solid var(--border);
+  border-radius:12px;cursor:pointer;font-family:inherit;transition:all .15s;text-align:center;min-height:100px}
+.mode-btn.sel{border-color:var(--accent);background:rgba(123,116,240,.1)}
+.mode-btn svg{width:24px;height:24px;stroke:var(--text2);fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto}
+.mode-btn.sel svg{stroke:var(--accent2)}
+.mode-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.mode-sub{font-size:12px;color:var(--text2);line-height:1.4}
+.plbl2{font-size:13px;color:var(--text2);margin-bottom:10px}
+.picker{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:24px}
+.pk{padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;
+  border:1.5px solid var(--border);background:var(--surface2);color:var(--text);
+  font-family:inherit;transition:all .15s;min-height:44px}
+.pk.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+.rnd{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;
+  font-size:13.5px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);
+  background:var(--surface2);color:var(--text2);font-family:inherit;transition:all .15s;
+  min-height:44px;margin-bottom:24px}
+.rnd svg{width:16px;height:16px;flex-shrink:0}
+.rnd.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+.bstart{width:100%;padding:16px;background:var(--accent);color:#fff;font-size:16px;font-weight:700;
+  border:none;border-radius:12px;cursor:pointer;font-family:inherit;transition:filter .15s;min-height:54px}
+.bstart:hover{filter:brightness(1.1)}
+.info-row{font-size:13px;color:var(--text2);text-align:center}
+
+/* ── FLASHCARD ── */
+.fc-hdr{width:100%;max-width:700px;display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.fc-hdr-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#FC{width:100%;max-width:700px;display:none;flex-direction:column;gap:16px;animation:fi .3s ease}
+#FC.show{display:flex}
+.fc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:22px 18px;box-shadow:0 2px 12px rgba(0,0,0,.08);animation:fi .3s ease}
+.fc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(123,116,240,.15);
+  color:var(--accent2);font-size:11px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:14px}
+.fc-badge svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fc-nav{display:flex;gap:10px;align-items:center}
+.fc-nav-btn{flex:1;padding:14px;background:var(--surface2);color:var(--text);
+  font-size:14px;font-weight:600;border:1px solid var(--border);border-radius:12px;
+  cursor:pointer;font-family:inherit;transition:background .15s;
+  display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px}
+.fc-nav-btn:hover:not(:disabled){background:var(--border)}
+.fc-nav-btn:disabled{opacity:.35;cursor:default}
+.fc-nav-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fc-counter{font-size:13px;color:var(--text2);white-space:nowrap;min-width:55px;text-align:center}
+
+/* ── RESULTS ── */
+.results{width:100%;max-width:700px;display:none;flex-direction:column;gap:18px;animation:fi .3s ease}
+.results.show{display:flex}
+.rc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:28px 22px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.rt{font-size:22px;font-weight:700;margin-bottom:5px}
+.rsb{font-size:14px;color:var(--text2);margin-bottom:18px}
+.rp{font-size:54px;font-weight:800;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;line-height:1;margin-bottom:5px}
+.rf{font-size:14px;color:var(--text2)}
+.stats{display:flex;gap:12px;justify-content:center;margin-top:18px}
+.stat{flex:1;max-width:140px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 8px}
+.stn{font-size:24px;font-weight:700}.stn.g{color:var(--green)}.stn.r{color:var(--red)}
+.stl{font-size:12px;color:var(--text2);margin-top:3px}
+.revhd{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;
+  letter-spacing:.08em;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.revl{display:flex;flex-direction:column;gap:9px}
+.rvi{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:13px 15px;border-left:3px solid var(--border)}
+.rvi.ok{border-left-color:var(--green)}.rvi.ko{border-left-color:var(--red)}
+.rvq{font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px}
+.rva{font-size:13px;color:var(--text2);line-height:1.6}
+.vg{color:var(--green)}.vr{color:var(--red)}
+.res-btns{display:flex;gap:10px}
+.res-btns.top{margin:14px 0 4px}
+.brst,.bback{display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;box-sizing:border-box}
+.brst svg,.bback svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.brst{flex:1;padding:15px;background:var(--accent);color:#fff;font-size:15px;font-weight:700;
+  border:none;border-radius:12px;cursor:pointer;font-family:inherit;transition:filter .15s;min-height:52px}
+.brst:hover{filter:brightness(1.1)}
+.bback{flex:1;padding:15px;background:var(--surface2);color:var(--text);font-size:15px;font-weight:600;
+  border:1px solid var(--border);border-radius:12px;cursor:pointer;font-family:inherit;
+  transition:background .15s;min-height:52px}
+.bback:hover{background:var(--border)}
+
+/* mobile tweaks */
+@media(max-width:520px){
+  body{padding:calc(14px + var(--safe-top)) 12px calc(40px + var(--safe-bottom))}
+  .hdr{margin-bottom:14px;gap:9px}
+  .card{padding:18px 16px;border-radius:13px}
+  .sc{padding:30px 20px}
+  .sct{font-size:22px}
+  .scs{font-size:14px;margin-bottom:24px}
+  .qtxt{font-size:15px;margin-bottom:18px}
+  .qnum{font-size:10.5px;padding:3px 9px}
+  .qtit{font-size:11.5px}
+  .otxt{font-size:14.5px}
+  .opt{padding:12px 14px;gap:11px;min-height:48px}
+  .olt{width:28px;height:28px;font-size:12.5px}
+  .mode-row{gap:8px;margin-bottom:24px}
+  .mode-btn{padding:14px 8px;min-height:92px}
+  .mode-title{font-size:13.5px}
+  .mode-sub{font-size:11.5px}
+  .pk{padding:9px 15px;font-size:13.5px;min-height:42px}
+  .picker{gap:7px;margin-bottom:20px}
+  .stats{gap:8px;margin-top:14px}
+  .stat{padding:12px 6px}
+  .stn{font-size:22px}
+  .res-btns{gap:8px}
+  .brst,.bback{padding:14px;font-size:14px}
+  .fb{padding:13px 14px;font-size:13.5px}
+  .fbe{padding:10px 12px;font-size:13px}
+  .pdf-link{font-size:13.5px;padding:10px 16px}
+  .ibtn{min-width:38px;height:38px;font-size:12.5px}
+}
+@media(max-width:380px){
+  .sct{font-size:20px}
+  .rp{font-size:46px}
+  .mode-btn{padding:12px 6px;min-height:84px}
+  .ibtn span{display:none}
+}
+.search-view{max-width:760px;margin:0 auto;padding:18px 16px 80px;color:var(--text)}
+.sv-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sv-hdr .lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2)}
+.sv-input-wrap{position:relative;display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:10px 12px}
+.sv-ico{width:18px;height:18px;color:var(--text2);flex-shrink:0;margin-right:8px;stroke:var(--text2)}
+#SVI{flex:1;border:0;outline:0;background:transparent;font:inherit;font-size:15px;color:var(--text);min-width:0}
+#SVI::placeholder{color:var(--text2);opacity:.7}
+.sv-clear{background:transparent;border:0;font-size:22px;line-height:1;cursor:pointer;color:var(--text2);padding:0 4px}
+.sv-meta{margin:12px 2px 8px;font-size:13px;color:var(--text2)}
+.sv-list{display:flex;flex-direction:column;gap:12px}
+.sv-item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:border-color .12s, background .12s;color:var(--text)}
+.sv-item:hover{border-color:var(--accent);background:var(--surface2)}
+.sv-item-hdr{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.sv-num{font-size:11px;font-weight:700;color:#fff;background:var(--accent);padding:3px 9px;border-radius:999px;letter-spacing:.5px}
+.sv-title{font-size:14.5px;font-weight:600;color:var(--accent2)}
+.sv-text{font-size:14px;line-height:1.5;color:var(--text)}
+.sv-body{margin-top:10px;display:none;border-top:1px solid var(--border);padding-top:10px}
+.sv-item.open .sv-body{display:block}
+.sv-ans{display:flex;gap:10px;padding:9px 11px;border-radius:10px;margin-bottom:6px;font-size:13.5px;line-height:1.45;background:var(--surface2);border:1px solid var(--border);color:var(--text)}
+.sv-ans .lt{font-weight:700;flex-shrink:0;width:18px;color:var(--text2)}
+.sv-ans.correct{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.45);color:#86efac}
+.sv-ans.correct .lt{color:#86efac}
+.sv-ans.prof-correct{background:rgba(234,179,8,.15);border-color:rgba(234,179,8,.45);color:#fde047}
+.sv-ans.prof-correct .lt{color:#fde047}
+.sv-expl{margin-top:10px;font-size:13px;line-height:1.55;color:var(--text2);border-left:3px solid var(--accent);padding:8px 12px;background:var(--surface2);border-radius:6px}
+.sv-empty{text-align:center;padding:40px 20px;color:var(--text2);font-size:14px}
+mark{background:rgba(176,168,255,.35);color:var(--text);padding:0 3px;border-radius:3px}
+@media(prefers-color-scheme:light){
+  .sv-ans.correct{color:#15803d}
+  .sv-ans.correct .lt{color:#15803d}
+  .sv-ans.prof-correct{color:#a16207}
+  .sv-ans.prof-correct .lt{color:#a16207}
+  mark{background:#fff3a3;color:#000}
+}
+#GATE{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--bg);color:var(--text);padding:24px;font-family:'Inter',system-ui,sans-serif}
+#GATE .g404{display:flex;gap:10px;font-size:clamp(78px,24vw,160px);font-weight:700;line-height:1;letter-spacing:2px}
+#GATE .g404 span{cursor:default;user-select:none;-webkit-user-select:none;transition:transform .12s ease,color .12s ease;color:var(--text)}
+#GATE .g404 span.hit{color:var(--accent)}
+#GATE .gmsg{margin-top:20px;font-size:16px;opacity:.55}
+</style>
+</head>
+<body>
+
+<!-- ══ 404 (finto) — sblocco cliccando 4 → 0 → 4 ══ -->
+<div id="GATE">
+  <div class="g404"><span data-d="4">4</span><span data-d="0">0</span><span data-d="4">4</span></div>
+  <div class="gmsg">Pagina non trovata.</div>
+</div>
+<script>
+(function(){
+  var seq=['4','0','4'],pos=0,g=document.getElementById('GATE');
+  g.querySelectorAll('.g404 span').forEach(function(el){
+    el.addEventListener('click',function(){
+      var d=el.getAttribute('data-d');
+      pos=(d===seq[pos])?pos+1:(d===seq[0]?1:0);
+      el.classList.add('hit');
+      el.style.transform='scale(1.18)';setTimeout(function(){el.style.transform='';},120);
+      if(pos===seq.length){g.style.display='none';}
+    });
+  });
+})();
+</script>
+
+<!-- ══ START ══ -->
+<div class="start" id="SS">
+  <div class="sc">
+    <svg class="sc-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="22" fill="var(--accent)"/>
+      <rect x="14" y="54" width="14" height="30" rx="3" fill="white" opacity="0.9"/>
+      <rect x="34" y="38" width="14" height="46" rx="3" fill="white" opacity="0.9"/>
+      <rect x="54" y="26" width="14" height="58" rx="3" fill="white" opacity="0.9"/>
+      <rect x="74" y="14" width="14" height="70" rx="3" fill="white" opacity="0.9"/>
+      <polyline points="21,52 41,36 61,24 81,12" fill="none" stroke="#ffd166" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="21" cy="52" r="3.5" fill="#ffd166"/>
+      <circle cx="41" cy="36" r="3.5" fill="#ffd166"/>
+      <circle cx="61" cy="24" r="3.5" fill="#ffd166"/>
+      <circle cx="81" cy="12" r="3.5" fill="#ffd166"/>
+    </svg>
+    <div class="sct">Domande Analisi di dati</div>
+    <div class="scs">Scegli la modalità e il numero di domande.</div>
+    <div class="mode-row">
+      <button class="mode-btn sel" id="modeQuiz" onclick="setMode('quiz')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div class="mode-title">Quiz</div>
+        <div class="mode-sub">Rispondi e ricevi feedback immediato</div>
+      </button>
+      <button class="mode-btn" id="modeFlash" onclick="setMode('flash')">
+        <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <div class="mode-title">Flashcard</div>
+        <div class="mode-sub">Ripassa con la risposta già evidenziata</div>
+      </button>
+    </div>
+    <div class="plbl2">Quante domande?</div>
+    <div class="picker" id="PK"></div>
+    <button class="rnd" id="RND" onclick="toggleRnd()" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+      Ordine casuale: <span id="RNDS">Off</span>
+    </button>
+    <button class="bstart" onclick="startSession()">Inizia →</button>
+  </div>
+  <div class="info-row"><span id="tot">—</span> domande disponibili</div>
+  <a class="pdf-link" href="javascript:void(0)" onclick="openSearch()">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Cerca domande
+  </a>
+</div>
+
+<!-- ══ SEARCH VIEW ══ -->
+<div class="search-view" id="SV" style="display:none">
+  <div class="sv-hdr">
+    <button class="ibtn" onclick="closeSearch()" aria-label="Indietro">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="lbl">Cerca domande</div>
+  </div>
+  <div class="sv-input-wrap">
+    <svg class="sv-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="SVI" type="search" placeholder="Cerca per parola chiave, titolo o risposta…" autocomplete="off"/>
+    <button class="sv-clear" id="SVCL" onclick="clearSearch()" aria-label="Pulisci" style="display:none">×</button>
+  </div>
+  <div class="sv-meta" id="SVM">— domande</div>
+  <div class="sv-list" id="SVL"></div>
+</div>
+
+<!-- ══ QUIZ HEADER ══ -->
+<div class="hdr" id="QHD" style="display:none">
+  <div class="hdr-top">
+    <div class="hdr-left">
+      <button class="ibtn" onclick="backToStart()">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </button>
+      <div class="lbl">Quiz</div>
+    </div>
+    <div class="score">
+      <div class="score-item">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span id="SC">0</span>
+      </div>
+      <div class="score-item">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span id="SW">0</span>
+      </div>
+      <button class="ibtn" onclick="restartQuiz()">
+        <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="track"><div class="fill" id="FL" style="width:0%"></div></div>
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+    <button class="ibtn" style="height:26px; min-width:auto; font-size:12px; padding:0 8px; border-color:var(--accent); color:var(--accent);" onclick="jumpTo(false)">Vai a...</button>
+    <div class="plbl" id="PL" style="margin:0;"></div>
+  </div>
+</div>
+
+<!-- ══ QUIZ CARD ══ -->
+<div class="card" id="QC" style="display:none">
+  <div class="qmeta">
+    <div class="qnum" id="QN">Q1</div>
+    <div class="qtit" id="QT"></div>
+  </div>
+  <div class="qtxt" id="QX"></div>
+  <div class="opts" id="OP"></div>
+  <div class="fb" id="FB">
+    <div class="fbh" id="FBH"></div>
+    <div class="fbc" id="FBC" style="display:none"></div>
+    <div class="fbe" id="FBE" style="display:none">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="FBEtxt"></span>
+    </div>
+  </div>
+  <button class="bnxt" id="BN" onclick="nextQ()">Prossima →</button>
+  <div class="btn-row" id="BTN_ROW" style="display:none">
+    <button class="btn-sec" onclick="backToStart()">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home Analisi
+    </button>
+    <button class="btn-sec" onclick="restartQuiz()">
+      <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>Ricomincia
+    </button>
+  </div>
+</div>
+
+<!-- ══ FLASHCARD HEADER ══ -->
+<div class="fc-hdr" id="FCHD" style="display:none">
+  <div class="fc-hdr-top">
+    <div class="hdr-left">
+      <button class="ibtn" onclick="backToStart()">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </button>
+      <div class="lbl">Flashcard</div>
+    </div>
+    <button class="ibtn" onclick="restartFlash()">
+      <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+    </button>
+  </div>
+  <div class="track"><div class="fill" id="FCF" style="width:0%"></div></div>
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+    <button class="ibtn" style="height:26px; min-width:auto; font-size:12px; padding:0 8px; border-color:var(--accent); color:var(--accent);" onclick="jumpTo(true)">Vai a...</button>
+    <div class="plbl" id="FCPL" style="margin:0;"></div>
+  </div>
+</div>
+
+<!-- ══ FLASHCARD ══ -->
+<div id="FC">
+  <div class="fc-card" id="FCC">
+    <div class="fc-badge">
+      <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      Flashcard
+    </div>
+    <div class="qmeta">
+      <div class="qnum" id="FCQN">Q1</div>
+      <div class="qtit" id="FCQT"></div>
+    </div>
+    <div class="qtxt" id="FCQX"></div>
+    <div class="opts" id="FCOP"></div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-nav-btn" id="FCPREV" onclick="fcNav(-1)">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Precedente
+    </button>
+    <div class="fc-counter" id="FCCNT"></div>
+    <button class="fc-nav-btn" id="FCNEXT" onclick="fcNav(1)">
+      Successiva<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ══ RESULTS ══ -->
+<div class="results" id="RS">
+  <div class="rc">
+    <div class="rt" id="RT"></div>
+    <div class="rsb" id="RSB"></div>
+    <div class="rp" id="RP"></div>
+    <div class="rf" id="RF"></div>
+    <div class="stats">
+      <div class="stat"><div class="stn g" id="STC">0</div><div class="stl">Corrette</div></div>
+      <div class="stat"><div class="stn r" id="STW">0</div><div class="stl">Errate</div></div>
+    </div>
+  </div>
+  <div class="res-btns top">
+    <button class="bback" onclick="backToStart()"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home Analisi</button>
+    <button class="brst" onclick="restartFromResults()"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>Ricomincia</button>
+    <button class="brst repeat-wrong" onclick="restartWrong()" style="display:none; background:var(--red);"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Ripeti Errate</button>
+  </div>
+  <div class="revhd">Riepilogo risposte</div>
+  <div class="revl" id="RL"></div>
+</div>
+
+<div class="qtimer" id="QTMR"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="QTMRV">0:00</span></div>
+
+<script>
+const ALL=[
+  {
+    "title": "Algebra Relazionale",
+    "text": "Come può essere meglio tradotta la seguente espressione in algebra relazionale?",
+    "answers": {
+      "a": "Selezionare il \"Nome\" e \"Cognome\" in ordine decrescente dei soli studenti che hanno almeno un esame con voto maggiore di 25.",
+      "b": "Selezionare il \"Nome\" e \"Cognome\" dei soli studenti che hanno tutti gli esami con voto maggiore o uguale di 25.",
+      "c": "Selezionare il \"Nome\" e \"Cognome\" dei soli studenti che hanno tutti gli esami con voto maggiore o uguale di 25 e minore di 30.",
+      "d": "Selezionare il \"Nome\" e \"Cognome\" dei soli studenti che hanno almeno un esame con voto maggiore o uguale di 25."
+    },
+    "correct_letter": "d",
+    "explanation": "Il Join ( ) unisce studenti ed esami, la Selezione ( ) filtra le righe con voto . Poiché è un join, basta che una riga soddisfi la condizione per far apparire lo studente nel risultato finale (Proiezione )."
+  },
+  {
+    "title": "Grafici per relazioni",
+    "text": "Se abbiamo un campione che riporta per ciascuna famiglia le entrate mensili e le spese che tipo di grafico possiamo usare per studiarne la relazione?",
+    "answers": {
+      "a": "Lo scatter plot",
+      "b": "La Heatmap",
+      "c": "Il boxplot",
+      "d": "Il pair plot"
+    },
+    "correct_letter": "a",
+    "explanation": "Lo scatter plot (grafico a dispersione) è lo standard per visualizzare la relazione/correlazione tra due variabili numeriche (entrate vs spese)."
+  },
+  {
+    "title": "Seaborn Boxplot Orizzontale",
+    "text": "Volendo rappresentare (dalla libreria seaborn importata come sns) in forma di boxplot orizzontali due distribuzioni di due colonne di un dataset chiamate age e fare rispettivamente, quale dei seguenti comandi è corretto:",
+    "answers": {
+      "a": "sns.boxplot(data=df[[\"age\", \"fare\"]], orient=\"v\")",
+      "b": "sns.boxplot(data=df[\"age\", \"fare\"], orient=\"h\")",
+      "c": "sns.boxplot(data=df[[\"age\", \"fare\"]], orient=\"h\")",
+      "d": "sns.boxplot(data=df[[\"age\"+\"fare\"]], orient=\"h\")"
+    },
+    "correct_letter": "c",
+    "explanation": "Bisogna passare le colonne come lista (doppia parentesi quadra [[...]]) e specificare orient=\"h\" per renderli orizzontali (horizontal)."
+  },
+  {
+    "title": "Bias vs Varianza",
+    "text": "Qual è la differenza tra Bias e Varianza?",
+    "answers": {
+      "a": "Il Bias descrive l'errore sistematico introdotto dall'approssimazione di un problema reale, mentre la Varianza rappresenta la variabilità della predizione con diversi dataset di addestramento.",
+      "b": "Il Bias descrive la variabilità casuale delle predizioni del modello, mentre la Varianza rappresenta l'errore sistematico dovuto a una struttura troppo complessa.",
+      "c": "La Varianza descrive l'errore fisso introdotto da assunzioni errate dell'algoritmo, mentre il Bias rappresenta la deviazione standard delle predizioni.",
+      "d": "Il Bias descrive un errore occasionale del modello sui dati di validazione, mentre la Varianza rappresenta un errore sistematico indipendente dai dati."
+    },
+    "correct_letter": "a",
+    "explanation": "Bias alto = modello troppo semplice (Underfitting). Varianza alta = modello troppo complesso che segue il \"rumore\" dei dati (Overfitting)."
+  },
+  {
+    "title": "Istogramma",
+    "text": "In un istogramma di frequenza ad ogni categoria è associato un rettangolo. Quali delle seguenti affermazioni non è vera?",
+    "answers": {
+      "a": "l'area del rettangolo è per costruzione la frequenza (assoluta o relativa) associata alla classe",
+      "b": "l'altezza del rettangolo è pari alla densità di frequenza",
+      "c": "la base del rettangolo è pari alla densità di frequenza",
+      "d": "la base del rettangolo è pari all'ampiezza della categoria"
+    },
+    "correct_letter": "c",
+    "explanation": "Questa è l'affermazione FALSA. La base del rettangolo rappresenta l'ampiezza della classe (l'intervallo), non la densità."
+  },
+  {
+    "title": "Definizione Relazione (DB)",
+    "text": "Qual è la definizione più accurata di \"Relazione\"?",
+    "answers": {
+      "a": "Una RELAZIONE, rappresentata graficamente come un diagramma ad albero, definisce i percorsi gerarchici tra i record all'interno dello schema.",
+      "b": "Una RELAZIONE, rappresentata da un insieme di tabelle collegate tra loro, permette di navigare le chiavi esterne per estrarre informazioni correlate.",
+      "c": "Una RELAZIONE, rappresentata come tabella, ha un nome e un elenco di attributi (intestazioni di colonne) che consentono di interpretare i dati (record) in essa contenuti.",
+      "d": "Una RELAZIONE, rappresentata da un collegamento biunivoco tra due nodi di una rete di calcolatori, garantisce l'integrità referenziale."
+    },
+    "correct_letter": "c",
+    "explanation": "Nel modello relazionale, la \"Relazione\" è il concetto matematico che noi visualizziamo concretamente come una Tabella."
+  },
+  {
+    "title": "SQL Select",
+    "text": "A quale operazione semantica corrisponde il comando SELECT nel linguaggio SQL?",
+    "answers": {
+      "a": "Un'operazione di selezione sui record di una relazione.",
+      "b": "Un'operazione di proiezione su uno o più attributi di una relazione.",
+      "c": "Un'operazione di unione di tabelle.",
+      "d": "Nessuna delle precedenti."
+    },
+    "correct_letter": "b",
+    "explanation": "Attenzione: in Algebra Relazionale la SELECT SQL corrisponde alla Proiezione ( , scelta delle colonne), mentre la clausola WHERE corrisponde alla Selezione ( , filtro delle righe)."
+  },
+  {
+    "title": "Outliers e Boxplot",
+    "text": "Dato il seguente codice: Lowerfence = Q1 - 1.5*IQR, Upperfence = Q3 + 1.5*IQR... Cosa stiamo calcolando?",
+    "answers": {
+      "a": "Le soglie per outliers moderati",
+      "b": "La differenza interquartile di un boxplot",
+      "c": "Lo Z score",
+      "d": "Le soglie per outliers estremi"
+    },
+    "correct_letter": "a",
+    "explanation": "Moltiplicare l'IQR per 1.5 serve a trovare i \"baffi\" (limiti) standard. Tutto ciò che è fuori è un outlier. Se si usasse 3*IQR, sarebbero outliers estremi."
+  },
+  {
+    "title": "Variabile Qualitativa Ordinale",
+    "text": "Quando una variabile è qualitativa ordinale?",
+    "answers": {
+      "a": "Quando può assumere valori numerici continui derivanti da una misurazione diretta, come altezza o peso.",
+      "b": "Quando può assumere valori che rientrano in categorie o classi ordinate",
+      "c": "Quando i valori che può assumere sono numeri discreti",
+      "d": "Quando può assumere valori che rientrano in categorie o classi non ordinate"
+    },
+    "correct_letter": "b",
+    "explanation": "Teoricamente \"Ordinale\" significa ordinato. Il professore ha segnato come corretta \"non ordinate\", che è oggettivamente errata. Seleziona quella corretta, ma ricorda l'errore del prof!",
+    "prof_letter": "d"
+  },
+  {
+    "title": "Modalità",
+    "text": "Cosa è la modalità di una variabile?",
+    "answers": {
+      "a": "è il fenomeno o carattere oggetto di indagine statistica",
+      "b": "è ognuno dei modi in cui si può manifestare la caratteristica negli individui della popolazione",
+      "c": "è la modalità con cui si presenta la caratteristica nell'unità statistica u",
+      "d": "è una parte rappresentativa della popolazione selezionata tramite campionamento"
+    },
+    "correct_letter": "b",
+    "explanation": "Esempio: Variabile = \"Colore occhi\". Modalità = \"Verdi\", \"Azzurri\", \"Marroni\" (i modi in cui si manifesta)."
+  },
+  {
+    "title": "Matplotlib Rotazione",
+    "text": "Che effetto ha sul grafico il seguente comando di matplotlib.pyplot: plt.xticks(rotation=-45)?",
+    "answers": {
+      "a": "Ruotare di -45 gradi le etichette specificate con xlabels sull'asse X",
+      "b": "Ruotare di -45 gradi le etichette specificate con ylabels sull'asse X",
+      "c": "Ruotare di -45 gradi le etichette specificate con ylabels sull'asse Y",
+      "d": "Ruotare di -45 gradi le etichette specificate con xlabels sull'asse Y"
+    },
+    "correct_letter": "a",
+    "explanation": "xticks controlla le \"tacchette\" (etichette) dell'asse X. Il parametro rotation le inclina per renderle leggibili se sono lunghe."
+  },
+  {
+    "title": "Retta di Regressione",
+    "text": "La retta di regressione è descritta da una equazione y = a + bx:",
+    "answers": {
+      "a": "dove y è la variabile indipendente e x la variabile dipendente: a e b i coefficienti, rispettivamente il termine costante e b il coefficiente angolare (slope)",
+      "b": "dove y è la variabile dipendente e x la variabile indipendente: a e b i coefficienti, rispettivamente il termine costante e b il coefficiente angolare (slope)",
+      "c": "dove y è la variabile indipendente e x la variabile indipendente: a e b i coefficienti, rispettivamente il termine costante e b il coefficiente angolare (slope)",
+      "d": "dove y è la variabile indipendente e x la variabile dipendente: a e b i coefficienti, rispettivamente il termine variabile e b il coefficiente angolare (slope)"
+    },
+    "correct_letter": "b",
+    "explanation": "Y dipende da X. a è l'intercetta (punto di partenza), b è la pendenza (quanto cresce Y per ogni unità di X)."
+  },
+  {
+    "title": "Covarianza - Limitazioni",
+    "text": "Cosa non è una limitazione della misura di covarianza?",
+    "answers": {
+      "a": "E' la sua dipendenza dall'unità di misura usata per i valori",
+      "b": "Che è una misura relativa rispetto all'unità di misura scelta",
+      "c": "che possiamo gonfiare artificialmente il valore della covarianza cambiando l'unità di misura",
+      "d": "Che un valore positivo indica una variazione di X e Y nella stessa direzione, un valore negativo l'opposto"
+    },
+    "correct_letter": "d",
+    "explanation": "Questa non è una limitazione, ma la funzione stessa della covarianza (dirci la direzione della relazione). Le altre sono limitazioni perché la covarianza non è normalizzata (dipende dalla scala dei dati)."
+  },
+  {
+    "title": "SQL Injection",
+    "text": "Cosa si intende con \"SQL Injection\" nel contesto della sicurezza informatica?",
+    "answers": {
+      "a": "Un attacco informatico che prevede la manipolazione di un DBMS tramite comandi interni del sistema operativo.",
+      "b": "Un attacco informatico che prevede l'aggiunta di record fittizi tramite brute forcing del protocollo.",
+      "c": "Un attacco informatico che prevede l'ignezione di SQL in una pagina web non interattiva",
+      "d": "Un attacco informatico che prevede l'ignezione di codice SQL attraverso campi di input testuali o numerici"
+    },
+    "correct_letter": "d",
+    "explanation": "Gli hacker inseriscono comandi SQL malevoli nei form di un sito (es. nel campo login) per ingannare il database e farsi dare dati riservati."
+  },
+  {
+    "title": "Varianza Pandas (Campionaria vs Popolazione)",
+    "text": "Qual è la differenza tra la varianza campionaria e quella della popolazione in Pandas?",
+    "answers": {
+      "a": "La varianza campionaria si basa su tutti i valori tranne la media aritmetica calcolata.",
+      "b": "La varianza campionaria è calcolata usando la funzione var() e richiede l'inserimento manuale delle deviazioni standard.",
+      "c": "La varianza campionaria è sempre maggiore della deviazione standard per definizione matematica.",
+      "d": "La varianza campionaria è calcolata dividendo per n-1, mentre quella della popolazione è calcolata dividendo per n."
+    },
+    "correct_letter": "d",
+    "explanation": "Pandas calcola di default la varianza campionaria (divide per n-1, correzione di Bessel) per avere una stima meno distorta."
+  },
+  {
+    "title": "DBMS",
+    "text": "Che cos'è un DBMS?",
+    "answers": {
+      "a": "Un sistema software per la gestione di basi di dati.",
+      "b": "Una base di dati.",
+      "c": "Uno strumento per l'analisi dei dati.",
+      "d": "Una istanza di basi di dati."
+    },
+    "correct_letter": "a",
+    "explanation": "DBMS = Database Management System. È il programma (es. MySQL, Oracle) che gestisce i dati, non i dati stessi."
+  },
+  {
+    "title": "Indice di Correlazione 0",
+    "text": "L'indice di correlazione con valore 0 indica che:",
+    "answers": {
+      "a": "Solo che le due variabili sono linearmente indipendenti",
+      "b": "La relazione tra i dati è quadratica",
+      "c": "Indica che le due variabili sono linearmente indipendenti o che potrebbero essere non linearmente dipendenti",
+      "d": "L'indice può risultare vicino a 0 solo se esiste una relazione non lineare e non monotona tra le variabili."
+    },
+    "correct_letter": "c",
+    "explanation": "La correlazione (Pearson) misura solo legami lineari (rette). Se è 0, non c'è una retta, ma potrebbe esserci una parabola o un cerchio (relazione non lineare)."
+  },
+  {
+    "title": "Seaborn Hue",
+    "text": "Nel comando sns.barplot cosa rappresenta il parametro Hue?",
+    "answers": {
+      "a": "Quale colore delle barre viene preso in considerazione per la palette principale",
+      "b": "Quale colonna del dataset rappresenta il colore delle barre",
+      "c": "Il parametro esclude le colonne numeriche dalla rappresentazione grafica",
+      "d": "Quale palette di colori viene usata come impostazione predefinita del sistema"
+    },
+    "correct_letter": "b",
+    "explanation": "Hue (tonalità) permette di aggiungere una terza dimensione al grafico, colorando le barre in base a una categoria specifica (es. Maschi/Femmine)."
+  },
+  {
+    "title": "Definizione Covarianza",
+    "text": "Cosa è la co-varianza?",
+    "answers": {
+      "a": "La covarianza è la media del prodotto delle deviazioni al quadrato dei singoli valori di una singola variabile.",
+      "b": "La covarianza è la media della somma delle deviazioni assolute di ciascun valore dalla propria media.",
+      "c": "La covarianza è la media del prodotto delle deviazioni dei valori dalla media degli insiemi dei dati",
+      "d": "La covarianza è la deviazione dei valori massimi rispetto al valore atteso."
+    },
+    "correct_letter": "c",
+    "explanation": "La formula moltiplica lo scarto di X dalla sua media per lo scarto di Y dalla sua media, e poi ne fa la media."
+  },
+  {
+    "title": "Pandas Rank",
+    "text": "Qual è il risultato del metodo .rank() applicato a un DataFrame di Pandas?",
+    "answers": {
+      "a": "Il metodo calcola la mediana ponderata dei valori ordinati in senso decrescente.",
+      "b": "Il metodo calcola la media dei ranghi per le sole righe duplicate del dataset.",
+      "c": "Il metodo assegna a ogni valore della colonna il suo rango in base all'ordine di grandezza, ovvero il primo valore ha rank n e l'ultimo ha rank 1.",
+      "d": "Il metodo assegna a ogni valore della colonna il suo rango in base all'ordine di grandezza, ovvero il primo valore ha rank 1, il secondo valore ha rank 2, ecc."
+    },
+    "correct_letter": "d",
+    "explanation": "Sostituisce i valori con la loro posizione in classifica (1°, 2°, 3°...)."
+  },
+  {
+    "title": "Seaborn Heatmap",
+    "text": "Qual è il comando in Python per generare una heatmap a partire da un dataset rappresentato da un DataFrame di Pandas utilizzando la libreria Seaborn?",
+    "answers": {
+      "a": "plt.imshow(df)",
+      "b": "sns.heatmap(df)",
+      "c": "sns.create_heatmap(df)",
+      "d": "df.plot(kind='heatmap')"
+    },
+    "correct_letter": "b",
+    "explanation": "Comando standard di Seaborn per creare mappe di calore (matrici colorate)."
+  },
+  {
+    "title": "Integrità Referenziale",
+    "text": "Cosa si intende con \"VINCOLI DI INTEGRITÀ REFERENZIALE\"?",
+    "answers": {
+      "a": "Nessuna della altre risposte",
+      "b": "Vincoli che esprimono quali attributi di una relazione fanno riferimento alla chiave primaria di un'altra relazione",
+      "c": "Vincoli che esprimono quali attributi non possono essere nulli",
+      "d": "Vincoli che esprimono quali attributi devono essere unici all'interno di tutto il database distribuito."
+    },
+    "correct_letter": "b",
+    "explanation": "È la regola delle Chiavi Esterne (Foreign Keys): se una tabella punta a un ID di un'altra tabella, quell'ID deve esistere veramente."
+  },
+  {
+    "title": "Pandas Reset Index",
+    "text": "Che effetto ha su un dataframe il comando reset_index(drop=True)?",
+    "answers": {
+      "a": "Mantiene l'indice delle righe inserendolo come una nuova colonna ordinaria.",
+      "b": "cancella l'indice delle colonne ripristinando la numerazione intera da 0.",
+      "c": "cancella l'indice delle righe quando si crea il nuovo dataframe",
+      "d": "Mantiene l'indice delle colonne eliminando l'indice gerarchico preesistente."
+    },
+    "correct_letter": "c",
+    "explanation": "Normalmente reset_index trasforma il vecchio indice in una colonna nuova. Mettendo drop=True, il vecchio indice viene buttato via definitivamente."
+  },
+  {
+    "title": "Matplotlib Pie Chart",
+    "text": "Cosa produce questo comando: plt.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=180)",
+    "answers": {
+      "a": "Un grafico a torta con le percentuali calcolate a partire da sizes, con etichette da labels, con percentuali con due decimale e angolo inziale del grafico a 180 gradi.",
+      "b": "Un grafico a torta con le etichette da sizes, con percentuali da labels con decimale e angolo iniziale del grafico di 180 gradi",
+      "c": "Un grafico a torta con le percentuali calcolate a partire da sizes, con etichette da labels, con percentuali con un decimale e angolo iniziale del grafico di 180 gradi e con colori da colors",
+      "d": "Un grafico a torta con le percentuali calcolate a partire da sizes, con etichette da labels, con percentuali con un decimale e angolo iniziale del grafico di 180 gradi"
+    },
+    "correct_letter": "d",
+    "explanation": "La stringa '%1.1f%%' indica proprio il formato a 1 cifra decimale (float)."
+  },
+  {
+    "title": "Distribuzione di Frequenza",
+    "text": "In una Distribuzione di Frequenze:",
+    "answers": {
+      "a": "viene presentato il numero complessivo delle unità statistiche che appartengono al campione preso in esame",
+      "b": "viene presentato il numero (assoluto, relativo, percentuale) di unità sulle quali viene rilevata ciascuna modalità del carattere",
+      "c": "viene presentato il numero (assoluto e relativo) delle classi di ampiezza uniforme nel dataset",
+      "d": "viene presentato il numero di intervalli in cui si divide ciascuna media delle frequenze campionarie"
+    },
+    "correct_letter": "b",
+    "explanation": "Una tabella di frequenza riassume quante volte appare ogni valore (assoluta), la proporzione (relativa) e la percentuale."
+  },
+  {
+    "title": "Calcolo della Moda",
+    "text": "Cosa richiede il calcolo della Moda?",
+    "answers": {
+      "a": "Il calcolo della moda richiede solamente di raggruppare le unità rispetto allo scarto medio assoluto.",
+      "b": "Il calcolo della moda richiede che le modalità del carattere siano quantitative e discrete.",
+      "c": "Il calcolo della moda richiede solamente di raggruppare le unità rispetto alle modalità del carattere. E' quindi possibile calcolare la moda per ogni tipo di carattere",
+      "d": "Il calcolo della moda richiede solamente di raggruppare le unità rispetto alla varianza e alla covarianza campionaria."
+    },
+    "correct_letter": "c",
+    "explanation": "La Moda è semplicemente il valore più frequente. Si può calcolare su tutto, anche su dati qualitativi (es. Colore preferito), a differenza della Media."
+  },
+  {
+    "title": "Z-Score = 0",
+    "text": "Cosa indica uno z-score pari a 0 in una distribuzione normale standardizzata?",
+    "answers": {
+      "a": "Il punto di dati si trova a una deviazione standard sotto la media campionaria.",
+      "b": "Il valore del punto di dati corrisponde alla media della distribuzione.",
+      "c": "Il punto di dati si trova a una deviazione standard sopra la media campionaria.",
+      "d": "Non è possibile determinare alcuna informazione sulla posizione rispetto alla media."
+    },
+    "correct_letter": "b",
+    "explanation": "Lo Z-score misura quante deviazioni standard disti dalla media. Se sei a distanza 0, sei esattamente sulla media."
+  },
+  {
+    "title": "Scatter Plot Matrix",
+    "text": "Per cosa è utile lo scatter plot matrix?",
+    "answers": {
+      "a": "Correlazioni non lineari",
+      "b": "Rappresentare solo coppie specifiche di variabili selezionate dall'utente in base al tipo.",
+      "c": "Correlazioni lineari",
+      "d": "Effetti multivariati"
+    },
+    "correct_letter": "c",
+    "explanation": "Mostra una griglia di scatter plot per vedere rapidamente se ci sono relazioni lineari tra tutte le coppie di variabili del dataset."
+  },
+  {
+    "title": "Kurtosis (Curtosi)",
+    "text": "Qual è il concetto statistico di base del test di kurtosis?",
+    "answers": {
+      "a": "Il test di kurtosis verifica se la distribuzione di una popolazione ha una coda più lunga o più corta rispetto a quella di una distribuzione normale.",
+      "b": "Il test di kurtosis verifica se la distribuzione della popolazione presenta un andamento bimodale o multimodale.",
+      "c": "Il test di kurtosis verifica se la distribuzione della popolazione è perfettamente simmetrica o asimmetrica.",
+      "d": "Il test di kurtosis verifica se la distribuzione della popolazione ha una varianza significativamente diversa da un valore prefissato."
+    },
+    "correct_letter": "a",
+    "explanation": "La curtosi misura la \"pesantezza delle code\" o quanto la distribuzione è appuntita rispetto alla normale (Gaussiana)."
+  },
+  {
+    "title": "Grafico per valori relativi",
+    "text": "Qual è il tipo di grafico migliore per confrontare valori relativi?",
+    "answers": {
+      "a": "Il Bar graph",
+      "b": "Il Line graph",
+      "c": "Lo Scatter plot",
+      "d": "Il Pie chart"
+    },
+    "correct_letter": "a",
+    "explanation": "Il grafico a barre è il più efficace per confrontare le grandezze tra diverse categorie (il Pie chart è meno preciso per l'occhio umano)."
+  },
+  {
+    "title": "SQL Range Query",
+    "text": "Quale delle seguenti query SQL è corretta per selezionare le città la cui umidità è compresa tra 25 e 30 inclusi?",
+    "answers": {
+      "a": "SELECT FROM meteo WHERE (umidità >= 30 AND umidità <= 25)",
+      "b": "SELECT * FROM meteo WHERE (umidità < 30 AND umidità > 25)",
+      "c": "SELECT FROM meteo WHERE (umidità <= 30 OR umidità >= 25)",
+      "d": "SELECT FROM meteo WHERE (umidità <= 30 AND umidità >= 25)"
+    },
+    "correct_letter": "d",
+    "explanation": "Per selezionare un intervallo incluso (25-30) servono due condizioni vere contemporaneamente (AND): deve essere minore o uguale al massimo E maggiore o uguale al minimo."
+  },
+  {
+    "title": "Variabile Quantitativa Ordinale",
+    "text": "Quali dei seguenti è un esempio di variabile quantitativa ordinale?",
+    "answers": {
+      "a": "Il reddito",
+      "b": "Livello di istruzione",
+      "c": "Il colore degli occhi",
+      "d": "Il sesso"
+    },
+    "correct_letter": "b",
+    "explanation": "C'è un errore nel testo della domanda (dovrebbe dire \"Qualitativa Ordinale\"), ma la risposta corretta è il Livello di Istruzione perché è una categoria (non un numero) ma ha un ordine logico (Elementari < Medie < Superiori)."
+  },
+  {
+    "title": "Domanda 1",
+    "text": "Nel comando sns.barplot cosa rappresenta il parametro Hue? Tutte le risposte:",
+    "answers": {
+      "a": "Quale palette di colori viene usata nel grafico",
+      "b": "Il parametro esclude le colonne del dataset specificate",
+      "c": "Quale colore delle barre viene preso da tutte le colonne del dataset",
+      "d": "Quale colonna del dataset rappresenta il colore delle barre"
+    },
+    "correct_letter": "d",
+    "explanation": "Il parametro hue aggiunge una terza dimensione semantica al grafico, colorando (raggruppando) le barre in base alle categorie presenti nella colonna specificata."
+  },
+  {
+    "title": "Domanda 8",
+    "text": "Cosa non e' una limitazione della misura di covarianza?",
+    "answers": {
+      "a": "Che un valore positivo indica una variazione di X e Y nella stessa direzione, un valore negativo l'opposto",
+      "b": "Che e' una misura relativa rispetto all'unita' di misura scelta",
+      "c": "E' la sua dipendenza dall'unita' di misura usata per i valori",
+      "d": "che possiamo gonfiare il fattore covarianza per un fattore 1000, semplicemente sostituendo come unita' di misura euro in luogo di migliaia di euro"
+    },
+    "correct_letter": "a",
+    "explanation": "Questa non è una limitazione, ma la definizione stessa del funzionamento della covarianza. Le altre opzioni descrivono il vero difetto: la dipendenza dalla scala (risolvibile usando la Correlazione)."
+  },
+  {
+    "title": "Domanda 9",
+    "text": "Quale effetto ha il comando dropna() in Pandas quando viene applicato a un DataFrame?",
+    "answers": {
+      "a": "Sostituisce i valori mancanti (NaN) con un valore specifico indicato come argomento.",
+      "b": "Rimuove le righe contenenti valori mancanti (NaN) dal DataFrame.",
+      "c": "Rimuove le colonne contenenti valori mancanti (NaN) dal DataFrame.",
+      "d": "Aggiunge una nuova colonna al DataFrame contenente i valori mancanti (NaN)"
+    },
+    "correct_letter": "b",
+    "explanation": "Il comportamento di default di dropna() è axis=0 (righe) e how='any', quindi elimina l'intera riga se trova anche solo un valore nullo."
+  },
+  {
+    "title": "Domanda 10",
+    "text": "Che grafico rappresenta il seguente comando df.plot(x=\"Countries\", y = [\"Males\", \"Females\"])?",
+    "answers": {
+      "a": "Un histogram graph",
+      "b": "Uno Stackbar graph",
+      "c": "Un line graph",
+      "d": "Un bar graph"
+    },
+    "correct_letter": "c",
+    "explanation": "Sebbene i dati sembrino categorici, il metodo .plot() di Pandas crea di default un grafico a linee se non viene specificato il parametro kind (es. kind='bar')."
+  },
+  {
+    "title": "Domanda 12",
+    "text": "Qual è l'argomento opzionale per specificare la scala di colore di una heatmap in Python?",
+    "answers": {
+      "a": "linewidth",
+      "b": "cmap",
+      "c": "markeredgecolor",
+      "d": "alpha"
+    },
+    "correct_letter": "b",
+    "explanation": "cmap sta per \"Colormap\". È il parametro standard in librerie come Matplotlib e Seaborn per definire la palette di colori (es. \"viridis\", \"coolwarm\") che rappresenta i dati."
+  },
+  {
+    "title": "Domanda 13",
+    "text": "A cosa corrisponde l'acronimo SQL?",
+    "answers": {
+      "a": "Structured Query List",
+      "b": "Sample Query Language",
+      "c": "Nessuna delle precedenti",
+      "d": "Structured Query Language"
+    },
+    "correct_letter": "d",
+    "explanation": "È il linguaggio standardizzato per interagire con i database relazionali (creare, leggere, aggiornare ed eliminare dati)."
+  },
+  {
+    "title": "Domanda 15",
+    "text": "Qual è l'effetto dell'opzione nan_policy=\"omit\" nel metodo mean() di Pandas quando applicato a un DataFrame?",
+    "answers": {
+      "a": "Restituisce un errore se ci sono valori mancanti (NaN) nel DataFrame.",
+      "b": "Rimuove tutte le righe contenenti valori mancanti (NaN) prima di calcolare la media.",
+      "c": "Calcola la media ignorando i valori mancanti (NaN).",
+      "d": "Sostituisce tutti i valori mancanti (NaN) con zero prima di calcolare la media."
+    },
+    "correct_letter": "c",
+    "explanation": "Sebbene in Pandas il default sia skipna=True, l'impostazione logica (spesso esplicita in Scipy come nan_policy) è quella di escludere i nulli dal calcolo per non falsare la media."
+  },
+  {
+    "title": "Domanda 18",
+    "text": "Nella libreria matplotlib.pyplot cosa esegue il comando plt.axvline(100, color=\"k\", linestyle=\"--\")?",
+    "answers": {
+      "a": "Una linea verticale di ordinata 100 tratteggiata",
+      "b": "Una linea verticale di ascissa 100 solida (non tratteggiata)",
+      "c": "Una linea orizzontale di ascissa 100 tratteggiata",
+      "d": "Una linea verticale di ascissa 100 tratteggiata"
+    },
+    "correct_letter": "d",
+    "explanation": "axvline disegna una linea verticale sull'asse x (ascissa) al valore specificato. \"k\" sta per nero (black) e \"--\" indica lo stile tratteggiato."
+  },
+  {
+    "title": "Domanda 25",
+    "text": "Quando e' efficace lo scatter plot?",
+    "answers": {
+      "a": "Se esiste una relazione lineare tra le due variabili",
+      "b": "Se esiste una relazione tra le due variabili",
+      "c": "Se esiste una correlazione positiva tra le due variabili",
+      "d": "Se esiste esiste [sic] un relazione non lineare tra le due variabili"
+    },
+    "correct_letter": "b",
+    "explanation": "Lo scatter plot è utile per visualizzare qualsiasi tipo di relazione (lineare, non lineare, o assenza di relazione) tra due variabili quantitative."
+  },
+  {
+    "title": "Domanda 27",
+    "text": "La varianza è un indice di dispersione che ha la seguente proprieta'",
+    "answers": {
+      "a": "Trattandosi di una somma di valori (anche negativi), è evidente che la varianza puo' essere negativa negativa.",
+      "b": "E' espressa in una unità pari all'unità di misura delle osservazioni originali.",
+      "c": "E' espressa in una unità pari al doppio dell'unità di misura delle osservazioni originali.",
+      "d": "Trattandosi di una somma di valori (anche negativi) al quadrato, è evidente che la varianza non sarà mai negativa."
+    },
+    "correct_letter": "d",
+    "explanation": "Essendo una media di quadrati , il risultato è sempre . (Nota: l'unità di misura è anch'essa al quadrato, non \"doppia\")."
+  },
+  {
+    "title": "Domanda 28",
+    "text": "Dato il comando plt.pie(sizes, labels = labels, autopct = '%1.1f%%', shadow = True, startangle = 180, colors = colors): colors come viene specificato?",
+    "answers": {
+      "a": "Una lista di valori esadecimali racchiusi tra tonde quadre e separati da virgole",
+      "b": "Una lista di valori binari racchiusi tra parentesi tonde e separati da virgole",
+      "c": "Una lista di valori esadecimali racchiusi tra parentesi quadre e separati da virgole",
+      "d": "Una lista di valori decimali racchiusi tra parentesi quadre e separati da virgole"
+    },
+    "correct_letter": "c",
+    "explanation": "In Python, una lista di colori personalizzati si passa come una lista di stringhe (che possono essere codici hex come ['#ff9999', '#66b3ff'])."
+  },
+  {
+    "title": "Domanda 29",
+    "text": "Che tipo di analisi statistica si puo' effettuare per studiare se il fumo è associato con le malattie cardiache?",
+    "answers": {
+      "a": "L'analisi di regressione",
+      "b": "Il grafico dello scatterplot",
+      "c": "Lo studio della deviazione standard",
+      "d": "Tracciare il Grafico della Heathmap [sic]"
+    },
+    "correct_letter": "a",
+    "explanation": "La regressione (logistica in questo caso, visto che la malattia è sì/no) stima la relazione tra una variabile dipendente e una o più indipendenti (fumo)."
+  },
+  {
+    "title": "Domanda 30",
+    "text": "Qual è la funzione di Scipy che calcola l'intervallo interquartile (IQR) di un array di dati?",
+    "answers": {
+      "a": "sp.iqr()",
+      "b": "sp.mean()",
+      "c": "sp.std()",
+      "d": "sp.var()"
+    },
+    "correct_letter": "a",
+    "explanation": "Nelle versioni recenti di SciPy, la funzione è scipy.stats.iqr. Il quiz abbrevia probabilmente scipy come sp."
+  },
+  {
+    "title": "Domanda 31",
+    "text": "Dato un comando di crosstab cosa effettua la funzione aggfunc=np.sum?",
+    "answers": {
+      "a": "Aggrega i valori sommandoli e restituendo un solo valore usando la funzione di somma di numpy",
+      "b": "Effettua una join e usa la somma come operatore aggregato",
+      "c": "Aggrega i valori sommandoli e restituendo una tupla",
+      "d": "Aggrega i valori sommandoli e restituendo un solo valore usando la funzione somma di pandas"
+    },
+    "correct_letter": "a",
+    "explanation": "Quando crei una tabella pivot o crosstab, se ci sono più valori per una cella, aggfunc definisce come combinarli. np.sum li somma."
+  },
+  {
+    "title": "Domanda 33",
+    "text": "Dato lo schema di base di dati seguente: STUDENTI (...) CORSI (...) ESAMI (Studente, Voto, Lode, Corso). Quali delle seguenti risposte non è un vincolo appropriato?",
+    "answers": {
+      "a": "\"Matricola\" è chiave primaria della relazione STUDENTI.",
+      "b": "((Voto<30) AND (Lode=\"\")) OR ((Voto=30) AND (Lode=\"lode\")).",
+      "c": "\"Studente\" e \"Voto\" costituiscono la chiave primaria di ESAMI.",
+      "d": "(Voto>=18) AND (Voto<=30)."
+    },
+    "correct_letter": "c",
+    "explanation": "Una chiave primaria deve identificare univocamente l'esame. Uno studente ha un solo voto per corso, non un solo voto in assoluto. La chiave corretta sarebbe (Studente, Corso)."
+  },
+  {
+    "title": "Q010",
+    "text": "Che effetto ha sul grafico il seguente comando di matplotlib.pyplot: plt.xticks(roation=-45)?",
+    "answers": {
+      "a": "Ruotare di -45 grafi le etichette specificate con ylabel sull’asse Y",
+      "b": "Ruotare di -45 grafi le etichette specificate con xlabel sull’asse Y",
+      "c": "Ruotare di -45 grafi le etichette specificate con xlabel sull’asse X",
+      "d": "Ruotare di -45 grafi le etichette specificate con ylabel sull’asse X"
+    },
+    "correct_letter": "c",
+    "explanation": ""
+  },
+  {
+    "title": "Q015",
+    "text": "Il calcolo del coefficiente di determinazione R² misura:",
+    "answers": {
+      "a": "la percentuale di variazione della variabile dipendente spiegata dalla variazione della variabile indipendente",
+      "b": "la percentuale di variazione della variabile indipendente spiegata dalla variazione della variabile dipendente.",
+      "c": "la percentuale di variazione della variabile dipendente spiegata dalla variazione del coefficiente.",
+      "d": "la percentuale di variazione della variabile indipendente spiegata dalla variazione del coefficiente."
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Q037",
+    "text": "Perché è opportuno separare i dati in un insieme di addestramento e uno di collaudo nel machine learning?",
+    "answers": {
+      "a": "Si rende necessario per diminuire l'errore sistematico del modello.",
+      "b": "Si rende necessario per ridurre la possibilità di overfitting.",
+      "c": "Si rende necessario per valutare correttamente la qualità del modello e la sua capacità di generalizzare su esempi mai visti durante l'addestramento.",
+      "d": "Si rende necessario per ridurre i dati di training e dunque migliorare le sue capacità predittive."
+    },
+    "correct_letter": "c",
+    "explanation": ""
+  },
+  {
+    "title": "Q038",
+    "text": "Qual è la definizione più appropriata di Machine Learning?",
+    "answers": {
+      "a": "Il Machine Learning è quella branca dell'informatica che consente ai computer di fare cose precedentemente ritenute impossibili da realizzare.",
+      "b": "Il Machine Learning è quella branca dell'informatica che dà ai super-computer la possibilità di apprendere da vastissime quantità di dati su larga scala.",
+      "c": "Il Machine Learning è quella branca dell'informatica che dà ai computer la possibilità di apprendere dai dati a seguito di una fase di addestramento con una supervisione esplicita.",
+      "d": "Il Machine Learning è quella branca dell'informatica che dà ai computer la possibilità di imparare qualcosa senza che questo gli venga esplicitamente insegnato."
+    },
+    "correct_letter": "d",
+    "explanation": ""
+  },
+  {
+    "title": "Q039",
+    "text": "La mediana è una misura di centralità poco influenzata:",
+    "answers": {
+      "a": "Dalle misure di mutua variabilità.",
+      "b": "Dai valori assoluti.",
+      "c": "Da valori anomali.",
+      "d": "Dalla media."
+    },
+    "correct_letter": "c",
+    "explanation": ""
+  },
+  {
+    "title": "Q040",
+    "text": "A cosa corrisponde un 'Theta JOIN'?",
+    "answers": {
+      "a": "Un'operazione di JOIN seguita da un'operazione di selezione.",
+      "b": "Un'operazione di selezione seguita da una di JOIN.",
+      "c": "Un'operazione di JOIN seguita da un'operazione di proiezione.",
+      "d": "Un'operazione di JOIN seguita da un'operazione theta."
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Q041",
+    "text": "Quando è efficace lo scatter plot?",
+    "answers": {
+      "a": "Se esiste una relazione tra le due variabili.",
+      "b": "Se esiste una correlazione positiva tra le due variabili.",
+      "c": "Se esiste una relazione non lineare tra le due variabili.",
+      "d": "Se esiste una relazione lineare tra le due variabili."
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Q043",
+    "text": "Un valore della correlazione vicino a -1 indica che:",
+    "answers": {
+      "a": "I due insiemi di valori tendono a variare in senso opposto.",
+      "b": "I due insiemi di valori tendono a variare nella stessa direzione.",
+      "c": "Non esiste alcuna relazione tra i due insiemi di valori.",
+      "d": "I due insiemi di valori tendono a variare debolmente nello stesso senso."
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Q044",
+    "text": "Quale delle seguenti NON è una caratteristica dei grafici a barre (bar graphs)?",
+    "answers": {
+      "a": "Presentare variabili dipendenti.",
+      "b": "Le barre possono essere orizzontali.",
+      "c": "Presentare variabili categoriche.",
+      "d": "L'altezza delle barre indica il valore."
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Q045",
+    "text": "Data un'operazione JOIN tra due tabelle di dimensioni 3x4 e 2x6 (righe x colonne), qual è la dimensione della tabella risultante?",
+    "answers": {
+      "a": "5x9",
+      "b": "6x9",
+      "c": "5x10",
+      "d": "6x10"
+    },
+    "correct_letter": "d",
+    "explanation": ""
+  },
+  {
+    "title": "Q046",
+    "text": "Che tipo di analisi statistica si può effettuare per studiare se il fumo è associato con le malattie cardiache?",
+    "answers": {
+      "a": "Tracciare il grafico della heatmap.",
+      "b": "Il grafico dello scatterplot.",
+      "c": "Lo studio della deviazione standard.",
+      "d": "L'analisi di regressione."
+    },
+    "correct_letter": "d",
+    "explanation": ""
+  },
+  {
+    "title": "Q048",
+    "text": "Cos'è la statistica descrittiva?",
+    "answers": {
+      "a": "I grafici che organizzano e sintetizzano le osservazioni su una serie di dati.",
+      "b": "Le tabelle e/o grafici che organizzano e sintetizzano le osservazioni su una serie di dati.",
+      "c": "Organizza, sintetizza le osservazioni e consente una visione di insieme sulle caratteristiche generali di una serie di dati.",
+      "d": "Organizza, sintetizza le osservazioni e consente una visione parziale sulle caratteristiche generali di una serie di dati."
+    },
+    "correct_letter": "c",
+    "explanation": ""
+  },
+  {
+    "title": "Q049",
+    "text": "La varianza è un indice di dispersione che ha la seguente proprietà:",
+    "answers": {
+      "a": "Può essere negativa perché è una somma di valori (anche negativi).",
+      "b": "È espressa in un'unità pari all'unità di misura delle osservazioni originali.",
+      "c": "È espressa in un'unità pari al doppio dell'unità di misura delle osservazioni originali.",
+      "d": "Trattandosi di una somma di valori (anche negativi) al quadrato, non sarà mai negativa."
+    },
+    "correct_letter": "d",
+    "explanation": ""
+  },
+  {
+    "title": "Q050",
+    "text": "Come scegliere l'algoritmo migliore di machine learning rispetto alle nostre esigenze?",
+    "answers": {
+      "a": "Scegliere l'algoritmo in funzione del tipo di problema (Classificazione, Regressione, Raggruppamento).",
+      "b": "Identificare il problema da risolvere, testare alcuni algoritmi empiricamente, scegliere la parametrizzazione che riduce l'errore di validazione.",
+      "c": "Scegliere l'algoritmo che minimizza l'errore sull'insieme di dati di addestramento.",
+      "d": "Scegliere casualmente un algoritmo e verificare le sue performance al variare della parametrizzazione."
+    },
+    "correct_letter": "b",
+    "explanation": ""
+  },
+  {
+    "title": "Q051",
+    "text": "L'IQR (Inter Quartile Range) è:",
+    "answers": {
+      "a": "La differenza tra il quarto e il primo quartile.",
+      "b": "La differenza tra il secondo e il terzo quartile.",
+      "c": "La differenza tra il primo e l'ultimo quartile.",
+      "d": "La differenza tra il terzo e il primo quartile."
+    },
+    "correct_letter": "d",
+    "explanation": ""
+  },
+  {
+    "title": "Q053",
+    "text": "Quale descrizione delle Treemaps è corretta?",
+    "answers": {
+      "a": "Visualizzano dati gerarchici utilizzando rettangoli, assegnando un rettangolo a ogni ramo dell'albero fino al nodo radice.",
+      "b": "Visualizzano dati gerarchici utilizzando rettangoli, assegnando un rettangolo a ogni foglia dell'albero fino al nodo foglia.",
+      "c": "Visualizzano dati gerarchici utilizzando rettangoli, assegnando un rettangolo a ogni ramo dell'albero fino al nodo foglia.",
+      "d": "Visualizzano dati gerarchici utilizzando rami, assegnando un rettangolo a ogni foglia secondaria fino al nodo foglia."
+    },
+    "correct_letter": "c",
+    "explanation": ""
+  },
+  {
+    "title": "Q054",
+    "text": "Cosa produce il seguente codice? plt.subplot(1,2,1) plt.pie(sizes_Sierra, labels=labels_Sierra, colors=colors, autopct='%1.1f%%', shadow=True, startangle=150) plt.subplot(1,2,2) plt.pie(sizes_Guinea, labels=labels_Guinea, colors=colors, autopct='%1.1f%%', shadow=True, startangle=150) plt.show()",
+    "answers": {
+      "a": "Due grafici a barre sulla stessa colonna.",
+      "b": "Due grafici a torta sulla stessa riga.",
+      "c": "Due grafici a barre sulla stessa riga.",
+      "d": "Due grafici a torta sulla stessa colonna."
+    },
+    "correct_letter": "b",
+    "explanation": ""
+  },
+  {
+    "title": "Q057",
+    "text": "Quali dei seguenti non è un limite del coefficiente di correlazione?",
+    "answers": {
+      "a": "Un valore tra 0 e 1 indica una correlazione positiva solo nel caso di relazione lineare tra le variabili.",
+      "b": "È molto sensibile ai dati atipici.",
+      "c": "Quantifica solo la forza della relazione lineare tra due variabili (se la relazione non è lineare esso non fornisce una misura valida).",
+      "d": "La correlazione stimata non deve essere estrapolata oltre il range osservati."
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Q058",
+    "text": "Data la seguente base di dati: IMPIEGATI (Nome, Cognome, Dipart, Ufficio, Stipendio, Città) DIPARTIMENTI (Nome, Indirizzo, Città) Qual è la query corrispondente per \"Elencare Nome, Cognome e Stipendio degli impiegati di cognome «Rossi»\"?",
+    "answers": {
+      "a": "SELECT Nome, Cognome, Stipendio WHERE Cognome=\"Rossi\" FROM IMPIEGATI",
+      "b": "SELECT Nome, Cognome, Stipendio FROM IMPIEGATI WHERE Cognome=\"Rossi\"",
+      "c": "SELECT Nome, Cognome, Stipendio FROM DIPARTIMENTI WHERE Cognome=\"Rossi\"",
+      "d": "SELECT Nome, Cognome, Stipendio FROM IMPIEGATI WHERE Nome=\"Rossi\""
+    },
+    "correct_letter": "b",
+    "explanation": ""
+  },
+  {
+    "title": "Q059",
+    "text": "In un pairplot cosa è rappresentato sulla diagonale?",
+    "answers": {
+      "a": "Lo scatterplot di due variabili con correlazione negativa",
+      "b": "Lo scatterplot di due variabili con correlazione positiva",
+      "c": "Lo scatterplot di due variabili",
+      "d": "La distribuzione di una singola variabile in forma di istogramma"
+    },
+    "correct_letter": "d",
+    "explanation": ""
+  },
+  {
+    "title": "Q063",
+    "text": "Il rapporto tra la frequenza e l’ampiezza di una classe è detto densità di frequenza. Quale delle seguenti affermazioni sulla densità di frequenza non è vera?",
+    "answers": {
+      "a": "La densità di frequenza è assoluta o relativa a seconda del tipo di frequenza utilizzato nel calcolo",
+      "b": "Le densità di frequenza sono fra loro confrontabili",
+      "c": "La densità di frequenza è sempre relativa indipendentemente dal tipo di frequenza utilizzato nel calcolo",
+      "d": "La densità di frequenza si calcola come il rapporto tra la frequenza e l’ampiezza di una classe"
+    },
+    "correct_letter": "c",
+    "explanation": ""
+  },
+  {
+    "title": "Q064",
+    "text": "Qual è il risultato della funzione describe().unstack() applicata a un DataFrame di Pandas?",
+    "answers": {
+      "a": "Un errore, in quanto non è possibile applicare la funzione unstack() alla funzione describe().",
+      "b": "Un nuovo DataFrame con le statistiche di descrizione per ogni combinazione di colonna e riga.",
+      "c": "Un nuovo DataFrame con le statistiche di descrizione per ogni riga.",
+      "d": "Un nuovo DataFrame con le statistiche di descrizione per ogni colonna."
+    },
+    "correct_letter": "b",
+    "explanation": ""
+  },
+  {
+    "title": "Q065",
+    "text": "Quali tra i seguenti costituisce un problema classico di machine learning?",
+    "answers": {
+      "a": "Regressione",
+      "b": "Predizione",
+      "c": "Pianificazione",
+      "d": "Varianza"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Q066",
+    "text": "Qual è il risultato della funzione corr() di Pandas applicata a un DataFrame contenente più colonne?",
+    "answers": {
+      "a": "La correlazione tra la prima e l’ultima colonna del DataFrame.",
+      "b": "La correlazione tra la prima colonna del DataFrame e tutte le altre colonne.",
+      "c": "Un errore, in quanto non è possibile applicare la funzione corr() a un DataFrame con più colonne.",
+      "d": "Un nuovo DataFrame contenente la correlazione tra ogni coppia di colonne."
+    },
+    "correct_letter": "d",
+    "explanation": ""
+  },
+  {
+    "title": "Q067",
+    "text": "Come si può rappresentare la distribuzione di frequenza di una variabile continua?",
+    "answers": {
+      "a": "Si può categorizzare e si può costruire un diagramma a barre della variabile categorizzata.",
+      "b": "Si può categorizzare e si può costruire una heatmap della variabile categorizzata.",
+      "c": "Si può categorizzare e si può costruire uno scatterplot della variabile categorizzata.",
+      "d": "Si può categorizzare e si può costruire un diagramma a torta della variabile categorizzata."
+    },
+    "correct_letter": "a",
+    "explanation": "Categorizzando la variabile continua in classi si ottiene una variabile categorica, la cui distribuzione di frequenza si rappresenta con un diagramma a barre (istogramma)."
+  },
+  {
+    "title": "Q068",
+    "text": "Quale è il risultato della funzione skew() applicata a una colonna di un DataFrame di Pandas?",
+    "answers": {
+      "a": "L’entropia della distribuzione della colonna.",
+      "b": "La deviazione standard della colonna.",
+      "c": "L’asimmetria della distribuzione della colonna.",
+      "d": "La media della colonna."
+    },
+    "correct_letter": "c",
+    "explanation": ""
+  },
+  {
+    "title": "Q069",
+    "text": "Quali delle seguenti risposte rappresenta un ordine corretto dei comandi SQL?",
+    "answers": {
+      "a": "SELECT, HAVING, WHERE, GROUP BY",
+      "b": "SELECT, WHERE, HAVING, GROUP BY",
+      "c": "SELECT, WHERE, GROUP BY, HAVING",
+      "d": "SELECT, GROUP BY, WHERE, HAVING"
+    },
+    "correct_letter": "c",
+    "explanation": ""
+  },
+  {
+    "title": "Q070",
+    "text": "Volendo affiancare verticalmente due grafici con subplot, come li indicheremo?",
+    "answers": {
+      "a": "subplot(2,1,1) subplot(2,1,2)",
+      "b": "subplot(1,2,1) subplot(1,2,2)",
+      "c": "subplot(1,1,1) subplot(2,2,2)",
+      "d": "subplot(1,1,1) subplot(1,1,2)"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Q072",
+    "text": "Quale delle seguenti query SQL corrisponde a \"Calcolare lo stipendio mensile dell'impiegato Carlo Bianchi \"?",
+    "answers": {
+      "a": "SELECT avg(Stipendio) FROM IMPIEGATI WHERE Nome=\"Bianchi\" AND Cognome=\"Carlo\"",
+      "b": "SELECT Stipendio/24 FROM STUDENTI WHERE Nome=\"Carlo\" AND Cognome=\"Bianchi\"",
+      "c": "SELECT Stipendio/24 FROM IMPIEGATI WHERE Nome=\"Carlo\" AND Cognome=\"Bianchi\"",
+      "d": "SELECT Stipendio/12 FROM IMPIEGATI WHERE Nome=\"Carlo\" AND Cognome=\"Bianchi\""
+    },
+    "correct_letter": "d",
+    "explanation": "Il prof indica avg(Stipendio) come corretta, ma la query esatta per calcolare lo stipendio mensile (assumendo annuale) è Stipendio/12.",
+    "prof_letter": "a"
+  },
+  {
+    "title": "Q073",
+    "text": "Un valore della correlazione vicino a:",
+    "answers": {
+      "a": "0 indica che i due insiemi di valori tendono a variare in senso opposto",
+      "b": "-1 indica che i due insiemi di valori tendono a variare in senso opposto",
+      "c": "0 indica che i due insiemi di valori tendono a variare debolmente nello stesso senso",
+      "d": "1 indica che i due insiemi di valori tendono a variare in senso opposto"
+    },
+    "correct_letter": "b",
+    "explanation": "La correlazione va da -1 (perfetta inversa) a +1 (perfetta diretta). -1 significa che se X aumenta, Y diminuisce."
+  },
+  {
+    "title": "Q071",
+    "text": "Qual è il risultato della funzione groupby di Pandas applicata a un DataFrame, se si specifica una colonna come parametro di raggruppamento?",
+    "answers": {
+      "a": "Un errore in quanto non è possibile applicare la funzione a una singola colonna",
+      "b": "Un nuovo DataFrame con una singola riga rappresentante la colonna di raggruppamento e le relative statistiche di aggregazione",
+      "c": "Un nuovo DataFrame con una singola riga per ogni valore unico nella colonna di raggruppamento e le relative statistiche di aggregazione per ogni gruppo",
+      "d": "Un nuovo DataFrame con una sola colonna rappresentante la colonna di raggruppamento e le relative statistiche di aggregazione"
+    },
+    "correct_letter": "c",
+    "explanation": "Il groupby raggruppa le righe che hanno lo stesso valore nella colonna chiave, permettendo di calcolare statistiche (es. media) per ciascun gruppo separatamente."
+  },
+  {
+    "title": "Domanda 5",
+    "text": "Cosa si intende in SQL con \"Vincoli di Dominio\"?",
+    "answers": {
+      "a": "Esprimono i valori ammissibili per un certo attributo",
+      "b": "Esprimono i valori ammissibili per tutti gli attributi di un record di una relazione",
+      "c": "Esprimono i valori ammissibili per una certa relazione",
+      "d": "Esprimono i valori ammissibili per il dominio di un insieme di relazioni"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 8",
+    "text": "Quale delle seguenti affermazioni è vera per il comando AS del linguaggio SQL?",
+    "answers": {
+      "a": "Il comando AS può essere usato per cambiare il nome di un attributo",
+      "b": "Il comando AS può essere usato solo per rinominare le relazioni",
+      "c": "Il comando AS può essere utilizzato per determinare una selezione mediante una condizione logica",
+      "d": "Il comando AS può essere usato solo in congiunzione col comando JOIN"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 18",
+    "text": "Cos'è la modalità di una variabile?",
+    "answers": {
+      "a": "È ognuno dei modi in cui si può manifestare la caratteristica negli individui della popolazione",
+      "b": "È la modalità con cui si presenta la caratteristica nell'unità statistica u",
+      "c": "È il fenomeno, caratteristica o proprietà osservabile sugli individui di una popolazione, il cui diverso modo di manifestarsi è oggetto di indagine",
+      "d": "È una parte rappresentativa della popolazione su cui è effettivamente svolta l'indagine"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 19",
+    "text": "Cosa rappresenta una unità statistica?",
+    "answers": {
+      "a": "Ognuno degli elementi costituenti la popolazione",
+      "b": "Ognuno dei modi in cui si può manifestare la caratteristica negli individui della popolazione",
+      "c": "Il fenomeno o proprietà osservabile sugli individui di una popolazione, il cui diverso modo di manifestarsi è oggetto di indagine",
+      "d": "Una parte rappresentativa della popolazione su cui è effettivamente svolta l'indagine"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 23",
+    "text": "Quando una variabile è qualitativa non ordinale?",
+    "answers": {
+      "a": "Quando può assumere valori che rientrano in categorie o classi non ordinate",
+      "b": "Quando può assumere valori che rientrano in categorie o classi ordinate",
+      "c": "Quando può assumere valori che sono numeri che rappresentano quantità realmente misurabili",
+      "d": "Quando i valori che può assumere sono numeri discreti"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 24",
+    "text": "Quale dei seguenti è un esempio di variabile qualitativa ordinale?",
+    "answers": {
+      "a": "Il livello di istruzione",
+      "b": "Il reddito",
+      "c": "Il colore degli occhi",
+      "d": "Il sesso"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 26",
+    "text": "Quale delle seguenti affermazioni è corretta?",
+    "answers": {
+      "a": "Dato un campione ordinato, il percentile ennesimo è il valore che separa n% dei dati dal resto",
+      "b": "Dato un campione, il percentile ennesimo è il valore che separa n% dei dati dal resto",
+      "c": "Il terzo quartile rappresenta il 25% della distribuzione",
+      "d": "Il quartile separa un terzo dei dati dal resto"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 27",
+    "text": "Quale delle seguenti affermazioni è errata?",
+    "answers": {
+      "a": "La varianza è la radice quadrata della deviazione standard",
+      "b": "La deviazione standard è la radice quadrata della varianza",
+      "c": "La mediana può essere interpretata come il 50-esimo percentile",
+      "d": "La mediana è più robusta della media rispetto ai valori anomali"
+    },
+    "correct_letter": "a",
+    "explanation": "L'affermazione errata è la a: è la deviazione standard a essere la radice quadrata della varianza (σ = √σ²), mentre la varianza è il quadrato della deviazione standard, non la sua radice."
+  },
+  {
+    "title": "Domanda 50",
+    "text": "Quale delle seguenti è una rappresentazione usuale per le variabili qualitative?",
+    "answers": {
+      "a": "I diagrammi a barre",
+      "b": "I boxplot",
+      "c": "La heatmap",
+      "d": "Il line graph"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 51",
+    "text": "Quale delle seguenti descrizioni delle Tree Maps è corretta?",
+    "answers": {
+      "a": "Le Tree Maps visualizzano i dati gerarchici con rettangoli: ad ogni ramo dell'albero viene assegnato un rettangolo, poi ogni ramo secondario, ricorsivamente finché non si trova un nodo foglia",
+      "b": "Le Tree Maps visualizzano i dati gerarchici con rettangoli: ad ogni foglia dell'albero viene assegnato un rettangolo, fino al nodo foglia",
+      "c": "Le Tree Maps visualizzano i dati gerarchici con rettangoli: ad ogni ramo dell'albero viene assegnato un rettangolo, ricorsivamente finché non si trova un nodo radice",
+      "d": "Le Tree Maps visualizzano i dati gerarchici utilizzando i rami, assegnando un rettangolo ad ogni foglia secondaria"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 52",
+    "text": "A cosa corrispondono gli angoli di un radar graph?",
+    "answers": {
+      "a": "Alle variabili",
+      "b": "Ai quartili",
+      "c": "Al valore della correlazione delle variabili",
+      "d": "A osservazioni multidimensionali"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 53",
+    "text": "Data una heatmap, che valore si trova solitamente sulla diagonale?",
+    "answers": {
+      "a": "1.0",
+      "b": "0.0",
+      "c": "0.5",
+      "d": "-0.5"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 56",
+    "text": "Quale dei seguenti NON costituisce un caso d'uso di successo del Machine Learning?",
+    "answers": {
+      "a": "Ordinamento di numeri",
+      "b": "Riconoscimento vocale",
+      "c": "Sistemi di raccomandazione",
+      "d": "Riconoscimento di volti"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 57",
+    "text": "Nel contesto dell'apprendimento automatico, perché è opportuno separare i dati in un insieme di addestramento ed uno di collaudo?",
+    "answers": {
+      "a": "Per valutare correttamente la qualità del modello e la sua capacità di generalizzare su esempi mai visti durante l'addestramento",
+      "b": "Per ridurre la possibilità di overfitting",
+      "c": "Per diminuire l'errore sistematico del modello",
+      "d": "Per ridurre i dati di training e dunque migliorare le capacità predittive"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 59",
+    "text": "Qual è la differenza fra \"features\" e \"labels\"?",
+    "answers": {
+      "a": "Le features sono le variabili di input usate per addestrare un modello, le labels rappresentano le variabili di output o i risultati attesi che il modello cerca di predire",
+      "b": "Le features sono le variabili di output usate per addestrare un modello, le labels rappresentano le variabili di input",
+      "c": "Sono sinonimi: si riferiscono entrambi alle variabili di input di un modello",
+      "d": "Le features si riferiscono ai dati strutturati, le labels ai dati non strutturati"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 61",
+    "text": "Cos'è un modello 'black box'?",
+    "answers": {
+      "a": "È un modello predittivo i cui meccanismi interni non sono facilmente interpretabili dall'esterno",
+      "b": "È un modello predittivo con struttura interna complessa ma completamente trasparente agli utenti",
+      "c": "È un modello predittivo che utilizza solo variabili qualitative come input",
+      "d": "È un modello descrittivo utilizzato per l'analisi esploratoria dei dati"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 64",
+    "text": "Qual è il modulo Python tipicamente utilizzato per creare heatmaps?",
+    "answers": {
+      "a": "seaborn",
+      "b": "numpy",
+      "c": "pandas",
+      "d": "matplotlib"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 72",
+    "text": "Che effetto ha sul grafico il comando di matplotlib.pyplot plt.xticks(rotation=-45)?",
+    "answers": {
+      "a": "Ruota di -45 gradi le etichette specificate con xlabels sull'asse X",
+      "b": "Ruota di -45 gradi le etichette specificate con ylabels sull'asse X",
+      "c": "Ruota di -45 gradi le etichette specificate con ylabels sull'asse Y",
+      "d": "Ruota di -45 gradi le etichette specificate con xlabels sull'asse Y"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 75",
+    "text": "Cosa rappresenta l'istruzione sns.regplot(x='X', y='Y', fit_reg=True, data=df)?",
+    "answers": {
+      "a": "Lo scatterplot delle colonne X e Y presenti nel dataframe df con la retta di interpolazione lineare",
+      "b": "Unicamente lo scatterplot delle colonne X e Y presenti nel dataframe df",
+      "c": "Lo scatterplot delle colonne X e Y presenti nel dataframe fit_reg con la retta di interpolazione lineare",
+      "d": "Il plot regolare di seaborn delle colonne X e Y nel dataframe fit_reg con la retta di interpolazione lineare"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 76",
+    "text": "Cosa produce il comando plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=180)?",
+    "answers": {
+      "a": "Un grafico a torta con percentuali calcolate da sizes, etichette da labels, percentuali con un decimale e angolo iniziale di 180 gradi",
+      "b": "Un grafico a torta con percentuali da sizes, etichette da labels, percentuali con un decimale, angolo 180 gradi e colori da colors",
+      "c": "Un grafico a torta con etichette da sizes e percentuali da labels, con un decimale e angolo iniziale di 180 gradi",
+      "d": "Un grafico a torta con percentuali da labels ed etichette da sizes, con un decimale e angolo iniziale di 180 gradi"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 77",
+    "text": "Cosa produce il comando plt.pie(sizes=sizes, labels=labels, autopct='%.1f%%', shadow=True, startangle=180)?",
+    "answers": {
+      "a": "Un grafico a torta con etichette da sizes e percentuali da labels, con un decimale e angolo iniziale di 180 gradi",
+      "b": "Un grafico a torta con percentuali da sizes, etichette da labels, percentuali con due decimali e angolo iniziale di 180 gradi",
+      "c": "Un grafico a torta con percentuali da sizes, etichette da labels, un decimale, angolo 180 gradi e colori da colors",
+      "d": "Un grafico a torta con percentuali da sizes, etichette da labels, un decimale e angolo iniziale di 180 gradi"
+    },
+    "correct_letter": "d",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 80",
+    "text": "Qual è il risultato della funzione groupby di Pandas applicata a un DataFrame, specificando una colonna come parametro di raggruppamento?",
+    "answers": {
+      "a": "Un nuovo DataFrame con una singola riga per ogni valore unico nella colonna di raggruppamento e le relative statistiche di aggregazione per ogni gruppo",
+      "b": "Un nuovo DataFrame con una singola riga rappresentante la colonna di raggruppamento e le relative statistiche di aggregazione",
+      "c": "Un nuovo DataFrame con una sola colonna rappresentante la colonna di raggruppamento",
+      "d": "Un errore, perché non è possibile applicare la funzione a una singola colonna"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 82",
+    "text": "Qual è la differenza tra corr() e corr(\"spearman\") applicate a un DataFrame di Pandas?",
+    "answers": {
+      "a": "corr() calcola la correlazione lineare tra le colonne, mentre corr(\"spearman\") calcola la correlazione di rango",
+      "b": "corr() calcola la correlazione di rango tra le colonne, mentre corr(\"spearman\") calcola la correlazione lineare",
+      "c": "corr() usa il metodo delle differenze quadratiche, corr(\"spearman\") il metodo delle differenze assolute",
+      "d": "Non c'è differenza, perché corr() di default utilizza già il metodo di Spearman"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 84",
+    "text": "Qual è il risultato della funzione .sem() applicata a una colonna di un DataFrame di Pandas?",
+    "answers": {
+      "a": "La deviazione standard della colonna diviso la radice quadrata del numero di elementi nella colonna",
+      "b": "La somma degli errori standard della colonna diviso la radice quadrata del numero di elementi",
+      "c": "La media della colonna diviso la radice quadrata del numero di elementi nella colonna",
+      "d": "La varianza della colonna diviso la radice quadrata del numero di elementi nella colonna"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  },
+  {
+    "title": "Domanda 88",
+    "text": "Qual è il risultato dell'applicazione della funzione crosstab a un DataFrame?",
+    "answers": {
+      "a": "Un nuovo DataFrame che mostra la frequenza congiunta di due o più colonne categoriali",
+      "b": "Un nuovo DataFrame che somma i valori numerici raggruppati per una o più colonne categoriali",
+      "c": "Un nuovo DataFrame con la correlazione tra tutte le coppie di colonne numeriche",
+      "d": "Un nuovo DataFrame con una singola riga per ogni valore unico della colonna di raggruppamento"
+    },
+    "correct_letter": "a",
+    "explanation": ""
+  }
+];
+let quiz=[],cur=0,ok=0,ko=0,hist=[],answered=false,sel=36,mode='quiz';
+let fcDeck=[],fcCur=0;
+const COUNTS=[10,20,36,50];
+
+(function(){
+  document.getElementById('tot').textContent=ALL.length;
+  const pk=document.getElementById('PK');
+  const vals=[...new Set([...COUNTS.map(n=>Math.min(n,ALL.length)),ALL.length])];
+  vals.forEach(n=>{
+    const b=document.createElement('button');
+    b.className='pk'+(n===Math.min(36,ALL.length)?' sel':'');
+    b.textContent=n===ALL.length?'Tutte ('+n+')':n+' domande';
+    b.dataset.v=n;
+    b.onclick=function(){
+      document.querySelectorAll('.pk').forEach(x=>x.classList.remove('sel'));
+      this.classList.add('sel'); sel=+this.dataset.v;
+      updateRndVisibility();
+    };
+    pk.appendChild(b);
+  });
+  sel=Math.min(36,ALL.length);
+  updateRndVisibility();
+})();
+
+function updateRndVisibility(){
+  document.getElementById('RND').style.display = sel===ALL.length ? '' : 'none';
+}
+
+function setMode(m){mode=m;document.getElementById('modeQuiz').classList.toggle('sel',m==='quiz');document.getElementById('modeFlash').classList.toggle('sel',m==='flash');}
+let rnd=false;
+function toggleRnd(){rnd=!rnd;const b=document.getElementById('RND');b.classList.toggle('sel',rnd);b.setAttribute('aria-pressed',rnd);document.getElementById('RNDS').textContent=rnd?'On':'Off';}
+function sh(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=0|Math.random()*(i+1);[r[i],r[j]]=[r[j],r[i]];}return r;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function hide(...ids){ids.forEach(id=>{const el=document.getElementById(id);if(el){el.style.display='none';el.className=el.className.replace(/\bshow\b/,'').trim();}});}
+function show(id,d='flex'){document.getElementById(id).style.display=d;}
+
+let tmrInt=null,tmrStart=0;
+function tmrTick(){const s=Math.floor((Date.now()-tmrStart)/1000);document.getElementById('QTMRV').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function startTimer(){tmrStart=Date.now();clearInterval(tmrInt);document.getElementById('QTMR').style.display='flex';tmrTick();tmrInt=setInterval(tmrTick,1000);}
+function stopTimer(){clearInterval(tmrInt);tmrInt=null;document.getElementById('QTMR').style.display='none';}
+
+function backToStart(){stopTimer();hide('QHD','QC','FCHD','RS');document.getElementById('FC').className='';document.getElementById('RS').className='results';show('SS');}
+
+function startSession(){if(mode==='flash'){startFlash();return;}quiz=(sel===ALL.length)?(rnd?sh(ALL):ALL.slice()):sh(ALL).slice(0,sel);cur=0;ok=0;ko=0;hist=[];answered=false;hide('SS');show('QHD');show('QC','block');startTimer();showQ();}
+
+function showQ(){
+  const prev=hist[cur];
+  answered=!!prev;
+  kbdSel=-1;
+  const q=quiz[cur],tot=quiz.length;
+  document.getElementById('FL').style.width=(cur/tot*100)+'%';
+  document.getElementById('PL').textContent=(cur+1)+' / '+tot;
+  document.getElementById('SC').textContent=ok;
+  document.getElementById('SW').textContent=ko;
+  document.getElementById('QN').textContent='Q'+(cur+1);
+  document.getElementById('QT').textContent=q.title;
+  document.getElementById('QX').textContent=q.text;
+  const ol=document.getElementById('OP');ol.innerHTML='';
+  // se la domanda è già stata risposta si riusa l'ordine originale, così il ripasso è stabile
+  (prev?prev.order:sh(Object.keys(q.answers))).forEach((orig,i)=>{
+    const d=document.createElement('div');d.className='opt';d.dataset.l=orig;
+    d.innerHTML=`<div class="olt">${' ABCDE'[i+1]}</div><div class="otxt">${esc(q.answers[orig])}</div>`;
+    d.onclick=()=>pick(orig,q);ol.appendChild(d);
+  });
+  document.getElementById('FB').className='fb';
+  document.getElementById('FBC').style.display='none';
+  document.getElementById('FBE').style.display='none';
+  document.getElementById('BN').className='bnxt';
+  document.getElementById('BTN_ROW').style.display='none';
+  if(prev)renderFeedback(q,prev.chosen,prev.good);
+  const c=document.getElementById('QC');c.style.animation='none';c.offsetHeight;c.style.animation='fi .3s ease';
+}
+
+const ICON_OK='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+const ICON_KO='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+const ICON_WARN='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+
+function renderFeedback(q,letter,good){
+  document.querySelectorAll('#OP .opt').forEach(o=>{
+    o.classList.remove('kbd');o.classList.add('done');const l=o.dataset.l;
+    if(l===q.correct_letter)o.classList.add('correct');
+    else if(l===letter&&!good)o.classList.add('wrong');
+    else o.classList.add('dim');
+  });
+  const fb=document.getElementById('FB');
+  if(good){fb.className='fb ok show';document.getElementById('FBH').innerHTML=ICON_OK+' Corretto!';document.getElementById('FBC').style.display='none';}
+  else{fb.className='fb ko show';document.getElementById('FBH').innerHTML=ICON_KO+' Risposta errata';const fbc=document.getElementById('FBC');fbc.style.display='block';fbc.innerHTML='Risposta corretta: <strong>'+esc(q.answers[q.correct_letter])+'</strong>';}
+  if(q.explanation){document.getElementById('FBE').style.display='flex';document.getElementById('FBEtxt').textContent=q.explanation;}
+  const bn=document.getElementById('BN');bn.className='bnxt show';bn.textContent=cur===quiz.length-1?'Vedi risultati →':'Prossima →';
+  document.getElementById('BTN_ROW').style.display='flex';
+  return fb;
+}
+
+function pick(letter,q){
+  if(answered)return;answered=true;
+  const good=letter===q.correct_letter;
+  if(good)ok++;else ko++;
+  hist[cur]={q,chosen:letter,good,order:[...document.querySelectorAll('#OP .opt')].map(o=>o.dataset.l)};
+  const fb=renderFeedback(q,letter,good);
+  document.getElementById('SC').textContent=ok;document.getElementById('SW').textContent=ko;
+  setTimeout(()=>fb.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+}
+
+function nextQ(){cur++;if(cur>=quiz.length){showResults();return;}showQ();window.scrollTo({top:0,behavior:'smooth'});}
+function prevQ(){if(cur===0)return;cur--;showQ();window.scrollTo({top:0,behavior:'smooth'});}
+function restartQuiz(){quiz=(sel===ALL.length)?(rnd?sh(ALL):ALL.slice()):sh(ALL).slice(0,sel);cur=0;ok=0;ko=0;hist=[];answered=false;hide('RS');show('QHD');show('QC','block');startTimer();showQ();window.scrollTo({top:0,behavior:'smooth'});}
+
+function showResults(){
+  stopTimer();hide('QHD','QC');const rs=document.getElementById('RS');rs.style.display='';rs.className='results show';window.scrollTo({top:0,behavior:'smooth'});
+  const tot=quiz.length,pct=Math.round(ok/tot*100);
+  let title,sub;
+  if(pct>=90){title='Eccellente!';sub='Preparazione solida.';}
+  else if(pct>=75){title='Ottimo!';sub='Qualche argomento da ripassare.';}
+  else if(pct>=60){title='Quasi!';sub='Rivedi gli argomenti errati.';}
+  else{title='Da ripassare';sub='Studia ancora e riprova.';}
+  document.getElementById('RT').textContent=title;document.getElementById('RSB').textContent=sub;
+  document.getElementById('RP').textContent=pct+'%';document.getElementById('RF').textContent=ok+' corrette su '+tot;
+  document.getElementById('STC').textContent=ok;document.getElementById('STW').textContent=ko;
+  document.querySelectorAll('.repeat-wrong').forEach(b => b.style.display = ko > 0 ? '' : 'none');
+  const rl=document.getElementById('RL');rl.innerHTML='';
+  hist.forEach((h,i)=>{
+    const d=document.createElement('div');d.className='rvi '+(h.good?'ok':'ko');
+    const ct=esc(h.q.answers[h.chosen]||'—');const cc=esc(h.q.answers[h.q.correct_letter]||'');
+    d.innerHTML=`<div class="rvq">Q${i+1}. ${esc(h.q.title)} — ${esc(h.q.text.substring(0,60))}${h.q.text.length>60?'…':''}</div>
+      <div class="rva">${h.good
+        ?`<span class="vg">${ICON_OK} ${ct}</span>`
+        :`<span class="vr">${ICON_KO} ${ct}</span><br><span class="vg">${ICON_OK} ${cc}</span>`
+      }</div>`;
+    rl.appendChild(d);
+  });
+}
+function restartFromResults(){restartQuiz();}
+function restartWrong(){
+  const wrongQs = hist.filter(h => !h.good).map(h => h.q);
+  if(wrongQs.length === 0) return;
+  quiz = wrongQs;
+  cur = 0;
+  ok = 0;
+  ko = 0;
+  hist = [];
+  answered = false;
+  hide('RS');
+  show('QHD');
+  show('QC','block');
+  startTimer();
+  showQ();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function startFlash(){fcDeck=(sel===ALL.length)?(rnd?sh(ALL):ALL.slice()):sh(ALL).slice(0,sel);fcCur=0;hide('SS');show('FCHD');document.getElementById('FC').className='show';renderFlashcard();}
+function renderFlashcard(){
+  const q=fcDeck[fcCur],tot=fcDeck.length;
+  document.getElementById('FCF').style.width=((fcCur+1)/tot*100)+'%';
+  document.getElementById('FCPL').textContent=(fcCur+1)+' / '+tot;
+  document.getElementById('FCCNT').textContent=(fcCur+1)+'/'+tot;
+  document.getElementById('FCQN').textContent='Q'+(fcCur+1);
+  document.getElementById('FCQT').textContent=q.title;
+  document.getElementById('FCQX').textContent=q.text;
+  const ol=document.getElementById('FCOP');ol.innerHTML='';
+  Object.keys(q.answers).forEach((orig,i)=>{
+    const isC=orig===q.correct_letter;
+    const d=document.createElement('div');
+    d.className='opt done'+(isC?' correct':' dim');
+    d.innerHTML=`<div class="olt">${'ABCDE'[i]}</div><div class="otxt">${esc(q.answers[orig])}</div>`;
+    ol.appendChild(d);
+  });
+  document.getElementById('FCPREV').disabled=(fcCur===0);
+  const nx=document.getElementById('FCNEXT');
+  nx.disabled=false;
+  nx.innerHTML=fcCur===tot-1
+    ?'Fine <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'
+    :'Successiva<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>';
+  const c=document.getElementById('FCC');c.style.animation='none';c.offsetHeight;c.style.animation='fi .3s ease';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function fcNav(dir){if(dir===1&&fcCur===fcDeck.length-1){backToStart();return;}fcCur=Math.max(0,Math.min(fcDeck.length-1,fcCur+dir));renderFlashcard();}
+function restartFlash(){fcDeck=(sel===ALL.length)?(rnd?sh(ALL):ALL.slice()):sh(ALL).slice(0,sel);fcCur=0;renderFlashcard();}
+function jumpTo(isFlash){
+  const tot = isFlash ? fcDeck.length : quiz.length;
+  const target = prompt("Vai alla domanda numero (1 - " + tot + "):");
+  if(target && !isNaN(target)) {
+    const num = parseInt(target) - 1;
+    if(num >= 0 && num < tot) {
+      if(isFlash) { fcCur = num; renderFlashcard(); }
+      else { cur = num; showQ(); }
+    } else {
+      alert("Numero non valido!");
+    }
+  }
+}
+
+// ── SEARCH ──
+function openSearch(){hide('SS');document.getElementById('SV').style.display='block';renderSearch('');setTimeout(()=>{const i=document.getElementById('SVI');if(i)i.focus();},50);}
+function closeSearch(){document.getElementById('SV').style.display='none';show('SS');}
+function clearSearch(){const i=document.getElementById('SVI');i.value='';renderSearch('');i.focus();}
+function svHL(s,q){const e=esc(s);if(!q)return e;const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');return e.replace(re,'<mark>$1</mark>');}
+function renderSearch(q){
+  q=(q||'').trim();
+  const ql=q.toLowerCase();
+  const list=document.getElementById('SVL');
+  const meta=document.getElementById('SVM');
+  document.getElementById('SVCL').style.display=q?'block':'none';
+  const res=ql?ALL.map((it,i)=>({it,i})).filter(({it})=>{
+    if((it.title||'').toLowerCase().includes(ql))return true;
+    if((it.text||'').toLowerCase().includes(ql))return true;
+    if((it.explanation||'').toLowerCase().includes(ql))return true;
+    return Object.values(it.answers||{}).some(a=>String(a).toLowerCase().includes(ql));
+  }):ALL.map((it,i)=>({it,i}));
+  meta.textContent=res.length+' / '+ALL.length+' domande';
+  if(!res.length){list.innerHTML='<div class="sv-empty">Nessuna domanda trovata.</div>';return;}
+  list.innerHTML=res.map(({it,i})=>{
+    const ans=Object.keys(it.answers||{}).map((k,j)=>{
+      const isC=k===it.correct_letter;
+      return `<div class="sv-ans${isC?' correct':''}"><div class="lt">${'ABCDE'[j]}</div><div>${svHL(it.answers[k],q)}</div></div>`;
+    }).join('');
+    const expl=it.explanation?`<div class="sv-expl">${svHL(it.explanation,q)}</div>`:'';
+    return `<div class="sv-item" onclick="this.classList.toggle('open')">
+      <div class="sv-item-hdr"><div class="sv-num">Q${i+1}</div><div class="sv-title">${svHL(it.title||'',q)}</div></div>
+      <div class="sv-text">${svHL(it.text||'',q)}</div>
+      <div class="sv-body">${ans}${expl}</div>
+    </div>`;
+  }).join('');
+}
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='SVI')renderSearch(e.target.value);});
+
+// ── NAVIGAZIONE DA TASTIERA ──
+let kbdSel=-1;
+function kbdMove(delta){
+  const opts=[...document.querySelectorAll('#OP .opt')];
+  if(!opts.length)return;
+  kbdSel=kbdSel<0?(delta>0?0:opts.length-1):(kbdSel+delta+opts.length)%opts.length;
+  opts.forEach((o,i)=>o.classList.toggle('kbd',i===kbdSel));
+  opts[kbdSel].scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+document.addEventListener('keydown',e=>{
+  const t=e.target;
+  if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  const quizOn=document.getElementById('QC').style.display==='block';
+  const flashOn=document.getElementById('FC').classList.contains('show');
+  if(!quizOn&&!flashOn)return;
+  const k=e.key;
+  if(flashOn){
+    if(k==='ArrowRight'||k==='Enter'){e.preventDefault();fcNav(1);}
+    else if(k==='ArrowLeft'){e.preventDefault();fcNav(-1);}
+    return;
+  }
+  if(k==='ArrowDown'||k==='ArrowUp'){
+    if(answered)return;
+    e.preventDefault();kbdMove(k==='ArrowDown'?1:-1);
+  } else if(k==='Enter'||k===' '){
+    e.preventDefault();
+    if(answered){nextQ();return;}
+    const opts=[...document.querySelectorAll('#OP .opt')];
+    if(kbdSel>=0&&opts[kbdSel])opts[kbdSel].click();
+  } else if(k==='ArrowRight'){
+    if(!answered)return;
+    e.preventDefault();nextQ();
+  } else if(k==='ArrowLeft'){
+    e.preventDefault();prevQ();
+  } else if(/^[1-9]$/.test(k)){
+    if(answered)return;
+    const opts=[...document.querySelectorAll('#OP .opt')];
+    const i=+k-1;
+    if(opts[i]){e.preventDefault();kbdSel=i;opts.forEach((o,j)=>o.classList.toggle('kbd',j===i));}
+  }
+});
+
+// PWA service worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
