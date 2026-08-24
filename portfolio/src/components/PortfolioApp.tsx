@@ -110,11 +110,13 @@ function HeroLine({ children, className = "" }: { children: string; className?: 
 function useHeroMagnetism(ref: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const host = ref.current;
-    if (!host || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (!host || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     type Motion = { el: HTMLElement; x: number; y: number; r: number; s: number; tx: number; ty: number; tr: number; ts: number };
     const words = [...host.querySelectorAll<HTMLElement>(".personal-word")].map(el => ({ el, x: 0, y: 0, r: 0, s: 1, tx: 0, ty: 0, tr: 0, ts: 1 }));
     let frame = 0;
     let active = false;
+    let releaseTimer = 0;
     const tick = () => {
       let moving = false;
       for (const word of words) {
@@ -152,9 +154,25 @@ function useHeroMagnetism(ref: RefObject<HTMLElement | null>) {
       for (const word of words) { word.tx = 0; word.ty = 0; word.tr = 0; word.ts = 1; }
       start();
     };
-    host.addEventListener("pointermove", onMove);
-    host.addEventListener("pointerleave", release);
-    return () => { cancelAnimationFrame(frame); host.removeEventListener("pointermove", onMove); host.removeEventListener("pointerleave", release); };
+    const onTouch = (event: PointerEvent) => {
+      if (hasFinePointer || event.pointerType === "mouse") return;
+      window.clearTimeout(releaseTimer);
+      onMove(event);
+      releaseTimer = window.setTimeout(release, 520);
+    };
+    if (hasFinePointer) {
+      host.addEventListener("pointermove", onMove);
+      host.addEventListener("pointerleave", release);
+    } else {
+      host.addEventListener("pointerdown", onTouch);
+    }
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(releaseTimer);
+      host.removeEventListener("pointermove", onMove);
+      host.removeEventListener("pointerleave", release);
+      host.removeEventListener("pointerdown", onTouch);
+    };
   }, [ref]);
 }
 
