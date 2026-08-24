@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect,useRef,useState,type CSSProperties} from "react";
+import {useEffect,useRef,useState,type CSSProperties,type MouseEvent} from "react";
 import dynamic from "next/dynamic";
 import {RimBody} from "@/components/ai-lights/RimBody";
 import {SquircleLink} from "@/components/squircle/SquircleControl";
@@ -23,6 +23,14 @@ const serviceCards=[
 export function OccasionalWorkExperience({lang}:{lang:Lang}){
   const t=copy[lang];
   const[mailPulse,setMailPulse]=useState(0);
+  const mailTimer=useRef<number|null>(null);
+  const openMailAfterPulse=(event:MouseEvent<HTMLAnchorElement>)=>{
+    event.preventDefault();
+    if(mailTimer.current)window.clearTimeout(mailTimer.current);
+    setMailPulse(value=>value+1);
+    mailTimer.current=window.setTimeout(()=>{window.location.href="mailto:pirruccio.01@gmail.com"},900);
+  };
+  useEffect(()=>()=>{if(mailTimer.current)window.clearTimeout(mailTimer.current)},[]);
   const faqs=lang==="it"?
     [{q:"Quanto costa?",a:"Dipende dalla complessità. Dopo una prima call ricevi una proposta chiara, con prezzo e tempi definiti."},{q:"Quanto tempo serve?",a:"Una landing richiede in genere 1–2 settimane; un sito completo 3–5 settimane."},{q:"Lavori anche con un sito già esistente?",a:"Sì. Posso intervenire con un redesign completo o migliorare soltanto le parti che frenano il progetto."},{q:"Poi resto da solo?",a:"No. Consegna guidata, documentazione essenziale e un periodo di supporto post-lancio definito nel preventivo."}]:
     [{q:"How much does it cost?",a:"It depends on complexity. After an initial call, you receive a clear proposal with defined timing and price."},{q:"How long does it take?",a:"A landing page usually takes 1–2 weeks; a complete website takes 3–5 weeks."},{q:"Can you work on an existing site?",a:"Yes. I can redesign it completely or improve only the parts holding the project back."},{q:"Am I left alone after launch?",a:"No. You receive a guided handoff, essential documentation and a post-launch support period defined in the proposal."}];
@@ -37,11 +45,11 @@ export function OccasionalWorkExperience({lang}:{lang:Lang}){
       </div></section>
       <section className="studio-section studio-services occasional-stacked-services"><header><h2>{t.services}</h2></header><StackedServices lang={lang}/><p className="studio-service-disclaimer">{lang==="it"?"* Salvo imprevisti. Non ce ne dovrebbero essere.":"* Barring surprises. There shouldn’t be any."}</p></section>
       <section className="studio-faq occasional-faq"><header><h2>{t.faq}</h2></header>{faqs.map((faq,index)=><Faq key={index}{...faq}/>)}</section>
-      <section className="occasional-contact-finale"><RimBody pulseKey={mailPulse} className="occasional-mail-rim"><SquircleLink className="occasional-mail-link" href="mailto:pirruccio.01@gmail.com" onClick={()=>setMailPulse(value=>value+1)}>{lang==="it"?"Scrivimi":"Email me"}</SquircleLink></RimBody><small>{lang==="it"?"Quando vuoi iniziare, scrivimi qui.":"When you’re ready to start, email me here."}</small></section>
+      <section className="occasional-contact-finale"><RimBody pulseKey={mailPulse} className="occasional-mail-rim"><SquircleLink className="occasional-mail-link" href="mailto:pirruccio.01@gmail.com" onClick={openMailAfterPulse}>{lang==="it"?"Scrivimi":"Email me"}</SquircleLink></RimBody><small>{lang==="it"?"Quando vuoi iniziare, scrivimi qui.":"When you’re ready to start, email me here."}</small></section>
     </div>
   </div>;
 }
 
 function Faq({q,a}:{q:string;a:string}){const[open,setOpen]=useState(false);return <button className="studio-faq-row" onClick={()=>setOpen(!open)} aria-expanded={open}><span>{q}</span><b>{open?"−":"+"}</b><i className={open?"open":""}>{a}</i></button>}
 function ProcessCard({n,tag,title,text}:{n:string;tag:string;title:string;text:string}){return <article className="liquid-process-unit"><div className="liquid-unit-skin" aria-hidden><i className="liquid-unit-card"/><i className="liquid-unit-tab"/></div><div className="liquid-process-copy"><b>{n}</b><h3>{title}</h3><p>{text}</p></div><div className="liquid-tab-handle">{tag}</div></article>}
-function StackedServices({lang}:{lang:Lang}){const deck=useRef<HTMLDivElement>(null);useEffect(()=>{const host=deck.current;if(!host||matchMedia("(max-width: 900px), (prefers-reduced-motion: reduce)").matches)return;const cards=[...host.querySelectorAll<HTMLElement>(".studio-service-pane")],contents=[...host.querySelectorAll<HTMLElement>(".studio-service-card")];let frame=0;const update=()=>{frame=0;cards.forEach((card,i)=>{const content=contents[i],next=cards[i+1];if(!content||!next){if(content)content.style.transform="";return}const pinned=96+(i+1)*42,offset=next.getBoundingClientRect().top-pinned,distance=Math.max(card.offsetHeight-pinned,1),progress=Math.max(0,Math.min(1,1-offset/distance)),end=.94+i*.025;content.style.transform=progress<.001?"":`scale(${1+(end-1)*progress})`})};const onScroll=()=>{if(!frame)frame=requestAnimationFrame(update)};update();addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);return()=>{removeEventListener("scroll",onScroll);removeEventListener("resize",onScroll);cancelAnimationFrame(frame);contents.forEach(item=>item.style.transform="")}},[]);return <div className="studio-service-stack" ref={deck}>{serviceCards.map((service,index)=><div className="studio-service-pane" style={{"--service-index":index+1} as CSSProperties} key={service.n}><article className="studio-service-card"><span>{service.n}</span><h3>{service.title[lang]}</h3><p>{service.text[lang]}</p><small className="studio-service-price"><strong>{service.price}</strong></small><b>↗</b></article></div>)}</div>}
+function StackedServices({lang}:{lang:Lang}){const deck=useRef<HTMLDivElement>(null);useEffect(()=>{const host=deck.current;if(!host||matchMedia("(max-width: 900px), (prefers-reduced-motion: reduce)").matches)return;const cards=[...host.querySelectorAll<HTMLElement>(".studio-service-pane")],contents=[...host.querySelectorAll<HTMLElement>(".studio-service-card")];let frame=0;const update=()=>{frame=0;cards.forEach((card,i)=>{const content=contents[i],next=cards[i+1];if(!content||!next){if(content)content.style.transform="";return}const pinned=96+(i+1)*42,offset=next.getBoundingClientRect().top-pinned,distance=Math.max(card.offsetHeight-pinned,1),progress=Math.max(0,Math.min(1,1-offset/distance)),end=.94+i*.025;content.style.transform=progress<.001?"":`scale(${1+(end-1)*progress})`})};const onScroll=()=>{if(!frame)frame=requestAnimationFrame(update)};update();addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);return()=>{removeEventListener("scroll",onScroll);removeEventListener("resize",onScroll);cancelAnimationFrame(frame);contents.forEach(item=>item.style.transform="")}},[]);return <div className="studio-service-stack" ref={deck}>{serviceCards.map((service,index)=><div className="studio-service-pane" style={{"--service-index":index+1} as CSSProperties} key={service.n}><article className="studio-service-card"><h3>{service.title[lang]}</h3><p>{service.text[lang]}</p><small className="studio-service-price"><strong>{service.price}</strong></small></article></div>)}</div>}

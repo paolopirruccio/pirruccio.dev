@@ -137,6 +137,11 @@
 .occasional-work-content{position:relative}
 .occasional-work-experience .studio-process,.occasional-work-experience .occasional-stacked-services,.occasional-work-experience .occasional-faq{color:var(--ow-text);background:var(--ow-bg)}
 .occasional-work-experience .liquid-unit-card,.occasional-work-experience .liquid-unit-tab{background:var(--ow-surface)}
+.occasional-work-experience .studio-service-card{border:0;border-radius:28px;background-image:none!important;box-shadow:none}
+.occasional-work-experience .studio-service-pane:nth-child(1) .studio-service-card{background-color:#79d6a4}
+.occasional-work-experience .studio-service-pane:nth-child(2) .studio-service-card{background-color:#b7a6ff}
+.occasional-work-experience .studio-service-pane:nth-child(3) .studio-service-card{background-color:#62c7d9}
+.occasional-work-experience .studio-service-card::after{display:none}
 .occasional-work-experience .liquid-process-copy,.occasional-work-experience .liquid-process-copy p,.occasional-work-experience .liquid-tab-handle{color:var(--ow-text)}
 .occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-card,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-tab{background:#171717}
 .occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-tab-handle{color:#f7f5ef}
@@ -158,7 +163,6 @@
   .occasional-work-experience .studio-cycle-fallback{padding:12vh 18px 28vh;font-size:clamp(50px,15vw,76px);line-height:.88;transform:translateY(-2.5svh)}
   .occasional-work-experience .studio-cycle-bottom{right:24px;bottom:max(84px,12svh);left:24px}
   .occasional-work-experience .studio-cycle-bottom>p{width:min(88%,410px);max-width:none;padding:0;font-size:14px;line-height:1.48}
-  .occasional-work-experience .liquid-unit-skin{filter:none}
   .occasional-work-experience .studio-service-stack{gap:16px;padding-bottom:16px}
   .occasional-work-experience .studio-service-pane{position:relative;top:auto;padding-top:0}
   .occasional-work-experience .studio-service-card{height:auto;min-height:410px;transform:none!important}

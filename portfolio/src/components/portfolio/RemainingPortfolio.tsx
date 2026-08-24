@@ -22,14 +22,14 @@ const text = {
 export function RemainingPortfolio({lang,onOpenStudio}:{lang:Lang;onOpenStudio:()=>void}){
   const t=text[lang]; const projectDeck=useRef<HTMLDivElement>(null); const [servicesOpen,setServicesOpen]=useState(false); const [cvOpen,setCvOpen]=useState(false); const [travelOpen,setTravelOpen]=useState(false);
   const closeOccasionalWork=useCallback(()=>setServicesOpen(false),[]);
-  useEffect(()=>{
-    const openServices=()=>{
-      setServicesOpen(true);
-      window.setTimeout(()=>document.getElementById("servizi")?.scrollIntoView({behavior:"smooth",block:"start"}),80);
-    };
-    window.addEventListener("open-portfolio-services",openServices);
-    return()=>window.removeEventListener("open-portfolio-services",openServices);
+  const openServicesCentered=useCallback(()=>{
+    setServicesOpen(true);
+    window.setTimeout(()=>document.querySelector("#servizi .studio-cycle-hero")?.scrollIntoView({behavior:"smooth",block:"center"}),120);
   },[]);
+  useEffect(()=>{
+    window.addEventListener("open-portfolio-services",openServicesCentered);
+    return()=>window.removeEventListener("open-portfolio-services",openServicesCentered);
+  },[openServicesCentered]);
   return <div className="react-portfolio">
     <ElasticSeparator label={lang==="it"?"Separatore tra contatti e progetti":"Separator between contacts and projects"}/>
     <section className="react-section projects-section"><h2>{t.projects}</h2><div className="react-slider-wrap"><SquircleButton className="react-arrow prev" onClick={()=>projectDeck.current?.scrollBy({left:-384,behavior:"smooth"})}><i className="fa-solid fa-chevron-left"/></SquircleButton><div className="react-project-deck" ref={projectDeck}>{projects.map(p=><ProjectCard key={p.title} project={p} lang={lang}/>) }<SquircleLink className="view-all-card" href="/gallery"><i className="fa-solid fa-arrow-right"/><span>{t.all}</span></SquircleLink></div><SquircleButton className="react-arrow next" onClick={()=>projectDeck.current?.scrollBy({left:384,behavior:"smooth"})}><i className="fa-solid fa-chevron-right"/></SquircleButton></div></section>
@@ -38,7 +38,7 @@ export function RemainingPortfolio({lang,onOpenStudio}:{lang:Lang;onOpenStudio:(
     <ElasticSeparator/>
     <Accordion title={lang==="it"?"Qualche foto":"Some photos"} open={travelOpen} setOpen={setTravelOpen}>{travelOpen?<TravelGallery lang={lang}/>:null}</Accordion>
     <ElasticSeparator/>
-    <Accordion id="servizi" title={t.services} open={servicesOpen} setOpen={next=>next?setServicesOpen(true):closeOccasionalWork()} className="occasional-work-accordion">{servicesOpen?<OccasionalWorkExperience lang={lang}/>:null}</Accordion>
+    <Accordion id="servizi" title={t.services} open={servicesOpen} setOpen={next=>next?openServicesCentered():closeOccasionalWork()} className="occasional-work-accordion">{servicesOpen?<OccasionalWorkExperience lang={lang}/>:null}</Accordion>
     <PortfolioFooter lang={lang} onOpenStudio={onOpenStudio}/>
   </div>;
 }
