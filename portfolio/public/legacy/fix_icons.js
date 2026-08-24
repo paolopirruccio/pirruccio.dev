@@ -9,7 +9,6 @@ const MAIN_WEBPS = {
     'bussola': 'assets/compass.webp',
     'gym': 'illustration.webp',
     'ppw': 'favicon.webp',
-    'sara': 'sara-profile-pro.webp',
     'uscite': 'logo.webp',
     'codifica': 'immagini/logo.webp',
     'blog': 'icon.webp',

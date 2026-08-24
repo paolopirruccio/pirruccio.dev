@@ -5,18 +5,20 @@ import {RimBody} from "@/components/ai-lights/RimBody";
 import {PortfolioFooter,ProjectCard} from "@/components/portfolio/RemainingPortfolio";
 import {SquircleBox,SquircleButton,SquircleLink} from "@/components/squircle/SquircleControl";
 import {portfolioProjects} from "@/data/projects";
+import {StudioWipDialog} from "@/components/StudioWipDialog";
 
 type Lang="it"|"en";
 
 export function ProjectsGallery(){
   const[lang,setLang]=useState<Lang>("it");
+  const[studioWipOpen,setStudioWipOpen]=useState(false);
   useEffect(()=>{const saved=localStorage.getItem("preferredLanguage") as Lang|null;if(saved)setLang(saved)},[]);
   const toggle=()=>setLang(current=>{const next=current==="it"?"en":"it";localStorage.setItem("preferredLanguage",next);return next});
   return <main className="app-shell mode-personal gallery-app">
     <nav className="shell-controls" aria-label="Portfolio view">
       <RimBody pulseKey={0} className="mode-switch-rim"><SquircleBox className="shell-segmented">
         <SquircleButton aria-pressed onClick={()=>window.location.href="/io"}>{lang==="it"?"Io":"Me"}</SquircleButton>
-        <SquircleButton aria-pressed={false} onClick={()=>window.location.href="/"}>Studio</SquircleButton>
+        <SquircleButton onClick={()=>setStudioWipOpen(true)} aria-haspopup="dialog" aria-controls="studio-wip-dialog">Studio</SquircleButton>
       </SquircleBox></RimBody>
       <SquircleButton className="shell-language" onClick={toggle}>{lang==="it"?"EN":"IT"}</SquircleButton>
     </nav>
@@ -26,5 +28,6 @@ export function ProjectsGallery(){
       <section className="gallery-project-grid" aria-label={lang==="it"?"Tutti i progetti":"All projects"}>{portfolioProjects.map(project=><ProjectCard key={project.title} project={project} lang={lang}/>)}</section>
       <PortfolioFooter lang={lang}/>
     </div></div>
+    <StudioWipDialog open={studioWipOpen} onClose={()=>setStudioWipOpen(false)} lang={lang}/>
   </main>;
 }

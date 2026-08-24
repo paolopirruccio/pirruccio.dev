@@ -14,7 +14,6 @@ const PORTFOLIO_APPS = [
     { id: 'gym', title: 'Gym', sub: 'Workout', icon: 'fa-solid fa-dumbbell', colorBg: '#1C1C1E', colorText: '#34C759', spotlightColor: '#34C759', url: 'gym/index.html', isExternal: true, inGrid: true },
     { id: 'desktop', title: 'Desktop', sub: 'App', icon: 'fa-solid fa-desktop', colorBg: '#f3f4f6', colorText: '#4b5563', spotlightColor: '#888', url: 'desktop/index.html', isExternal: true, inGrid: true },
     { id: 'uscite', title: 'Uscite', sub: 'Tracker', icon: 'fa-solid fa-calendar-days', colorBg: '#fff1f2', colorText: '#e11d48', spotlightColor: '#e11d48', url: 'uscite/index.html', isExternal: true, inGrid: true },
-    { id: 'sara', title: 'Sara', sub: 'Language', icon: 'fa-solid fa-language', colorBg: '#f3e8ff', colorText: '#9333ea', spotlightColor: '#9333ea', url: 'sara/index.html', isExternal: true, inGrid: true },
     { id: 'ai', title: 'AI Assistant', sub: 'Chatbot', icon: 'fa-solid fa-robot', colorBg: '#fef9c3', colorText: '#ca8a04', spotlightColor: '#ca8a04', url: 'ai/index.html', inGrid: true },
 
     { id: 'spotify', title: 'Spotify', sub: 'Playlist', icon: 'fa-brands fa-spotify', color: '#1DB954', url: 'https://open.spotify.com/playlist/4jZewD1ibeylaOwXASx98z', isExternal: true },

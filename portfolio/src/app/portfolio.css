@@ -10,17 +10,18 @@
 .passion-sticker{position:absolute;top:0;left:0;z-index:2;cursor:grab;touch-action:none;user-select:none;filter:drop-shadow(0 9px 8px #00000032);transform-origin:center;will-change:transform;transition:filter .18s ease}
 .passion-sticker:active{filter:drop-shadow(0 18px 13px #00000042)}
 .react-footer-meta{position:relative;z-index:4;display:grid;grid-template-columns:1fr auto auto;gap:22px;align-items:center;padding-top:4px;border-top:0;text-align:left}
-.portfolio-studio-invite{position:relative;z-index:5;display:flex;align-items:center;justify-content:center;gap:12px;margin:4px 0 0;padding:10px 0 0;color:inherit;background:transparent}
-.portfolio-studio-invite h2{margin:0;color:inherit;font:inherit;letter-spacing:0}
-.portfolio-studio-rim{flex:none;border-radius:999px}
-.portfolio-studio-rim .rim-face{padding:0;border:0;border-radius:999px;background:transparent;box-shadow:none}
-.portfolio-studio-cta{display:flex;min-width:92px;height:44px;align-items:center;justify-content:center;gap:10px;border:1px solid #00000018;border-radius:999px;background:#171717;color:#fff;font-weight:700;cursor:pointer}
+.studio-wip-backdrop{position:fixed;z-index:5000;inset:0;display:grid;place-items:center;padding:20px;background:#0008;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:studioWipFade .22s ease both}
+.studio-wip-dialog{width:min(520px,100%);padding:clamp(28px,6vw,56px);border:1px solid #00000018;border-radius:34px;background:#f4f3ef;color:#171717;box-shadow:0 28px 90px #0005;animation:studioWipEnter .35s cubic-bezier(.22,1,.36,1) both}
+.studio-wip-kicker{display:block;margin-bottom:28px;font-size:11px;font-weight:800;letter-spacing:.16em}
+.studio-wip-dialog h2{margin:0;font:400 clamp(54px,9vw,82px)/.88 "Instrument Serif",serif;letter-spacing:-.045em}
+.studio-wip-dialog p{max-width:360px;margin:24px 0 32px;color:#666;font-size:16px;line-height:1.55}
+.studio-wip-dialog button{min-width:120px;min-height:48px;padding:0 22px;border:0;border-radius:999px;background:#171717;color:#fff;font:700 14px Inter,Arial,sans-serif;cursor:pointer}
+.studio-wip-dialog button:focus-visible{outline:3px solid #ffd700;outline-offset:4px}
+@keyframes studioWipFade{from{opacity:0}to{opacity:1}}
+@keyframes studioWipEnter{from{opacity:0;filter:blur(8px);transform:translateY(18px) scale(.97)}to{opacity:1;filter:none;transform:none}}
 .react-footer-meta .footer-socials-react{margin:0}
 .react-footer-meta>button{display:inline-flex;height:46px;align-items:center;gap:10px;padding:0 18px;border:1px solid #00000014;border-radius:100px;background:#fffc;color:#1a1a1a;font-weight:600;cursor:pointer}
 @media(max-width:700px){
-  .portfolio-studio-invite{flex-direction:column;gap:9px;margin-top:8px;padding-top:8px;text-align:center}
-  .portfolio-studio-rim{align-self:center}
-  .portfolio-studio-cta{height:44px;min-width:92px}
   .react-footer{min-height:300px;margin-top:18px;padding:0 0 28px}
   .passion-footer-head{display:block}
   .passion-footer-head h2{margin-top:10px;font-size:56px}
@@ -32,6 +33,7 @@
 }
 @media(prefers-color-scheme:dark){.passion-footer-head{color:#fff}.react-footer,.react-footer-meta{border-color:#ffffff1a}.react-footer-meta>button{background:#282828;color:#fff;border-color:#ffffff1f}}
 @media(prefers-reduced-motion:reduce){.passion-sticker{transition:none}}
+@media(prefers-reduced-motion:reduce){.studio-wip-backdrop,.studio-wip-dialog{animation:none}}
 .react-footer .passion-stickers{margin-top:20px}
 .react-footer>.elastic-separator{height:56px;margin-bottom:-8px}
 .personal-contacts .contact-deck{padding-bottom:32px}
@@ -59,7 +61,7 @@
 .project-logo.is-monogram i{display:block}
 
 /* Two concentric squircles: the rim and its inset face share the real geometry. */
-.contact-card{--contact-color:#444}.contact-card.email{--contact-color:#34c759}.contact-card.tidycal{--contact-color:#ffd700}.contact-card.instagram{--contact-color:#ff5c00}.contact-card.telegram{--contact-color:#0088cc}.contact-card.linkedin{--contact-color:#0077b5}
+.contact-card{--contact-color:#444}.contact-card.email{--contact-color:#ffd700}.contact-card.services,.contact-card.tidycal{--contact-color:#34c759}.contact-card.instagram{--contact-color:#ff5c00}.contact-card.telegram{--contact-color:#0088cc}.contact-card.linkedin{--contact-color:#0077b5}
 .contact-card .contact-card-inner{position:relative;border:0!important;background:var(--contact-color)!important;box-shadow:none!important}
 .contact-card .contact-card-inner::before{content:""!important;position:absolute;inset:0;clip-path:inherit;background:repeating-radial-gradient(circle at 28% 22%,#fff 0 .45px,transparent .7px 3px);mix-blend-mode:soft-light;opacity:.22}
 .contact-card .contact-card-inner::after{content:""!important;position:absolute;inset:0;clip-path:inherit;background:linear-gradient(135deg,#ffffff28 0%,transparent 34%,transparent 74%,#00000012 100%);pointer-events:none}
@@ -73,16 +75,15 @@
 .react-project-card:hover{filter:drop-shadow(0 12px 18px #0000002b)}
 .project-thumbs img{box-shadow:0 8px 18px #00000030}
 
-/* The SVG clip is measured client-side. Reveal the complete card only once its
-   squircle exists, so the browser never flashes the fallback rounded rectangle. */
-.contact-card,.react-project-card{opacity:0;filter:blur(7px);transition:opacity .24s ease,filter .32s ease,transform .35s cubic-bezier(.22,.68,0,1.2)}
-.contact-card:has(.contact-card-inner[data-squircle-ready="true"]){opacity:1;filter:blur(0)}
-.react-project-card:has(.project-card-surface[data-squircle-ready="true"]){opacity:1;filter:blur(0) drop-shadow(0 5px 10px #00000018)}
+/* Keep content visible while the client measures the squircle. The rounded
+   fallback is preferable to blank cards when hydration or ResizeObserver is slow. */
+.contact-card{opacity:1;filter:none;transition:opacity .24s ease,filter .32s ease,transform .35s cubic-bezier(.22,.68,0,1.2)}
+.react-project-card{opacity:1;filter:drop-shadow(0 5px 10px #00000018);transition:opacity .24s ease,filter .32s ease,transform .35s cubic-bezier(.22,.68,0,1.2)}
 .react-project-card:hover{filter:drop-shadow(0 12px 18px #0000002b)}
 @media(prefers-reduced-motion:reduce){.contact-card,.react-project-card{transition:none}}
 .travel-gallery{padding:22px 0 12px}.travel-gallery-head{position:relative;min-height:230px;padding:42px 0 30px}.travel-airmail{position:absolute;top:0;right:0;left:0;height:7px;border-radius:4px;background:repeating-linear-gradient(115deg,#c8102e 0 12px,#fdfcf6 12px 24px,#1c3f94 24px 36px,#fdfcf6 36px 48px);opacity:.85}.travel-gallery-head>div:nth-child(2)>span{color:#777;font:400 22px "Instrument Serif",serif;font-style:italic}.travel-gallery-head h3{margin:0;font:400 clamp(62px,10vw,110px)/.86 "Instrument Serif",serif;font-style:italic;letter-spacing:-.04em}.travel-gallery-head p{max-width:440px;margin:18px 0 0;color:#666;line-height:1.5}.travel-gallery-head small{display:block;margin-top:7px;color:#888;font-style:italic}.travel-stamp{position:absolute;top:34px;right:12px;display:flex;width:82px;height:96px;align-items:center;justify-content:center;flex-direction:column;gap:5px;border:1px solid #8a6d3b66;outline:2px dashed #8a6d3b66;outline-offset:-7px;background:#fffdf4;box-shadow:0 0 0 4px #fffdf4,0 5px 15px #0002;transform:rotate(4deg)}.travel-stamp b{font-size:30px}.travel-stamp span{color:#8a6d3b;font-size:7px;font-weight:800;letter-spacing:.12em}.travel-polaroid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:34px 24px;position:relative;align-items:start;justify-items:center}.travel-polaroid-grid.is-scattered{display:block}.travel-polaroid{width:100%;max-width:240px;padding:13px 13px 0;background:#fdfcf6;box-shadow:0 8px 22px #00000029,0 2px 6px #0000001a;opacity:0;filter:blur(12px);transform:rotate(var(--travel-rot));transition:opacity .8s ease,filter .8s ease,transform .35s cubic-bezier(.22,1,.36,1);user-select:none}.travel-polaroid.is-visible{opacity:1;filter:none}.travel-polaroid-grid.is-scattered .travel-polaroid{position:absolute;cursor:grab;touch-action:none}.travel-polaroid.is-dragging{cursor:grabbing!important;transform:rotate(0) scale(1.04);box-shadow:0 18px 40px #0000003d}.travel-polaroid>div{position:relative;overflow:hidden;background:#e8e4da}.travel-polaroid>div::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 30px #1e140529;pointer-events:none}.travel-polaroid img{display:block;width:100%;height:auto;filter:saturate(1.03) contrast(1.02)}.travel-polaroid footer{padding:12px 6px 16px;text-align:center}.travel-polaroid strong{display:block;color:#2c2416;font:400 25px "Instrument Serif",serif}.travel-polaroid footer span{display:block;margin-top:2px;color:#a89e88;font-size:10px;font-weight:600;letter-spacing:.16em}@media(max-width:700px){.travel-gallery-head{min-height:210px}.travel-gallery-head h3{font-size:68px}.travel-stamp{transform:scale(.72) rotate(4deg);transform-origin:top right}.travel-gallery-head small{display:none}.travel-polaroid-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px}.travel-polaroid{padding:9px 9px 0}.travel-polaroid footer{padding:9px 4px 12px}.travel-polaroid strong{font-size:20px}}
 @media(max-width:900px){.react-pricing{grid-template-columns:1fr}.react-pricing article.featured{order:-1}}@media(max-width:768px){.react-portfolio{padding:0 20px 90px}.react-project-deck{margin-left:-20px;padding-left:20px;scroll-padding-left:20px}.react-project-card{width:306px;min-height:240px}.project-thumbs{width:138px;height:118px}.project-thumbs img{width:126px;height:84px}.react-arrow{display:none}.react-cv{grid-template-columns:1fr;gap:30px;padding:20px 0}.react-cv aside{padding:0 0 30px;border-right:0;border-bottom:1px solid #0000001a}}@media(prefers-reduced-motion:reduce){.react-project-card,.project-thumbs .front,.accordion-body{transition:none}}
-.contact-card.studio{--contact-color:#ffd700}
+.contact-card.services{--contact-color:#34c759}
 
 .travel-stack-section{display:grid;min-height:500px;grid-template-columns:minmax(0,1fr) 330px;gap:70px;align-items:center;padding:54px 34px 70px 0}.travel-stack-copy>span{color:#777;font:italic 22px "Instrument Serif",serif}.travel-stack-copy h3{margin:4px 0 18px;font:italic 400 clamp(72px,10vw,118px)/.78 "Instrument Serif",serif;letter-spacing:-.045em}.travel-stack-copy p{max-width:420px;margin:0;color:#666;font-size:17px;line-height:1.55}.travel-stack-copy small{display:block;margin-top:18px;color:#8b867d;font-size:12px}.travel-photo-stack{position:relative;width:320px;aspect-ratio:1;height:auto;justify-self:center;user-select:none}.travel-stack-card{position:absolute;inset:0;margin:0;overflow:hidden;border:1px solid #0000001a;border-radius:24px;background:#fff;box-shadow:0 2px 4px #0000000f,0 18px 38px #00000026;transform-origin:center;outline:0}.travel-stack-card:focus-visible{outline:2px solid #ffd700;outline-offset:4px}.travel-stack-card>img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none}.travel-stack-card>figcaption{position:absolute;right:0;bottom:0;left:0;z-index:2;display:flex;padding:64px 18px 17px;flex-direction:column;color:#fff;background:linear-gradient(transparent,#000b);transition:opacity .2s}.travel-stack-card>figcaption.is-hidden{opacity:0}.travel-stack-card>figcaption strong{font:400 26px "Instrument Serif",serif}.travel-stack-card>figcaption span{margin-top:2px;font-size:11px;letter-spacing:.12em}.travel-stack-card>i{position:absolute;inset:0;background:#fff;pointer-events:none}@media(max-width:700px){.travel-stack-section{min-height:570px;grid-template-columns:1fr;gap:42px;padding:38px 12px 72px 0}.travel-stack-copy h3{font-size:72px}.travel-stack-copy p{font-size:15px}.travel-photo-stack{width:240px;height:auto;margin-left:-28px}.travel-stack-card{border-radius:20px}}
 
@@ -94,3 +95,81 @@
 .footer-socials-react a:active{transform:scale(.9)}
 .react-project-card.is-disabled{cursor:default}
 .react-project-card.is-disabled:hover{transform:none;filter:drop-shadow(0 6px 12px #0000002e)}
+
+/* The Studio offers, brought into the personal portfolio. */
+.personal-services-section{overflow:visible}
+.personal-services-content{overflow:hidden}
+.accordion-body.open>.personal-services-content{overflow:visible}
+.personal-services-deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:22px 0 18px}
+.personal-service-card{--service-color:#ffd84d;position:relative;display:flex;min-height:350px;overflow:hidden;padding:26px;flex-direction:column;background:var(--service-color);color:#171717;box-shadow:inset 1px 1px 0 #ffffff70,inset -2px -2px 4px #00000024,inset 5px 5px 12px #ffffff14;filter:drop-shadow(0 8px 14px #00000020)}
+.personal-service-card:nth-child(2){--service-color:#ff795f}
+.personal-service-card:nth-child(3){--service-color:#72d6a1}
+.personal-service-card::before{content:"";position:absolute;inset:0;clip-path:inherit;background:repeating-radial-gradient(circle at 28% 22%,#fff 0 .45px,transparent .7px 3px);mix-blend-mode:soft-light;opacity:.24;pointer-events:none}
+.personal-service-card::after{content:"";position:absolute;inset:0;clip-path:inherit;background:linear-gradient(135deg,#ffffff30 0%,transparent 36%,transparent 76%,#00000012 100%);pointer-events:none}
+.personal-service-card>span,.personal-service-copy,.personal-service-footer{position:relative;z-index:1;color:#171717}
+.personal-service-card>span{font-size:12px;font-weight:800;letter-spacing:.12em}
+.personal-service-copy{display:flex;flex:1;flex-direction:column;justify-content:center;padding:20px 0 14px}
+.personal-service-copy>h3{max-width:92%;margin:0 0 12px;font:400 clamp(34px,3.5vw,52px)/.92 "Instrument Serif",serif;letter-spacing:-.03em}
+.personal-service-copy>p{min-height:6.4em;margin:0;color:#171717;font-size:14px;line-height:1.55}
+.personal-service-footer{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-top:22px}
+.personal-service-footer>strong{font:400 34px/1 "Instrument Serif",serif}
+.personal-service-contact{display:inline-flex;min-height:44px;align-items:center;justify-content:center;gap:9px;padding:0 16px;border:1px solid #17171724;background:#f8f5ebc9;color:#171717;font-size:13px;font-weight:750;text-decoration:none;box-shadow:inset 1px 1px 0 #fff,inset -2px -2px 4px #0000001c;transition:background-color .22s ease,transform .22s ease,box-shadow .22s ease}
+.personal-service-contact:hover,.personal-service-contact:focus-visible{background:#fff;box-shadow:inset 1px 1px 0 #fff,inset -2px -2px 4px #00000024,0 7px 14px #0000001c;transform:translateY(-2px)}
+.personal-services-disclaimer{margin:0;color:#777;font-size:12px}
+@media(max-width:760px){
+  .personal-services-deck{display:flex;width:100vw;margin-left:-20px;padding:20px 20px 22px;gap:14px;overflow-x:auto;scroll-padding-left:20px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .personal-services-deck::-webkit-scrollbar{display:none}
+  .personal-service-card{flex:0 0 min(82vw,330px);min-height:310px;scroll-snap-align:start}
+  .personal-service-copy>h3{font-size:40px}
+  .personal-service-footer{align-items:center}
+}
+@media(prefers-color-scheme:dark){.personal-service-card{box-shadow:inset 1px 1px 0 #ffffff30,inset -2px -2px 5px #0008,inset 5px 5px 12px #ffffff0a}.personal-services-disclaimer{color:#a0a0a0}}
+
+/* The occasional-work experience belongs to the personal portfolio palette. */
+.occasional-work-accordion{--ow-bg:#f8f8f8;--ow-surface:#efede7;--ow-text:#171717;--ow-muted:#625f58;--ow-border:#0000001a;margin-bottom:clamp(52px,7vw,86px)}
+.occasional-work-accordion.is-open{position:relative}
+.occasional-work-accordion.is-open>.accordion-head{position:sticky;z-index:190;top:0;width:100vw;margin-left:calc(50% - 50vw);padding:18px max(24px,calc((100vw - 1120px)/2));color:var(--ow-text);background:color-mix(in srgb,var(--ow-bg) 88%,transparent);border-bottom:1px solid var(--ow-border);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.occasional-work-accordion.is-open>.accordion-body,.occasional-work-accordion.is-open>.accordion-body>*{max-height:none!important;overflow:visible!important}
+.occasional-work-experience{width:100vw;margin-left:calc(50% - 50vw);overflow:clip;color:var(--ow-text);background:var(--ow-bg)}
+.occasional-work-experience .studio-cycle-hero{width:100vw;min-height:100svh;min-height:100dvh}
+.occasional-work-experience .studio-cycle-bottom{bottom:clamp(58px,8svh,92px);justify-content:flex-start}
+.occasional-work-experience .studio-cycle-bottom>p{width:min(470px,calc(100vw - 40px));margin:0;padding:0;border:0;background:transparent;font-size:15px;font-weight:650;line-height:1.5;letter-spacing:-.01em;text-wrap:balance;text-shadow:0 1px 18px var(--panel-bg)}
+.occasional-work-content{position:relative}
+.occasional-work-experience .studio-process,.occasional-work-experience .occasional-stacked-services,.occasional-work-experience .occasional-faq{color:var(--ow-text);background:var(--ow-bg)}
+.occasional-work-experience .liquid-unit-card,.occasional-work-experience .liquid-unit-tab{background:var(--ow-surface)}
+.occasional-work-experience .liquid-process-copy,.occasional-work-experience .liquid-process-copy p,.occasional-work-experience .liquid-tab-handle{color:var(--ow-text)}
+.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-card,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-tab{background:#171717}
+.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-tab-handle{color:#f7f5ef}
+.occasional-stacked-services{background:#fff}
+.occasional-faq .studio-faq-row{border-color:var(--ow-border)}
+.occasional-faq .studio-faq-row>i{color:var(--ow-muted)}
+.occasional-contact-finale{position:relative;display:grid;min-height:clamp(330px,46svh,500px);place-content:center;gap:18px;padding:48px 24px;color:var(--ow-text);text-align:center;background:var(--ow-bg);border-top:1px solid var(--ow-border)}
+.occasional-contact-finale>span{font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.occasional-contact-finale>small{color:var(--ow-muted)}
+.occasional-mail-rim{justify-self:center;border-radius:999px}
+.occasional-mail-rim .rim-face{padding:0;border:0;border-radius:999px;background:transparent;box-shadow:none}
+.occasional-mail-link{display:inline-flex;min-height:58px;align-items:center;justify-content:center;padding:0 28px;border:1px solid var(--ow-border);border-radius:999px;background:var(--ow-text);color:var(--ow-bg);font-size:clamp(15px,1.6vw,17px);font-weight:750;text-decoration:none;box-shadow:inset 0 1px #ffffff36}
+.occasional-mail-link:focus-visible{outline:3px solid #ffd700;outline-offset:5px}
+@media(max-width:700px){
+  .occasional-work-accordion{margin-bottom:64px}
+  .occasional-work-accordion.is-open>.accordion-head{padding:14px 20px}
+  .occasional-work-experience .studio-cycle-hero{min-height:100svh;min-height:100dvh}
+  .occasional-work-experience .studio-cycle-hero canvas,.occasional-work-experience .studio-cycle-fallback{width:100vw;height:100%}
+  .occasional-work-experience .studio-cycle-fallback{padding:12vh 18px 28vh;font-size:clamp(50px,15vw,76px);line-height:.88;transform:translateY(-2.5svh)}
+  .occasional-work-experience .studio-cycle-bottom{right:24px;bottom:max(84px,12svh);left:24px}
+  .occasional-work-experience .studio-cycle-bottom>p{width:min(88%,410px);max-width:none;padding:0;font-size:14px;line-height:1.48}
+  .occasional-work-experience .liquid-unit-skin{filter:none}
+  .occasional-work-experience .studio-service-stack{gap:16px;padding-bottom:16px}
+  .occasional-work-experience .studio-service-pane{position:relative;top:auto;padding-top:0}
+  .occasional-work-experience .studio-service-card{height:auto;min-height:410px;transform:none!important}
+  .occasional-contact-finale{min-height:340px;padding:42px 20px}
+  .occasional-mail-link{min-height:56px;padding-inline:24px}
+}
+@media(prefers-color-scheme:dark){
+  .occasional-work-accordion{--ow-bg:#111;--ow-surface:#1c1c1c;--ow-text:#f4f4f2;--ow-muted:#b2b0aa;--ow-border:#ffffff22}
+  .occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-card,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-tab{background:#f4f4f2}
+  .occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-tab-handle{color:#171717}
+  .occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-process-copy,.occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-tab-handle,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-process-copy,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-tab-handle{color:#171717}
+  .occasional-stacked-services{background:#111}
+  .occasional-mail-link{box-shadow:inset 0 1px #ffffff18}
+}

@@ -386,10 +386,9 @@
 .studio-final-contact-actions a:hover{background:#343434;border-color:#ffffff52}
 @media(max-width:700px){.studio-contact-actions{display:none!important}.studio-final-contact-actions{flex-wrap:wrap}.studio-final-contact-actions a{flex:1}}
 .studio-explore-trigger{min-height:44px}
-/* Studio uses Space Grotesk for non-display typography. */
-.app-shell.mode-agency,.studio-page{font-family:"Space Grotesk",Arial,sans-serif}
-.studio-page button,.studio-page input,.studio-page select,.studio-page textarea{font-family:"Space Grotesk",Arial,sans-serif}
-.studio-page .mini-site,.studio-page .mini-site nav>b,.studio-page .mini-site button,.studio-page .studio-cycle-bottom button,.studio-page .studio-wizard-step>div>button,.studio-page .wizard-contact input,.studio-page .studio-final-cta,.studio-page .studio-post-hero-start,.studio-page .studio-contact-actions a,.studio-page .studio-final-contact-actions a,.studio-page .studio-contact-actions a::after{font-family:"Space Grotesk",Arial,sans-serif}
+/* Studio shares the same body typography as the personal portfolio. */
+.app-shell.mode-agency,.studio-page{font-family:Inter,Arial,sans-serif}
+.studio-page button,.studio-page input,.studio-page select,.studio-page textarea{font-family:inherit}
 
 /* The offer comes first on dark; the concrete proof follows on paper. */
 .studio-services{background:#171717;color:#f4f1e9}

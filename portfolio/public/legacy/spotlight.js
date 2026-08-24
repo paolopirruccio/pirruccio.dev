@@ -10,7 +10,7 @@
         return (translations && translations[lang] && translations[lang][key]) || key;
     };
 
-    const HIDDEN_APPS = ['blog', 'library', 'gym', 'desktop', 'uscite', 'sara'];
+    const HIDDEN_APPS = ['blog', 'library', 'gym', 'desktop', 'uscite'];
     const SEARCH_ITEMS = [
         ...PORTFOLIO_APPS.filter(app => !HIDDEN_APPS.includes(app.id)).map(app => ({
             title: app.title,

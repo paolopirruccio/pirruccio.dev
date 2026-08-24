@@ -67,17 +67,18 @@
 .travel-editorial-copy .travel-stack-copy{max-width:430px}
 .travel-editorial-copy .travel-stack-copy p{margin:0;color:#777;font:400 clamp(1.45rem,2.8vw,2.25rem)/1.08 "Instrument Serif",serif;letter-spacing:-.015em}
 .travel-editorial-copy .travel-stack-copy small{margin-top:18px}
-.travel-memory-mark{position:relative;flex:0 0 126px;width:126px;height:126px;color:#8b867d;opacity:.62}
-.travel-memory-mark i{position:absolute;inset:0;border:1px solid currentColor;border-radius:50%}
-.travel-memory-mark i:nth-child(2){inset:18px;opacity:.72}
-.travel-memory-mark i:nth-child(3){inset:40px;opacity:.45}
-.travel-memory-mark b{position:absolute;top:17px;right:8px;width:18px;height:18px;border-radius:50%;background:#ffb36b;box-shadow:0 0 24px #ff9a5270}
+.travel-memory-mark{position:relative;flex:0 0 126px;width:126px;height:112px;color:#8b867d;opacity:.7}
+.travel-memory-mark i{position:absolute;top:14px;left:24px;width:72px;height:84px;border:1px solid currentColor;border-radius:3px;background:transparent;transform:rotate(-8deg)}
+.travel-memory-mark i:nth-child(2){top:8px;left:35px;opacity:.68;transform:rotate(2deg)}
+.travel-memory-mark i:nth-child(3){top:18px;left:48px;opacity:.42;transform:rotate(10deg)}
+.travel-memory-mark b{position:absolute;top:29px;right:27px;width:12px;height:12px;border-radius:50%;background:#ffb36b;box-shadow:0 0 18px #ff9a5260}
 @media(max-width:700px){
   .travel-editorial-copy{display:flex;min-height:0;gap:16px;padding:8px 4px 14px 0}
   .travel-editorial-copy .travel-stack-copy{max-width:250px}
   .travel-editorial-copy .travel-stack-copy p{font-size:1.45rem;line-height:1.08}
   .travel-editorial-copy .travel-stack-copy small{margin-top:12px}
-  .travel-memory-mark{flex-basis:84px;width:84px;height:84px;margin-left:auto}
-  .travel-memory-mark i:nth-child(2){inset:12px}.travel-memory-mark i:nth-child(3){inset:27px}
-  .travel-memory-mark b{top:10px;right:4px;width:13px;height:13px}
+  .travel-memory-mark{flex-basis:84px;width:84px;height:76px;margin-left:auto}
+  .travel-memory-mark i{top:10px;left:10px;width:49px;height:58px}
+  .travel-memory-mark i:nth-child(2){top:6px;left:18px}.travel-memory-mark i:nth-child(3){top:12px;left:27px}
+  .travel-memory-mark b{top:21px;right:12px;width:9px;height:9px}
 }

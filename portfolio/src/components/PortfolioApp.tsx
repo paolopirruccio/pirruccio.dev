@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import dynamic from "next/dynamic";
 import { RimBody } from "@/components/ai-lights/RimBody";
-import { SquircleBox, SquircleButton } from "@/components/squircle/SquircleControl";
+import { SquircleBox, SquircleButton, SquircleLink } from "@/components/squircle/SquircleControl";
+import { StudioWipDialog } from "@/components/StudioWipDialog";
 
 type Mode = "personal" | "agency";
 type Lang = "it" | "en";
 
 const RemainingPortfolio = dynamic(() => import("@/components/portfolio/RemainingPortfolio").then(module => module.RemainingPortfolio));
-const AgencyPage = dynamic(() => import("@/components/agency/AgencyPage").then(module => module.AgencyPage));
 
 export function PortfolioApp({initialMode}:{initialMode:Mode}) {
   const [mode, setMode] = useState<Mode>(initialMode);
@@ -17,6 +17,7 @@ export function PortfolioApp({initialMode}:{initialMode:Mode}) {
   const [pulse, setPulse] = useState(0);
   const [changing, setChanging] = useState(false);
   const [leaving, setLeaving] = useState(false);
+  const [studioWipOpen, setStudioWipOpen] = useState(false);
 
   useEffect(() => {
     const savedLang = localStorage.getItem("preferredLanguage") as Lang | null;
@@ -54,7 +55,7 @@ export function PortfolioApp({initialMode}:{initialMode:Mode}) {
   const renderModeControl = (personalGlass = false) => <RimBody pulseKey={pulse} className={`mode-switch-rim${personalGlass ? " personal-glass-wrap" : ""}`}>
     <SquircleBox className={`shell-segmented${personalGlass ? " personal-glass-content" : ""}`}>
       <SquircleButton disabled={changing} onClick={() => selectMode("personal")} aria-pressed={mode === "personal"}>{lang === "it" ? "Io" : "Me"}</SquircleButton>
-      <SquircleButton disabled={changing} onClick={() => selectMode("agency")} aria-pressed={mode === "agency"}>Studio</SquircleButton>
+      <SquircleButton disabled={changing} onClick={() => setStudioWipOpen(true)} aria-haspopup="dialog" aria-controls="studio-wip-dialog">Studio</SquircleButton>
     </SquircleBox>
   </RimBody>;
   const modeControl = renderModeControl();
@@ -65,15 +66,19 @@ export function PortfolioApp({initialMode}:{initialMode:Mode}) {
       <span className="personal-language-wrap">
         <SquircleButton className="shell-language personal-glass-content" onClick={toggleLanguage}>{lang === "it" ? "EN" : "IT"}</SquircleButton>
       </span>
+      <span className="personal-mail-wrap">
+        <SquircleLink className="shell-language shell-mail personal-glass-content" href="mailto:pirruccio.01@gmail.com" aria-label={lang === "it" ? "Scrivimi via email" : "Email me"}><i className="fa-solid fa-envelope"/></SquircleLink>
+      </span>
     </nav>
 
     <div className="view-stage">
       {mode === "personal" ? <>
         <PersonalHero lang={lang} />
-        <PersonalContacts lang={lang} />
-        <RemainingPortfolio lang={lang} onOpenStudio={() => selectMode("agency")} />
-      </> : <AgencyPage lang={lang} modeControl={modeControl} languageControl={languageControl} />}
+        <PersonalContacts lang={lang} onOpenStudio={() => setStudioWipOpen(true)} />
+        <RemainingPortfolio lang={lang} onOpenStudio={() => setStudioWipOpen(true)} />
+      </> : null}
     </div>
+    <StudioWipDialog open={studioWipOpen} onClose={() => setStudioWipOpen(false)} lang={lang}/>
   </main>;
 }
 
@@ -155,13 +160,13 @@ function useHeroMagnetism(ref: RefObject<HTMLElement | null>) {
 
 const contactItems = [
   { id: "email", label: { it: "Contatto", en: "Contact" }, title: { it: "Scrivimi", en: "Email Me" }, href: "mailto:pirruccio.01@gmail.com", icon: "fa-solid fa-envelope" },
-  { id: "studio", label: { it: "Studio", en: "Studio" }, title: { it: "Studio", en: "Studio" }, href: "/", icon: "fa-solid fa-pen-ruler" },
+  { id: "services", label: { it: "Servizi", en: "Services" }, title: { it: "Servizi", en: "Services" }, href: "/io#servizi", icon: "fa-solid fa-pen-ruler" },
   { id: "instagram", label: { it: "Social", en: "Social" }, title: { it: "Instagram", en: "Instagram" }, href: "https://www.instagram.com/pirruccio_paolo/", icon: "fa-brands fa-instagram" },
   { id: "telegram", label: { it: "Messaggio", en: "Message" }, title: { it: "Telegram", en: "Telegram" }, href: "https://t.me/sunriseshy", icon: "fa-brands fa-telegram" },
   { id: "linkedin", label: { it: "Connettiti", en: "Connect" }, title: { it: "LinkedIn", en: "LinkedIn" }, href: "https://www.linkedin.com/in/paolopirruccio/", icon: "fa-brands fa-linkedin" },
 ] as const;
 
-function PersonalContacts({ lang }: { lang: Lang }) {
+function PersonalContacts({ lang }: { lang: Lang; onOpenStudio:()=>void }) {
   const deck = useRef<HTMLDivElement>(null);
   const [canBack, setCanBack] = useState(false);
   const [canForward, setCanForward] = useState(true);
@@ -177,7 +182,7 @@ function PersonalContacts({ lang }: { lang: Lang }) {
     <div className="contact-slider">
       <SquircleButton className={`contact-arrow prev ${canBack ? "" : "hidden"}`} onClick={() => scroll(-1)} aria-label="Contatti precedenti"><i className="fa-solid fa-chevron-left" /></SquircleButton>
       <div className="contact-deck" ref={deck} onScroll={update}>
-        {contactItems.map(item => <a className={`contact-card ${item.id}`} href={item.href} target={item.id==="studio"?undefined:"_blank"} rel={item.id==="studio"?undefined:"noopener noreferrer"} key={item.id}>
+        {contactItems.map(item => <a className={`contact-card ${item.id}`} href={item.href} target={item.id==="services"?undefined:"_blank"} rel={item.id==="services"?undefined:"noopener noreferrer"} onClick={item.id==="services"?event=>{event.preventDefault();window.dispatchEvent(new CustomEvent("open-portfolio-services"))}:undefined} key={item.id}>
           <SquircleBox className="contact-card-inner">
             <div className="contact-card-header"><span>{item.label[lang]}</span><i className={item.icon} /></div>
             <h2>{item.title[lang]}</h2>
