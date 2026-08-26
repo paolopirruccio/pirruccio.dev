@@ -160,7 +160,10 @@
   .occasional-work-accordion.is-open>.accordion-head{padding:14px 20px}
   .occasional-work-experience .studio-cycle-hero{min-height:100svh;min-height:100dvh}
   .occasional-work-experience .studio-cycle-hero canvas,.occasional-work-experience .studio-cycle-fallback{width:100vw;height:100%}
-  .occasional-work-experience .studio-cycle-fallback{padding:12vh 18px 28vh;font-size:clamp(50px,15vw,76px);line-height:.88;transform:translateY(-2.5svh);will-change:opacity,transform}
+  .occasional-work-experience .studio-cycle-fallback{padding:12vh 18px 28vh;font-size:clamp(50px,15vw,76px);line-height:.88;transform:translateY(-2.5svh);will-change:opacity,transform;flex-direction:column;gap:.08em}
+  .occasional-work-experience .studio-cycle-fixed-line,.occasional-work-experience .studio-cycle-changing-line{display:block;width:100%;text-align:center}
+  .occasional-work-experience .studio-cycle-changing-line{min-height:.88em;will-change:opacity,transform}
+  .occasional-work-experience .studio-cycle-changing-line[hidden]{display:none}
   .occasional-work-experience .studio-cycle-bottom{right:24px;bottom:max(84px,12svh);left:24px}
   .occasional-work-experience .studio-cycle-bottom>p{width:min(88%,410px);max-width:none;padding:0;font-size:14px;line-height:1.48}
   .occasional-work-experience .studio-service-stack{gap:0;padding-bottom:42px}
