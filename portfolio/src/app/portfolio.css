@@ -38,7 +38,12 @@
 .react-footer>.elastic-separator{height:56px;margin-bottom:-8px}
 .personal-contacts .contact-deck{padding-bottom:32px}
 .elastic-separator{display:block;width:100%;height:56px;overflow:visible;color:#d3d3d3;cursor:grab;touch-action:none;outline:0}.elastic-separator:active{cursor:grabbing}.elastic-separator path{stroke:currentColor;stroke-width:1}.elastic-separator:focus-visible path{stroke:#d4b400;stroke-width:2}.personal-elastic-wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 40px}.react-section{margin-top:0;padding-top:0;border-top:0}.react-footer{margin-top:0}.accordion-body:not(.open)>*{padding-top:0!important;padding-bottom:0!important;margin-top:0!important;margin-bottom:0!important}.react-project-deck{padding-bottom:86px}.accordion-head{padding:16px 0}
+.react-portfolio>.accordion{--accordion-sticky-bg:#f8f8f8}
+.react-portfolio>.accordion.is-open{position:relative}
+.react-portfolio>.accordion.is-open>.accordion-head{position:sticky;z-index:190;top:0;width:100vw;margin-left:calc(50% - 50vw);padding:18px max(24px,calc((100vw - 1120px)/2));border-bottom:0;background:color-mix(in srgb,var(--accordion-sticky-bg) 88%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+@media(prefers-color-scheme:dark){.react-portfolio>.accordion{--accordion-sticky-bg:#111}}
 @media(max-width:768px){.personal-elastic-wrap{padding:0 20px}.elastic-separator{height:48px;cursor:pointer;touch-action:pan-y}.react-footer>.elastic-separator{height:48px}.react-project-deck{padding-bottom:70px}.accordion-head{padding:13px 0}}
+@media(max-width:700px){.react-portfolio>.accordion.is-open>.accordion-head{min-height:calc(62px + env(safe-area-inset-top));padding:calc(14px + env(safe-area-inset-top)) 20px 14px}}
 @media(pointer:coarse){.elastic-separator{cursor:pointer;touch-action:pan-y}}
 
 .section-loading-skeleton{position:relative;display:grid;width:100%;min-height:430px;overflow:hidden;padding:44px 4px;grid-template-columns:minmax(0,1fr) minmax(180px,34%);gap:24px;align-items:center}.section-loading-skeleton.is-services{width:100vw;min-height:100svh;margin-left:calc(50% - 50vw);padding:12vh max(20px,calc((100vw - 1120px)/2))}.section-loading-skeleton>span,.section-loading-skeleton>i{display:block;border-radius:18px;background:linear-gradient(100deg,#0000000a 20%,#ffffff70 42%,#0000000a 64%);background-size:240% 100%;animation:sectionSkeletonShimmer 1.15s linear infinite}.section-loading-skeleton>span:nth-child(1){width:72%;height:28px}.section-loading-skeleton>span:nth-child(2){width:48%;height:18px}.section-loading-skeleton>span:nth-child(3){width:58%;height:18px}.section-loading-skeleton>i{grid-column:2;grid-row:1/4;width:100%;aspect-ratio:1;border-radius:26px}.section-loading-skeleton.is-services>span{grid-column:1/3;justify-self:center}.section-loading-skeleton.is-services>span:nth-child(1){width:min(620px,82vw);height:76px}.section-loading-skeleton.is-services>span:nth-child(2){width:min(430px,62vw)}.section-loading-skeleton.is-services>span:nth-child(3){width:min(520px,72vw)}.section-loading-skeleton.is-services>i{display:none}@keyframes sectionSkeletonShimmer{to{background-position:-240% 0}}
@@ -130,9 +135,8 @@
 @media(prefers-color-scheme:dark){.personal-service-card{box-shadow:inset 1px 1px 0 #ffffff30,inset -2px -2px 5px #0008,inset 5px 5px 12px #ffffff0a}.personal-services-disclaimer{color:#a0a0a0}}
 
 /* The occasional-work experience belongs to the personal portfolio palette. */
-.occasional-work-accordion{--ow-bg:#f8f8f8;--ow-surface:#efede7;--ow-text:#171717;--ow-muted:#625f58;--ow-border:#0000001a;--ow-ink:#171717;--ow-paper:#f8f8f8;--ow-blue:#8fa9ff;--ow-yellow:#ffd84a;--ow-coral:#ef755e;--ow-mint:#8fdab5;--ow-lilac:#b8a8ff;--ow-cyan:#72cada;margin-bottom:clamp(52px,7vw,86px)}
-.occasional-work-accordion.is-open{position:relative}
-.occasional-work-accordion.is-open>.accordion-head{position:sticky;z-index:190;top:0;width:100vw;margin-left:calc(50% - 50vw);padding:18px max(24px,calc((100vw - 1120px)/2));color:var(--ow-text);background:color-mix(in srgb,var(--ow-bg) 88%,transparent);border-bottom:0;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.occasional-work-accordion{--ow-bg:#f8f8f8;--ow-surface:#efede7;--ow-text:#171717;--ow-muted:#625f58;--ow-border:#0000001a;--ow-ink:#171717;--ow-paper:#f8f8f8;--ow-blue:#8fa9ff;--ow-yellow:#ffd84a;--ow-coral:#ef755e;--ow-mint:#8fdab5;--ow-lilac:#b8a8ff;--ow-cyan:#72cada;--accordion-sticky-bg:var(--ow-bg);margin-bottom:clamp(52px,7vw,86px)}
+.occasional-work-accordion.is-open>.accordion-head{color:var(--ow-text)}
 .occasional-work-accordion.is-open>.accordion-body,.occasional-work-accordion.is-open>.accordion-body>*{max-height:none!important;overflow:visible!important}
 .occasional-work-experience{width:100vw;margin-left:calc(50% - 50vw);overflow:clip;color:var(--ow-text);background:var(--ow-bg)}
 .occasional-work-experience .studio-cycle-hero{width:100vw;min-height:100svh;min-height:100dvh}
@@ -175,7 +179,6 @@
 .occasional-mail-link:focus-visible{outline:3px solid var(--ow-yellow);outline-offset:5px}
 @media(max-width:700px){
   .occasional-work-accordion{margin-bottom:64px}
-  .occasional-work-accordion.is-open>.accordion-head{padding:14px 20px}
   .occasional-work-experience .studio-cycle-hero{height:82svh;min-height:82svh;height:82dvh;min-height:82dvh;background-image:none;box-shadow:none}
   .occasional-work-experience .studio-service-poster{--poster-type:clamp(56px,15vw,86px);height:min(68svh,560px);min-height:480px;padding:28px 20px}
   .studio-service-poster::before{top:-9%;right:-20%;width:62vw}.studio-service-poster::after{bottom:-12%;left:-20%;width:52vw;border-radius:38px}

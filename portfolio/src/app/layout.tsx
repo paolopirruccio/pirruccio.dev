@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./hero.css";
 import "./contacts.css";
@@ -15,6 +15,16 @@ import "./case-study.css";
 export const metadata: Metadata = {
   title: "Paolo Pirruccio — Designer & Web Studio",
   description: "Portfolio personale e studio indipendente di web design e sviluppo.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f8f8" },
+    { media: "(prefers-color-scheme: dark)", color: "#111111" },
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
