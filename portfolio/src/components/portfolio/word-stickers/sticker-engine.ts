@@ -1,5 +1,5 @@
 import{STICKERS,type StickerDef}from"./stickers";import{renderSticker}from"./sticker-render";
-const FRICTION=.92,BOUNCE=.55,MIN_VEL=.05,THROW_SCALE=.7,GRAB_SCALE=1.12,SCALE_EASE=.12,DRAG_EASE=.1,APPEAR_EASE=.09,APPEAR_STAGGER_MS=140;
+const FRICTION=.92,BOUNCE=.55,MIN_VEL=.05,GRAB_SCALE=1.12,SCALE_EASE=.12,DRAG_EASE=.1,APPEAR_EASE=.09,APPEAR_STAGGER_MS=140;
 type Item={def:StickerDef;art:HTMLCanvasElement;w:number;h:number;x:number;y:number;tx:number;ty:number;vx:number;vy:number;scale:number;rot:number;vr:number;dragging:boolean;peel:number;grabU:number;grabV:number;appear:number;appearAt:number;filterSvg:SVGSVGElement;displacement:SVGFEDisplacementMapElement;filterId:string};
 export class WordStickers{
   private items:Item[]=[];private W=1;private H=1;private hostPageTop=0;private raf=0;private running=false;private started=false;private disposed=false;private drag:{item:Item;dx:number;dy:number;lastX:number;lastY:number;pointerId:number}|null=null;private ro?:ResizeObserver;private cleanup:(()=>void)[]=[];

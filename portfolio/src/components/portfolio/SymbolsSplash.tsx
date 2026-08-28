@@ -18,7 +18,7 @@ export function SymbolsSplash({active,playKey}:{active:boolean;playKey:number}){
     const palette=PALETTES[Math.floor(Math.random()*PALETTES.length)];
     const glyphs=Array.from({length:4},()=>GLYPHS[Math.floor(Math.random()*GLYPHS.length)]);
     const seed=Math.random()*100;
-    let frame=0,start=performance.now();
+    let frame=0;const start=performance.now();
     const resize=()=>{el.width=Math.round(innerWidth*ratio);el.height=Math.round(innerHeight*ratio);el.style.width=`${innerWidth}px`;el.style.height=`${innerHeight}px`;ctx.setTransform(ratio,0,0,ratio,0,0)};
     resize();
     const draw=(now:number)=>{

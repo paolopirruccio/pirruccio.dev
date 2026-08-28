@@ -1,78 +1,37 @@
 "use client";
 
-import {useEffect,useRef,useState,type CSSProperties} from "react";
+import {useEffect,useState} from "react";
 
 type Lang="it"|"en";
-type Panel={line:string;bg:string;fg:string;hold?:number;categories?:string[]};
 
-const PANELS:Record<Lang,Panel[]>={
-  it:[
-    {line:"Hai bisogno di un sito per la tua attività?",bg:"#ffd500",fg:"#171717"},
-    {line:"Non vuoi spenderci una fortuna?",bg:"#18231f",fg:"#f5efe3"},
-    {line:"Facciamo siti per",bg:"#7897ff",fg:"#101927",hold:7000,categories:["bar","ristoranti","tabaccherie","negozi di abbigliamento","parrucchieri","palestre","hotel","pasticcerie","studi professionali","farmacie","B&B","artigiani","centri estetici","pizzerie","pub","gelaterie","panifici","fiorai","gioiellerie","ottiche","autofficine","dentisti","veterinari","agenzie immobiliari","fotografi","architetti","commercialisti","scuole di danza","centri yoga","agriturismi","cantine","librerie","associazioni","negozi","musei","teatri","musicisti","illustratori","ceramisti","chef","personal trainer","startup","eventi","festival","podcast","ristoranti stellati","tour operator","case vacanza","(quasi) tutto"]},
-    {line:"Contattaci adesso.",bg:"#ef5b3f",fg:"#20170f"},
-  ],
-  en:[
-    {line:"Do you need a website for your business?",bg:"#ffd500",fg:"#171717"},
-    {line:"Don’t want to spend a fortune?",bg:"#18231f",fg:"#f5efe3"},
-    {line:"We build websites for",bg:"#7897ff",fg:"#101927",hold:7000,categories:["bars","restaurants","tobacconists","clothing shops","hair salons","gyms","hotels","pastry shops","professional firms","pharmacies","B&Bs","makers","beauty salons","pizzerias","pubs","ice cream shops","bakeries","florists","jewellery shops","opticians","garages","dentists","veterinary clinics","estate agencies","photographers","architects","accountants","dance schools","yoga studios","farm stays","wineries","bookshops","associations","shops","museums","theatres","musicians","illustrators","ceramists","chefs","personal trainers","startups","events","festivals","podcasts","fine dining","tour operators","holiday homes","(almost) anything"]},
-    {line:"Contact us now.",bg:"#ef5b3f",fg:"#20170f"},
-  ]
+const CATEGORIES:Record<Lang,string[]>={
+  it:["bar","ristoranti","tabaccherie","negozi di abbigliamento","parrucchieri","palestre","hotel","pasticcerie","studi professionali","farmacie","B&B","artigiani","centri estetici","pizzerie","pub","gelaterie","panifici","fiorai","gioiellerie","ottiche","autofficine","dentisti","veterinari","agenzie immobiliari","fotografi","architetti","commercialisti","scuole di danza","centri yoga","agriturismi","cantine","librerie","associazioni","negozi","musei","teatri","musicisti","illustratori","ceramisti","chef","personal trainer","startup","eventi","festival","podcast","ristoranti stellati","tour operator","case vacanza","(quasi) tutto"],
+  en:["bars","restaurants","tobacconists","clothing shops","hair salons","gyms","hotels","pastry shops","professional firms","pharmacies","B&Bs","makers","beauty salons","pizzerias","pubs","ice cream shops","bakeries","florists","jewellery shops","opticians","garages","dentists","veterinary clinics","estate agencies","photographers","architects","accountants","dance schools","yoga studios","farm stays","wineries","bookshops","associations","shops","museums","theatres","musicians","illustrators","ceramists","chefs","personal trainers","startups","events","festivals","podcasts","fine dining","tour operators","holiday homes","(almost) anything"]
 };
 
-const CATEGORY_DELAYS=[900,720,580,470,380,310,250,205,170,140,115,95,80,68,58,50,44,38];
-
-const PERSONAL_PANELS:Record<Lang,Panel[]>={
-  it:[
-    {line:"Hai bisogno di un sito per la tua attività?",bg:"#ffd500",fg:"#171717"},
-    {line:"Non vuoi spenderci una fortuna?",bg:"#18231f",fg:"#f5efe3"},
-    {line:"Faccio siti web per",bg:"#7897ff",fg:"#101927",hold:7000,categories:PANELS.it[2].categories},
-    {line:"Contattami adesso.",bg:"#ef5b3f",fg:"#20170f"},
-  ],
-  en:[
-    {line:"Do you need a website for your business?",bg:"#ffd500",fg:"#171717"},
-    {line:"Don’t want to spend a fortune?",bg:"#18231f",fg:"#f5efe3"},
-    {line:"I build websites for",bg:"#7897ff",fg:"#101927",hold:7000,categories:PANELS.en[2].categories},
-    {line:"Contact me now.",bg:"#ef5b3f",fg:"#20170f"},
-  ],
-};
-
-const VERT=`attribute vec2 aPosition;attribute vec2 aUV;varying vec2 vUV;void main(){vUV=aUV;gl_Position=vec4(aPosition,0.,1.);}`;
-const FRAG=`precision highp float;uniform sampler2D uTex;uniform vec2 uTexel;uniform float uProgress;uniform float uMaxBlur;uniform vec3 uEdge;uniform float uTime;uniform float uAspect;uniform float uSeed;varying vec2 vUV;
-float hash(vec2 p){return fract(sin(dot(p,vec2(41.3,289.1)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.)),f.x),f.y);}float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*noise(p);p*=2.03;a*=.5;}return v;}
-vec4 blurTex(vec2 uv,float r){if(r<.35)return texture2D(uTex,uv);vec2 r1=uTexel*r,r2=r1*2.;vec4 sum=texture2D(uTex,uv);float w=1.;for(int i=0;i<8;i++){float a=float(i)*.785398;vec2 d=vec2(cos(a),sin(a));sum+=texture2D(uTex,uv+d*r1)*.75;sum+=texture2D(uTex,uv+d*r2)*.5;w+=1.25;}return sum/w;}
-void main(){if(uProgress>=.999){gl_FragColor=texture2D(uTex,vUV);return;}float p=uProgress*1.3;vec2 sd=vec2(uSeed*1.7,uSeed*-1.3);vec2 rc=(vUV-.5)*vec2(uAspect,1.);rc+=vec2(sin(uSeed*2.3),cos(uSeed*1.9))*.12;float radial=length(rc)*.9;vec2 warp=vec2(fbm(vUV*3.2+sd+uTime*.05+11.),fbm(vUV*3.2-sd-uTime*.04-7.))-.5;float turb=fbm(vUV*5.5+warp*1.7+sd+uTime*.06);float mask=mix(radial,turb,.7);float reveal=1.-smoothstep(p-.34,p+.34,mask);if(reveal<=0.)discard;float blurAmt=smoothstep(p-.5,p+.34,mask);vec2 drift=(-rc*.010+vec2(0.,.006))*blurAmt;float grow=1.+.03*blurAmt;vec2 suv=(vUV-.5)/grow+.5+drift;vec4 tex=blurTex(suv,blurAmt*uMaxBlur);float fw=.30;float flare=smoothstep(p-fw,p,mask)*(1.-smoothstep(p,p+fw,mask));flare*=1.-smoothstep(.8,1.,uProgress);vec4 wide=blurTex(suv,uMaxBlur*1.3);float halo=wide.a;vec3 glow=mix(uEdge,vec3(1.),.3);vec3 rgb=tex.rgb+glow*flare*(tex.a*.6+halo*.5);float alpha=max(tex.a*reveal,halo*flare*.5);gl_FragColor=vec4(rgb,alpha);}`;
-
-/* Mobile uses one noise field and five texture reads instead of layered FBM and
-   seventeen blur samples. The visual language stays intact at a lower GPU cost. */
-const FRAG_LITE=`precision mediump float;uniform sampler2D uTex;uniform vec2 uTexel;uniform float uProgress;uniform float uMaxBlur;uniform vec3 uEdge;uniform float uTime;uniform float uAspect;uniform float uSeed;varying vec2 vUV;
-float hash(vec2 p){return fract(sin(dot(p,vec2(41.3,289.1)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.)),f.x),f.y);}
-void main(){if(uProgress>=.999){gl_FragColor=texture2D(uTex,vUV);return;}vec2 rc=(vUV-.5)*vec2(uAspect,1.);float mask=mix(length(rc)*.86,noise(vUV*3.4+uSeed+uTime*.035),.42);float p=uProgress*1.25;float reveal=1.-smoothstep(p-.28,p+.28,mask);if(reveal<=0.)discard;float blurAmt=smoothstep(p-.38,p+.28,mask);vec2 off=uTexel*uMaxBlur*blurAmt;vec4 tex=texture2D(uTex,vUV)*.4;tex+=(texture2D(uTex,vUV+vec2(off.x,0.))+texture2D(uTex,vUV-vec2(off.x,0.))+texture2D(uTex,vUV+vec2(0.,off.y))+texture2D(uTex,vUV-vec2(0.,off.y)))*.15;float flare=smoothstep(p-.18,p,mask)*(1.-smoothstep(p,p+.18,mask))*(1.-smoothstep(.78,1.,uProgress));gl_FragColor=vec4(tex.rgb+mix(uEdge,vec3(1.),.25)*flare*.35,tex.a*reveal);}`;
+const SPEEDS=[900,720,580,470,380,310,250,205,170,140,115,95,80,68,58,50,44,38];
 
 export function AgencyBlurHero({lang}:{lang:Lang}){
-  const host=useRef<HTMLDivElement>(null);const canvas=useRef<HTMLCanvasElement>(null);const fallback=useRef<HTMLDivElement>(null);
-  const panels=PERSONAL_PANELS[lang];const[index,setIndex]=useState(0);
-  useEffect(()=>{const el=host.current,c=canvas.current,fb=fallback.current;if(!el||!c||!fb)return;const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;const mobile=matchMedia("(max-width: 700px), (pointer: coarse)").matches;const staticMode=reduced;
-    if(mobile){
-      c.style.display="none";fb.style.visibility="visible";fb.style.opacity="1";fb.style.filter="none";
-      let panelTimer=0,categoryTimer=0,currentPanel=0,currentCategory=0,disposed=false;
-      const fixedLine=fb.querySelector<HTMLElement>(".studio-cycle-fixed-line"),changingLine=fb.querySelector<HTMLElement>(".studio-cycle-changing-line");
-      const paint=(panelIndex:number,categoryIndex=0,animate=true)=>{const panel=panels[panelIndex],category=panel.categories?.[categoryIndex];setIndex(panelIndex);el.style.setProperty("--panel-bg",panel.bg);el.style.setProperty("--panel-fg",panel.fg);fb.style.color=panel.fg;if(fixedLine)fixedLine.textContent=panel.line;if(changingLine){changingLine.textContent=category??"";changingLine.hidden=!category}if(animate&&!reduced){if(category&&categoryIndex>0)changingLine?.animate([{opacity:.12,translate:"0 10px",scale:.985},{opacity:1,translate:"0 0",scale:1}],{duration:categoryIndex>8?150:300,easing:"cubic-bezier(.22,1,.36,1)"});else fb.animate([{opacity:.12},{opacity:1}],{duration:300,easing:"cubic-bezier(.22,1,.36,1)"})}};
-      const advanceCategory=()=>{const categories=panels[currentPanel].categories;if(disposed||!categories||currentCategory>=categories.length-1)return;currentCategory++;paint(currentPanel,currentCategory);categoryTimer=window.setTimeout(advanceCategory,CATEGORY_DELAYS[Math.min(currentCategory,CATEGORY_DELAYS.length-1)])};
-      const schedule=()=>{if(disposed)return;currentCategory=0;paint(currentPanel,0,currentPanel!==0);const panel=panels[currentPanel];if(panel.categories?.length&&!reduced)categoryTimer=window.setTimeout(advanceCategory,CATEGORY_DELAYS[0]);if(!reduced)panelTimer=window.setTimeout(()=>{window.clearTimeout(categoryTimer);currentPanel=(currentPanel+1)%panels.length;schedule()},panel.hold??4400)};
-      schedule();
-      return()=>{disposed=true;window.clearTimeout(panelTimer);window.clearTimeout(categoryTimer);fb.getAnimations({subtree:true}).forEach(animation=>animation.cancel())};
-    }
-    let gl:WebGLRenderingContext|null=null,program:WebGLProgram|null=null,texture:WebGLTexture|null=null,raf=0,ro:ResizeObserver|null=null,io:IntersectionObserver|null=null,onScreen=false,current=0,category=0,nextCategoryAt=0,phaseStart=performance.now(),last=phaseStart,lastPaint=0,progress=0,velocity=0,phase:"in"|"hold"|"out"="in",clock=0,seed=Math.random()*100,edge:[number,number,number]=[1,1,1];
-    const compile=(type:number,source:string)=>{const sh=gl!.createShader(type)!;gl!.shaderSource(sh,source);gl!.compileShader(sh);if(!gl!.getShaderParameter(sh,gl!.COMPILE_STATUS))throw Error(`${type===gl!.VERTEX_SHADER?"vertex":"fragment"}: ${gl!.getShaderInfoLog(sh)||"no compiler log"} · gl ${gl!.getError()}`);return sh};
-    try{if(!staticMode)gl=c.getContext("webgl",{alpha:true,premultipliedAlpha:false});if(gl){program=gl.createProgram()!;gl.attachShader(program,compile(gl.VERTEX_SHADER,VERT));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,mobile?FRAG_LITE:FRAG));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program)||"link");const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,0,1,1,-1,1,1,-1,1,0,0,1,1,1,0]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(program,"aPosition"),uv=gl.getAttribLocation(program,"aUV");gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,16,0);gl.enableVertexAttribArray(uv);gl.vertexAttribPointer(uv,2,gl.FLOAT,false,16,8);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);}}catch{gl=null;program=null;}
-    const mount=(i:number)=>{const panel=panels[i],color=parseInt(panel.fg.slice(1),16),categoryLine=panel.categories?.[category];edge=[((color>>16)&255)/255,((color>>8)&255)/255,(color&255)/255];setIndex(i);el.style.setProperty("--panel-bg",panel.bg);el.style.setProperty("--panel-fg",panel.fg);fb.textContent=categoryLine?`${panel.line} ${categoryLine}`:panel.line;fb.style.color=panel.fg;fb.style.visibility=gl&&program?"hidden":"visible";c.style.visibility=gl&&program?"visible":"hidden";if(!gl||!program)return;const d=Math.min(devicePixelRatio||1,mobile?1.25:1.5),w=Math.max(1,el.clientWidth),h=Math.max(1,el.clientHeight);c.width=Math.round(w*d);c.height=Math.round(h*d);gl.viewport(0,0,c.width,c.height);const art=document.createElement("canvas");art.width=c.width;art.height=c.height;const x=art.getContext("2d")!;x.scale(d,d);const size=Math.max(52,Math.min(142,w*.105));x.font=`400 ${size}px "Instrument Serif", serif`;const max=w*.84,centerY=h/2-(mobile?h*.025:0);x.fillStyle=panel.fg;x.textAlign="center";x.textBaseline="middle";if(categoryLine){x.fillText(panel.line,w/2,centerY-size*.5,max);x.fillText(categoryLine,w/2,centerY+size*.5,max)}else{const words=panel.line.split(" "),lines:string[]=[];let row="";for(const word of words){const test=row?`${row} ${word}`:word;if(x.measureText(test).width>max&&row){lines.push(row);row=word}else row=test;}lines.push(row);const lh=size*.88;lines.forEach((line,n)=>x.fillText(line,w/2,centerY+(n-(lines.length-1)/2)*lh));}if(texture)gl.deleteTexture(texture);texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,art);};
-    const draw=(p:number)=>{if(!gl||!program||!texture)return;gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(program);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture);gl.uniform1i(gl.getUniformLocation(program,"uTex"),0);gl.uniform2f(gl.getUniformLocation(program,"uTexel"),1/c.width,1/c.height);gl.uniform1f(gl.getUniformLocation(program,"uProgress"),p);gl.uniform1f(gl.getUniformLocation(program,"uMaxBlur"),mobile?9:14);gl.uniform3f(gl.getUniformLocation(program,"uEdge"),edge[0],edge[1],edge[2]);gl.uniform1f(gl.getUniformLocation(program,"uTime"),clock);gl.uniform1f(gl.getUniformLocation(program,"uAspect"),c.width/Math.max(1,c.height));gl.uniform1f(gl.getUniformLocation(program,"uSeed"),seed);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);};
-    const loop=(now:number)=>{if(mobile&&now-lastPaint<50){raf=requestAnimationFrame(loop);return}lastPaint=now;const dt=Math.min(.05,Math.max(.001,(now-last)/1000));last=now;clock+=dt;const target=phase==="out"?0:1,k=phase==="out"?60:42,damp=2*Math.sqrt(k);velocity+=(-k*(progress-target)-damp*velocity)*dt;progress+=velocity*dt;if(phase==="in"&&progress>=.992){phase="hold";phaseStart=now;category=0;nextCategoryAt=now+CATEGORY_DELAYS[0]}else if(phase==="hold"){const categories=panels[current].categories;if(categories&&category<categories.length-1&&now>=nextCategoryAt){category++;mount(current);nextCategoryAt=now+CATEGORY_DELAYS[Math.min(category,CATEGORY_DELAYS.length-1)]}if(now-phaseStart>(panels[current].hold??4400)){phase="out";phaseStart=now}}else if(phase==="out"&&progress<=.02&&now-phaseStart>=40){current=(current+1)%panels.length;category=0;seed=Math.random()*100;mount(current);progress=0;velocity=0;phase="in";phaseStart=now}const p=Math.max(0,Math.min(1,progress));draw(p);if(!gl){fb.style.opacity=String(p);fb.style.filter=`blur(${(1-p)*10}px)`}if(onScreen&&!document.hidden)raf=requestAnimationFrame(loop);else raf=0};
-    const sync=()=>{const should=onScreen&&!document.hidden&&!staticMode;if(should&&!raf){last=performance.now();phaseStart=last;raf=requestAnimationFrame(loop)}else if(!should&&raf){cancelAnimationFrame(raf);raf=0}};const visibility=()=>sync();
-    mount(0);if(staticMode){draw(1);fb.style.opacity="1";fb.style.filter="none"}else{io=new IntersectionObserver(entries=>{onScreen=entries.some(entry=>entry.isIntersecting);sync()},{rootMargin:"120px"});io.observe(el);document.addEventListener("visibilitychange",visibility)}ro=new ResizeObserver(()=>mount(current));ro.observe(el);return()=>{cancelAnimationFrame(raf);io?.disconnect();ro?.disconnect();document.removeEventListener("visibilitychange",visibility);if(texture)gl?.deleteTexture(texture)};
-  },[lang,panels]);
-  const p=panels[index];return <header className={`studio-cycle-hero${p.categories?.length?" studio-cycle-category-panel":""}`} ref={host} style={{"--panel-bg":p.bg,"--panel-fg":p.fg} as CSSProperties}>
-    <canvas ref={canvas} aria-hidden/><div className="studio-cycle-fallback" ref={fallback}><span className="studio-cycle-fixed-line">{p.line}</span><span className="studio-cycle-changing-line" hidden={!p.categories?.[0]}>{p.categories?.[0]}</span></div>
+  const[index,setIndex]=useState(0);
+  const categories=CATEGORIES[lang];
+
+  useEffect(()=>{
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    let current=0,timer=0,disposed=false;
+    const advance=()=>{
+      if(disposed||current>=categories.length-1)return;
+      current+=1;
+      setIndex(current);
+      if(current<categories.length-1)timer=window.setTimeout(advance,SPEEDS[Math.min(current,SPEEDS.length-1)]);
+    };
+    timer=window.setTimeout(advance,SPEEDS[0]);
+    return()=>{disposed=true;window.clearTimeout(timer)};
+  },[categories,lang]);
+
+  return <header className="studio-cycle-hero studio-service-poster">
+    <div className="studio-poster-main">
+      <h2>{lang==="it"?"Faccio siti web":"I build websites"}</h2>
+      <div className="studio-poster-category"><span>{lang==="it"?"per":"for"}</span><strong key={`${lang}-${index}`}>{categories[index]}</strong></div>
+    </div>
   </header>;
 }

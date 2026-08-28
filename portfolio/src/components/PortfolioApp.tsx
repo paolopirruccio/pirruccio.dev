@@ -2,47 +2,25 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import dynamic from "next/dynamic";
-import { RimBody } from "@/components/ai-lights/RimBody";
 import { SquircleBox, SquircleButton, SquircleLink } from "@/components/squircle/SquircleControl";
 import { StudioWipDialog } from "@/components/StudioWipDialog";
 
-type Mode = "personal" | "agency";
 type Lang = "it" | "en";
 
 const RemainingPortfolio = dynamic(() => import("@/components/portfolio/RemainingPortfolio").then(module => module.RemainingPortfolio));
 
-export function PortfolioApp({initialMode}:{initialMode:Mode}) {
-  const [mode, setMode] = useState<Mode>(initialMode);
+export function PortfolioApp() {
   const [lang, setLang] = useState<Lang>("it");
-  const [pulse, setPulse] = useState(0);
-  const [changing, setChanging] = useState(false);
-  const [leaving, setLeaving] = useState(false);
   const [studioWipOpen, setStudioWipOpen] = useState(false);
 
   useEffect(() => {
     const savedLang = localStorage.getItem("preferredLanguage") as Lang | null;
-    if (savedLang) setLang(savedLang);
+    if (savedLang === "it" || savedLang === "en") queueMicrotask(() => setLang(savedLang));
   }, []);
 
   useEffect(() => {
-    const syncRoute = () => setMode("personal");
-    window.addEventListener("popstate", syncRoute);
-    return () => window.removeEventListener("popstate", syncRoute);
-  }, []);
-
-  const selectMode = (next: Mode) => {
-    if (next === mode || changing) return;
-    setPulse(v => v + 1);
-    setChanging(true);
-    window.setTimeout(() => setLeaving(true), 1260);
-    window.setTimeout(() => {
-      setMode(next);
-      localStorage.setItem("profileMode", next);
-      window.history.replaceState({}, "", "/");
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-      window.setTimeout(() => { setLeaving(false); setChanging(false); }, 320);
-    }, 1600);
-  };
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const toggleLanguage = () => {
     setLang(current => {
@@ -52,17 +30,8 @@ export function PortfolioApp({initialMode}:{initialMode:Mode}) {
     });
   };
 
-  const renderModeControl = (personalGlass = false) => <RimBody pulseKey={pulse} className={`mode-switch-rim${personalGlass ? " personal-glass-wrap" : ""}`}>
-    <SquircleBox className={`shell-segmented${personalGlass ? " personal-glass-content" : ""}`}>
-      <SquircleButton disabled={changing} onClick={() => selectMode("personal")} aria-pressed={mode === "personal"}>{lang === "it" ? "Io" : "Me"}</SquircleButton>
-      <SquircleButton disabled={changing} onClick={() => setStudioWipOpen(true)} aria-haspopup="dialog" aria-controls="studio-wip-dialog">Studio</SquircleButton>
-    </SquircleBox>
-  </RimBody>;
-  const modeControl = renderModeControl();
-  const languageControl=<SquircleButton className="shell-language" onClick={toggleLanguage}>{lang === "it" ? "EN" : "IT"}</SquircleButton>;
-
-  return <main className={`app-shell mode-${mode} ${changing ? "is-changing" : ""} ${leaving ? "is-leaving" : ""}`}>
-    <nav className="shell-controls" aria-label="Portfolio view" hidden={mode !== "personal"}>
+  return <main className="app-shell mode-personal">
+    <nav className="shell-controls" aria-label="Portfolio view">
       <span className="personal-language-wrap">
         <SquircleButton className="shell-language personal-glass-content" onClick={toggleLanguage}>{lang === "it" ? "EN" : "IT"}</SquircleButton>
       </span>
@@ -72,11 +41,9 @@ export function PortfolioApp({initialMode}:{initialMode:Mode}) {
     </nav>
 
     <div className="view-stage">
-      {mode === "personal" ? <>
-        <PersonalHero lang={lang} />
-        <PersonalContacts lang={lang} onOpenStudio={() => setStudioWipOpen(true)} />
-        <RemainingPortfolio lang={lang} onOpenStudio={() => setStudioWipOpen(true)} />
-      </> : null}
+      <PersonalHero lang={lang} />
+      <PersonalContacts lang={lang} />
+      <RemainingPortfolio lang={lang} onOpenStudio={() => setStudioWipOpen(true)} />
     </div>
     <StudioWipDialog open={studioWipOpen} onClose={() => setStudioWipOpen(false)} lang={lang}/>
   </main>;
@@ -112,7 +79,6 @@ function useHeroMagnetism(ref: RefObject<HTMLElement | null>) {
     const host = ref.current;
     if (!host || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    type Motion = { el: HTMLElement; x: number; y: number; r: number; s: number; tx: number; ty: number; tr: number; ts: number };
     const words = [...host.querySelectorAll<HTMLElement>(".personal-word")].map(el => ({ el, x: 0, y: 0, r: 0, s: 1, tx: 0, ty: 0, tr: 0, ts: 1 }));
     let frame = 0;
     let active = false;
@@ -184,7 +150,7 @@ const contactItems = [
   { id: "linkedin", label: { it: "Connettiti", en: "Connect" }, title: { it: "LinkedIn", en: "LinkedIn" }, href: "https://www.linkedin.com/in/paolopirruccio/", icon: "fa-brands fa-linkedin" },
 ] as const;
 
-function PersonalContacts({ lang }: { lang: Lang; onOpenStudio:()=>void }) {
+function PersonalContacts({ lang }: { lang: Lang }) {
   const deck = useRef<HTMLDivElement>(null);
   const [canBack, setCanBack] = useState(false);
   const [canForward, setCanForward] = useState(true);
@@ -198,17 +164,17 @@ function PersonalContacts({ lang }: { lang: Lang; onOpenStudio:()=>void }) {
   const scroll = (direction: number) => deck.current?.scrollBy({ left: direction * 324, behavior: "smooth" });
   return <section className="personal-contacts">
     <div className="contact-slider">
-      <SquircleButton className={`contact-arrow prev ${canBack ? "" : "hidden"}`} onClick={() => scroll(-1)} aria-label="Contatti precedenti"><i className="fa-solid fa-chevron-left" /></SquircleButton>
+      <SquircleButton className={`contact-arrow prev ${canBack ? "" : "hidden"}`} onClick={() => scroll(-1)} aria-label={lang==="it"?"Contatti precedenti":"Previous contacts"}><i className="fa-solid fa-chevron-left" aria-hidden="true" /></SquircleButton>
       <div className="contact-deck" ref={deck} onScroll={update}>
-        {contactItems.map(item => <a className={`contact-card ${item.id}`} href={item.href} target={item.id==="services"?undefined:"_blank"} rel={item.id==="services"?undefined:"noopener noreferrer"} onClick={item.id==="services"?event=>{event.preventDefault();window.dispatchEvent(new CustomEvent("open-portfolio-services"))}:undefined} key={item.id}>
+        {contactItems.map(item => {const external=item.href.startsWith("https://");return <a className={`contact-card ${item.id}`} href={item.href} target={external?"_blank":undefined} rel={external?"noopener noreferrer":undefined} onClick={item.id==="services"?event=>{event.preventDefault();window.dispatchEvent(new CustomEvent("open-portfolio-services"))}:undefined} key={item.id}>
           <SquircleBox className="contact-card-inner">
             <div className="contact-card-header"><span>{item.label[lang]}</span><i className={item.icon} /></div>
             <h2>{item.title[lang]}</h2>
             <span className="contact-visual" />
           </SquircleBox>
-        </a>)}
+        </a>})}
       </div>
-      <SquircleButton className={`contact-arrow next ${canForward ? "" : "hidden"}`} onClick={() => scroll(1)} aria-label="Contatti successivi"><i className="fa-solid fa-chevron-right" /></SquircleButton>
+      <SquircleButton className={`contact-arrow next ${canForward ? "" : "hidden"}`} onClick={() => scroll(1)} aria-label={lang==="it"?"Contatti successivi":"Next contacts"}><i className="fa-solid fa-chevron-right" aria-hidden="true" /></SquircleButton>
     </div>
   </section>;
 }

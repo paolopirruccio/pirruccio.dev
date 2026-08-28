@@ -130,12 +130,22 @@
 @media(prefers-color-scheme:dark){.personal-service-card{box-shadow:inset 1px 1px 0 #ffffff30,inset -2px -2px 5px #0008,inset 5px 5px 12px #ffffff0a}.personal-services-disclaimer{color:#a0a0a0}}
 
 /* The occasional-work experience belongs to the personal portfolio palette. */
-.occasional-work-accordion{--ow-bg:#f8f8f8;--ow-surface:#efede7;--ow-text:#171717;--ow-muted:#625f58;--ow-border:#0000001a;margin-bottom:clamp(52px,7vw,86px)}
+.occasional-work-accordion{--ow-bg:#f8f8f8;--ow-surface:#efede7;--ow-text:#171717;--ow-muted:#625f58;--ow-border:#0000001a;--ow-ink:#171717;--ow-paper:#f8f8f8;--ow-blue:#8fa9ff;--ow-yellow:#ffd84a;--ow-coral:#ef755e;--ow-mint:#8fdab5;--ow-lilac:#b8a8ff;--ow-cyan:#72cada;margin-bottom:clamp(52px,7vw,86px)}
 .occasional-work-accordion.is-open{position:relative}
 .occasional-work-accordion.is-open>.accordion-head{position:sticky;z-index:190;top:0;width:100vw;margin-left:calc(50% - 50vw);padding:18px max(24px,calc((100vw - 1120px)/2));color:var(--ow-text);background:color-mix(in srgb,var(--ow-bg) 88%,transparent);border-bottom:0;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
 .occasional-work-accordion.is-open>.accordion-body,.occasional-work-accordion.is-open>.accordion-body>*{max-height:none!important;overflow:visible!important}
 .occasional-work-experience{width:100vw;margin-left:calc(50% - 50vw);overflow:clip;color:var(--ow-text);background:var(--ow-bg)}
 .occasional-work-experience .studio-cycle-hero{width:100vw;min-height:100svh;min-height:100dvh}
+.occasional-work-experience .studio-service-poster{--poster-type:clamp(82px,12vw,178px);position:relative;display:grid;height:clamp(620px,82svh,860px);min-height:620px;padding:clamp(28px,5vw,70px) max(24px,calc((100vw - 1120px)/2));overflow:hidden;place-items:center;isolation:isolate;background:var(--ow-blue);background-image:none;color:var(--ow-ink);box-shadow:none;transition:none}
+.studio-service-poster::before,.studio-service-poster::after{position:absolute;z-index:-1;display:block;pointer-events:none;content:""}
+.studio-service-poster::before{top:-18%;right:-7%;width:min(42vw,600px);aspect-ratio:1;border:1px solid var(--ow-ink);border-radius:50%;background:var(--ow-yellow)}
+.studio-service-poster::after{bottom:-24%;left:-5%;width:min(34vw,480px);aspect-ratio:1;border:1px solid var(--ow-ink);border-radius:34%;background:var(--ow-coral);transform:rotate(12deg)}
+.studio-poster-main{position:relative;z-index:2;display:grid;width:100%;max-width:1120px;gap:clamp(24px,4vw,52px)}
+.studio-poster-main h2{max-width:1000px;font:400 var(--poster-type)/.76 "Instrument Serif",serif;letter-spacing:-.055em;text-wrap:balance}
+.studio-poster-category{display:grid;width:min(100%,1060px);height:clamp(190px,23vw,300px);align-content:center;gap:8px;padding:24px clamp(26px,4vw,56px);overflow:hidden;border:1px solid var(--ow-ink);border-radius:52px;background:var(--ow-paper);box-shadow:7px 8px 0 var(--ow-ink)}
+.studio-poster-category>span{font-size:clamp(13px,1.4vw,18px);font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.studio-poster-category>strong{display:block;min-width:0;color:var(--ow-ink);font:400 var(--poster-type)/.76 "Instrument Serif",serif;letter-spacing:-.055em;text-wrap:balance;animation:studioPosterWordIn .32s cubic-bezier(.22,1,.36,1) both}
+@keyframes studioPosterWordIn{from{opacity:0;translate:0 12px;scale:.98}to{opacity:1;translate:0 0;scale:1}}
 .occasional-work-content{position:relative;background:var(--ow-bg)}
 .occasional-work-intro{display:block;width:100%;max-width:none;margin:0;padding:clamp(72px,10vw,128px) max(24px,calc((100vw - 1120px)/2)) clamp(30px,5vw,62px);overflow:visible;color:var(--ow-muted);background:var(--ow-bg);font-size:clamp(18px,2vw,26px);font-weight:550;line-height:1.4;letter-spacing:-.02em}
 .occasional-work-intro>span{display:block;max-width:680px;text-wrap:balance}
@@ -143,27 +153,36 @@
 .occasional-work-experience .studio-process{margin-top:0;padding-top:110px}
 .occasional-work-experience .liquid-unit-card,.occasional-work-experience .liquid-unit-tab{background:var(--ow-surface)}
 .occasional-work-experience .studio-service-card{border:0;border-radius:28px;background-image:none!important;box-shadow:none}
-.occasional-work-experience .studio-service-pane:nth-child(1) .studio-service-card{background-color:#79d6a4}
-.occasional-work-experience .studio-service-pane:nth-child(2) .studio-service-card{background-color:#b7a6ff}
-.occasional-work-experience .studio-service-pane:nth-child(3) .studio-service-card{background-color:#62c7d9}
+.occasional-work-experience .studio-service-pane:nth-child(1) .studio-service-card{background-color:var(--ow-mint)}
+.occasional-work-experience .studio-service-pane:nth-child(2) .studio-service-card{background-color:var(--ow-lilac)}
+.occasional-work-experience .studio-service-pane:nth-child(3) .studio-service-card{background-color:var(--ow-cyan)}
 .occasional-work-experience .studio-service-card::after{display:none}
 .occasional-work-experience .liquid-process-copy,.occasional-work-experience .liquid-process-copy p,.occasional-work-experience .liquid-tab-handle{color:var(--ow-text)}
-.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-card,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-tab{background:#171717}
-.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-tab-handle{color:#f7f5ef}
+.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-card,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-tab{background:var(--ow-ink)}
+.occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-unit-card,.occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-unit-tab{background:var(--ow-yellow)}
+.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-unit-card,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-unit-tab{background:var(--ow-coral)}
+.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-tab-handle{color:var(--ow-paper)}
 .occasional-stacked-services{background:#fff}
 .occasional-faq .studio-faq-row{border-color:var(--ow-border)}
 .occasional-faq .studio-faq-row>i{color:var(--ow-muted)}
+.occasional-faq .studio-faq-row>i.open{max-height:180px!important;padding-top:18px;opacity:1!important}
 .occasional-contact-finale{position:relative;display:grid;min-height:clamp(330px,46svh,500px);place-content:center;gap:18px;padding:48px 24px;color:var(--ow-text);text-align:center;background:var(--ow-bg);border-top:1px solid var(--ow-border)}
 .occasional-contact-finale>span{font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 .occasional-contact-finale>small{color:var(--ow-muted)}
 .occasional-mail-rim{justify-self:center;border-radius:999px}
 .occasional-mail-rim .rim-face{padding:0;border:0;border-radius:999px;background:transparent;box-shadow:none}
 .occasional-mail-link{display:inline-flex;min-height:58px;align-items:center;justify-content:center;padding:0 28px;border:1px solid var(--ow-border);border-radius:999px;background:var(--ow-text);color:var(--ow-bg);font-size:clamp(15px,1.6vw,17px);font-weight:750;text-decoration:none;box-shadow:inset 0 1px #ffffff36}
-.occasional-mail-link:focus-visible{outline:3px solid #ffd700;outline-offset:5px}
+.occasional-mail-link:focus-visible{outline:3px solid var(--ow-yellow);outline-offset:5px}
 @media(max-width:700px){
   .occasional-work-accordion{margin-bottom:64px}
   .occasional-work-accordion.is-open>.accordion-head{padding:14px 20px}
   .occasional-work-experience .studio-cycle-hero{height:82svh;min-height:82svh;height:82dvh;min-height:82dvh;background-image:none;box-shadow:none}
+  .occasional-work-experience .studio-service-poster{--poster-type:clamp(56px,15vw,86px);height:min(68svh,560px);min-height:480px;padding:28px 20px}
+  .studio-service-poster::before{top:-9%;right:-20%;width:62vw}.studio-service-poster::after{bottom:-12%;left:-20%;width:52vw;border-radius:38px}
+  .studio-poster-main{gap:20px}
+  .studio-poster-main h2{max-width:520px}
+  .studio-poster-category{height:178px;gap:7px;padding:18px 20px;border-radius:32px;box-shadow:4px 5px 0 var(--ow-ink)}
+  .studio-poster-category>span{font-size:11px}
   .occasional-work-experience .studio-cycle-hero canvas,.occasional-work-experience .studio-cycle-fallback{width:100vw;height:100%}
   .occasional-work-experience .studio-cycle-fallback{padding:0 18px;font-size:clamp(44px,10vw,56px);line-height:.88;transform:none;will-change:opacity}
   .occasional-work-experience .studio-cycle-fixed-line,.occasional-work-experience .studio-cycle-changing-line{position:absolute;top:42%;left:18px;display:block;width:calc(100% - 36px);text-align:center;transform:translateY(-50%)}
@@ -179,11 +198,12 @@
   .occasional-contact-finale{min-height:260px;padding:28px 20px}
   .occasional-mail-link{min-height:56px;padding-inline:24px}
 }
+@media(prefers-reduced-motion:reduce){.studio-poster-category>strong{animation:none}}
 @media(prefers-color-scheme:dark){
-  .occasional-work-accordion{--ow-bg:#000;--ow-surface:#1c1c1c;--ow-text:#f4f4f2;--ow-muted:#b2b0aa;--ow-border:#ffffff22}
-  .occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-card,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-tab{background:#f4f4f2}
-  .occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-tab-handle{color:#171717}
-  .occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-process-copy,.occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-tab-handle,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-process-copy,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-tab-handle{color:#171717}
-  .occasional-stacked-services{background:#111}
+  .occasional-work-accordion{--ow-bg:#111;--ow-surface:#1c1c1c;--ow-text:#f4f4f2;--ow-muted:#b2b0aa;--ow-border:#ffffff22}
+  .occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-card,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-unit-tab{background:var(--ow-paper)}
+  .occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:first-of-type .liquid-tab-handle{color:var(--ow-ink)}
+  .occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-process-copy,.occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:nth-of-type(2) .liquid-tab-handle,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-process-copy,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-process-copy p,.occasional-work-experience .liquid-process-unit:nth-of-type(3) .liquid-tab-handle{color:var(--ow-ink)}
+  .occasional-stacked-services{background:var(--ow-bg)}
   .occasional-mail-link{box-shadow:inset 0 1px #ffffff18}
 }

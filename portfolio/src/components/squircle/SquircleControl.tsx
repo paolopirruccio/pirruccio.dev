@@ -1,8 +1,26 @@
 "use client";
-import {forwardRef,useLayoutEffect,useRef,useState,type AnchorHTMLAttributes,type ButtonHTMLAttributes,type CSSProperties,type HTMLAttributes} from "react";
+
+import {useLayoutEffect,useRef,useState,type AnchorHTMLAttributes,type ButtonHTMLAttributes,type CSSProperties,type HTMLAttributes,type RefObject} from "react";
 import {squirclePath} from "./superellipse";
-function useSquircle<T extends HTMLElement>(){const ref=useRef<T>(null);const[clipPath,setClipPath]=useState<string>();useLayoutEffect(()=>{const element=ref.current;if(!element)return;const measure=()=>{const width=element.offsetWidth,height=element.offsetHeight;if(!width||!height)return;const inset=Number(element.dataset.squircleInset||0);const radius=Math.max(0,Math.min(height*.42,width*.22,72)-inset);const path=squirclePath({width,height,radius,smoothing:1,exponent:5});setClipPath(`path("${path}")`)};measure();const observer=new ResizeObserver(measure);observer.observe(element);return()=>observer.disconnect()},[]);return{ref,ready:Boolean(clipPath),style:clipPath?({clipPath,WebkitClipPath:clipPath} as CSSProperties):undefined}}
-export const SquircleButton=forwardRef<HTMLButtonElement,ButtonHTMLAttributes<HTMLButtonElement>>(function SquircleButton({className="",style,...props},forwardedRef){const squircle=useSquircle<HTMLButtonElement>();return <button {...props} ref={element=>{squircle.ref.current=element;if(typeof forwardedRef==="function")forwardedRef(element);else if(forwardedRef)forwardedRef.current=element}} className={`squircle-control ${className}`} style={{...style,...squircle.style}}/>});
-export const SquircleLink=forwardRef<HTMLAnchorElement,AnchorHTMLAttributes<HTMLAnchorElement>>(function SquircleLink({className="",style,...props},forwardedRef){const squircle=useSquircle<HTMLAnchorElement>();return <a {...props} ref={element=>{squircle.ref.current=element;if(typeof forwardedRef==="function")forwardedRef(element);else if(forwardedRef)forwardedRef.current=element}} className={`squircle-control ${className}`} style={{...style,...squircle.style}}/>});
-export const SquircleBox=forwardRef<HTMLDivElement,HTMLAttributes<HTMLDivElement>>(function SquircleBox({className="",style,...props},forwardedRef){const squircle=useSquircle<HTMLDivElement>();return <div {...props} data-squircle-ready={squircle.ready||undefined} ref={element=>{squircle.ref.current=element;if(typeof forwardedRef==="function")forwardedRef(element);else if(forwardedRef)forwardedRef.current=element}} className={`squircle-control ${className}`} style={{...style,...squircle.style}}/>});
-export const SquircleArticle=forwardRef<HTMLElement,HTMLAttributes<HTMLElement>>(function SquircleArticle({className="",style,...props},forwardedRef){const squircle=useSquircle<HTMLElement>();return <article {...props} ref={element=>{squircle.ref.current=element;if(typeof forwardedRef==="function")forwardedRef(element);else if(forwardedRef)forwardedRef.current=element}} className={`squircle-control ${className}`} style={{...style,...squircle.style}}/>});
+
+function useSquircleStyle<T extends HTMLElement>(elementRef:RefObject<T|null>){
+  const[clipPath,setClipPath]=useState<string>();
+  useLayoutEffect(()=>{
+    const element=elementRef.current;if(!element)return;
+    const measure=()=>{
+      const width=element.offsetWidth,height=element.offsetHeight;if(!width||!height)return;
+      const inset=Number(element.dataset.squircleInset||0);
+      const radius=Math.max(0,Math.min(height*.42,width*.22,72)-inset);
+      setClipPath(`path("${squirclePath({width,height,radius,smoothing:1,exponent:5})}")`);
+    };
+    measure();
+    const observer=new ResizeObserver(measure);observer.observe(element);
+    return()=>observer.disconnect();
+  },[elementRef]);
+  return{ready:Boolean(clipPath),style:clipPath?({clipPath,WebkitClipPath:clipPath} as CSSProperties):undefined};
+}
+
+export function SquircleButton({className="",style,...props}:ButtonHTMLAttributes<HTMLButtonElement>){const ref=useRef<HTMLButtonElement>(null),shape=useSquircleStyle(ref);return <button {...props} ref={ref} className={`squircle-control ${className}`} style={{...style,...shape.style}}/>}
+export function SquircleLink({className="",style,...props}:AnchorHTMLAttributes<HTMLAnchorElement>){const ref=useRef<HTMLAnchorElement>(null),shape=useSquircleStyle(ref);return <a {...props} ref={ref} className={`squircle-control ${className}`} style={{...style,...shape.style}}/>}
+export function SquircleBox({className="",style,...props}:HTMLAttributes<HTMLDivElement>){const ref=useRef<HTMLDivElement>(null),shape=useSquircleStyle(ref);return <div {...props} data-squircle-ready={shape.ready||undefined} ref={ref} className={`squircle-control ${className}`} style={{...style,...shape.style}}/>}
+export function SquircleArticle({className="",style,...props}:HTMLAttributes<HTMLElement>){const ref=useRef<HTMLElement>(null),shape=useSquircleStyle(ref);return <article {...props} ref={ref} className={`squircle-control ${className}`} style={{...style,...shape.style}}/>}

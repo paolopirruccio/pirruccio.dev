@@ -1,3 +1,3 @@
 import {PortfolioApp} from "@/components/PortfolioApp";
 
-export default function IoPage(){return <PortfolioApp initialMode="personal"/>}
+export default function IoPage(){return <PortfolioApp/>}

@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
+import { CSSProperties, useCallback, useEffect, useId, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { SquircleBox, SquircleButton, SquircleLink } from "@/components/squircle/SquircleControl";
 import { FooterOverscrollGlow } from "@/components/portfolio/FooterOverscrollGlow";
@@ -20,19 +20,25 @@ const text = {
 };
 
 export function RemainingPortfolio({lang,onOpenStudio}:{lang:Lang;onOpenStudio:()=>void}){
-  const t=text[lang]; const projectDeck=useRef<HTMLDivElement>(null); const [servicesOpen,setServicesOpen]=useState(false); const [cvOpen,setCvOpen]=useState(false); const [travelOpen,setTravelOpen]=useState(false);
+  const t=text[lang]; const projectDeck=useRef<HTMLDivElement>(null); const serviceScrollTimer=useRef(0); const [servicesOpen,setServicesOpen]=useState(false); const [cvOpen,setCvOpen]=useState(false); const [travelOpen,setTravelOpen]=useState(false);
   const closeOccasionalWork=useCallback(()=>setServicesOpen(false),[]);
-  const openServicesCentered=useCallback(()=>{
-    setServicesOpen(true);
-    window.setTimeout(()=>document.querySelector("#servizi .studio-cycle-hero")?.scrollIntoView({behavior:"smooth",block:"center"}),120);
+  const centerServiceHero=useCallback(function seek(attempt=0){
+    const hero=document.querySelector("#servizi .studio-cycle-hero");
+    if(hero){hero.scrollIntoView({behavior:"smooth",block:"center"});return}
+    if(attempt<40)serviceScrollTimer.current=window.setTimeout(()=>seek(attempt+1),60);
   },[]);
+  const openServicesCentered=useCallback(()=>{
+    window.clearTimeout(serviceScrollTimer.current);
+    setServicesOpen(true);
+    serviceScrollTimer.current=window.setTimeout(()=>centerServiceHero(),0);
+  },[centerServiceHero]);
   useEffect(()=>{
     window.addEventListener("open-portfolio-services",openServicesCentered);
-    return()=>window.removeEventListener("open-portfolio-services",openServicesCentered);
+    return()=>{window.removeEventListener("open-portfolio-services",openServicesCentered);window.clearTimeout(serviceScrollTimer.current)};
   },[openServicesCentered]);
   return <div className="react-portfolio">
     <ElasticSeparator label={lang==="it"?"Separatore tra contatti e progetti":"Separator between contacts and projects"}/>
-    <section className="react-section projects-section"><h2>{t.projects}</h2><div className="react-slider-wrap"><SquircleButton className="react-arrow prev" onClick={()=>projectDeck.current?.scrollBy({left:-384,behavior:"smooth"})}><i className="fa-solid fa-chevron-left"/></SquircleButton><div className="react-project-deck" ref={projectDeck}>{projects.map(p=><ProjectCard key={p.title} project={p} lang={lang}/>) }<SquircleLink className="view-all-card" href="/gallery"><i className="fa-solid fa-arrow-right"/><span>{t.all}</span></SquircleLink></div><SquircleButton className="react-arrow next" onClick={()=>projectDeck.current?.scrollBy({left:384,behavior:"smooth"})}><i className="fa-solid fa-chevron-right"/></SquircleButton></div></section>
+    <section className="react-section projects-section"><h2>{t.projects}</h2><div className="react-slider-wrap"><SquircleButton className="react-arrow prev" aria-label={lang==="it"?"Progetti precedenti":"Previous projects"} onClick={()=>projectDeck.current?.scrollBy({left:-384,behavior:"smooth"})}><i className="fa-solid fa-chevron-left" aria-hidden="true"/></SquircleButton><div className="react-project-deck" ref={projectDeck}>{projects.map(p=><ProjectCard key={p.title} project={p} lang={lang}/>) }<SquircleLink className="view-all-card" href="/gallery"><i className="fa-solid fa-arrow-right" aria-hidden="true"/><span>{t.all}</span></SquircleLink></div><SquircleButton className="react-arrow next" aria-label={lang==="it"?"Progetti successivi":"Next projects"} onClick={()=>projectDeck.current?.scrollBy({left:384,behavior:"smooth"})}><i className="fa-solid fa-chevron-right" aria-hidden="true"/></SquircleButton></div></section>
     <ElasticSeparator/>
     <Accordion id="portfolio-about" title={t.about} open={cvOpen} setOpen={setCvOpen}><div className="react-cv"><aside><h3>Paolo Pirruccio</h3><span className="role">UX/UI Designer</span><Info title={t.skills}><p>Figma, Sketch, Adobe Suite<br/>HTML, CSS, WordPress<br/>JavaScript, PHP, SQL</p></Info><SquircleLink className="cv-download" href="/assets/cv-paolo-pirruccio.pdf"><i className="fa-solid fa-file-arrow-down"/> {t.download}</SquircleLink></aside><div className="cv-content"><Info title={t.profile}><p>{t.profileText}</p></Info><Info title={t.experience}><Entry title="Digital Marketing & UX" meta="CityComm s.r.l · Laprendoconsport.it"/><Entry title={lang==="it"?"Volontario FAI":"FAI Volunteer"} meta="Fondo Ambiente Italiano · Siracusa"/></Info><Info title={t.education}><Entry title={lang==="it"?"Magistrale in Informatica Umanistica":"Master’s Degree in Digital Humanities"} meta={lang==="it"?"Università di Pisa · In corso":"University of Pisa · Ongoing"}/><Entry title={lang==="it"?"Laurea in Informatica Umanistica":"Bachelor’s Degree in Digital Humanities"} meta="Università di Pisa · 2025"/></Info></div></div></Accordion>
     <ElasticSeparator/>
@@ -50,6 +56,6 @@ export function PortfolioFooter({lang}:{lang:Lang;onOpenStudio?:()=>void}){
 }
 function LazyPassionStickers(){const host=useRef<HTMLDivElement>(null);const[ready,setReady]=useState(false);useEffect(()=>{const node=host.current;if(!node)return;const observer=new IntersectionObserver(([entry])=>{if(entry.isIntersecting){setReady(true);observer.disconnect()}},{rootMargin:"240px"});observer.observe(node);return()=>observer.disconnect()},[]);return <div ref={host}>{ready?<PassionStickers/>:null}</div>}
 function SectionSkeleton({kind}:{kind:"photos"|"services"}){return <div className={`section-loading-skeleton is-${kind}`} role="status" aria-label="Caricamento contenuti"><span/><span/><span/><i/></div>}
-function Accordion({title,open,setOpen,children,id,className=""}:{title:string;open:boolean;setOpen:(v:boolean)=>void;children:React.ReactNode;id?:string;className?:string}){return <section className={`react-section accordion ${open?"is-open":""} ${className}`.trim()} id={id}><button className="accordion-head" onClick={()=>setOpen(!open)} aria-expanded={open}><h2>{title}</h2><i className={`fa-solid fa-chevron-down ${open?"open":""}`}/></button><div className={`accordion-body ${open?"open":""}`}>{children}</div></section>}
+function Accordion({title,open,setOpen,children,id,className=""}:{title:string;open:boolean;setOpen:(v:boolean)=>void;children:React.ReactNode;id?:string;className?:string}){const uid=useId(),bodyId=`accordion-${uid.replace(/:/g,"")}`;return <section className={`react-section accordion ${open?"is-open":""} ${className}`.trim()} id={id}><button type="button" className="accordion-head" onClick={()=>setOpen(!open)} aria-expanded={open} aria-controls={bodyId}><h2>{title}</h2><i className={`fa-solid fa-chevron-down ${open?"open":""}`} aria-hidden="true"/></button><div id={bodyId} className={`accordion-body ${open?"open":""}`} role="region" aria-hidden={!open}>{children}</div></section>}
 function Info({title,children}:{title:string;children:React.ReactNode}){return <section className="cv-info"><h4>{title}</h4>{children}</section>}
 function Entry({title,meta}:{title:string;meta:string}){return <div className="cv-entry"><strong>{title}</strong><span>{meta}</span></div>}
