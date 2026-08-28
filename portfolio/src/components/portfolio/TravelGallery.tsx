@@ -20,13 +20,16 @@ function shuffledPhotoOrder() {
 export function TravelGallery({ lang }: { lang: Lang }) {
   const reduceMotion = useReducedMotion();
   const [order, setOrder] = useState(() => photos.map((_, index) => index));
+  const [readySrc, setReadySrc] = useState("");
   const justDragged = useRef(false);
   const cycle = () => setOrder((previous) => [...previous.slice(1), previous[0]]);
 
   // The first render stays deterministic for SSR; the client shuffles once after hydration.
   useEffect(() => setOrder(shuffledPhotoOrder()), []);
 
-  return <div className="travel-stack-section">
+  const frontSrc=photos[order[0]]?.src??"",frontReady=readySrc===frontSrc;
+  return <div className={`travel-stack-section ${frontReady ? "is-ready" : "is-loading"}`}>
+    {!frontReady&&<div className="travel-photo-loading" role="status" aria-label={lang === "it" ? "Caricamento fotografie" : "Loading photographs"}><span/><span/><span/><i/></div>}
     <div className="travel-editorial-copy">
       <div className="travel-stack-copy">
         <p>{lang === "it" ? "Qualche ricordo, senza un ordine preciso." : "A few memories, in no particular order."}</p>
@@ -38,7 +41,7 @@ export function TravelGallery({ lang }: { lang: Lang }) {
       {order.slice(0, positions.length).map((photoIndex, pos) => {
         const photo = photos[photoIndex], rest = positions[Math.min(pos, positions.length - 1)], front = pos === 0;
         return <motion.figure animate={{ rotate: rest.rotate, scale: rest.scale, x: rest.x, y: rest.y }} aria-label={front ? `${photo.place} — ${lang === "it" ? "prossima foto" : "next photo"}` : undefined} className={`travel-stack-card ${front ? "is-front" : "is-behind"}`} drag={front && !reduceMotion ? "x" : false} dragSnapToOrigin key={photo.id} onClick={() => { if (!front) return; if (justDragged.current) { justDragged.current = false; return; } cycle(); }} onDragEnd={() => { justDragged.current = true; cycle(); }} onKeyDown={(event) => { if (front && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); cycle(); } }} role={front ? "button" : undefined} style={{ cursor: front ? "grab" : "default", zIndex: photos.length - pos }} tabIndex={front ? 0 : -1} transition={reduceMotion ? { duration: 0 } : { damping: 30, stiffness: 320, type: "spring" }} whileDrag={{ cursor: "grabbing", rotate: front ? -3 : 0, scale: 1.02 }}>
-          <img alt={photo.place} decoding="async" draggable={false} loading={front ? "eager" : "lazy"} src={photo.src} />
+          <img alt={photo.place} decoding="async" draggable={false} loading={front ? "eager" : "lazy"} onLoad={front ? ()=>setReadySrc(photo.src) : undefined} src={photo.src} />
           <figcaption className={front ? "" : "is-hidden"}><strong>{photo.place}</strong></figcaption>
           {pos > 0 && <i aria-hidden style={{ opacity: pos === 1 ? .16 : .3 }} />}
         </motion.figure>;

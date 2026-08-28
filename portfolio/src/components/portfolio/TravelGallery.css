@@ -82,3 +82,14 @@
   .travel-memory-mark i:nth-child(2){top:6px;left:18px}.travel-memory-mark i:nth-child(3){top:12px;left:27px}
   .travel-memory-mark b{top:21px;right:12px;width:9px;height:9px}
 }
+
+/* Keep the accordion occupied until the first photograph is actually decoded. */
+.travel-stack-section{position:relative}
+.travel-stack-section.is-loading>.travel-editorial-copy,.travel-stack-section.is-loading>.travel-photo-column{visibility:hidden}
+.travel-photo-loading{position:absolute;z-index:5;inset:0;display:grid;padding:54px 34px 70px 0;grid-template-columns:minmax(0,1fr) 330px;gap:70px;align-items:center}
+.travel-photo-loading>span,.travel-photo-loading>i{display:block;border-radius:18px;background:linear-gradient(100deg,#0000000a 20%,#ffffff70 42%,#0000000a 64%);background-size:240% 100%;animation:travelLoadingShimmer 1.15s linear infinite}
+.travel-photo-loading>span{grid-column:1;width:62%;height:18px}.travel-photo-loading>span:first-child{height:28px}
+.travel-photo-loading>i{grid-column:2;grid-row:1/4;width:100%;aspect-ratio:1;border-radius:24px}
+@keyframes travelLoadingShimmer{to{background-position:-240% 0}}
+@media(max-width:700px){.travel-photo-loading{padding:34px 0 58px;grid-template-columns:1fr;align-content:center}.travel-photo-loading>span{width:68%}.travel-photo-loading>i{grid-column:1;grid-row:auto;width:min(270px,72vw);justify-self:center}}
+@media(prefers-reduced-motion:reduce){.travel-photo-loading>span,.travel-photo-loading>i{animation:none}}
