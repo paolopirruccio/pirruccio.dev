@@ -22,6 +22,13 @@ export function PortfolioApp() {
     document.documentElement.lang = lang;
   }, [lang]);
 
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    const safari = /Safari\//.test(ua) && !/(?:Chrome|Chromium|CriOS|Edg|EdgiOS|FxiOS|OPiOS|Android)\//.test(ua);
+    document.documentElement.classList.toggle("is-safari", safari);
+    return () => document.documentElement.classList.remove("is-safari");
+  }, []);
+
   const toggleLanguage = () => {
     setLang(current => {
       const next = current === "it" ? "en" : "it";

@@ -20,3 +20,10 @@
 .contact-deck{padding-right:max(72px,calc((100vw - 1200px)/2 + 72px))}
 .react-project-deck{padding-right:max(72px,calc((100vw - 1200px)/2 + 72px))}
 @media(max-width:768px){.contact-deck,.react-project-deck{padding-right:40px}}
+
+/* Safari can rasterize clipped filter shadows as lifted rectangles. */
+.is-safari .contact-card,.is-safari .contact-card:hover{filter:none!important;transform:none!important;transition:none}
+.is-safari .contact-card-inner,.is-safari .contact-card:hover .contact-card-inner,.is-safari .project-card-surface{box-shadow:none!important}
+.is-safari .project-card-shadow,.is-safari .react-project-card:hover .project-card-shadow{filter:none!important;transition:none}
+.is-safari .react-project-card,.is-safari .react-project-card:hover{transform:none!important;transition:none}
+.is-safari .react-project-card:hover .project-thumbs .front{transform:rotate(-8deg)}

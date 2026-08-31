@@ -14,6 +14,7 @@ export function ProjectsGallery(){
   const[studioWipOpen,setStudioWipOpen]=useState(false);
   useEffect(()=>{const saved=localStorage.getItem("preferredLanguage") as Lang|null;if(saved==="it"||saved==="en")queueMicrotask(()=>setLang(saved))},[]);
   useEffect(()=>{document.documentElement.lang=lang},[lang]);
+  useEffect(()=>{const ua=navigator.userAgent,safari=/Safari\//.test(ua)&&!/(?:Chrome|Chromium|CriOS|Edg|EdgiOS|FxiOS|OPiOS|Android)\//.test(ua);document.documentElement.classList.toggle("is-safari",safari);return()=>document.documentElement.classList.remove("is-safari")},[]);
   const toggle=()=>setLang(current=>{const next=current==="it"?"en":"it";localStorage.setItem("preferredLanguage",next);return next});
   return <main className="app-shell mode-personal gallery-app">
     <nav className="shell-controls" aria-label="Portfolio view">

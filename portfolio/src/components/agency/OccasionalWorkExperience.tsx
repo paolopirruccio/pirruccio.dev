@@ -23,7 +23,6 @@ const serviceCards=[
 
 export function OccasionalWorkExperience({lang}:{lang:Lang}){
   const t=copy[lang];
-  const experience=useRef<HTMLDivElement>(null);
   const[mailPulse,setMailPulse]=useState(0);
   const mailTimer=useRef<number|null>(null);
   const openMailAfterPulse=(event:MouseEvent<HTMLAnchorElement>)=>{
@@ -32,19 +31,12 @@ export function OccasionalWorkExperience({lang}:{lang:Lang}){
     setMailPulse(value=>value+1);
     mailTimer.current=window.setTimeout(()=>{window.location.href="mailto:pirruccio.01@gmail.com"},900);
   };
-  useEffect(()=>{
-    const node=experience.current;
-    if(!node)return;
-    const ua=navigator.userAgent;
-    const safari=/Safari\//.test(ua)&&!/(?:Chrome|Chromium|CriOS|Edg|EdgiOS|FxiOS|OPiOS|Android)\//.test(ua);
-    node.classList.toggle("is-safari",safari);
-    return()=>{node.classList.remove("is-safari");if(mailTimer.current)window.clearTimeout(mailTimer.current)};
-  },[]);
+  useEffect(()=>()=>{if(mailTimer.current)window.clearTimeout(mailTimer.current)},[]);
   const faqs=lang==="it"?
     [{q:"Quanto costa?",a:"Dipende dalla complessità. Dopo una prima call ricevi una proposta chiara, con prezzo e tempi definiti."},{q:"Quanto tempo serve?",a:"Una landing richiede in genere 1–2 settimane; un sito completo 3–5 settimane."},{q:"Lavori anche con un sito già esistente?",a:"Sì. Posso intervenire con un redesign completo o migliorare soltanto le parti che frenano il progetto."},{q:"Poi resto da solo?",a:"No. Consegna guidata, documentazione essenziale e un periodo di supporto post-lancio definito nel preventivo."}]:
     [{q:"How much does it cost?",a:"It depends on complexity. After an initial call, you receive a clear proposal with defined timing and price."},{q:"How long does it take?",a:"A landing page usually takes 1–2 weeks; a complete website takes 3–5 weeks."},{q:"Can you work on an existing site?",a:"Yes. I can redesign it completely or improve only the parts holding the project back."},{q:"Am I left alone after launch?",a:"No. You receive a guided handoff, essential documentation and a post-launch support period defined in the proposal."}];
 
-  return <div className="occasional-work-experience studio-page" ref={experience}>
+  return <div className="occasional-work-experience studio-page">
     <AgencyBlurHero lang={lang}/>
     <div className="occasional-work-content">
       <p className="occasional-work-intro"><span>{lang==="it"?"Siti su misura, senza sorprese. Sai prima cosa farò, quanto spenderai e quando sarà online.":"Tailored websites, no surprises. You know upfront what I’ll make, what you’ll spend and when it will be online."}</span></p>
