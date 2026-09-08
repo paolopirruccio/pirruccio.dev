@@ -57,7 +57,6 @@ export function PortfolioApp() {
 }
 
 function PersonalHero({ lang }: { lang: Lang }) {
-  const age = new Date().getFullYear() - 2001 - (new Date() < new Date(new Date().getFullYear(), 5, 4) ? 1 : 0);
   const hero = useRef<HTMLElement>(null);
   useHeroMagnetism(hero);
   return <div className="personal-hero-shell">
@@ -66,7 +65,7 @@ function PersonalHero({ lang }: { lang: Lang }) {
         <HeroLine>Paolo Pirruccio</HeroLine>
         <HeroLine className="indent muted">UX/UI Designer.</HeroLine>
         <HeroLine>{lang === "it" ? "Digital Creative." : "Digital Creative."}</HeroLine>
-        <HeroLine className="indent-2 muted">{lang === "it" ? `Da Siracusa. ${age} anni.` : `From Italy. ${age} y.o.`}</HeroLine>
+        <HeroLine className="indent-2 muted">Web Designer &amp; Developer.</HeroLine>
       </h1>
     </header>
   </div>;

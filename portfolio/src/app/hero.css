@@ -36,7 +36,11 @@
 .personal-line:nth-child(3) { animation-delay: .3s; }
 .personal-line:nth-child(4) { animation-delay: .4s; }
 .personal-line.indent { margin-left: 1.5em; }
-.personal-line.indent-2 { margin-left: 3em; }
+.personal-line.indent-2 {
+  margin-top: .08em;
+  margin-left: 3em;
+  font-size: .82em;
+}
 .personal-line.muted { color: #666; }
 
 .personal-word {

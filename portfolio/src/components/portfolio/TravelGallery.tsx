@@ -28,7 +28,7 @@ export function TravelGallery({ lang }: { lang: Lang }) {
     {!hasLoaded&&<div className="travel-photo-loading" role="status" aria-label={lang === "it" ? "Caricamento fotografie" : "Loading photographs"}><span/><span/><span/><i/></div>}
     <div className="travel-editorial-copy">
       <div className="travel-stack-copy">
-        <p>{lang === "it" ? "Qualche ricordo, senza un ordine preciso." : "A few memories, in no particular order."}</p>
+        <p>{lang === "it" ? "Ricordi, senza un ordine preciso." : "A few memories, in no particular order."}</p>
         <small>{lang === "it" ? "Tocca o trascina per sfogliare" : "Tap or drag to browse"}</small>
       </div>
       <div className="travel-memory-mark" aria-hidden><i /><i /><i /><b /></div>

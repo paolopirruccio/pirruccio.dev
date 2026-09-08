@@ -31,6 +31,12 @@
   .react-footer-meta .footer-socials-react{justify-content:center}
   .react-footer-meta>button{justify-self:center}
 }
+
+.projects-section-head{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.projects-section-head h2{margin:0;font-family:"Instrument Serif",serif;font-size:2rem;font-weight:400}
+.projects-gallery-link{display:flex;align-items:center;justify-content:center;padding:12px 0 12px 12px;color:inherit;font-size:inherit;line-height:1;text-decoration:none}
+.projects-gallery-link i{display:block}
+@media(max-width:768px){.projects-section-head{padding:13px 0}}
 @media(prefers-color-scheme:dark){.passion-footer-head{color:#fff}.react-footer,.react-footer-meta{border-color:#ffffff1a}.react-footer-meta>button{background:#282828;color:#fff;border-color:#ffffff1f}}
 @media(prefers-reduced-motion:reduce){.passion-sticker{transition:none}}
 @media(prefers-reduced-motion:reduce){.studio-wip-backdrop,.studio-wip-dialog{animation:none}}
@@ -162,7 +168,8 @@
 .occasional-work-experience .studio-process,.occasional-work-experience .occasional-stacked-services,.occasional-work-experience .occasional-faq{padding-right:var(--portfolio-gutter);padding-left:var(--portfolio-gutter)}
 .occasional-work-experience .studio-process{margin-top:0;padding-top:110px}
 .occasional-work-experience .liquid-unit-card,.occasional-work-experience .liquid-unit-tab{background:var(--ow-surface)}
-.occasional-work-experience .studio-service-card{border:0;border-radius:28px;background-image:none!important;box-shadow:none}
+.occasional-work-experience .studio-service-card{height:clamp(340px,42vh,390px);min-height:0;border:0;border-radius:28px;background-image:none!important;box-shadow:none}
+.occasional-work-experience .studio-service-icon{position:absolute;top:clamp(24px,3vw,42px);right:clamp(24px,3vw,42px);z-index:1;display:grid;width:58px;height:58px;place-items:center;border:1px solid currentColor;border-radius:50%;font-size:23px}
 .occasional-work-experience .studio-service-pane:nth-child(1) .studio-service-card{background-color:var(--ow-mint)}
 .occasional-work-experience .studio-service-pane:nth-child(2) .studio-service-card{background-color:var(--ow-lilac)}
 .occasional-work-experience .studio-service-pane:nth-child(3) .studio-service-card{background-color:var(--ow-cyan)}
@@ -201,9 +208,11 @@
   .occasional-work-intro{padding:58px 20px 32px;font-size:18px;line-height:1.42}
   .occasional-work-intro>span{max-width:34ch}
   .occasional-work-experience .studio-process{margin-top:0;padding-top:78px}
-  .occasional-work-experience .studio-service-stack{gap:0;padding-bottom:42px}
+  .occasional-stacked-services{padding-bottom:24px}
+  .occasional-work-experience .studio-service-stack{gap:0;padding-bottom:0}
   .occasional-work-experience .studio-service-pane{position:sticky;top:calc(62px + var(--service-index)*16px);padding-top:calc(var(--service-index)*16px)}
-  .occasional-work-experience .studio-service-card{height:auto;min-height:410px;transform:none!important}
+  .occasional-work-experience .studio-service-card{height:auto;min-height:330px;transform:none!important}
+  .occasional-work-experience .studio-service-icon{top:24px;right:24px;width:50px;height:50px;font-size:20px}
   .occasional-contact-finale{min-height:260px;padding:28px 20px}
   .occasional-mail-link{min-height:56px;padding-inline:24px}
 }
