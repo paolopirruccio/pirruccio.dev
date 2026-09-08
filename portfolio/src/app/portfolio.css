@@ -183,6 +183,8 @@
 .occasional-faq .studio-faq-row{border-color:var(--ow-border)}
 .occasional-faq .studio-faq-row>i{color:var(--ow-muted)}
 .occasional-faq .studio-faq-row>i.open{max-height:180px!important;padding-top:18px;opacity:1!important}
+.occasional-work-experience .occasional-faq{padding-top:clamp(56px,7vw,82px);padding-bottom:clamp(42px,5vw,64px)}
+.occasional-work-experience .occasional-faq header{margin-bottom:32px}
 .occasional-contact-finale{position:relative;display:grid;min-height:clamp(330px,46svh,500px);place-content:center;gap:18px;padding:48px 24px;color:var(--ow-text);text-align:center;background:var(--ow-bg);border-top:1px solid var(--ow-border)}
 .occasional-contact-finale>span{font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 .occasional-contact-finale>small{color:var(--ow-muted)}
@@ -208,6 +210,8 @@
   .occasional-work-intro{padding:58px 20px 32px;font-size:18px;line-height:1.42}
   .occasional-work-intro>span{max-width:34ch}
   .occasional-work-experience .studio-process{margin-top:0;padding-top:78px}
+  .occasional-work-experience .occasional-faq{padding-top:44px;padding-bottom:36px}
+  .occasional-work-experience .occasional-faq header{margin-bottom:24px}
   .occasional-stacked-services{padding-bottom:24px}
   .occasional-work-experience .studio-service-stack{gap:0;padding-bottom:0}
   .occasional-work-experience .studio-service-pane{position:sticky;top:calc(62px + var(--service-index)*16px);padding-top:calc(var(--service-index)*16px)}

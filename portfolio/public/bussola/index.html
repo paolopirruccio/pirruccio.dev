@@ -25,17 +25,17 @@
     <style>
         /* Home card-grid overrides per tema chiaro */
         @media (prefers-color-scheme: light) {
-            .bussola-home-card {
+            html:not([data-color-scheme="dark"]) .bussola-home-card {
                 background: #ffffff;
                 border-color: rgba(0,0,0,0.08);
                 box-shadow: 0 2px 12px rgba(0,0,0,0.05);
             }
-            .bussola-home-card:hover {
+            html:not([data-color-scheme="dark"]) .bussola-home-card:hover {
                 background: #f8f9fa;
                 border-color: rgba(0,0,0,0.15);
             }
         }
-        html[data-theme="letterato"] .bussola-home-card {
+        html[data-theme="letterato"]:not([data-color-scheme="dark"]) .bussola-home-card {
             background: rgba(60,40,10,0.03);
             border-color: rgba(80,50,20,0.14);
         }
@@ -72,7 +72,6 @@
             <picture class="site-logo-container">
                 <img src="assets/compass.webp" alt="Bussola Logo" class="site-logo" style="height: 140px;">
             </picture>
-            <div class="version-badge beta" style="margin-bottom: 1rem;">BETA</div>
             <h1>La Bussola di InfoUma</h1>
             <p
                 style="text-align: center; color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; margin-bottom: 1.5rem; max-width: 600px; line-height: 1.5;">
@@ -126,6 +125,16 @@
                 <i class="ri-external-link-line bussola-card-arrow"></i>
             </a>
 
+            <a href="https://unipi.lamappa.org" target="_blank" rel="noopener noreferrer"
+               class="bussola-home-card full-width">
+                <i class="ri-compass-3-line bussola-card-icon"></i>
+                <div>
+                    <span class="bussola-card-title" data-i18n="lamappa_title">Mappa della Città</span>
+                    <span class="bussola-card-desc" style="display:block;" data-i18n="lamappa_desc">LA MAPPA UniPi — risorse per vivere Pisa</span>
+                </div>
+                <i class="ri-external-link-line bussola-card-arrow"></i>
+            </a>
+
         </main>
 
         <!-- ── Banner installazione PWA (inline, al posto del floating) ── -->
@@ -157,6 +166,7 @@
                 style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.3rem; font-size: 0.8rem; margin-top: 1rem; transition: color 0.2s;">
                 <i class="ri-bug-line"></i> Segnala un bug
             </a>
+            <div class="footer-legal-links"><a class="footer-link" href="/privacy">Privacy policy</a><a class="footer-link" href="termini.html">Termini di utilizzo</a></div>
         </footer>
     </div>
 
@@ -177,6 +187,8 @@
             faq_desc:      'Domande frequenti',
             map_title:     'Mappa dei Poli',
             map_desc:      'Dove UniPi — naviga il campus',
+            lamappa_title:  'Mappa della Città',
+            lamappa_desc:   'LA MAPPA UniPi — risorse per vivere Pisa',
         },
         en: {
             links_title:   'Useful links',
@@ -189,6 +201,8 @@
             faq_desc:      'Frequently asked questions',
             map_title:     'Campus map',
             map_desc:      'Dove UniPi — explore the campus',
+            lamappa_title:  'City Map',
+            lamappa_desc:   'LA MAPPA UniPi — resources for life in Pisa',
         }
     };
 

@@ -36,6 +36,10 @@ const resources = [
     { name: "Domanda di Proroga",                   name_en: "Extension Request",                   url: "https://www.studenti.unipi.it/auth/Enrollment/EUploadAllegatiStartFakeProcesso.do?menu_opened_cod=menu_link-navbox_studenti_Carriera", category: "Didattica & Carriera" },
     { name: "Conseguimento Titolo",                 name_en: "Degree Achievement",                  url: "https://www.studenti.unipi.it/auth/studente/Graduation/Bacheca.do?menu_opened_cod=menu_link-navbox_studenti_Laurea", category: "Didattica & Carriera" },
     { name: "Modifica Anagrafica",                  name_en: "Update Personal Info",                url: "https://www.studenti.unipi.it/auth/AddressBook/ABMsgAnaPreForm.do", category: "Didattica & Carriera" },
+    { name: "Biblioteche — LA MAPPA",               name_en: "Libraries — LA MAPPA",               url: "https://unipi.lamappa.org/biblioteca", category: "Didattica & Carriera" },
+    { name: "Dipartimenti — LA MAPPA",              name_en: "Departments — LA MAPPA",             url: "https://unipi.lamappa.org/dipartimento", category: "Didattica & Carriera" },
+    { name: "Poli didattici — LA MAPPA",            name_en: "Teaching centres — LA MAPPA",        url: "https://unipi.lamappa.org/polo-didattico", category: "Didattica & Carriera" },
+    { name: "Uffici universitari — LA MAPPA",       name_en: "University offices — LA MAPPA",      url: "https://unipi.lamappa.org/ufficio", category: "Didattica & Carriera" },
 
     // ── Mappe & Logistica ──
     { name: "Mappa punti di interesse",             name_en: "Points of interest map",              url: "https://www.google.com/maps/d/u/0/viewer?mid=1q4ousVeGWQnZX-5K3i_SYE3bBsky2tkv&ll=43.696373493015706%2C10.437086399999984&z=12", category: "Mappe & Logistica" },
@@ -46,6 +50,9 @@ const resources = [
     { name: "Aule studio",                          name_en: "Study rooms",                         url: "https://www.unipi.it/campus-e-servizi/servizi/biblioteche-e-sale-studio/", category: "Mappe & Logistica" },
     { name: "Mappe bus pisa",                       name_en: "Pisa bus maps",                       url: "https://files.at-bus.it/s3fs-public/documents/AT_Pisa_110x110_web.pdf", category: "Mappe & Logistica" },
     { name: "Collocazione aule",                    name_en: "Classroom locations",                 url: "https://www.fileli.unipi.it/didattica/collocazione-aule/", category: "Mappe & Logistica" },
+    { name: "Fontanelle — LA MAPPA",                name_en: "Drinking fountains — LA MAPPA",      url: "https://unipi.lamappa.org/acqua", category: "Mappe & Logistica" },
+    { name: "Musei — LA MAPPA",                     name_en: "Museums — LA MAPPA",                  url: "https://unipi.lamappa.org/museo", category: "Mappe & Logistica" },
+    { name: "Stazioni ferroviarie — LA MAPPA",      name_en: "Railway stations — LA MAPPA",        url: "https://unipi.lamappa.org/stazione-ferroviaria", category: "Mappe & Logistica" },
 
     // ── Software ──
     { name: "Microsoft 365",            name_en: "Microsoft 365",           url: "https://m365.cloud.microsoft/apps/", category: "Software" },
@@ -65,6 +72,9 @@ const resources = [
     { name: "Info DSU Ristorazione",    name_en: "DSU Canteen info",        url: "https://www.dsu.toscana.it/dove-e-cosa-mangiare", category: "Mensa & Servizi" },
     { name: "Info borsa di studio",     name_en: "Scholarship info",        url: "https://www.dsu.toscana.it/borsa-di-studio", category: "Mensa & Servizi" },
     { name: "Info posto alloggio",      name_en: "Housing info",            url: "https://www.dsu.toscana.it/posto-alloggio", category: "Mensa & Servizi" },
+    { name: "Dove mangiare — LA MAPPA", name_en: "Where to eat — LA MAPPA",  url: "https://unipi.lamappa.org/mensa", category: "Mensa & Servizi" },
+    { name: "Copisterie — LA MAPPA",    name_en: "Print shops — LA MAPPA",   url: "https://unipi.lamappa.org/copisteria", category: "Mensa & Servizi" },
+    { name: "Residenze — LA MAPPA",     name_en: "Residences — LA MAPPA",    url: "https://unipi.lamappa.org/residenza", category: "Mensa & Servizi" },
 
     // ── Community ──
     { name: "Community Telegram",                           name_en: "Telegram Community",                          url: "https://t.me/+6mN2nZaSPtcyM2I0", category: "Community" },
@@ -72,6 +82,9 @@ const resources = [
     { name: "Gruppo WhatsApp 2º Anno",                      name_en: "WhatsApp Group 2nd Year",                     url: "https://chat.whatsapp.com/CYcHWJHMqMg4zq1POUrpPK", category: "Community" },
     { name: "Gruppo WhatsApp 3º Anno",                      name_en: "WhatsApp Group 3rd Year",                     url: "https://chat.whatsapp.com/Gru75fkLIsN0wUaJwvfl0P", category: "Community" },
     { name: "Gruppo WhatsApp Magistrale (link non disponibile)", name_en: "WhatsApp Master's Group (link unavailable)", url: "", category: "Community" },
+    { name: "Eventi — LA MAPPA",                            name_en: "Events — LA MAPPA",                            url: "https://unipi.lamappa.org/comunita", category: "Community" },
+    { name: "Appuntamenti — LA MAPPA",                      name_en: "What's on — LA MAPPA",                         url: "https://unipi.lamappa.org/eventi", category: "Community" },
+    { name: "Radio Eco",                                    name_en: "Radio Eco",                                    url: "https://unipi.lamappa.org/radioeco", category: "Community" },
 
     // ── Convenzioni & Sconti ──
     { name: "Notion",                           name_en: "Notion",                          url: "https://www.notion.com/product/notion-for-education", category: "Convenzioni & Sconti" },
@@ -87,11 +100,13 @@ const resources = [
     { name: "GitHub Student Developer Pack",    name_en: "GitHub Student Developer Pack",   url: "https://education.github.com/pack", category: "Convenzioni & Sconti" },
     { name: "Convenzioni di ateneo",            name_en: "University agreements & discounts",url: "https://www.unipi.it/campus-e-servizi/opportunita-e-tempo-libero/convenzioni-di-ateneo-gli-sconti-per-studenti/", category: "Convenzioni & Sconti" },
     { name: "Adobe Creative Cloud Studenti",    name_en: "Adobe Creative Cloud Students",   url: "https://www.adobe.com/it/creativecloud/buy/students.html", category: "Convenzioni & Sconti" },
+    { name: "Offerte per studenti — LA MAPPA",  name_en: "Student offers — LA MAPPA",       url: "https://unipi.lamappa.org/offerte", category: "Convenzioni & Sconti" },
 
     // ── Consigli & Altro ──
     { name: "Reddit r/universitaly",name_en: "Reddit r/universitaly",   url: "https://www.reddit.com/r/Universitaly/", category: "Consigli & Altro" },
     { name: "Fotocopie",            name_en: "Print shop",               url: "https://print.copyboom.it/", category: "Consigli & Altro" },
-    { name: "Quizlet",              name_en: "Quizlet",                  url: "https://www.quizlet.com", category: "Consigli & Altro" }
+    { name: "Quizlet",              name_en: "Quizlet",                  url: "https://www.quizlet.com", category: "Consigli & Altro" },
+    { name: "Cinema — LA MAPPA",    name_en: "Cinema — LA MAPPA",        url: "https://unipi.lamappa.org/cinema", category: "Consigli & Altro" }
 ];
 
 let openInNewTab = false;
@@ -111,15 +126,8 @@ function getSearchQuery() {
     return (window.currentSearchQuery || '').trim();
 }
 
-function getCurrentAcademicYearValue() {
-    const now = new Date();
-    const year = now.getFullYear();
-    return String(now.getMonth() >= 6 ? year : year - 1);
-}
-
 function buildSearchAssistActions(rawQuery) {
     const query = rawQuery.trim();
-    const academicYear = getCurrentAcademicYearValue();
 
     const i18n = window.BussolaI18n || { t: k => k };
     return [
@@ -134,31 +142,6 @@ function buildSearchAssistActions(rawQuery) {
             icon: 'ri-user-search-line',
             type: 'link',
             href: `https://esami.unipi.it/elencoappelli.php?from=sappelli&docente=${encodeURIComponent(query)}&insegnamento=&cds=&cerca=`
-        },
-        {
-            label: i18n.t('links_action_programme'),
-            icon: 'ri-file-list-3-line',
-            type: 'copy-link',
-            href: `https://unipi.coursecatalogue.cineca.it/corsi/${encodeURIComponent(academicYear)}`,
-            copyText: query,
-            copyLabel: i18n.t('links_copy_query')
-        },
-        {
-            label: i18n.t('links_action_prof_cat'),
-            icon: 'ri-graduation-cap-line',
-            type: 'copy-link',
-            href: 'https://unipi.coursecatalogue.cineca.it/ricercaDocenti',
-            copyText: query,
-            copyLabel: i18n.t('links_copy_name')
-        },
-        {
-            label: i18n.t('links_action_prof_map'),
-            icon: 'ri-team-line',
-            type: 'copy-link',
-            action: 'https://unimap.unipi.it/cercapersone/cercapersone.php',
-            href: 'https://unimap.unipi.it/cercapersone/cercapersone.php',
-            copyText: query,
-            copyLabel: i18n.t('links_copy_surname')
         },
         {
             label: i18n.t('links_action_book'),
