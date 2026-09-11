@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect,useRef,useState,type CSSProperties,type MouseEvent} from "react";
+import {useEffect,useRef,useState,type CSSProperties} from "react";
 import dynamic from "next/dynamic";
 import {animate,motion,useMotionValue,useReducedMotion} from "motion/react";
 import {RimBody} from "@/components/ai-lights/RimBody";
@@ -24,14 +24,20 @@ const serviceCards=[
 export function OccasionalWorkExperience({lang}:{lang:Lang}){
   const t=copy[lang];
   const[mailPulse,setMailPulse]=useState(0);
-  const mailTimer=useRef<number|null>(null);
-  const openMailAfterPulse=(event:MouseEvent<HTMLAnchorElement>)=>{
-    event.preventDefault();
-    if(mailTimer.current)window.clearTimeout(mailTimer.current);
-    setMailPulse(value=>value+1);
-    mailTimer.current=window.setTimeout(()=>{window.location.href="mailto:pirruccio.01@gmail.com"},900);
-  };
-  useEffect(()=>()=>{if(mailTimer.current)window.clearTimeout(mailTimer.current)},[]);
+  const mailSection=useRef<HTMLElement>(null);
+  useEffect(()=>{
+    const button=mailSection.current?.querySelector("a");
+    if(!button||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    let timer:number|undefined;
+    const observer=new IntersectionObserver(([entry])=>{
+      if(timer!==undefined){window.clearTimeout(timer);timer=undefined;}
+      if(entry.isIntersecting&&entry.intersectionRatio>=.6){
+        timer=window.setTimeout(()=>{timer=undefined;setMailPulse(value=>value+1);},450);
+      }
+    },{threshold:[0,.6]});
+    observer.observe(button);
+    return()=>{observer.disconnect();if(timer!==undefined)window.clearTimeout(timer);};
+  },[]);
   const faqs=lang==="it"?
     [{q:"Quanto costa?",a:"Dipende dalla complessità. Dopo una prima call ricevi una proposta chiara, con prezzo e tempi definiti."},{q:"Quanto tempo serve?",a:"Una landing richiede in genere 1–2 settimane; un sito completo 3–5 settimane."},{q:"Lavori anche con un sito già esistente?",a:"Sì. Posso intervenire con un redesign completo o migliorare soltanto le parti che frenano il progetto."},{q:"Poi resto da solo?",a:"No. Consegna guidata, documentazione essenziale e un periodo di supporto post-lancio definito nel preventivo."}]:
     [{q:"How much does it cost?",a:"It depends on complexity. After an initial call, you receive a clear proposal with defined timing and price."},{q:"How long does it take?",a:"A landing page usually takes 1–2 weeks; a complete website takes 3–5 weeks."},{q:"Can you work on an existing site?",a:"Yes. I can redesign it completely or improve only the parts holding the project back."},{q:"Am I left alone after launch?",a:"No. You receive a guided handoff, essential documentation and a post-launch support period defined in the proposal."}];
@@ -47,7 +53,7 @@ export function OccasionalWorkExperience({lang}:{lang:Lang}){
       </div></section>
       <section className="studio-section studio-services occasional-stacked-services"><header><h2>{t.services}</h2></header><StackedServices lang={lang}/></section>
       <section className="studio-faq occasional-faq"><header><h2>{t.faq}</h2></header>{faqs.map((faq,index)=><Faq key={index}{...faq}/>)}</section>
-      <section className="occasional-contact-finale"><RimBody pulseKey={mailPulse} className="occasional-mail-rim"><SquircleLink className="occasional-mail-link" href="mailto:pirruccio.01@gmail.com" onClick={openMailAfterPulse}>{lang==="it"?"Scrivimi":"Email me"}</SquircleLink></RimBody><small>{lang==="it"?"Quando vuoi iniziare, scrivimi qui.":"When you’re ready to start, email me here."}</small></section>
+      <section ref={mailSection} className="occasional-contact-finale"><RimBody pulseKey={mailPulse} className="occasional-mail-rim"><SquircleLink className="occasional-mail-link" href="mailto:pirruccio.01@gmail.com">{lang==="it"?"Scrivimi":"Email me"}</SquircleLink></RimBody><small>{lang==="it"?"Quando vuoi iniziare, scrivimi qui.":"When you’re ready to start, email me here."}</small></section>
     </div>
   </div>;
 }

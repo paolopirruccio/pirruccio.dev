@@ -19,7 +19,7 @@ export function ProjectsGallery(){
     </nav>
     <div className="view-stage"><div className="react-portfolio gallery-portfolio">
       <SquircleLink className="gallery-back" href="/io"><i className="fa-solid fa-arrow-left" aria-hidden="true"/>{lang==="it"?"Torna al portfolio":"Back to Me"}</SquircleLink>
-      <section className="react-section gallery-heading"><h1>{lang==="it"?"Tutti i progetti":"All projects"}</h1><p>{lang==="it"?"Una raccolta di esperimenti, prodotti digitali e lavori accademici.":"A collection of experiments, digital products and academic work."}</p></section>
+      <section className="react-section gallery-heading"><h1>{lang==="it"?"Tutti i progetti":"All projects"}</h1><p>{lang==="it"?<>Una raccolta di esperimenti, prodotti digitali e lavori accademici tutti <strong>corredati da case study</strong>.</>:"A collection of experiments, digital products and academic work, each accompanied by a case study."}</p></section>
       <section className="gallery-project-grid" aria-label={lang==="it"?"Tutti i progetti":"All projects"}>{portfolioProjects.map(project=><ProjectCard key={project.title} project={project} lang={lang}/>)}</section>
       <PortfolioFooter lang={lang} showStickers={false}/>
     </div></div>

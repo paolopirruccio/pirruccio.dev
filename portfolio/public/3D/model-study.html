@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sarcofago Tebanianus — vista del modello</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080807;color:#f5efe5}#draw-canvas{display:block;width:100%;height:100%;pointer-events:none}#fallback{display:none;width:100%;height:100%;object-fit:contain}p{position:absolute;bottom:12px;left:20px;margin:0;font:11px system-ui,sans-serif;letter-spacing:.07em;color:#bcb5a7;pointer-events:none}
+</style>
+<script src="3dhop/js/spidergl.js"></script><script src="3dhop/js/jquery.js"></script><script src="3dhop/js/presenter.js"></script><script src="3dhop/js/nexus.js"></script><script src="3dhop/js/ply.js"></script><script src="3dhop/js/trackball_turntable.js"></script><script src="3dhop/js/trackball_turntable_pan.js"></script>
+<script src="3dhop/js/init.js"></script>
+</head>
+<body>
+<canvas id="draw-canvas" aria-label="Modello tridimensionale del Sarcofago Tebanianus, vista fissa del fronte" role="img" tabindex="-1"></canvas>
+<img id="fallback" src="/case-studies/originals/3d-2.png" alt="Vista del modello del sarcofago nel percorso originale">
+<p id="status">MODELLO ORIGINALE · VISTA FISSA</p>
+<script>
+var presenter;
+function fallback(){document.getElementById('draw-canvas').style.display='none';document.getElementById('fallback').style.display='block';document.getElementById('status').textContent='VISTA DEL MODELLO NEL PROGETTO ORIGINALE';}
+try{
+ var canvas=document.getElementById('draw-canvas');
+ var probe=document.createElement('canvas');
+ if(!probe.getContext('webgl')&&!probe.getContext('experimental-webgl')) throw new Error('WebGL unavailable');
+ init3dhop();
+ presenter=new Presenter('draw-canvas');
+ presenter.setScene({
+  background:{color:[0.031,0.031,0.027,1]},
+  meshes:{sarcofago:{url:'3dhop/models/sarcofago.nxz'}},
+  modelInstances:{sarcofago:{mesh:'sarcofago',color:[0.82,0.74,0.58],useSolidColor:false,useLighting:true}},
+  trackball:{type:TurntablePanTrackball,trackOptions:{startPhi:-51.213,startTheta:10.311,startDistance:1.05,minMaxDist:[0.8,4],minMaxTheta:[10.311,10.311]}},
+  space:{centerMode:'scene',radiusMode:'scene',cameraFOV:45,cameraNearFar:[0.01,10],cameraType:'perspective',sceneLighting:false}
+ });
+ function size(){var dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(innerWidth*dpr);canvas.height=Math.round(innerHeight*dpr);presenter._resizable=false;presenter.setTrackballPosition([-51.213,10.311,0,0,0,Math.max(1.05,1.65/(innerWidth/innerHeight))]);presenter.repaint();}
+ new ResizeObserver(size).observe(document.body);size();
+ canvas.addEventListener('webglcontextlost',fallback);
+}catch(e){console.error("Model study initialization:",e);fallback();}
+</script>
+</body></html>

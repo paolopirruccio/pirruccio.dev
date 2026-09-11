@@ -1,35 +1,4 @@
-
-export type CaseStudy={
-  slug:string;
-  title:string;
-  eyebrow:string;
-  summary:string;
-  year:string;
-  context?:string;
-  status?:string;
-  visualTitle?:string;
-  visualIntro?:string;
-  paletteNote?:string;
-  typeNote?:string;
-  process?:Array<{title:string;body:string}>;
-  services:string[];
-  role:string;
-  website?:string;
-  focus?:"brand"|"product";
-  theme:{background:string;surface:string;ink:string;muted:string;accent:string;accentInk:string;fontDisplay:string;fontBody:string};
-  logo?:string;
-  logoAlt?:string;
-  challenge:{title:string;body:string};
-  solution:{title:string;body:string};
-  logoStudy:Array<{src?:string;label:string;note?:string;detail?:string}>;
-  palette:Array<{name:string;hex:string}>;
-  typography:Array<{name:string;usage:string;sample:string}>;
-  productSystem?:Array<{label:string;title:string;body:string;icon:string}>;
-  screenshots:Array<{src?:string;alt:string;caption:string;size?:"wide"|"tall"|"standard"}>;
-  outcome:{title:string;body:string;points:string[]};
-};
-
-export const caseStudies:CaseStudy[]=[
+[
   {
     "slug": "laprendoconsport",
     "title": "Laprendoconsport",
@@ -171,7 +140,6 @@ export const caseStudies:CaseStudy[]=[
       ]
     }
   },
-
   {
     "slug": "astergift",
     "title": "AsterGift",
@@ -303,7 +271,6 @@ export const caseStudies:CaseStudy[]=[
       ]
     }
   },
-
   {
     "slug": "nasa",
     "title": "NASA Project",
@@ -581,7 +548,6 @@ export const caseStudies:CaseStudy[]=[
       ]
     }
   },
-
   {
     "slug": "bussola-infouma",
     "title": "La Bussola di Infouma",
@@ -814,7 +780,6 @@ export const caseStudies:CaseStudy[]=[
       ]
     }
   },
-
   {
     "slug": "blogowl",
     "title": "BlogOwl",
@@ -1087,6 +1052,4 @@ export const caseStudies:CaseStudy[]=[
       ]
     }
   }
-];
-
-export const caseStudyBySlug=(slug:string)=>caseStudies.find(item=>item.slug===slug);
+]

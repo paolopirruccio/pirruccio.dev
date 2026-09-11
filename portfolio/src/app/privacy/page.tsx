@@ -1,3 +1,4 @@
+import {SquircleLink} from "@/components/squircle/SquircleControl";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="privacy-page">
-      <a className="privacy-back" href="/io">← Torna al portfolio</a>
+      <SquircleLink className="gallery-back privacy-gallery-back" href="/io"><i className="fa-solid fa-arrow-left" aria-hidden="true"/>Torna al portfolio</SquircleLink>
       <header>
         <p>Ultimo aggiornamento: 8 settembre 2026</p>
         <h1>Privacy policy</h1>

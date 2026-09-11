@@ -93,3 +93,17 @@
 @keyframes travelLoadingShimmer{to{background-position:-240% 0}}
 @media(max-width:700px){.travel-photo-loading{padding:34px 0 58px;grid-template-columns:1fr;align-content:center}.travel-photo-loading>span{width:68%}.travel-photo-loading>i{grid-column:1;grid-row:auto;width:min(270px,72vw);justify-self:center}}
 @media(prefers-reduced-motion:reduce){.travel-photo-loading>span,.travel-photo-loading>i{animation:none}}
+
+/* Give the caption its own row before the desktop columns become cramped. */
+@media(min-width:701px) and (max-width:1000px){
+  .travel-stack-section{min-height:0;grid-template-columns:minmax(0,1fr);gap:28px;padding:28px 20px 72px 0}
+  .travel-editorial-copy{min-height:0;gap:24px;padding:0;justify-content:space-between}
+  .travel-editorial-copy .travel-stack-copy{flex:1;max-width:430px;min-width:0}
+  .travel-editorial-copy .travel-stack-copy p{font-size:30px;line-height:1.12;text-wrap:balance}
+  .travel-editorial-copy .travel-stack-copy small{margin-top:12px;font-size:13px;line-height:1.4}
+  .travel-memory-mark{flex-basis:100px;transform:scale(.8);transform-origin:right center}
+  .travel-photo-column{min-height:390px;padding:0 28px 0 0}
+  .travel-photo-stack{width:340px;margin:0}
+  .travel-photo-loading{grid-template-columns:1fr;padding:28px 20px 72px 0;gap:18px}
+  .travel-photo-loading>i{grid-column:1;grid-row:auto;width:340px;justify-self:center}
+}

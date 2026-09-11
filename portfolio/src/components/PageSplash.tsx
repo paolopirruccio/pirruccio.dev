@@ -10,29 +10,37 @@ export function PageSplash(){
     let frame=0;
     let leaveTimer=0;
     let removeTimer=0;
+    let deadlineTimer=0;
+    let finished=false;
     const started=performance.now();
     const shapesReady=()=>[...document.querySelectorAll<HTMLElement>(".squircle-control")]
       .every(element=>!element.offsetWidth||Boolean(element.style.clipPath));
     const finish=()=>{
-      if(cancelled)return;
+      if(cancelled||finished)return;
+      finished=true;
+      window.clearTimeout(deadlineTimer);
       leaveTimer=window.setTimeout(()=>{
         if(cancelled)return;
         setPhase("leaving");
-        removeTimer=window.setTimeout(()=>setPhase("hidden"),280);
-      },Math.max(0,420-(performance.now()-started)));
+        removeTimer=window.setTimeout(()=>setPhase("hidden"),180);
+      },Math.max(0,220-(performance.now()-started)));
     };
     const waitForShapes=(attempt=0)=>{
       if(shapesReady()||attempt>=18){finish();return}
       frame=requestAnimationFrame(()=>waitForShapes(attempt+1));
     };
-    void document.fonts.ready.then(()=>{
-      frame=requestAnimationFrame(()=>requestAnimationFrame(()=>waitForShapes()));
-    });
+    // Squircle geometry only depends on element dimensions. Waiting for every
+    // webfont kept this full-screen layer visible on slow connections and made
+    // the actual hero become the LCP several seconds late. ResizeObserver will
+    // still correct the paths if a font swap changes their size afterwards.
+    frame=requestAnimationFrame(()=>requestAnimationFrame(()=>waitForShapes()));
+    deadlineTimer=window.setTimeout(finish,520);
     return()=>{
       cancelled=true;
       cancelAnimationFrame(frame);
       window.clearTimeout(leaveTimer);
       window.clearTimeout(removeTimer);
+      window.clearTimeout(deadlineTimer);
     };
   },[]);
 

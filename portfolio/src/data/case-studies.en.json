@@ -1,0 +1,1055 @@
+[
+  {
+    "slug": "laprendoconsport",
+    "title": "Laprendoconsport",
+    "eyebrow": "CityComm Srl · Undergraduate internship and dissertation",
+    "summary": "A new brand identity and WordPress platform: a project about sport and participation.",
+    "year": "2025",
+    "context": "Internship at CityComm Srl · Undergraduate dissertation in Digital Humanities",
+    "status": "Internship and project completed",
+    "services": [
+      "Visual identity",
+      "Web design",
+      "WordPress development",
+      "Communication"
+    ],
+    "role": "Rebranding, platform design and development, communication plan",
+    "website": "/laprendoconsport.html",
+    "theme": {
+      "background": "#111111",
+      "surface": "#202020",
+      "ink": "#ffffff",
+      "muted": "#c9c9c9",
+      "accent": "#ffa404",
+      "accentInk": "#ffffff",
+      "fontDisplay": "\"Instrument Serif\", Georgia, serif",
+      "fontBody": "Inter, Arial, sans-serif"
+    },
+    "challenge": {
+      "title": "Giving shape to a new project.",
+      "body": "Laprendoconsport is a nonprofit social responsibility initiative by CityComm Srl, a Livorno-based company, focused on sport, healthy lifestyles and inclusion. When I started my internship, there was a preliminary logo but no coordinated identity or platform. The audience included families, young people and people with disabilities or social vulnerabilities, alongside schools and sports associations."
+    },
+    "solution": {
+      "title": "From the brand to the website.",
+      "body": "I redesigned the logo and planned the entire web platform, defining its pages, graphics and features. After sharing mockups with the company, I moved on to WordPress development, preparing a foundation the communications team could manage and update. The work also became the subject of my undergraduate dissertation, exploring the relationship between visual identity, technical development and multichannel communication."
+    },
+    "visualTitle": "From the preliminary logo to the new identity",
+    "visualIntro": "I kept the rooster and the reference to the Olympic colours, bringing them together in a more compact mark. The name stands apart from the symbol and becomes easier to read; the variants allow the brand to work on different backgrounds and formats.",
+    "logoStudy": [
+      {
+        "src": "/case-studies/laprendoconsport/logo-preliminare.png",
+        "label": "The starting point",
+        "detail": "thesis-light",
+        "note": "In the preliminary logo, the rooster is separate from the five circles, while the name runs across the coloured shapes. I worked on this gap between symbol and text."
+      },
+      {
+        "src": "/case-studies/originals/laprendoconsport-logo.svg",
+        "label": "The rooster becomes a compact symbol",
+        "detail": "sport-logo-vector",
+        "note": "The yellow body and the red, blue and green tail shapes bring the colours into a single figure. The bold word “sport” ends the name and highlights its theme."
+      }
+    ],
+    "palette": [
+      {
+        "name": "Yellow",
+        "hex": "#FFA404"
+      },
+      {
+        "name": "Red",
+        "hex": "#ED0044"
+      },
+      {
+        "name": "Blue",
+        "hex": "#0074C8"
+      },
+      {
+        "name": "Green",
+        "hex": "#00963A"
+      },
+      {
+        "name": "Background",
+        "hex": "#111111"
+      },
+      {
+        "name": "White",
+        "hex": "#FFFFFF"
+      }
+    ],
+    "paletteNote": "Yellow #FFA404 is the main colour. Red, blue and green echo the brand and distinguish accents and content; the dark background brings photographs and messages together.",
+    "typography": [
+      {
+        "name": "Bricolage Grotesque",
+        "usage": "Original website headings",
+        "sample": "Sport. Passion. Inclusion."
+      },
+      {
+        "name": "Noto Sans",
+        "usage": "Original website body text",
+        "sample": "Movement as an opportunity to connect."
+      }
+    ],
+    "typeNote": "Bricolage Grotesque gives the headings character; Noto Sans keeps page descriptions and information readable.",
+    "process": [
+      {
+        "title": "Five areas to find your way.",
+        "body": "I organised the website into Home, Impact, Resources, Take Part and About Us. The structure separates the project introduction, wellbeing content, events and team information. A calendar, articles and photo collections are designed to support activities and future updates."
+      },
+      {
+        "title": "WordPress, with custom-built sections.",
+        "body": "I chose WordPress.org and the Astra theme as a modular foundation, adding HTML, CSS, PHP and JavaScript. Alongside the landing page animations, I developed six wellbeing calculators, including BMI, BMR and TDEE. The platform combines editorial content with small interactive tools."
+      },
+      {
+        "title": "Checking readability and navigation.",
+        "body": "I checked contrast against WCAG guidance and used PageSpeed Insights to review performance. A small test with four people from different backgrounds gathered feedback on navigation and access to content: 22 of 24 tasks completed, with an average time of 50 seconds. Their feedback informed adjustments to the interface."
+      },
+      {
+        "title": "Taking the graphics beyond the website.",
+        "body": "I prepared sample social content and an editorial plan distinguishing short visual messages, longer pieces and institutional communication. The colours, logo and shapes recur in the graphics, connecting them to the website. The plan also includes proposals for offline materials and merchandise; the audience and participation targets described in the dissertation are future goals."
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/case-studies/originals/laprendoconsport.jpg",
+        "alt": "Laprendoconsport header with a multicoloured logo, volleyball photograph and Sport Passion Inclusion heading",
+        "caption": "The header of the version preserved in the portfolio",
+        "size": "wide"
+      },
+      {
+        "src": "/case-studies/laprendoconsport/identita.png",
+        "alt": "Laprendoconsport identity board with horizontal and vertical logos and colour, black and white symbols",
+        "caption": "The identity board: logo layouts, monochrome variants and graphic applications. From the dissertation presentation."
+      },
+      {
+        "src": "/case-studies/laprendoconsport/social-consigli.png",
+        "alt": "Four tips for surviving the week, arranged in yellow, green, red and blue panels",
+        "caption": "A social post example: coloured panels and large numbers organise four short tips."
+      },
+      {
+        "src": "/case-studies/laprendoconsport/social-cover.png",
+        "alt": "Laprendoconsport cover with overlapping sports photographs and a white name on a dark coloured background",
+        "caption": "A cover connecting the brand with photographs of sport and participation."
+      }
+    ],
+    "outcome": {
+      "title": "A foundation ready for updates.",
+      "body": "I completed the internship by delivering a platform with defined pages and a visual identity, ready for the communications team to manage in future. It was an opportunity to follow a project from brand analysis through development to an editorial proposal. The dissertation documents that journey.",
+      "points": [
+        "Internship and project completed",
+        "Identity and platform delivered",
+        "Undergraduate dissertation · 2025"
+      ]
+    }
+  },
+  {
+    "slug": "astergift",
+    "title": "AsterGift",
+    "eyebrow": "Graphic Design · University project",
+    "summary": "An identity for an imaginary star-gifting service, combining references to jewellery with a playful visual world.",
+    "year": "",
+    "context": "Graphic Design course project · Digital Humanities",
+    "status": "Completed coursework project",
+    "services": [
+      "Concept",
+      "Visual identity",
+      "Website graphic design"
+    ],
+    "role": "Concept and graphic design",
+    "theme": {
+      "background": "#f1edf8",
+      "surface": "#ffffff",
+      "ink": "#17121f",
+      "muted": "#62586e",
+      "accent": "#725AC1",
+      "accentInk": "#17121f",
+      "fontDisplay": "\"Instrument Serif\", Georgia, serif",
+      "fontBody": "Inter, Arial, sans-serif"
+    },
+    "challenge": {
+      "title": "Inventing the service, then giving it a face.",
+      "body": "For the Graphic Design course, we had to invent a website and develop a brand identity for it. I imagined AsterGift: a fictional service for gifting a star by choosing a name and a package. The subject let me work with both space imagery and the idea of a gift."
+    },
+    "solution": {
+      "title": "An elegant tone, with room for play.",
+      "body": "I brought together two references: the composition of jewellery and fashion websites, and the more playful imagery of fortune-telling websites. Serif headings, night skies and black backgrounds meet decorative stars, purple and pale blue. The name combines the reference to stars in “Aster” with the English word “Gift”, making the idea of gifting immediately recognisable."
+    },
+    "visualTitle": "Sketches and the mark",
+    "visualIntro": "I produced several hand-drawn studies and the final mark. I tried different forms of the A, combining them with stars and trails until the negative space became part of the symbol.",
+    "logoStudy": [
+      {
+        "src": "/case-studies/astergift/schizzi.jpeg",
+        "label": "Early studies of the A",
+        "note": "Open letterforms, central stars and diagonal trails: the sketches explore different ways to combine the initial with the celestial theme."
+      },
+      {
+        "src": "/case-studies/astergift/marchio.svg",
+        "label": "The star cuts through the letter",
+        "note": "A star in negative space cuts through the A. Its trail extends the cut and suggests a comet, creating a compact mark that also works on its own."
+      },
+      {
+        "src": "/case-studies/astergift/logotipo.png",
+        "label": "Name and message",
+        "note": "The uppercase name is accompanied by “Regala una stella” (“Give a star”). The tagline explains the imagined service and complements the symbol."
+      }
+    ],
+    "palette": [
+      {
+        "name": "Purple · Slate blue",
+        "hex": "#725AC1"
+      },
+      {
+        "name": "Ice blue",
+        "hex": "#90EDE8"
+      },
+      {
+        "name": "Black",
+        "hex": "#000000"
+      }
+    ],
+    "paletteNote": "Purple identifies the project, black evokes the night sky and Ice blue introduces a lighter contrast in the shapes and offers.",
+    "typography": [
+      {
+        "name": "DM Serif Display",
+        "usage": "Headings and main messages",
+        "sample": "Give a star."
+      },
+      {
+        "name": "Myriad Pro",
+        "usage": "Body text and content",
+        "sample": "A name, a thought, a gift."
+      }
+    ],
+    "typeNote": "DM Serif Display for headings and Myriad Pro for body text.",
+    "process": [
+      {
+        "title": "Experimenting before choosing.",
+        "body": "In the sketches, I tried softer and more geometric initials, with the star inside or outside the letter. The final solution combines the two elements through a diagonal cut, so the symbol conveys the theme even without the name."
+      },
+      {
+        "title": "Repeating an element, varying its shape.",
+        "body": "Multi-point stars and luminous shapes recur as frames, small accents and backgrounds for numbers. I used them to connect the webpage to the printed materials while keeping variety in the compositions."
+      },
+      {
+        "title": "Trying the identity across different formats.",
+        "body": "I applied the mark to a card and envelope, a poster, a folded leaflet and a digital mockup. These trials helped me see how hierarchy and proportions changed from one surface to another. Offers, competitions and commercial claims in the mockups are part of the coursework simulation."
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/case-studies/astergift/tavola.jpg",
+        "alt": "AsterGift board with a header, envelopes, phone, simulated testimonials and Silver package",
+        "caption": "Project board · identity and web applications",
+        "size": "wide"
+      },
+      {
+        "src": "/case-studies/astergift/biglietto.png",
+        "alt": "Purple AsterGift mark on a white card resting on an envelope",
+        "caption": "The mark on paper: a simple application that gives the symbol room."
+      },
+      {
+        "src": "/case-studies/astergift/manifesto.png",
+        "alt": "AsterGift poster mockup with a starry sky and purple band",
+        "caption": "A poster for an imaginary promotion: photography, stars and serif headings."
+      },
+      {
+        "src": "/case-studies/astergift/pieghevole.png",
+        "alt": "Three-panel AsterGift leaflet with numbered blue stars",
+        "caption": "The leaflet organises content into three steps, highlighted by Ice blue stars. Commercial copy simulated for the course."
+      },
+      {
+        "src": "/case-studies/astergift/digitale.png",
+        "alt": "Tablet mockup with a purple AsterGift composition and starry sky",
+        "caption": "The digital application echoes the contrast between the night sky, purple and the logotype."
+      }
+    ],
+    "outcome": {
+      "title": "An exercise in visual consistency.",
+      "body": "AsterGift let me start with an invented service and develop an identity through sketches, a mark, typography and applications. The webpage and mockups document a university graphic design exercise, with a shared visual language across different formats.",
+      "points": [
+        "Concept and logo studies",
+        "Defined palette and typography",
+        "Web and print applications"
+      ]
+    }
+  },
+  {
+    "slug": "nasa",
+    "title": "NASA Project",
+    "eyebrow": "Web Design · My first website",
+    "summary": "Mission Red Planet: my first exercise in bringing pages, images and small interactions together.",
+    "year": "",
+    "context": "Web Design course project · Digital Humanities",
+    "status": "University project",
+    "role": "Website design and development",
+    "services": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Content organisation"
+    ],
+    "website": "/ppw/index.html",
+    "theme": {
+      "background": "#080808",
+      "surface": "#181818",
+      "ink": "#ffffff",
+      "muted": "#bcbcbc",
+      "accent": "#bc6f03",
+      "accentInk": "#ffffff",
+      "fontDisplay": "\"Instrument Serif\", Georgia, serif",
+      "fontBody": "Inter, Arial, sans-serif"
+    },
+    "challenge": {
+      "title": "Starting with the basics.",
+      "body": "This is the first website I built, for the Web Design course. I chose Mars exploration and the Perseverance mission: a subject that let me organise text, photographs, multimedia content and a few interactions in a simple website."
+    },
+    "solution": {
+      "title": "Four sections and a common theme.",
+      "body": "The navigation separates the mission, the journey from Earth to Mars, the quiz and a personal introduction. I used a black background and large images, with a different colour for each section. It was an early attempt to give several pages visual continuity while learning how to build their structure."
+    },
+    "visualTitle": "The graphic choices",
+    "visualIntro": "The MARS logo appears in the navigation with different accents. The variants belong to the same colour system as the pages.",
+    "logoStudy": [
+      {
+        "src": "/ppw/images/brown-logo.png",
+        "label": "The mission",
+        "note": "The name MARS sits beside a rover symbol in an ochre circle. The light lettering stands out against the black navigation background."
+      },
+      {
+        "src": "/ppw/images/blue-logo.png",
+        "label": "From Earth to Mars",
+        "note": "The blue variant accompanies the journey and technology section, keeping the same logo shape."
+      },
+      {
+        "src": "/ppw/images/violet-logo.png",
+        "label": "The quiz",
+        "note": "The pink-purple variant echoes the quiz page accent. The colour changes while the visual reference remains recognisable."
+      }
+    ],
+    "palette": [
+      {
+        "name": "Mission",
+        "hex": "#BC6F03"
+      },
+      {
+        "name": "Journey",
+        "hex": "#0093E9"
+      },
+      {
+        "name": "Quiz",
+        "hex": "#FF3CAC"
+      },
+      {
+        "name": "Introduction",
+        "hex": "#399C46"
+      },
+      {
+        "name": "Background",
+        "hex": "#000000"
+      }
+    ],
+    "paletteNote": "Four accents distinguish the pages and recur in the navigation.",
+    "typography": [
+      {
+        "name": "Orbitron",
+        "usage": "Technology-inspired headings",
+        "sample": "Mission Red Planet"
+      },
+      {
+        "name": "DM Sans",
+        "usage": "Body text and navigation",
+        "sample": "From Earth to Mars"
+      }
+    ],
+    "typeNote": "Orbitron evokes the space theme through geometric forms; DM Sans accompanies the text and links.",
+    "process": [
+      {
+        "title": "Organising the materials.",
+        "body": "The mission page moves between photographs of Mars, the rover, objectives and content about Ingenuity. The journey section covers development, components and the landing stages. Dividing the materials into topics was one of my first website design tasks."
+      },
+      {
+        "title": "Trying my first interactions.",
+        "body": "Alongside the information pages, I added a quiz with questions, progress and a result, as well as image sequences and audio and video content. These were simple exercises through which I began connecting user actions to changes on the page."
+      },
+      {
+        "title": "A starting point in my development.",
+        "body": "Today I would make several graphic choices differently. I keep this website because it documents the beginning: moving from collected content to connected pages, and from a static page to my first JavaScript features."
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/case-studies/originals/ppw.jpeg",
+        "caption": "The mission · opening with Mars and the main navigation",
+        "alt": "Mission Red Planet header with an image of Mars",
+        "size": "wide"
+      },
+      {
+        "src": "/case-studies/originals/ppw-2.jpeg",
+        "caption": "The objectives · cards with icons and information",
+        "alt": "Three cards presenting the objectives of the Perseverance mission",
+        "size": "wide"
+      },
+      {
+        "src": "/case-studies/originals/ppw-3.jpeg",
+        "caption": "The quiz · one of my first JavaScript interactions",
+        "alt": "Mission quiz with a parachute graphic and gradient background",
+        "size": "wide"
+      }
+    ],
+    "outcome": {
+      "title": "The website I started with.",
+      "body": "A small project that helped me learn to organise a complete website and make HTML, CSS and JavaScript work together. In the portfolio, it represents the first step in my work on the web.",
+      "points": [
+        "First university website",
+        "Connected pages",
+        "First JavaScript interactions"
+      ]
+    }
+  },
+  {
+    "slug": "sarcofago-tebanianus",
+    "title": "Il Sarcofago Tebanianus",
+    "eyebrow": "3D Graphics for Cultural Heritage · University project",
+    "summary": "Observing an artifact, studying its details and placing it in the context where it belongs.",
+    "year": "",
+    "context": "3D Graphics for Cultural Heritage course project · Digital Humanities",
+    "status": "Coursework project",
+    "services": [
+      "Web graphics",
+      "3DHOP customisation",
+      "Scrollytelling",
+      "SVG illustrations"
+    ],
+    "role": "Graphic design and development of the web experience",
+    "website": "/3D/index.html",
+    "theme": {
+      "background": "#050505",
+      "surface": "#151411",
+      "ink": "#f5efe5",
+      "muted": "#c0b9ad",
+      "accent": "#d7b46a",
+      "accentInk": "#f5efe5",
+      "fontDisplay": "\"Instrument Serif\", Georgia, serif",
+      "fontBody": "Inter, Arial, sans-serif"
+    },
+    "challenge": {
+      "title": "Guiding the eye.",
+      "body": "For the 3D Graphics for Cultural Heritage course, I worked on a website about the Tebanianus Sarcophagus in the Camposanto Monumentale in Pisa. I wanted to complement exploration of the model with a guided path that would help visitors observe the decoration and understand how it is arranged across its surfaces."
+    },
+    "solution": {
+      "title": "The model follows the story.",
+      "body": "I adapted 3DHOP to the graphics and structure of the website. In the guided reading, the model stays beside the text: as you scroll, the view changes to show the part being described. A second mode lets you explore the artifact freely through a dedicated control panel."
+    },
+    "visualTitle": "The decorations of the Camposanto",
+    "visualIntro": "I recreated motifs from the tomb decorations I observed in the Camposanto as SVGs. Alongside them are drawings of the sarcophagus reliefs, used to accompany the reading of the model.",
+    "logoStudy": [
+      {
+        "src": "/3D/resources/svg decorativi/incappucciati.svg",
+        "label": "Hooded figures",
+        "note": "The two figures are arranged symmetrically around the central motif. On the website, the drawing appears as an ornament at the edges of the header."
+      },
+      {
+        "src": "/3D/resources/svg decorativi/fiori.svg",
+        "label": "Floral motif",
+        "note": "The branch, leaves and flowers become a linear element: a light presence recalling the decorations of the site."
+      },
+      {
+        "src": "/3D/resources/svg sarcofago/campo_sx.svg",
+        "label": "A detail of the relief",
+        "note": "The drawing of the left panel isolates the figures in the scene. Alongside the 3D model, the linework helps identify their outlines."
+      }
+    ],
+    "palette": [
+      {
+        "name": "Background",
+        "hex": "#050505"
+      },
+      {
+        "name": "Text",
+        "hex": "#F5EFE5"
+      },
+      {
+        "name": "Gold accent",
+        "hex": "#D7B46A"
+      }
+    ],
+    "paletteNote": "The dark background lets the artifact stand out; gold connects headings, ornaments and points of interest on the model.",
+    "typography": [
+      {
+        "name": "Cinzel Decorative",
+        "usage": "Original website headings",
+        "sample": "The Tebanianus Sarcophagus"
+      },
+      {
+        "name": "Montserrat",
+        "usage": "Original website body text",
+        "sample": "Observe the forms, read the details."
+      },
+      {
+        "name": "JetBrains Mono",
+        "usage": "Labels and numbering",
+        "sample": "01 / 06 · Structure and relief"
+      }
+    ],
+    "typeNote": "Cinzel Decorative for headings, Montserrat for reading and JetBrains Mono for labels: three registers separating the story from more technical information.",
+    "process": [
+      {
+        "title": "Preparing the model without losing the relief.",
+        "body": "I started with the photogrammetric model exported from Metashape. In MeshLab, I checked isolated components and applied light smoothing with a single iteration to reduce noise while preserving sculptural details. In Blender, I corrected the orientation and applied transformations before exporting: a consistent reference was also needed to place points of interest on the model."
+      },
+      {
+        "title": "Adapting 3DHOP to the interface.",
+        "body": "I configured NXZ model loading, the transparent background and limits on rotation, panning and zoom. I replaced the standard toolbar with controls integrated into the page: preset views, lighting, measurement and image capture. My work focused on adapting the viewer and interface."
+      },
+      {
+        "title": "Six stages, six viewpoints.",
+        "body": "The scrollytelling moves from the overall structure to the garlands, the two figurative panels, the back and the short sides. When a card enters the reading area, the camera reaches its planned view in about a second. Where provided, a golden point briefly highlights the detail, then disappears as the SVG drawing starts: first the volume, then the point to observe, and finally the outline."
+      },
+      {
+        "title": "Linework that unfolds as you read.",
+        "body": "The SVG relief drawings and ornaments share a gold stroke. The animation gradually reveals their outlines, echoing in graphic form the act of pausing to look at part of the artifact."
+      },
+      {
+        "title": "From a guided visit to free exploration.",
+        "body": "After the story, the exploration panel lets visitors interact directly with the model. The current 3D experience is designed for desktop; on mobile, the original website displays a dedicated notice."
+      },
+      {
+        "title": "One viewer, two ways of looking.",
+        "body": "I reused the same 3DHOP viewer across the opening, narrative and free exploration, moving it between sections of the page. During the narrative, it stays beside the cards; in free exploration, the controls are available. I also adapted the movement arrows to the model view, so the controls stay consistent when switching from front to back."
+      },
+      {
+        "title": "Placing the artifact in its surroundings.",
+        "body": "Alongside the sarcophagus model, I added a Gaussian Splatting view of the Camposanto, integrated with Luma and Three.js in a separate viewer. On reaching the location section, a panoramic movement leads towards the artifact’s position; a golden marker then appears on the map. This transition connects observation of the object with the space that houses it."
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/case-studies/originals/3d.png",
+        "alt": "Dark Tebanianus Sarcophagus header with a gold title and linear ornaments",
+        "caption": "The header and graphic references to the Camposanto",
+        "size": "wide"
+      },
+      {
+        "src": "/case-studies/originals/3d-2.png",
+        "alt": "3D model beside the first card and relief drawing",
+        "caption": "Scrollytelling · first stage: structure and relief"
+      },
+      {
+        "src": "/case-studies/originals/3d-3.png",
+        "alt": "Camposanto section with a courtyard view and the artifact’s location",
+        "caption": "The context · in the Camposanto Monumentale in Pisa"
+      }
+    ],
+    "outcome": {
+      "title": "Bringing graphics, storytelling and interaction together.",
+      "body": "This project made me work on the relationship between cultural content and web tools: preparing the model, choosing what to show, guiding the eye and using drawing to support reading. The view of the surroundings completes the journey, returning the artifact to the Camposanto.",
+      "points": [
+        "Model preparation and 3DHOP integration",
+        "Six stages with camera views, points of interest and SVGs",
+        "Gaussian Splatting for context"
+      ]
+    }
+  },
+  {
+    "slug": "bussola-infouma",
+    "title": "La Bussola di Infouma",
+    "eyebrow": "Personal project · University resources",
+    "summary": "A starting point for finding links, timetables and practical information for university life.",
+    "year": "",
+    "context": "Personal project for Digital Humanities students",
+    "status": "Personal project",
+    "services": [
+      "Content organisation",
+      "Interface",
+      "Web development"
+    ],
+    "role": "Concept, design and development",
+    "website": "/bussola/index.html",
+    "theme": {
+      "background": "#030305",
+      "surface": "#161618",
+      "ink": "#F0F0F2",
+      "muted": "#8A8A9B",
+      "accent": "#D4D4D8",
+      "accentInk": "#F0F0F2",
+      "fontDisplay": "\"Instrument Serif\", Georgia, serif",
+      "fontBody": "Inter, Arial, sans-serif"
+    },
+    "challenge": {
+      "title": "Finding your way through scattered resources.",
+      "body": "La Bussola began as a personal project connected to my experience in Digital Humanities. Portals, timetables and practical information are spread across different places: I wanted to gather their entry points on a page to consult when needed, organised around students’ activities."
+    },
+    "solution": {
+      "title": "Starting with what you need to do.",
+      "body": "The homepage separates useful links, classes, available classrooms and frequently asked questions. Each item has a short title and a description explaining where it leads. Links to campus maps complete the journey, also pointing to external tools."
+    },
+    "visualTitle": "An image to help you find your way",
+    "visualIntro": "The compass makes the idea behind the project immediately clear. The illustrated assets preserved on the website accompany an interface that now also uses line icons and simple cards.",
+    "logoStudy": [
+      {
+        "src": "/bussola/assets/compass.webp",
+        "label": "The compass",
+        "note": "A golden compass with a light dial and red needle introduces the project. The volume of the illustration sets it apart from the dark background."
+      },
+      {
+        "src": "/bussola/assets/book.webp",
+        "label": "Information as a small handbook",
+        "note": "The book with a question mark belongs to the website’s illustrated collection. Solid colours and rounded shapes suggest a familiar object."
+      }
+    ],
+    "palette": [
+      {
+        "name": "Background",
+        "hex": "#030305"
+      },
+      {
+        "name": "Text",
+        "hex": "#F0F0F2"
+      },
+      {
+        "name": "Secondary text",
+        "hex": "#8A8A9B"
+      },
+      {
+        "name": "Neutral accent",
+        "hex": "#D4D4D8"
+      }
+    ],
+    "paletteNote": "La Bussola includes several themes: this palette describes the dark background and neutral tones, while the variants change colours and typefaces.",
+    "typography": [
+      {
+        "name": "DM Sans",
+        "usage": "Original theme · body text",
+        "sample": "Useful links, classes and classrooms."
+      },
+      {
+        "name": "Bricolage Grotesque",
+        "usage": "Nord theme · typeface",
+        "sample": "Where would you like to start?"
+      }
+    ],
+    "typeNote": "The Original theme pairs Fraunces with DM Sans. Other variants explore different registers: Bricolage Grotesque in Nord, Instrument Serif in Letterato, and Syne with JetBrains Mono in Neo.",
+    "process": [
+      {
+        "title": "Organising around needs.",
+        "body": "I separated resources to consult, timetables and information about spaces. The homepage works as an index: a few broad categories let visitors choose a direction before getting into the details."
+      },
+      {
+        "title": "Keeping destinations recognisable.",
+        "body": "Cards, icons and short descriptions make the content of links explicit. External maps are labelled as such, while internal sections share a common navigation."
+      },
+      {
+        "title": "Letting visitors choose the appearance.",
+        "body": "The settings panel lets visitors change theme and, where supported, switch between light and dark modes. Preferences are saved in the browser. I used these variants to experiment with different typefaces and atmospheres while keeping the same content."
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/case-studies/originals/bussola.jpeg",
+        "alt": "La Bussola screen with a golden illustration, heading and search",
+        "caption": "A version of the project preserved in the portfolio."
+      },
+      {
+        "src": "/case-studies/originals/bussola-2.jpeg",
+        "alt": "La Bussola resources screen",
+        "caption": "Resource organisation in the documented version."
+      },
+      {
+        "src": "/case-studies/originals/bussola-3.jpeg",
+        "alt": "An internal page of La Bussola",
+        "caption": "A detail of the preserved interface."
+      }
+    ],
+    "outcome": {
+      "title": "A project close to student life.",
+      "body": "La Bussola is a personal space for bringing content organisation and interface experiments together. Its aim is to make useful resources easier to find again, while keeping a clear distinction between the project and the university services it links to.",
+      "points": [
+        "Personal initiative",
+        "Resources organised by activity",
+        "Themes and preferences saved in the browser"
+      ]
+    }
+  },
+  {
+    "slug": "cineo",
+    "title": "CINeo",
+    "eyebrow": "Digital Libraries · University project",
+    "summary": "Thirty films gathered in a digital library, with graphics recalling illuminated cinema signs.",
+    "year": "",
+    "context": "Digital Libraries course project · Digital Humanities",
+    "status": "University project",
+    "services": [
+      "Digital library",
+      "Metadata",
+      "Interface graphics"
+    ],
+    "role": "Collection organisation and graphic customisation",
+    "website": "/cineo/index.html",
+    "theme": {
+      "background": "#0d0812",
+      "surface": "#161022",
+      "ink": "#f5e9d0",
+      "muted": "#c2b7ca",
+      "accent": "#ffd166",
+      "accentInk": "#f5e9d0",
+      "fontDisplay": "\"Instrument Serif\", Georgia, serif",
+      "fontBody": "Inter, Arial, sans-serif"
+    },
+    "challenge": {
+      "title": "Giving structure to a film collection.",
+      "body": "For the Digital Libraries course, I worked on CINeo, a collection of thirty films. The original software was Greenstone 3. The project connects the works with their materials and offers several ways to find them, from choosing a poster to consulting a record."
+    },
+    "solution": {
+      "title": "A catalogue dressed as a cinema programme.",
+      "body": "I worked on the organisation of the content and the library’s graphic appearance. An almost black background, velvet red and luminous accents recall the entrance to a cinema. Posters guide exploration, while titles and metadata keep the collection’s information readable."
+    },
+    "visualTitle": "A sign and a wall of posters",
+    "visualIntro": "The graphics borrow elements from cinema: light bulbs, luminous contrasts and sign-style headings. The posters remain collection materials with their own visual identities.",
+    "logoStudy": [
+      {
+        "src": "/cineo/assets/cineo-icon.png",
+        "label": "The CINeo sign",
+        "note": "The light name with a pink outline emerges from a dark radial background. A golden frame and a row of bulbs complete the cinema reference."
+      },
+      {
+        "src": "/cineo/assets/posters/01-interstellar.jpg",
+        "label": "The poster as a focal point",
+        "note": "The cover lets visitors recognise a film before reading its record. In the catalogue, it appears alongside the title, director, year and genre."
+      }
+    ],
+    "palette": [
+      {
+        "name": "Night",
+        "hex": "#0D0812"
+      },
+      {
+        "name": "Velvet",
+        "hex": "#3D0A14"
+      },
+      {
+        "name": "Neon pink",
+        "hex": "#FF2E63"
+      },
+      {
+        "name": "Gold",
+        "hex": "#FFD166"
+      },
+      {
+        "name": "Cream",
+        "hex": "#F5E9D0"
+      }
+    ],
+    "paletteNote": "The dark background holds the content together; pink and gold highlight headings, frames and controls.",
+    "typography": [
+      {
+        "name": "Limelight",
+        "usage": "Headings and signage",
+        "sample": "CINeo · Film collection"
+      },
+      {
+        "name": "Oswald",
+        "usage": "Navigation and text",
+        "sample": "Browse by title, director, genre or year."
+      }
+    ],
+    "typeNote": "The theme uses Limelight and Oswald: the former recalls sign lettering, while the latter has narrow forms suited to labels and information. The original images document the appearance of the brand.",
+    "process": [
+      {
+        "title": "Connecting materials to a work.",
+        "body": "Each film brings together descriptive information and links to different materials: plot, quotations, screenplay, trailer and soundtrack. The record presents them in sections, making the film the starting point for consultation."
+      },
+      {
+        "title": "Using metadata to explore.",
+        "body": "The collection refers to Dublin Core. Title, creator, date and subjects describe the works and support the navigation paths. The interface lets visitors browse by title, director, genre and year, or search specific fields."
+      },
+      {
+        "title": "Customising Greenstone.",
+        "body": "The original work was built in Greenstone 3: I gave the collection a recognisable graphic theme by working on hierarchy, colours and record presentation. The cinema reference accompanies consultation without taking space away from catalogue information."
+      },
+      {
+        "title": "Preserving a browsable version.",
+        "body": "The portfolio includes a static reconstruction in HTML and JavaScript that preserves the theme and makes the content browsable without running Greenstone. It is a demonstration version of the original project, designed for larger screens."
+      }
+    ],
+    "screenshots": [],
+    "outcome": {
+      "title": "Graphics and knowledge organisation.",
+      "body": "CINeo was an exercise in connecting different materials and translating the structure of a digital library into a page to explore. The cinema theme gives the collection character, while metadata offers alternative routes to finding the works.",
+      "points": [
+        "Original project in Greenstone 3",
+        "Collection of thirty films",
+        "Static demo in the portfolio"
+      ]
+    }
+  },
+  {
+    "slug": "blogowl",
+    "title": "BlogOwl",
+    "eyebrow": "PHP · University project",
+    "summary": "A blogging project for the PHP course, with close attention to giving content room.",
+    "year": "",
+    "context": "PHP course project · Digital Humanities",
+    "status": "University project",
+    "role": "Interface graphic design and development",
+    "services": [
+      "PHP",
+      "Web graphics",
+      "Themes",
+      "Navigation and interface"
+    ],
+    "website": "/bdd/login.html",
+    "theme": {
+      "background": "#f4f4f4",
+      "surface": "#ffffff",
+      "ink": "#222222",
+      "muted": "#606060",
+      "accent": "#6a0dad",
+      "accentInk": "#ffffff",
+      "fontDisplay": "\"Instrument Serif\", Georgia, serif",
+      "fontBody": "Inter, Arial, sans-serif"
+    },
+    "challenge": {
+      "title": "Many features, a page to read.",
+      "body": "BlogOwl began as a university project for a PHP course. Alongside work on the blog features, I paid close attention to the graphics: I wanted to distinguish content, navigation and controls without filling every part of the screen."
+    },
+    "solution": {
+      "title": "Content in the centre, tools at the sides.",
+      "body": "I worked with limited reading widths, generous margins and rounded components. Side menus collect the actions and open when requested. Themes let visitors change the visual character of their blogs while keeping a common structure to navigate."
+    },
+    "visualTitle": "The owl and the illustrations",
+    "visualIntro": "Purple identifies the main interface. The logo and illustrations on the website accompany sign-in, content creation and management.",
+    "logoStudy": [
+      {
+        "src": "/bdd/illustrazioni/logo-navbar.svg",
+        "label": "The logo in the navigation",
+        "note": "The stylised purple and black owl sits beside the BlogOwl name. It is a compact mark that remains readable in the top bar."
+      },
+      {
+        "src": "/bdd/illustrazioni/login-ill.svg",
+        "label": "Entering the website",
+        "note": "A figure in front of a door accompanies sign-in. The scene uses few colours, with purple echoing the main buttons."
+      },
+      {
+        "src": "/bdd/illustrazioni/blog-temi.svg",
+        "label": "Choosing a theme",
+        "note": "Four small previews show changes in colour and typeface: purple, black and white, blue and green. The theme choice becomes visible before it is applied."
+      }
+    ],
+    "palette": [
+      {
+        "name": "Main purple",
+        "hex": "#6A0DAD"
+      },
+      {
+        "name": "Background",
+        "hex": "#F4F4F4"
+      },
+      {
+        "name": "Surfaces",
+        "hex": "#FFFFFF"
+      },
+      {
+        "name": "Minimal theme",
+        "hex": "#000000"
+      },
+      {
+        "name": "Blue theme",
+        "hex": "#016FB9"
+      },
+      {
+        "name": "Green theme",
+        "hex": "#365232"
+      }
+    ],
+    "paletteNote": "Purple belongs to the base interface; black, blue and green identify the blog variants.",
+    "typography": [
+      {
+        "name": "Bricolage Grotesque",
+        "usage": "Main interface headings",
+        "sample": "A space for your stories."
+      },
+      {
+        "name": "Arial",
+        "usage": "Body text and controls",
+        "sample": "Read, write, find your posts again."
+      },
+      {
+        "name": "Playfair Display",
+        "usage": "Black-and-white theme headings",
+        "sample": "A diary to browse."
+      },
+      {
+        "name": "DynaPuff",
+        "usage": "Blue theme headings",
+        "sample": "Ideas to share."
+      },
+      {
+        "name": "Syne",
+        "usage": "Green theme headings",
+        "sample": "A personal voice."
+      }
+    ],
+    "typeNote": "The themes also change the heading typeface: from the editorial feel of Playfair Display to the more playful forms of DynaPuff and on to Syne.",
+    "process": [
+      {
+        "title": "Reducing visual load.",
+        "body": "I left space between blocks and limited the width of the main content. A light background, white surfaces and subtle borders distinguish areas without using a different colour for every element. Purple guides attention towards the main actions."
+      },
+      {
+        "title": "Side menus, opened at the right time.",
+        "body": "Navigation, account settings and content creation are grouped in dedicated panels. Moving these controls away from the central column makes them available when needed and leaves more room for reading when they are closed."
+      },
+      {
+        "title": "Several themes on one structure.",
+        "body": "The variants change colours, backgrounds and heading fonts. I kept shared components and organisation, allowing me to experiment with different blog identities without redesigning every screen."
+      },
+      {
+        "title": "The project’s technical context.",
+        "body": "The work was created for the PHP course. The version preserved in the portfolio is a browser demo with data managed in JavaScript: it lets visitors explore the interface, while this study focuses on the graphic choices of the university project."
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/case-studies/originals/blogowl.jpg",
+        "caption": "The sign-in page · hierarchy, spacing and the main colour",
+        "alt": "BlogOwl sign-in page with an illustration, buttons and form fields",
+        "size": "wide"
+      }
+    ],
+    "outcome": {
+      "title": "Designing the empty space too.",
+      "body": "BlogOwl was an opportunity to complement development with more deliberate interface work: deciding what to leave visible, what to collect in a panel and how much space to give the content.",
+      "points": [
+        "Different graphic themes",
+        "Side panels",
+        "Hierarchy and spacing"
+      ]
+    }
+  },
+  {
+    "slug": "text-encoding",
+    "title": "Text Encoding Project",
+    "eyebrow": "Text Encoding · Digital Humanities",
+    "summary": "One page, several reading paths. Between a newspaper scan and the lines of its text.",
+    "year": "2025",
+    "context": "Text Encoding course project · Digital Humanities",
+    "status": "University project",
+    "role": "Interface design and web development; encoding in collaboration with Francisco Le Yucra",
+    "services": [
+      "XML/TEI",
+      "HTML and CSS",
+      "JavaScript",
+      "Reading interface"
+    ],
+    "website": "/codifica/codifica.html",
+    "theme": {
+      "background": "#F0EAD6",
+      "surface": "#FFF8DC",
+      "ink": "#3E2723",
+      "muted": "#5D4037",
+      "accent": "#3E2723",
+      "accentInk": "#ffffff",
+      "fontDisplay": "\"Instrument Serif\", Georgia, serif",
+      "fontBody": "Inter, Arial, sans-serif"
+    },
+    "challenge": {
+      "title": "The constraint: everything on a single page.",
+      "body": "For the Text Encoding course, we had to work on selected texts from La Rassegna Settimanale and present them on a single page. I designed an interface that would let readers move between articles, information and tools without turning everything into one very long screen."
+    },
+    "solution": {
+      "title": "Browsing without changing pages.",
+      "body": "Using CSS and JavaScript, I built a single page that behaves like a small multipage website. Forward and back arrows show one section at a time; a pop-up menu provides direct access. The scan and transcription stay side by side, with links between text lines and image regions."
+    },
+    "visualTitle": "An interface with a slightly retro feel",
+    "visualIntro": "Paper-coloured backgrounds, warm browns, serif typefaces and illustrated icons: the visual language connects the historic newspaper with the idea of a tool for consultation.",
+    "logoStudy": [
+      {
+        "src": "/codifica/immagini/logo.webp",
+        "label": "The Rassegna masthead",
+        "note": "The tall black lettering recalls the periodical’s masthead. It refers to the source and appears at the opening of the digital edition."
+      },
+      {
+        "src": "/codifica/icone/menu.webp",
+        "label": "The menu as a folder",
+        "note": "The yellow folder accompanies “Go to section…”. A familiar object marks the point where readers can open the contents index."
+      },
+      {
+        "src": "/codifica/icone/next.webp",
+        "label": "Arrows for browsing",
+        "note": "Green arrows distinguish movement between sections from annotation tools. They remain within reach in the bottom bar."
+      }
+    ],
+    "palette": [
+      {
+        "name": "Paper",
+        "hex": "#F0EAD6"
+      },
+      {
+        "name": "Cream",
+        "hex": "#FFF8DC"
+      },
+      {
+        "name": "Dark brown",
+        "hex": "#3E2723"
+      },
+      {
+        "name": "Medium brown",
+        "hex": "#5D4037"
+      }
+    ],
+    "paletteNote": "Light backgrounds support reading, while dark brown makes controls and panels recognisable.",
+    "typography": [
+      {
+        "name": "Crimson Text",
+        "usage": "Headings and body text",
+        "sample": "La Rassegna Settimanale"
+      }
+    ],
+    "typeNote": "Crimson Text runs through the headings and transcription: hierarchy comes from size, weight and spacing, keeping a tone close to the printed page.",
+    "process": [
+      {
+        "title": "Navigation built around sections.",
+        "body": "The document contains both the articles and information about the encoding. JavaScript switches the CSS classes that show or hide sections. The arrows follow the content order, while the menu allows readers to jump to an article or information section."
+      },
+      {
+        "title": "Connecting a line to its source.",
+        "body": "In the side-by-side view, transcription lines are linked to regions of the facsimile. Selecting one highlights the correspondence, helping readers find a passage in the original document and compare it with the digital text."
+      },
+      {
+        "title": "Tools that open when needed.",
+        "body": "The “Highlight” panel groups names, places, dates, terms, institutions and other encoding categories. Detail cards open over the reading view. I kept these tools separate from the text, leaving readers free to bring them up when needed."
+      },
+      {
+        "title": "From encoding to consultation.",
+        "body": "The XML/TEI encoding was a shared effort with Francisco Le Yucra, as stated in the edition’s credits. Here I focus on my interface design: the multipage behaviour, organisation of controls and visual relationship between text and scan."
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/case-studies/originals/codifica.jpeg",
+        "caption": "The opening · edition information and navigation controls",
+        "alt": "Introductory page of La Rassegna Settimanale with a bottom bar and menu",
+        "size": "wide"
+      },
+      {
+        "src": "/case-studies/originals/codifica-2.jpeg",
+        "caption": "Side-by-side reading and the highlighting panel",
+        "alt": "Scan on the left, transcription on the right and highlighting tools",
+        "size": "wide"
+      },
+      {
+        "src": "/case-studies/originals/codifica-3.jpeg",
+        "caption": "Further information over the text",
+        "alt": "An institution detail card open over the side-by-side reading view",
+        "size": "wide"
+      }
+    ],
+    "outcome": {
+      "title": "A constraint turned into an interface choice.",
+      "body": "The single page was an opportunity to think about dividing content without separating it into different files. The work brings together encoding, comparison with the source and a way of navigating built around reading.",
+      "points": [
+        "A single page with sections",
+        "Lines linked to the facsimile",
+        "Pop-up tools"
+      ]
+    }
+  }
+]
