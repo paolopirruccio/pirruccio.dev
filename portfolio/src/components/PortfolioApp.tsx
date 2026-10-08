@@ -150,7 +150,7 @@ function useHeroMagnetism(ref: RefObject<HTMLElement | null>) {
 
 const contactItems = [
   { id: "email", label: { it: "Contatto", en: "Contact" }, title: { it: "Scrivimi", en: "Email Me" }, href: "mailto:pirruccio.01@gmail.com", icon: "fa-solid fa-envelope" },
-  { id: "services", label: { it: "Servizi", en: "Services" }, title: { it: "Servizi", en: "Services" }, href: "/io#servizi", icon: "fa-solid fa-pen-ruler" },
+  { id: "services", label: { it: "Servizi", en: "Services" }, title: { it: "Servizi", en: "Services" }, href: "/#servizi", icon: "fa-solid fa-pen-ruler" },
   { id: "instagram", label: { it: "Social", en: "Social" }, title: { it: "Instagram", en: "Instagram" }, href: "https://www.instagram.com/pirruccio_paolo/", icon: "fa-brands fa-instagram" },
   { id: "telegram", label: { it: "Messaggio", en: "Message" }, title: { it: "Telegram", en: "Telegram" }, href: "https://t.me/sunriseshy", icon: "fa-brands fa-telegram" },
   { id: "linkedin", label: { it: "Connettiti", en: "Connect" }, title: { it: "LinkedIn", en: "LinkedIn" }, href: "https://www.linkedin.com/in/paolopirruccio/", icon: "fa-brands fa-linkedin" },

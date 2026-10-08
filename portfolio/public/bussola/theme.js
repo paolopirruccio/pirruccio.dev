@@ -88,7 +88,7 @@
         if (document.getElementById('bussolaSettingsOverlay')) return;
 
         const trigger = document.createElement('div');
-        trigger.className = 'bussola-settings-trigger';
+        trigger.className = 'bussola-settings-trigger visible';
         trigger.id = 'bussolaSettingsTrigger';
         trigger.innerHTML = '<button onclick="BussolaSettings.open()" class="scroll-btn" title="Impostazioni" aria-label="Impostazioni"><i class="ri-settings-3-line"></i></button>';
         document.body.appendChild(trigger);
@@ -127,6 +127,10 @@
             '    <span data-i18n="links_new_tab">Apri i link in una nuova scheda</span>',
             '    <input id="bussolaLinksNewTab" type="checkbox" role="switch">',
             '  </label>',
+            '  <label class="settings-toggle-row" for="bussolaFiltersDefaultVisible">',
+            '    <span data-i18n="filters_default_visible">Mostra i filtri aperti di default</span>',
+            '    <input id="bussolaFiltersDefaultVisible" type="checkbox" role="switch">',
+            '  </label>',
             '  <div class="settings-language">',
             '    <p class="settings-section-label">Lingua</p>',
             '    <div class="lang-toggle">',
@@ -145,15 +149,15 @@
             localStorage.setItem('bussola_links_new_tab', String(this.checked));
             if (typeof window.renderLinks === 'function') window.renderLinks();
         });
+        document.getElementById('bussolaFiltersDefaultVisible').addEventListener('change', function () {
+            localStorage.setItem('bussola_filters_default_visible', String(this.checked));
+            window.dispatchEvent(new CustomEvent('bussola:filters-default-changed', { detail: { visible: this.checked } }));
+        });
         refreshGrid();
         refreshLang();
         refreshLinkTargetPreference();
+        refreshFilterDefaultPreference();
 
-        window.addEventListener('scroll', function () {
-            const button = document.getElementById('bussolaSettingsTrigger');
-            if (button) button.classList.toggle('visible', window.scrollY > 200);
-        });
-        setTimeout(function () { window.dispatchEvent(new Event('scroll')); }, 100);
     }
 
     function refreshGrid() {
@@ -178,6 +182,11 @@
         if (toggle) toggle.checked = localStorage.getItem('bussola_links_new_tab') === 'true';
     }
 
+    function refreshFilterDefaultPreference() {
+        const toggle = document.getElementById('bussolaFiltersDefaultVisible');
+        if (toggle) toggle.checked = localStorage.getItem('bussola_filters_default_visible') === 'true';
+    }
+
     window.BussolaTheme = {
         get: function () { return localStorage.getItem('bussola_theme') || 'auto'; },
         set: function (theme) { applyTheme(theme); refreshGrid(); }
@@ -185,7 +194,7 @@
     window.BussolaSettings = {
         open: function () {
             const overlay = document.getElementById('bussolaSettingsOverlay');
-            if (overlay) { refreshGrid(); refreshLang(); refreshLinkTargetPreference(); applyFont(localStorage.getItem('bussola_font') || 'inter'); overlay.classList.add('active'); }
+            if (overlay) { refreshGrid(); refreshLang(); refreshLinkTargetPreference(); refreshFilterDefaultPreference(); applyFont(localStorage.getItem('bussola_font') || 'inter'); overlay.classList.add('active'); }
         },
         close: function () {
             const overlay = document.getElementById('bussolaSettingsOverlay');

@@ -15,7 +15,7 @@ import "./case-study.css";
 import { PageSplash } from "@/components/PageSplash";
 
 export const metadata: Metadata = {
-  title: "Paolo Pirruccio — Designer & Web Studio",
+  title: "Paolo Pirruccio - Designer & Web Studio",
   description: "Portfolio personale e studio indipendente di web design e sviluppo.",
 };
 

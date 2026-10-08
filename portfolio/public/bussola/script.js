@@ -68,6 +68,25 @@ const resources = [
     { name: "Info borsa di studio",     name_en: "Scholarship info",        url: "https://www.dsu.toscana.it/borsa-di-studio", category: "Mensa & Servizi" },
     { name: "Info posto alloggio",      name_en: "Housing info",            url: "https://www.dsu.toscana.it/posto-alloggio", category: "Mensa & Servizi" },
 
+    // ── Pisa & città ──
+    { name: "LA MAPPA UniPi", name_en: "LA MAPPA UniPi", subtitle: "Mappa interattiva e servizi per la città", subtitle_en: "Interactive map and city services", url: "https://unipi.lamappa.org/app", category: "Pisa & Città", keywords: ["mappa unipi", "mappa pisa", "lamappa", "la mappa", "map unipi"] },
+    { name: "CicloPi", name_en: "CicloPi bike sharing", subtitle: "Stazioni e disponibilità bici in tempo reale", subtitle_en: "Bike stations and live availability", url: "https://unipi.lamappa.org/ciclopi", category: "Pisa & Città", keywords: ["ciclopi", "ciclo pi", "bici", "bicicletta", "biciclette", "bike", "bikes", "bike sharing", "stazioni bici"] },
+    { name: "Biblioteche e aule studio", name_en: "Libraries and study rooms", subtitle: "Sedi, orari e disponibilità", subtitle_en: "Locations, opening hours and availability", url: "https://unipi.lamappa.org/biblioteca", category: "Pisa & Città", keywords: ["biblioteca", "biblioteche", "library", "libraries", "aula studio", "aule studio", "study room", "study rooms"] },
+    { name: "Mense", name_en: "Canteens", subtitle: "Mense DSU e menu del giorno", subtitle_en: "DSU canteens and daily menus", url: "https://unipi.lamappa.org/mensa", category: "Pisa & Città", keywords: ["mensa", "mense", "mensa dsu", "dsu", "menu", "menù", "canteen", "canteens", "lunch"] },
+    { name: "Poli didattici", name_en: "University campuses", subtitle: "Edifici, poli e servizi universitari", subtitle_en: "University campuses, buildings and services", url: "https://unipi.lamappa.org/polo_didattico", category: "Pisa & Città", keywords: ["polo", "poli", "polo didattico", "poli didattici", "campus", "edificio", "edifici"] },
+    { name: "Comunità UniPi", name_en: "UniPi community", subtitle: "Associazioni, pagine ed eventi della comunità", subtitle_en: "Student groups, pages and community events", url: "https://unipi.lamappa.org/comunita", category: "Pisa & Città", keywords: ["comunità", "comunita", "associazioni", "associazione", "student groups", "community"] },
+    { name: "Dipartimenti UniPi", name_en: "UniPi departments", subtitle: "Dipartimenti, sedi e segreterie", subtitle_en: "Departments, locations and offices", url: "https://unipi.lamappa.org/dipartimento", category: "Pisa & Città", keywords: ["dipartimento", "dipartimenti", "department", "departments"] },
+    { name: "Stazioni ferroviarie", name_en: "Railway stations", subtitle: "Partenze, arrivi e avvisi in tempo reale", subtitle_en: "Live departures, arrivals and alerts", url: "https://unipi.lamappa.org/stazione_ferroviaria", category: "Pisa & Città", keywords: ["treno", "treni", "stazione", "stazioni", "stazione centrale", "trenitalia", "partenze", "arrivi", "train", "trains", "railway"] },
+    { name: "Uffici UniPi", name_en: "UniPi offices", subtitle: "Uffici, segreterie e servizi universitari", subtitle_en: "University offices, student services and help desks", url: "https://unipi.lamappa.org/ufficio", category: "Pisa & Città", keywords: ["ufficio", "uffici", "segreteria", "segreterie", "office", "offices", "sportello"] },
+    { name: "Acqua e fontanelle", name_en: "Water fountains", subtitle: "Erogatori e punti d'acqua potabile", subtitle_en: "Drinking fountains and water points", url: "https://unipi.lamappa.org/acqua", category: "Pisa & Città", keywords: ["acqua", "fontanella", "fontanelle", "erogatore", "erogatori", "fountain", "water"] },
+    { name: "Musei", name_en: "Museums", subtitle: "Musei universitari e luoghi culturali", subtitle_en: "University museums and cultural places", url: "https://unipi.lamappa.org/museo", category: "Pisa & Città", keywords: ["museo", "musei", "museo botanico", "orto botanico", "museum", "museums"] },
+    { name: "Eventi", name_en: "Events", subtitle: "Eventi universitari e culturali a Pisa", subtitle_en: "University and cultural events in Pisa", url: "https://unipi.lamappa.org/eventi", category: "Pisa & Città", keywords: ["evento", "eventi", "events", "mostre", "mostra", "cultura", "culturali"] },
+    { name: "Offerte e convenzioni", name_en: "Student offers and deals", subtitle: "Sconti e convenzioni per studenti", subtitle_en: "Student discounts and offers", url: "https://unipi.lamappa.org/offerte", category: "Pisa & Città", keywords: ["offerta", "offerte", "sconti", "convenzione", "convenzioni", "discount", "deals"] },
+    { name: "RadioEco", name_en: "RadioEco", subtitle: "Radio, podcast e articoli degli studenti", subtitle_en: "Student radio, podcasts and articles", url: "https://unipi.lamappa.org/radioeco", category: "Pisa & Città", keywords: ["radioeco", "radio eco", "radio", "podcast", "blog"] },
+    { name: "Cinema a Pisa", name_en: "Cinemas in Pisa", subtitle: "Programmazione e sale cinematografiche", subtitle_en: "Movie schedules and cinemas", url: "https://unipi.lamappa.org/cinema", category: "Pisa & Città", keywords: ["cinema", "cinema a pisa", "cinemas", "movie schedules", "film"] },
+    { name: "Copisterie a Pisa", name_en: "Copy shops in Pisa", subtitle: "Copisterie, prezzi di stampa e preventivi", subtitle_en: "Copy shops, print prices and estimates", url: "https://unipi.lamappa.org/copisteria", category: "Pisa & Città", keywords: ["copisteria", "copisterie", "copister", "copy shop", "copy shops", "centro stampa", "print shop", "stampa"] },
+    { name: "Residenze DSU", name_en: "DSU Residences", subtitle: "Informazioni sulle residenze universitarie", subtitle_en: "Information about university residences", url: "https://unipi.lamappa.org/residenza", category: "Pisa & Città", keywords: ["alloggio", "alloggi", "residenza", "residenze", "student housing", "dormitory"] },
+
     // ── Community ──
     { name: "Community Telegram",                           name_en: "Telegram Community",                          url: "https://t.me/+6mN2nZaSPtcyM2I0", category: "Community" },
     { name: "Gruppo WhatsApp 1º Anno",                      name_en: "WhatsApp Group 1st Year",                     url: "https://chat.whatsapp.com/BT3OUD6YQKK5OX4uHXo9Vk", category: "Community" },
@@ -101,6 +120,7 @@ let activeCategory = null;
 const categoryDefinitions = [
     { title: 'Didattica & Carriera', title_en: 'Academics & Career',    icon: 'assets/grad.webp' },
     { title: 'Mappe & Logistica',    title_en: 'Maps & Logistics',       icon: 'assets/map.webp' },
+    { title: 'Pisa & Città',         title_en: 'Pisa & City',            icon: 'assets/map.webp' },
     { title: 'Software',             title_en: 'Software',               icon: 'assets/other.webp' },
     { title: 'Mensa & Servizi',      title_en: 'Canteen & Services',     icon: 'assets/canteen.webp' },
     { title: 'Community',            title_en: 'Community',              icon: 'assets/social.webp' },
@@ -250,6 +270,9 @@ function getIcon(name) {
     if (lowerName.includes('android') || lowerName.includes('google play')) return 'ri-google-play-line';
     if (lowerName.includes('apple') || lowerName.includes('(ios)')) return 'ri-apple-line';
     if (lowerName.includes('maps') || lowerName.includes('mappa')) return 'ri-map-2-line';
+    if (lowerName.includes('cinema')) return 'ri-movie-line';
+    if (lowerName.includes('copister')) return 'ri-printer-line';
+    if (lowerName.includes('residenza')) return 'ri-home-4-line';
     if (lowerName.includes('chiosco')) return 'ri-store-2-line';
     if (lowerName.includes('bus') || lowerName.includes('trasporti')) return 'ri-bus-line';
     if (lowerName.includes('mail') || lowerName.includes('outlook')) return 'ri-mail-line';
@@ -320,7 +343,8 @@ function renderLinks() {
         if (query) {
             const matchIT = link.name.toLowerCase().includes(query);
             const matchEN = link.name_en ? link.name_en.toLowerCase().includes(query) : false;
-            if (!matchIT && !matchEN) return;
+            const matchKeyword = (link.keywords || []).some(keyword => keyword.toLowerCase().includes(query));
+            if (!matchIT && !matchEN && !matchKeyword) return;
         }
 
         if (link.section === 'primary') {

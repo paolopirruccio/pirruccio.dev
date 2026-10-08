@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="privacy-page">
-      <SquircleLink className="gallery-back privacy-gallery-back" href="/io"><i className="fa-solid fa-arrow-left" aria-hidden="true"/>Torna al portfolio</SquircleLink>
+      <SquircleLink className="gallery-back privacy-gallery-back" href="/"><i className="fa-solid fa-arrow-left" aria-hidden="true"/>Torna al portfolio</SquircleLink>
       <header>
         <p>Ultimo aggiornamento: 8 settembre 2026</p>
         <h1>Privacy policy</h1>

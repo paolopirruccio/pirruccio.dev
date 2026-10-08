@@ -26,7 +26,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="theme.js"></script>
     <script src="i18n.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20261008-fab">
     <style>
         .course-card {
             background: var(--card-bg);
@@ -148,7 +148,7 @@
 
 <body class="bussola-page">
 
-    <script src="navbar.js"></script>
+    <script src="navbar.js?v=20261008-fab"></script>
     <div class="container page-shell fade-in">
         <header class="page-hero">
             <div class="page-heading">
@@ -250,8 +250,16 @@
         const timeInput = document.getElementById('time-input');
         const scheduleToggle = document.getElementById('schedule-toggle');
         const dateTimePanel = document.getElementById('lessons-datetime-panel');
+        const filtersVisibleByDefault = localStorage.getItem('bussola_filters_default_visible') === 'true';
+        scheduleToggle.setAttribute('aria-expanded', String(filtersVisibleByDefault));
+        dateTimePanel.hidden = !filtersVisibleByDefault;
         scheduleToggle.addEventListener('click', () => {
             const open = scheduleToggle.getAttribute('aria-expanded') !== 'true';
+            scheduleToggle.setAttribute('aria-expanded', String(open));
+            dateTimePanel.hidden = !open;
+        });
+        window.addEventListener('bussola:filters-default-changed', event => {
+            const open = Boolean(event.detail?.visible);
             scheduleToggle.setAttribute('aria-expanded', String(open));
             dateTimePanel.hidden = !open;
         });

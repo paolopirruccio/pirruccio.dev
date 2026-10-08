@@ -23,14 +23,14 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20261008-room-favorites">
     <script src="theme.js"></script>
-    <script src="i18n.js"></script>
+    <script src="i18n.js?v=20261008-rooms"></script>
 </head>
 
-<body class="bussola-page">
+<body class="bussola-page aule-page">
 
-    <script src="navbar.js"></script>
+    <script src="navbar.js?v=20261008-fab"></script>
     <div class="container page-shell fade-in">
         <header class="page-hero">
             <div class="page-heading">
@@ -46,13 +46,16 @@
         <div class="filter-controls aule-filter-controls page-controls">
                 <div class="search-container page-search">
                     <i class="ri-search-line search-icon"></i>
-                    <input type="text" id="search-input" data-i18n="aule_placeholder" placeholder="Cerca aule del Fibonacci...">
+                    <input type="text" id="search-input" data-i18n="aule_placeholder" placeholder="Cerca aule">
                     <i class="ri-close-line search-clear" id="search-clear"></i>
                     <button id="filters-toggle" class="filters-toggle" type="button" aria-expanded="false" aria-controls="aule-filters-panel" data-i18n-aria-label="aule_filters_label">
                         <i class="ri-filter-3-line" aria-hidden="true"></i>
                     </button>
                     <button id="schedule-toggle-aule" class="filters-toggle schedule-toggle" type="button" aria-expanded="false" aria-controls="aule-datetime-panel" data-i18n-aria-label="aule_datetime_toggle">
                         <i class="ri-time-line" aria-hidden="true"></i>
+                    </button>
+                    <button id="favorites-toggle-aule" class="filters-toggle favorites-toggle" type="button" aria-pressed="false" data-i18n-aria-label="aule_favorites_toggle" hidden style="display: none;">
+                        <i class="ri-heart-3-line" aria-hidden="true"></i>
                     </button>
                 </div>
                 <div id="aule-datetime-panel" class="datetime-controls" hidden>
@@ -69,12 +72,10 @@
                     <button id="tomorrow-btn" class="tomorrow-btn" onclick="toggleTomorrow()">
                         <i class="ri-skip-right-line"></i> <span id="tomorrow-label" data-i18n="aule_tomorrow">Domani</span>
                     </button>
-                    <button id="today-scroll-btn" class="tomorrow-btn" onclick="scrollToRoomResults()">
-                        <i class="ri-arrow-down-line" aria-hidden="true"></i> <span data-i18n="aule_now_btn">Libere adesso</span>
-                    </button>
                     <span id="schedule-hint" class="schedule-hint" hidden role="status">
                         <i class="ri-information-line" aria-hidden="true"></i>
                         <span data-i18n="aule_auto_next_day">Ricerca spostata al prossimo giorno di apertura</span>
+                        <span id="schedule-hint-date"></span>
                     </span>
                 </div>
         </div>
@@ -148,14 +149,19 @@
         function getFavs() {
             try { return JSON.parse(localStorage.getItem('bussola_favs') || '[]'); } catch { return []; }
         }
+        function getAvailableFavs() {
+            const availableRooms = new Set(roomsData.map(room => room.name));
+            return getFavs().filter(name => availableRooms.has(name));
+        }
         function isFav(name) { return getFavs().includes(name); }
         function toggleFav(name) {
+            const wasFilteringFavorites = showOnlyFavs;
             const favs = getFavs();
             const idx = favs.indexOf(name);
             if (idx >= 0) favs.splice(idx, 1); else favs.push(name);
             localStorage.setItem('bussola_favs', JSON.stringify(favs));
             updateFavUi();
-            if (showOnlyFavs) renderList();
+            if (wasFilteringFavorites) renderList();
         }
         function handleFavClick(e, btn, name) {
             e.preventDefault();
@@ -167,16 +173,23 @@
             btn.title = saved ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti';
         }
         function updateFavUi() {
-            const count = getFavs().length;
+            const count = getAvailableFavs().length;
             const label = document.getElementById('fav-chip-label');
             if (label) label.textContent = `${BussolaI18n.t('aule_favorites')} (${count})`;
             if (showOnlyFavs && count === 0) { showOnlyFavs = false; }
             const chip = document.getElementById('fav-chip');
             if (chip) chip.classList.toggle('fav-chip-active', showOnlyFavs);
+            const toggle = document.getElementById('favorites-toggle-aule');
+            if (toggle) {
+                toggle.hidden = count === 0;
+                toggle.style.display = count === 0 ? 'none' : '';
+                toggle.classList.toggle('fav-chip-active', showOnlyFavs);
+                toggle.setAttribute('aria-pressed', String(showOnlyFavs));
+            }
         }
         function toggleFavFilter() {
             showOnlyFavs = !showOnlyFavs;
-            document.getElementById('fav-chip').classList.toggle('fav-chip-active', showOnlyFavs);
+            updateFavUi();
             renderList();
         }
         const dateInput = document.getElementById('date-input');
@@ -199,12 +212,15 @@
             const hint = document.getElementById('schedule-hint');
             if (hint) {
                 hint.hidden = false;
+                const hintDate = document.getElementById('schedule-hint-date');
+                const dateLocale = BussolaI18n.getLang() === 'en' ? 'en-GB' : 'it-IT';
+                const nextDayLabel = new Date(`${dateInput.value}T12:00:00`).toLocaleDateString(dateLocale, { day: 'numeric', month: '2-digit' });
+                if (hintDate) hintDate.textContent = ` (${nextDayLabel})`;
                 const hintText = hint.querySelector('[data-i18n]');
                 if (hintText) {
                     hintText.dataset.i18n = 'aule_auto_next_day';
                     hintText.textContent = BussolaI18n.t('aule_auto_next_day');
                 }
-                const nextDayLabel = new Date(`${dateInput.value}T12:00:00`).toLocaleDateString(BussolaI18n.getLang() === 'en' ? 'en-GB' : 'it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
                 hint.title = `${BussolaI18n.t('aule_polo_closed_title')}: ${BussolaI18n.t('aule_auto_next_day')} (${nextDayLabel}).`;
             }
         }
@@ -213,6 +229,8 @@
             if (isBuildingOpen(query)) {
                 const hint = document.getElementById('schedule-hint');
                 if (hint) hint.hidden = true;
+                const hintDate = document.getElementById('schedule-hint-date');
+                if (hintDate) hintDate.textContent = '';
                 const tomorrowButton = document.getElementById('tomorrow-btn');
                 if (tomorrowButton) tomorrowButton.hidden = false;
                 return false;
@@ -224,6 +242,8 @@
                 const hint = document.getElementById('schedule-hint');
                 if (hint) {
                     hint.hidden = false;
+                    const hintDate = document.getElementById('schedule-hint-date');
+                    if (hintDate) hintDate.textContent = '';
                     const hintText = hint.querySelector('[data-i18n]');
                     if (hintText) {
                         hintText.dataset.i18n = 'aule_auto_opening_time';
@@ -645,10 +665,6 @@
             dateInput.setAttribute('data-display', formatted);
         }
 
-        function scrollToRoomResults() {
-            document.getElementById('results-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
         function bindUI() {
             updateDateDisplay();
             dateInput.addEventListener('change', () => {
@@ -669,9 +685,13 @@
             const filtersToggle = document.getElementById('filters-toggle');
             const filtersPanel = document.getElementById('aule-filters-panel');
             const scheduleToggle = document.getElementById('schedule-toggle-aule');
+            const favoritesToggle = document.getElementById('favorites-toggle-aule');
             const dateTimePanel = document.getElementById('aule-datetime-panel');
+            const filtersVisibleByDefault = localStorage.getItem('bussola_filters_default_visible') === 'true';
 
             if (filtersToggle && filtersPanel) {
+                filtersToggle.setAttribute('aria-expanded', String(filtersVisibleByDefault));
+                filtersPanel.hidden = !filtersVisibleByDefault;
                 filtersToggle.addEventListener('click', () => {
                     const open = filtersToggle.getAttribute('aria-expanded') !== 'true';
                     filtersToggle.setAttribute('aria-expanded', String(open));
@@ -680,12 +700,28 @@
             }
 
             if (scheduleToggle && dateTimePanel) {
+                scheduleToggle.setAttribute('aria-expanded', String(filtersVisibleByDefault));
+                dateTimePanel.hidden = !filtersVisibleByDefault;
                 scheduleToggle.addEventListener('click', () => {
                     const open = scheduleToggle.getAttribute('aria-expanded') !== 'true';
                     scheduleToggle.setAttribute('aria-expanded', String(open));
                     dateTimePanel.hidden = !open;
                 });
             }
+
+            if (favoritesToggle) favoritesToggle.addEventListener('click', toggleFavFilter);
+
+            window.addEventListener('bussola:filters-default-changed', event => {
+                const open = Boolean(event.detail?.visible);
+                if (filtersToggle && filtersPanel) {
+                    filtersToggle.setAttribute('aria-expanded', String(open));
+                    filtersPanel.hidden = !open;
+                }
+                if (scheduleToggle && dateTimePanel) {
+                    scheduleToggle.setAttribute('aria-expanded', String(open));
+                    dateTimePanel.hidden = !open;
+                }
+            });
 
             searchInput.addEventListener('input', () => {
                 if (clearBtn) {
@@ -733,17 +769,6 @@
             }, 50);
         };
 
-        window.addEventListener('scroll', () => {
-            const scrollBtn = document.querySelector('.scroll-buttons');
-            if (!scrollBtn) return;
-            if (window.scrollY > 200) {
-                scrollBtn.classList.add('visible');
-            } else {
-                scrollBtn.classList.remove('visible');
-            }
-        });
-        window.dispatchEvent(new Event('scroll'));
-
         /* Global applyLang — called by BussolaSettings when user switches language */
         function applyLang(lang) {
             localStorage.setItem('bussola_lang', lang);
@@ -762,11 +787,6 @@
             BussolaI18n.applyDataI18n(BussolaI18n.getLang());
         });
     </script>
-    <div class="scroll-buttons">
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="scroll-btn" title="Torna su">
-            <i class="ri-arrow-up-line"></i>
-        </button>
-    </div>
 </body>
 
 </html>

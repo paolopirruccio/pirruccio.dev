@@ -195,8 +195,7 @@ footer {
     }
 
     .search-assist-rail {
-        padding: 1.1rem;
-        border-radius: 20px;
+        padding: 0;
     }
 
     .search-assist-rail-title {
@@ -659,10 +658,10 @@ h1 {
 .search-assist-rail {
     width: min(860px, 100%);
     margin: .25rem auto 1.5rem;
-    padding: .65rem .8rem;
-    border-radius: 16px;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
     box-shadow: none;
 }
 
@@ -1409,11 +1408,9 @@ h1 {
     }
 
     .search-assist-rail {
-        background:
-            radial-gradient(circle at top right, rgba(255, 149, 0, 0.09), transparent 35%),
-            #fff;
-        border-color: rgba(0, 0, 0, 0.07);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+        background: transparent;
+        border: 0;
+        box-shadow: none;
     }
 
     .search-assist-chip {
@@ -4022,9 +4019,10 @@ body .page-switcher {
 .page-shell .lezioni-filter-controls .page-search > #search-input { padding-right: 6rem; }
 .page-shell .aule-filter-controls .page-search .search-clear,
 .page-shell .lezioni-filter-controls .page-search .search-clear { right: 3.35rem; }
-.page-shell .aule-filter-controls .page-search > #search-input { padding-right: 8.5rem; }
-.page-shell .aule-filter-controls .page-search .search-clear { right: 5.65rem; }
+.page-shell .aule-filter-controls .page-search > #search-input { padding-right: 10.8rem; }
+.page-shell .aule-filter-controls .page-search .search-clear { right: 7.45rem; }
 .page-shell .schedule-toggle { right: 2.85rem; }
+.page-shell .aule-filter-controls .favorites-toggle { right: 5.15rem; }
 .filters-toggle {
     position: absolute;
     z-index: 5;
@@ -4043,6 +4041,7 @@ body .page-switcher {
     font: inherit;
     transition: background .18s ease, color .18s ease;
 }
+.favorites-toggle[hidden] { display: none !important; }
 .filters-toggle i { font-size: 1.1rem; }
 .filters-toggle:hover,
 .filters-toggle[aria-expanded="true"] { background: var(--card-hover-bg); color: var(--text-primary); }
@@ -4297,4 +4296,61 @@ html[data-theme="white"] body.bussola-page .page-switcher {
     background-color: rgba(248, 248, 252, .62) !important;
     border-color: rgba(30, 30, 40, .14) !important;
     box-shadow: 0 8px 26px rgba(30, 30, 40, .1), inset 0 1px 0 rgba(255, 255, 255, .65) !important;
+}
+
+/* Mobile refinements requested for the Aule page. */
+@media (max-width: 768px) {
+    .bussola-page .page-shell .page-heading .site-logo,
+    .bussola-page .page-shell .links-title-row .site-logo {
+        width: 112px !important;
+        height: 112px !important;
+    }
+
+    .page-shell .aule-filter-controls .page-search {
+        width: calc(100% - .75rem) !important;
+        margin-inline: auto !important;
+    }
+
+    .bussola-settings-trigger {
+        top: max(1rem, env(safe-area-inset-top));
+        right: auto;
+        bottom: auto;
+        left: 1rem;
+    }
+
+    .bussola-page .page-switcher {
+        height: 64px;
+        min-height: 64px;
+    }
+
+    .bussola-page .page-switcher-btn,
+    .bussola-page .page-switcher-btn.active {
+        height: 52px;
+        min-height: 52px;
+        max-height: 52px;
+    }
+}
+
+/* The settings control is available immediately, without waiting for scroll. */
+.bussola-settings-trigger,
+.bussola-settings-trigger.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+}
+
+.bussola-help-fab {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    .bussola-help-fab {
+        top: max(1rem, env(safe-area-inset-top));
+        right: 1rem;
+        bottom: auto;
+    }
 }
