@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-title" content="Faq">
     <title>Faq - InfoUma</title>
     <meta name="color-scheme" content="dark">
-    <link rel="apple-touch-icon" href="assets/compass-192.png" />
-    <link rel="icon" type="image/png" href="assets/compass-192.png" />
+    <link rel="apple-touch-icon" href="assets/book.png" />
+    <link rel="icon" type="image/png" href="assets/book.png" />
     <link rel="manifest" href="./faq.manifest.json">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vostro-dominio.com/domande/">
@@ -53,23 +53,25 @@
     </div>
 
     <div class="container fade-in">
-        <header>
+        <header class="page-hero">
+            <div class="page-heading">
             <picture class="site-logo-container">
                 <source srcset="assets/book.webp" media="(prefers-color-scheme: light)">
                 <img src="assets/book.webp" alt="InfoUma Logo" class="site-logo">
             </picture>
             <div class="version-badge alpha">Alpha</div>
             <h1 data-i18n="faq_h1">Domande Frequenti</h1>
+            </div>
             <p data-i18n="faq_desc"
                 style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">
                 Le risposte alle domande più frequenti su corsi di InfoUma, esami, vita universitaria e altro.
             </p>
-            <div class="search-container">
+        </header>
+        <div class="search-container page-search faq-search">
                 <i class="ri-search-line search-icon"></i>
                 <input type="text" id="search-input" data-i18n="faq_placeholder" placeholder="Cerca domande...">
                 <i class="ri-close-line search-clear" id="search-clear"></i>
-            </div>
-        </header>
+        </div>
         <main id="faq-container">
             <div class="faq-category">
                 <h2 class="section-title">
@@ -397,7 +399,6 @@
 
         });
     </script>
-    <script src="../version.js"></script>
     <div class="scroll-buttons">
         <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="scroll-btn" title="Torna su">
             <i class="ri-arrow-up-line"></i>

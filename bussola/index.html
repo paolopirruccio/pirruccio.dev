@@ -68,12 +68,14 @@
     <div class="container fade-in">
 
         <!-- Original Header Restored -->
-        <header>
+        <header class="page-hero">
+            <div class="page-heading">
             <picture class="site-logo-container">
                 <img src="assets/compass.webp" alt="Bussola Logo" class="site-logo" style="height: 140px;">
             </picture>
             <div class="version-badge beta" style="margin-bottom: 1rem;">BETA</div>
             <h1>La Bussola di InfoUma</h1>
+            </div>
             <p
                 style="text-align: center; color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; margin-bottom: 1.5rem; max-width: 600px; line-height: 1.5;">
                 Il portale essenziale per gli studenti di Informatica Umanistica dell'Università di Pisa. Raccoglie le
@@ -87,6 +89,13 @@
 
         <!-- Card Grid Menu -->
         <main class="bussola-home-grid">
+
+            <a href="./aule.html" class="bussola-home-card card-aule">
+                <i class="ri-door-open-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="aule_title">Aule libere</span>
+                <span class="bussola-card-desc" data-i18n="aule_desc">Trova un posto al Fibonacci</span>
+                <i class="ri-arrow-right-line bussola-card-arrow"></i>
+            </a>
 
             <a href="./links.html" class="bussola-home-card card-links">
                 <i class="ri-bookmark-line bussola-card-icon"></i>
@@ -102,28 +111,18 @@
                 <i class="ri-arrow-right-line bussola-card-arrow"></i>
             </a>
 
-            <a href="./aule.html" class="bussola-home-card card-aule">
-                <i class="ri-door-open-line bussola-card-icon"></i>
-                <span class="bussola-card-title" data-i18n="aule_title">Aule libere</span>
-                <span class="bussola-card-desc" data-i18n="aule_desc">Trova un posto al Fibonacci</span>
+            <a href="./orientati.html" class="bussola-home-card card-map">
+                <i class="ri-compass-3-line bussola-card-icon"></i>
+                <span class="bussola-card-title" data-i18n="orientati_title">Orientati al Fibonacci</span>
+                <span class="bussola-card-desc" data-i18n="orientati_desc">Trova edifici, aule e servizi</span>
                 <i class="ri-arrow-right-line bussola-card-arrow"></i>
             </a>
 
-            <a href="./faq.html" class="bussola-home-card card-faq">
+            <a href="./aiuto.html" class="bussola-home-card">
                 <i class="ri-question-line bussola-card-icon"></i>
-                <span class="bussola-card-title" data-i18n="faq_title">FAQ</span>
-                <span class="bussola-card-desc" data-i18n="faq_desc">Domande frequenti</span>
+                <span class="bussola-card-title" data-i18n="help_title">Aiuto</span>
+                <span class="bussola-card-desc" data-i18n="help_desc">Contatti utili UniPi e rappresentanti</span>
                 <i class="ri-arrow-right-line bussola-card-arrow"></i>
-            </a>
-
-            <a href="https://plumkewe.github.io/dove-unipi/" target="_blank" rel="noopener noreferrer"
-               class="bussola-home-card card-map full-width">
-                <i class="ri-map-pin-line bussola-card-icon"></i>
-                <div>
-                    <span class="bussola-card-title" data-i18n="map_title">Mappa dei Poli</span>
-                    <span class="bussola-card-desc" style="display:block;" data-i18n="map_desc">Dove UniPi — naviga il campus</span>
-                </div>
-                <i class="ri-external-link-line bussola-card-arrow"></i>
             </a>
 
         </main>
@@ -160,7 +159,6 @@
         </footer>
     </div>
 
-    <script src="../version.js"></script>
     <script>
     /* ────────────────────────────────────────────
        i18n — traduzioni home
@@ -173,10 +171,10 @@
             lezioni_desc:  'Orari al Polo Fibonacci',
             aule_title:    'Aule libere',
             aule_desc:     'Trova un posto al Fibonacci',
-            faq_title:     'FAQ',
-            faq_desc:      'Domande frequenti',
-            map_title:     'Mappa dei Poli',
-            map_desc:      'Dove UniPi — naviga il campus',
+            orientati_title: 'Orientati al Fibonacci',
+            orientati_desc:  'Trova edifici, aule e servizi',
+            help_title:      'Aiuto',
+            help_desc:       'Contatti utili UniPi e rappresentanti',
         },
         en: {
             links_title:   'Useful links',
@@ -185,10 +183,10 @@
             lezioni_desc:  'Schedule at Polo Fibonacci',
             aule_title:    'Free rooms',
             aule_desc:     'Find a spot at Fibonacci',
-            faq_title:     'FAQ',
-            faq_desc:      'Frequently asked questions',
-            map_title:     'Campus map',
-            map_desc:      'Dove UniPi — explore the campus',
+            orientati_title: 'Find your way at Fibonacci',
+            orientati_desc:  'Find buildings, rooms and services',
+            help_title:      'Help',
+            help_desc:       'Useful UniPi and student representative contacts',
         }
     };
 

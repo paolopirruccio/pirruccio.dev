@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="dark">
+    <title>Aiuto e contatti - La Bussola</title>
+    <link rel="icon" type="image/png" href="assets/bulb.png">
+    <link rel="apple-touch-icon" href="assets/bulb.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
+</head>
+<body class="bussola-page">
+    <script src="navbar.js"></script>
+    <div class="container page-shell fade-in help-page">
+        <header class="page-hero">
+            <div class="page-heading">
+            <picture class="site-logo-container"><img src="assets/bulb.webp" alt="" class="site-logo"></picture>
+            <h1 data-i18n="help_h1">Hai bisogno di aiuto?</h1>
+            </div>
+            <p class="help-intro" data-i18n="help_intro">Scegli il contatto più adatto: gli uffici UniPi per le pratiche e la didattica, i rappresentanti per le questioni studentesche.</p>
+        </header>
+        <main class="help-groups page-content">
+            <section class="help-group" aria-labelledby="help-official-title">
+                <h2 id="help-official-title"><i class="ri-building-line"></i><span data-i18n="help_official_title">Contatti ufficiali UniPi</span></h2>
+                <p data-i18n="help_official_desc">Per domande su didattica, organizzazione del corso e carriera universitaria.</p>
+                <a class="help-contact" href="mailto:didattica@fileli.unipi.it"><i class="ri-mail-line"></i><span>Unità didattica<small>didattica@fileli.unipi.it</small></span></a>
+                <a class="help-contact" href="mailto:gloria.penso@unipi.it"><i class="ri-mail-line"></i><span>Referente didattica<small>gloria.penso@unipi.it</small></span></a>
+                <a class="help-contact" href="https://www.unipi.it/didattica/segreterie/sedi-e-contatti/" rel="noopener noreferrer"><i class="ri-external-link-line"></i><span data-i18n="help_student_office">Segreteria studenti e sedi</span></a>
+                <a class="help-contact" href="mailto:tirocinio@fileli.unipi.it"><i class="ri-briefcase-line"></i><span><span data-i18n="help_internships">Tirocini</span><small>tirocinio@fileli.unipi.it</small></span></a>
+            </section>
+            <section class="help-group" aria-labelledby="help-contribute-title">
+                <h2 id="help-contribute-title"><i class="ri-chat-heart-line"></i><span data-i18n="help_contribute_title">Contribuisci e segnala</span></h2>
+                <p data-i18n="help_contribute_desc">Aiuta a migliorare la Bussola o segnala un problema che hai trovato.</p>
+                <a class="help-contact" href="mailto:p.pirruccio@studenti.unipi.it?subject=Proposta%20Bussola%20InfoUma"><i class="ri-lightbulb-line"></i><span><span data-i18n="links_suggest_title">Hai un link da suggerire?</span><small data-i18n="links_suggest_desc">Contribuisci a rendere la Bussola più completa inviando i tuoi suggerimenti.</small></span></a>
+                <a class="help-contact" href="mailto:pirruccio.01@gmail.com?subject=Segnalazione%20Bug"><i class="ri-bug-line"></i><span data-i18n="report_bug">Segnala un bug</span></a>
+                <p class="disclaimer help-disclaimer" data-i18n="footer_disclaimer">Le informazioni riportate potrebbero essere inesatte. Non affiliato all'Università di Pisa o a Cineca.</p>
+            </section>
+            <section class="help-group help-group-reps" aria-labelledby="help-reps-title">
+                <h2 id="help-reps-title"><i class="ri-team-line"></i><span data-i18n="help_reps_title">Rappresentanti degli studenti</span></h2>
+                <p class="help-reps-description" data-i18n="help_reps_desc">Per segnalazioni, proposte e questioni che riguardano la vita del corso di studio.</p>
+                <a class="help-contact help-reps-link" href="https://infouma.fileli.unipi.it/persone/rappresentanti-studenti/" rel="noopener noreferrer">
+                    <i class="ri-arrow-right-up-line"></i><span data-i18n="help_reps_link">Consulta nomi e contatti aggiornati sul sito ufficiale del corso</span>
+                </a>
+            </section>
+        </main>
+        <footer class="site-footer">
+            <div class="site-footer-brand">
+                <img src="assets/compass.webp" alt="" class="site-footer-icon">
+                <span data-i18n="footer_brand">La Bussola di InfoUma</span>
+            </div>
+            <nav class="footer-legal-links" aria-label="Informazioni legali">
+                <a href="https://pirruccio.dev/privacy" data-i18n="privacy_policy">Privacy policy</a>
+                <a href="https://pirruccio.dev/bussola/termini" data-i18n="terms_of_use">Termini di utilizzo</a>
+            </nav>
+            <p class="disclaimer">by <strong>Paolo Pirruccio</strong>.</p>
+        </footer>
+    </div>
+    <script>if (window.BussolaI18n) BussolaI18n.applyDataI18n(BussolaI18n.getLang());</script>
+</body>
+</html>

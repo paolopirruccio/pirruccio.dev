@@ -12,6 +12,8 @@ const resources = [
     { name: "Registro lezioni", name_en: "Lecture register",    subtitle: "Tutte le lezioni svolte dai docenti",    subtitle_en: "All lectures given by professors",        url: "https://unimap.unipi.it/cercapersone/cercapersone.php", section: "primary" },
     { name: "Iscrizione esame", name_en: "Exam registration",   subtitle: "Prenota un appello su Valutami",         subtitle_en: "Book an exam session on Valutami",       url: "https://esami.unipi.it/elencoappelli.php", section: "primary" },
     { name: "Le tue iscrizioni",name_en: "Your registrations",  subtitle: "Gestisci le tue prenotazioni agli esami",subtitle_en: "Manage your exam bookings",              url: "https://esami.unipi.it/elencoappelli.php", section: "primary" },
+    { name: "Il mio ID Studente", name_en: "My Student ID", subtitle: "Apri il QR code della tua tessera", subtitle_en: "Open your student card QR code", url: "https://agendadidattica.unipi.it/Prod/Docs", section: "primary" },
+    { name: "Le mie notifiche", name_en: "My notifications", subtitle: "Avvisi e comunicazioni della segreteria", subtitle_en: "Notices and student office messages", url: "https://agendadidattica.unipi.it/Prod/Home/Notifications", section: "primary" },
 
     // ── Didattica & Carriera ──
     { name: "Sito Ufficiale IU Triennale",          name_en: "Official IU Bachelor's Site",         url: "https://www.fileli.unipi.it/informatica-umanistica/", category: "Didattica & Carriera" },
@@ -94,7 +96,6 @@ const resources = [
     { name: "Quizlet",              name_en: "Quizlet",                  url: "https://www.quizlet.com", category: "Consigli & Altro" }
 ];
 
-let openInNewTab = false;
 let activeCategory = null;
 
 const categoryDefinitions = [
@@ -111,16 +112,8 @@ function getSearchQuery() {
     return (window.currentSearchQuery || '').trim();
 }
 
-function getCurrentAcademicYearValue() {
-    const now = new Date();
-    const year = now.getFullYear();
-    return String(now.getMonth() >= 6 ? year : year - 1);
-}
-
 function buildSearchAssistActions(rawQuery) {
     const query = rawQuery.trim();
-    const academicYear = getCurrentAcademicYearValue();
-
     const i18n = window.BussolaI18n || { t: k => k };
     return [
         {
@@ -134,31 +127,6 @@ function buildSearchAssistActions(rawQuery) {
             icon: 'ri-user-search-line',
             type: 'link',
             href: `https://esami.unipi.it/elencoappelli.php?from=sappelli&docente=${encodeURIComponent(query)}&insegnamento=&cds=&cerca=`
-        },
-        {
-            label: i18n.t('links_action_programme'),
-            icon: 'ri-file-list-3-line',
-            type: 'copy-link',
-            href: `https://unipi.coursecatalogue.cineca.it/corsi/${encodeURIComponent(academicYear)}`,
-            copyText: query,
-            copyLabel: i18n.t('links_copy_query')
-        },
-        {
-            label: i18n.t('links_action_prof_cat'),
-            icon: 'ri-graduation-cap-line',
-            type: 'copy-link',
-            href: 'https://unipi.coursecatalogue.cineca.it/ricercaDocenti',
-            copyText: query,
-            copyLabel: i18n.t('links_copy_name')
-        },
-        {
-            label: i18n.t('links_action_prof_map'),
-            icon: 'ri-team-line',
-            type: 'copy-link',
-            action: 'https://unimap.unipi.it/cercapersone/cercapersone.php',
-            href: 'https://unimap.unipi.it/cercapersone/cercapersone.php',
-            copyText: query,
-            copyLabel: i18n.t('links_copy_surname')
         },
         {
             label: i18n.t('links_action_book'),
@@ -189,13 +157,13 @@ async function copyTextToClipboard(text) {
 
 async function submitExternalSearch(action) {
     if (action.type === 'link') {
-        window.open(action.href, '_blank', 'noopener,noreferrer');
+        window.location.assign(action.href);
         return;
     }
 
     if (action.type === 'copy-link') {
         const copied = await copyTextToClipboard(action.copyText || '');
-        window.open(action.href, '_blank', 'noopener,noreferrer');
+        window.location.assign(action.href);
         showToast(copied ? action.copyLabel || 'Testo copiato negli appunti' : 'Pagina aperta. Copia la query manualmente.');
         return;
     }
@@ -205,8 +173,7 @@ async function submitExternalSearch(action) {
     form.action = action.action;
     form.style.display = 'none';
 
-    form.target = '_blank';
-    form.rel = 'noopener noreferrer';
+    form.target = '_self';
 
     Object.entries(action.fields || {}).forEach(([name, value]) => {
         const input = document.createElement('input');
@@ -270,6 +237,8 @@ function renderSearchAssist(query) {
 function getIcon(name) {
     const lowerName = name.toLowerCase();
 
+    if (lowerName.includes('id studente')) return 'ri-qr-code-line';
+    if (lowerName.includes('notifiche') || lowerName.includes('notifications')) return 'ri-notification-3-line';
     if (lowerName.includes('whatsapp')) return 'ri-whatsapp-line';
     if (lowerName.includes('telegram')) return 'ri-telegram-line';
     if (lowerName.includes('instagram')) return 'ri-instagram-line';
@@ -328,37 +297,6 @@ function getIcon(name) {
     return 'ri-link';
 }
 
-function renderChips() {
-    const container = document.getElementById('filter-chips');
-    if (!container) return;
-
-    container.innerHTML = '';
-
-    const createChip = (id, label) => {
-        const chip = document.createElement('div');
-        chip.className = `filter-chip ${activeCategory === id ? 'active' : ''}`;
-        chip.textContent = label;
-        chip.addEventListener('click', () => {
-            if (activeCategory === id) {
-                activeCategory = null;
-            } else {
-                activeCategory = id;
-            }
-            renderChips();
-            renderLinks();
-        });
-        return chip;
-    };
-
-    const i18n = window.BussolaI18n || { t: k => k, getLang: () => 'it' };
-    const lang = i18n.getLang();
-    container.appendChild(createChip('Principali', i18n.t('links_principali')));
-    categoryDefinitions.forEach(def => {
-        const label = (lang === 'en' && def.title_en) ? def.title_en : def.title;
-        container.appendChild(createChip(def.title, label));
-    });
-}
-
 function renderLinks() {
     const container = document.getElementById('links-container');
     container.innerHTML = '';
@@ -367,26 +305,11 @@ function renderLinks() {
     const query = rawQuery.toLowerCase();
 
     const isSearchActive = rawQuery.length > 0;
-    const isSearchFocused = document.activeElement === document.getElementById('search-input');
-
-    const chipsContainer = document.getElementById('filter-chips');
-    if (chipsContainer) {
-        if (isSearchActive || isSearchFocused) {
-            chipsContainer.style.display = 'none';
-        } else {
-            chipsContainer.style.display = 'flex';
-        }
-    }
-
     const i18n = window.BussolaI18n || { t: k => k, getLang: () => 'it' };
     const lang = i18n.getLang();
 
     const primaryLinks = [];
     const groupedLinks = {};
-
-    if (rawQuery) {
-        container.appendChild(renderSearchAssist(rawQuery));
-    }
 
     categoryDefinitions.forEach(def => {
         groupedLinks[def.title] = [];
@@ -409,72 +332,95 @@ function renderLinks() {
         }
     });
 
-    if (primaryLinks.length > 0 && (isSearchActive || isSearchFocused || activeCategory === null || activeCategory === "Principali")) {
-        const section = document.createElement('div');
-        section.className = 'links-primary';
-        primaryLinks.forEach(link => {
-            const card = document.createElement('a');
-            card.href = link.url;
-            card.className = 'card-primary fade-in-card';
-            card.target = openInNewTab ? '_blank' : '_self';
-            const displayName     = (lang === 'en' && link.name_en)     ? link.name_en     : link.name;
-            const displaySubtitle = (lang === 'en' && link.subtitle_en) ? link.subtitle_en : link.subtitle;
-            card.innerHTML = `
-                <i class="${getIcon(link.name)} icon"></i>
-                <div class="card-content" style="display: flex; flex-direction: column;">
-                    <span class="title">${displayName}</span>
-                    ${displaySubtitle ? `<span class="subtitle" style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.2rem; font-weight: 400;">${displaySubtitle}</span>` : ''}
-                </div>
-            `;
-            section.appendChild(card);
+    const makeLinkCard = (link, primary = false) => {
+        const card = document.createElement('a');
+        card.href = link.url;
+        card.className = `${primary ? 'card-primary' : 'card-tertiary'} fade-in-card`;
+        const openInNewTab = localStorage.getItem('bussola_links_new_tab') === 'true';
+        card.target = openInNewTab ? '_blank' : '_self';
+        if (openInNewTab) card.rel = 'noopener noreferrer';
+        if (link.url === '#' || link.url === '') {
+            card.classList.add('disabled');
+            card.removeAttribute('href');
+        }
+        const displayName = (lang === 'en' && link.name_en) ? link.name_en : link.name;
+        const displaySubtitle = (lang === 'en' && link.subtitle_en) ? link.subtitle_en : link.subtitle;
+        card.innerHTML = `<i class="${getIcon(link.name)} icon"></i><div class="card-content"><span class="title">${displayName}</span>${displaySubtitle ? `<span class="subtitle">${displaySubtitle}</span>` : ''}</div>${primary ? '<i class="ri-arrow-right-up-line card-arrow" aria-hidden="true"></i>' : ''}`;
+        return card;
+    };
+
+    const makeSectionTitle = (label, icon) => {
+        const title = document.createElement('h2');
+        title.className = 'section-title';
+        title.innerHTML = icon ? `<img src="${icon}" class="section-icon-img" alt=""> ${label}` : label;
+        return title;
+    };
+
+    const makeRail = (className, links) => {
+        const rail = document.createElement('div');
+        rail.className = className;
+        links.forEach(link => rail.appendChild(makeLinkCard(link, className.split(' ').includes('links-primary'))));
+        return rail;
+    };
+
+    if (isSearchActive) {
+        const resultsHeading = document.createElement('p');
+        resultsHeading.className = 'links-results-label';
+        resultsHeading.textContent = lang === 'en' ? 'Search results' : 'Risultati';
+        container.appendChild(resultsHeading);
+        if (primaryLinks.length) {
+            container.appendChild(makeRail('links-primary links-search-results', primaryLinks));
+        }
+        categoryDefinitions.forEach(def => {
+            const links = groupedLinks[def.title] || [];
+            if (!links.length) return;
+            container.appendChild(makeSectionTitle((lang === 'en' && def.title_en) ? def.title_en : def.title, def.icon));
+            container.appendChild(makeRail('links-tertiary links-search-results', links));
         });
-        container.appendChild(section);
+    } else if (activeCategory) {
+        const definition = categoryDefinitions.find(def => def.title === activeCategory);
+        const back = document.createElement('button');
+        back.type = 'button';
+        back.className = 'links-folder-back';
+        back.innerHTML = `<i class="ri-arrow-left-line" aria-hidden="true"></i><span>${lang === 'en' ? 'All categories' : 'Tutte le categorie'}</span>`;
+        back.addEventListener('click', () => { activeCategory = null; renderLinks(); });
+        const title = (lang === 'en' && definition?.title_en) ? definition.title_en : activeCategory;
+        container.appendChild(makeSectionTitle(title, definition?.icon));
+        container.appendChild(back);
+        const folderLinks = groupedLinks[activeCategory] || [];
+        if (folderLinks.length) container.appendChild(makeRail('links-tertiary links-folder-content', folderLinks));
+    } else {
+        container.appendChild(makeSectionTitle(lang === 'en' ? 'Quick access' : 'Accesso rapido'));
+        container.appendChild(makeRail('links-primary', primaryLinks));
+
+        const categoryHeading = document.createElement('h2');
+        categoryHeading.className = 'links-category-heading';
+        categoryHeading.textContent = lang === 'en' ? 'Browse by category' : 'Esplora per categoria';
+        container.appendChild(categoryHeading);
+        const categoryRail = document.createElement('div');
+        categoryRail.className = 'links-category-rail';
+        categoryDefinitions.forEach(def => {
+            const categoryCard = document.createElement('button');
+            categoryCard.type = 'button';
+            categoryCard.className = 'links-category-card';
+            const label = (lang === 'en' && def.title_en) ? def.title_en : def.title;
+            categoryCard.innerHTML = `<img class="links-category-icon" src="${def.icon}" alt=""><span>${label}</span><i class="ri-arrow-right-line" aria-hidden="true"></i>`;
+            categoryCard.addEventListener('click', () => { activeCategory = def.title; renderLinks(); container.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+            categoryRail.appendChild(categoryCard);
+        });
+        container.appendChild(categoryRail);
     }
 
-    categoryDefinitions.forEach(def => {
-        const categoryTitle = def.title;
-        const links = groupedLinks[categoryTitle];
-
-        if (links && links.length > 0 && (isSearchActive || isSearchFocused || activeCategory === null || activeCategory === categoryTitle)) {
-            const displayCat = (lang === 'en' && def.title_en) ? def.title_en : def.title;
-            const title = document.createElement('h2');
-            title.className = 'section-title';
-            title.innerHTML = `<img src="${def.icon}" class="section-icon-img" alt=""> ${displayCat}`;
-            container.appendChild(title);
-
-            const section = document.createElement('div');
-            section.className = 'links-tertiary';
-
-            links.forEach(link => {
-                const card = document.createElement('a');
-                card.href = link.url;
-                card.className = 'card-tertiary fade-in-card';
-                card.target = openInNewTab ? '_blank' : '_self';
-                if (link.url === '#' || link.url === '') {
-                    card.classList.add('disabled');
-                    card.removeAttribute('href');
-                }
-                const displayName     = (lang === 'en' && link.name_en)     ? link.name_en     : link.name;
-                const displaySubtitle = (lang === 'en' && link.subtitle_en) ? link.subtitle_en : link.subtitle;
-                card.innerHTML = `
-                    <i class="${getIcon(link.name)} icon"></i>
-                    <div class="card-content" style="display: flex; flex-direction: column;">
-                        <span class="title">${displayName}</span>
-                        ${displaySubtitle ? `<span class="subtitle" style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.2rem; font-weight: 400;">${displaySubtitle}</span>` : ''}
-                    </div>
-                `;
-                section.appendChild(card);
-            });
-            container.appendChild(section);
-        }
-    });
-
     const allListsEmpty = Object.values(groupedLinks).every(arr => arr.length === 0);
-    if (primaryLinks.length === 0 && allListsEmpty) {
+    if (isSearchActive && primaryLinks.length === 0 && allListsEmpty) {
         const emptyState = document.createElement('p');
         emptyState.className = 'search-empty-state';
         emptyState.textContent = i18n.t('links_empty');
         container.appendChild(emptyState);
+    }
+
+    if (rawQuery) {
+        container.appendChild(renderSearchAssist(rawQuery));
     }
 
     setTimeout(() => {
@@ -509,7 +455,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('links-container');
     if (!container) console.error("CRITICAL: 'links-container' not found!");
 
-    renderChips();
     renderLinks();
 
     const totalLinks = document.getElementById('total-links');
@@ -552,16 +497,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-    }
-
-    const tabToggle = document.getElementById('new-tab-toggle');
-    if (tabToggle) {
-        tabToggle.checked = openInNewTab;
-        tabToggle.addEventListener('change', (e) => {
-            openInNewTab = e.target.checked;
-            renderLinks();
-            // Optional: can keep a subtle toast, or just let the toggle be the UI feedback
-        });
     }
 
     document.addEventListener('keydown', (e) => {
