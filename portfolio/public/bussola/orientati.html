@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="dark">
+    <title>Orientati - La Bussola</title>
+    <link rel="icon" type="image/png" href="assets/map.png">
+    <link rel="apple-touch-icon" href="assets/map.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="theme.js"></script>
+    <script src="i18n.js"></script>
+</head>
+<body class="bussola-page">
+    <script src="navbar.js"></script>
+    <div class="container page-shell fade-in orientati-page">
+        <header class="page-hero">
+            <div class="page-heading">
+            <picture class="site-logo-container"><img src="assets/map.webp" alt="" class="site-logo"></picture>
+            <h1 data-i18n="orientati_h1">Orientati</h1>
+            </div>
+            <p class="orientati-intro" data-i18n="orientati_intro">Esplora edifici, aule e servizi sulla mappa.</p>
+        </header>
+        <div class="orientati-categories" role="group" aria-label="Categoria">
+            <button class="orientati-category" type="button" data-category="building" aria-pressed="true"><i class="ri-building-4-line"></i><span data-i18n="orientati_buildings">Edifici</span></button>
+            <button class="orientati-category" type="button" data-category="studio" aria-pressed="false"><i class="ri-book-open-line"></i><span data-i18n="orientati_study_rooms">Aule studio</span></button>
+            <button class="orientati-category" type="button" data-category="aula" aria-pressed="false"><i class="ri-presentation-line"></i><span data-i18n="orientati_classrooms">Aule</span></button>
+            <button class="orientati-category" type="button" data-category="persona" aria-pressed="false"><i class="ri-user-location-line"></i><span data-i18n="orientati_offices">Uffici</span></button>
+            <button class="orientati-category" type="button" data-category="other" aria-pressed="false"><i class="ri-community-line"></i><span data-i18n="orientati_other">Altre sale</span></button>
+        </div>
+        <div class="orientati-filters page-controls">
+            <label class="orientati-building-wrap">
+                <select id="orientati-building" aria-label="Edificio"><option value="" data-i18n="orientati_all_buildings">Tutti gli edifici</option></select>
+                <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+            </label>
+            <label class="orientati-search-wrap">
+                <i class="ri-search-line" aria-hidden="true"></i>
+                <input id="orientati-search" class="orientati-search" type="search" placeholder="Cerca aula, sala o persona..." data-i18n="orientati_search" aria-label="Cerca nel Polo Fibonacci">
+            </label>
+        </div>
+        <main class="page-content">
+            <div id="orientati-results" class="orientati-results" aria-live="polite"><p class="orientati-status" data-i18n="orientati_loading">Caricamento della mappa...</p></div>
+            <a class="suggest-cta orientati-map-link" href="https://plumkewe.github.io/dove-unipi/polo/fibonacci/?x=400.00&amp;y=300.00&amp;z=1.26" aria-label="Apri la mappa completa del Polo Fibonacci">
+            <div class="suggest-icon"><img src="assets/doveunipi.webp" alt="" class="orientati-map-icon"></div>
+                <div class="suggest-content"><span class="suggest-title" data-i18n="orientati_full_map">Apri mappa completa</span><span class="suggest-desc" data-i18n="orientati_full_map_desc">Esplora il Polo Fibonacci su DOVE?UNIPI.</span></div>
+                <i class="ri-arrow-right-up-line suggest-arrow"></i>
+            </a>
+        </main>
+        <footer class="site-footer">
+            <div class="site-footer-brand">
+                <img src="assets/compass.webp" alt="" class="site-footer-icon">
+                <span data-i18n="footer_brand">La Bussola di InfoUma</span>
+            </div>
+            <nav class="footer-legal-links" aria-label="Informazioni legali">
+                <a href="https://pirruccio.dev/privacy" data-i18n="privacy_policy">Privacy policy</a>
+                <a href="https://pirruccio.dev/bussola/termini" data-i18n="terms_of_use">Termini di utilizzo</a>
+            </nav>
+            <p class="disclaimer">Dati e destinazioni forniti da DOVE?UNIPI. <a href="https://github.com/plumkewe/dove-unipi" class="footer-link">Progetto open source</a></p>
+            <p class="disclaimer">by <strong>Paolo Pirruccio</strong>.</p>
+        </footer>
+    </div>
+    <script src="orientati.js"></script>
+</body>
+</html>

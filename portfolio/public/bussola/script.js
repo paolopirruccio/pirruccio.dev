@@ -12,6 +12,8 @@ const resources = [
     { name: "Registro lezioni", name_en: "Lecture register",    subtitle: "Tutte le lezioni svolte dai docenti",    subtitle_en: "All lectures given by professors",        url: "https://unimap.unipi.it/cercapersone/cercapersone.php", section: "primary" },
     { name: "Iscrizione esame", name_en: "Exam registration",   subtitle: "Prenota un appello su Valutami",         subtitle_en: "Book an exam session on Valutami",       url: "https://esami.unipi.it/elencoappelli.php", section: "primary" },
     { name: "Le tue iscrizioni",name_en: "Your registrations",  subtitle: "Gestisci le tue prenotazioni agli esami",subtitle_en: "Manage your exam bookings",              url: "https://esami.unipi.it/elencoappelli.php", section: "primary" },
+    { name: "Il mio ID Studente", name_en: "My Student ID", subtitle: "Apri il QR code della tua tessera", subtitle_en: "Open your student card QR code", url: "https://agendadidattica.unipi.it/Prod/Docs", section: "primary" },
+    { name: "Le mie notifiche", name_en: "My notifications", subtitle: "Avvisi e comunicazioni della segreteria", subtitle_en: "Notices and student office messages", url: "https://agendadidattica.unipi.it/Prod/Home/Notifications", section: "primary" },
 
     // ── Didattica & Carriera ──
     { name: "Sito Ufficiale IU Triennale",          name_en: "Official IU Bachelor's Site",         url: "https://www.fileli.unipi.it/informatica-umanistica/", category: "Didattica & Carriera" },
@@ -36,10 +38,6 @@ const resources = [
     { name: "Domanda di Proroga",                   name_en: "Extension Request",                   url: "https://www.studenti.unipi.it/auth/Enrollment/EUploadAllegatiStartFakeProcesso.do?menu_opened_cod=menu_link-navbox_studenti_Carriera", category: "Didattica & Carriera" },
     { name: "Conseguimento Titolo",                 name_en: "Degree Achievement",                  url: "https://www.studenti.unipi.it/auth/studente/Graduation/Bacheca.do?menu_opened_cod=menu_link-navbox_studenti_Laurea", category: "Didattica & Carriera" },
     { name: "Modifica Anagrafica",                  name_en: "Update Personal Info",                url: "https://www.studenti.unipi.it/auth/AddressBook/ABMsgAnaPreForm.do", category: "Didattica & Carriera" },
-    { name: "Biblioteche — LA MAPPA",               name_en: "Libraries — LA MAPPA",               url: "https://unipi.lamappa.org/biblioteca", category: "Didattica & Carriera" },
-    { name: "Dipartimenti — LA MAPPA",              name_en: "Departments — LA MAPPA",             url: "https://unipi.lamappa.org/dipartimento", category: "Didattica & Carriera" },
-    { name: "Poli didattici — LA MAPPA",            name_en: "Teaching centres — LA MAPPA",        url: "https://unipi.lamappa.org/polo-didattico", category: "Didattica & Carriera" },
-    { name: "Uffici universitari — LA MAPPA",       name_en: "University offices — LA MAPPA",      url: "https://unipi.lamappa.org/ufficio", category: "Didattica & Carriera" },
 
     // ── Mappe & Logistica ──
     { name: "Mappa punti di interesse",             name_en: "Points of interest map",              url: "https://www.google.com/maps/d/u/0/viewer?mid=1q4ousVeGWQnZX-5K3i_SYE3bBsky2tkv&ll=43.696373493015706%2C10.437086399999984&z=12", category: "Mappe & Logistica" },
@@ -50,9 +48,6 @@ const resources = [
     { name: "Aule studio",                          name_en: "Study rooms",                         url: "https://www.unipi.it/campus-e-servizi/servizi/biblioteche-e-sale-studio/", category: "Mappe & Logistica" },
     { name: "Mappe bus pisa",                       name_en: "Pisa bus maps",                       url: "https://files.at-bus.it/s3fs-public/documents/AT_Pisa_110x110_web.pdf", category: "Mappe & Logistica" },
     { name: "Collocazione aule",                    name_en: "Classroom locations",                 url: "https://www.fileli.unipi.it/didattica/collocazione-aule/", category: "Mappe & Logistica" },
-    { name: "Fontanelle — LA MAPPA",                name_en: "Drinking fountains — LA MAPPA",      url: "https://unipi.lamappa.org/acqua", category: "Mappe & Logistica" },
-    { name: "Musei — LA MAPPA",                     name_en: "Museums — LA MAPPA",                  url: "https://unipi.lamappa.org/museo", category: "Mappe & Logistica" },
-    { name: "Stazioni ferroviarie — LA MAPPA",      name_en: "Railway stations — LA MAPPA",        url: "https://unipi.lamappa.org/stazione-ferroviaria", category: "Mappe & Logistica" },
 
     // ── Software ──
     { name: "Microsoft 365",            name_en: "Microsoft 365",           url: "https://m365.cloud.microsoft/apps/", category: "Software" },
@@ -72,9 +67,6 @@ const resources = [
     { name: "Info DSU Ristorazione",    name_en: "DSU Canteen info",        url: "https://www.dsu.toscana.it/dove-e-cosa-mangiare", category: "Mensa & Servizi" },
     { name: "Info borsa di studio",     name_en: "Scholarship info",        url: "https://www.dsu.toscana.it/borsa-di-studio", category: "Mensa & Servizi" },
     { name: "Info posto alloggio",      name_en: "Housing info",            url: "https://www.dsu.toscana.it/posto-alloggio", category: "Mensa & Servizi" },
-    { name: "Dove mangiare — LA MAPPA", name_en: "Where to eat — LA MAPPA",  url: "https://unipi.lamappa.org/mensa", category: "Mensa & Servizi" },
-    { name: "Copisterie — LA MAPPA",    name_en: "Print shops — LA MAPPA",   url: "https://unipi.lamappa.org/copisteria", category: "Mensa & Servizi" },
-    { name: "Residenze — LA MAPPA",     name_en: "Residences — LA MAPPA",    url: "https://unipi.lamappa.org/residenza", category: "Mensa & Servizi" },
 
     // ── Community ──
     { name: "Community Telegram",                           name_en: "Telegram Community",                          url: "https://t.me/+6mN2nZaSPtcyM2I0", category: "Community" },
@@ -82,9 +74,6 @@ const resources = [
     { name: "Gruppo WhatsApp 2º Anno",                      name_en: "WhatsApp Group 2nd Year",                     url: "https://chat.whatsapp.com/CYcHWJHMqMg4zq1POUrpPK", category: "Community" },
     { name: "Gruppo WhatsApp 3º Anno",                      name_en: "WhatsApp Group 3rd Year",                     url: "https://chat.whatsapp.com/Gru75fkLIsN0wUaJwvfl0P", category: "Community" },
     { name: "Gruppo WhatsApp Magistrale (link non disponibile)", name_en: "WhatsApp Master's Group (link unavailable)", url: "", category: "Community" },
-    { name: "Eventi — LA MAPPA",                            name_en: "Events — LA MAPPA",                            url: "https://unipi.lamappa.org/comunita", category: "Community" },
-    { name: "Appuntamenti — LA MAPPA",                      name_en: "What's on — LA MAPPA",                         url: "https://unipi.lamappa.org/eventi", category: "Community" },
-    { name: "Radio Eco",                                    name_en: "Radio Eco",                                    url: "https://unipi.lamappa.org/radioeco", category: "Community" },
 
     // ── Convenzioni & Sconti ──
     { name: "Notion",                           name_en: "Notion",                          url: "https://www.notion.com/product/notion-for-education", category: "Convenzioni & Sconti" },
@@ -100,16 +89,13 @@ const resources = [
     { name: "GitHub Student Developer Pack",    name_en: "GitHub Student Developer Pack",   url: "https://education.github.com/pack", category: "Convenzioni & Sconti" },
     { name: "Convenzioni di ateneo",            name_en: "University agreements & discounts",url: "https://www.unipi.it/campus-e-servizi/opportunita-e-tempo-libero/convenzioni-di-ateneo-gli-sconti-per-studenti/", category: "Convenzioni & Sconti" },
     { name: "Adobe Creative Cloud Studenti",    name_en: "Adobe Creative Cloud Students",   url: "https://www.adobe.com/it/creativecloud/buy/students.html", category: "Convenzioni & Sconti" },
-    { name: "Offerte per studenti — LA MAPPA",  name_en: "Student offers — LA MAPPA",       url: "https://unipi.lamappa.org/offerte", category: "Convenzioni & Sconti" },
 
     // ── Consigli & Altro ──
     { name: "Reddit r/universitaly",name_en: "Reddit r/universitaly",   url: "https://www.reddit.com/r/Universitaly/", category: "Consigli & Altro" },
     { name: "Fotocopie",            name_en: "Print shop",               url: "https://print.copyboom.it/", category: "Consigli & Altro" },
-    { name: "Quizlet",              name_en: "Quizlet",                  url: "https://www.quizlet.com", category: "Consigli & Altro" },
-    { name: "Cinema — LA MAPPA",    name_en: "Cinema — LA MAPPA",        url: "https://unipi.lamappa.org/cinema", category: "Consigli & Altro" }
+    { name: "Quizlet",              name_en: "Quizlet",                  url: "https://www.quizlet.com", category: "Consigli & Altro" }
 ];
 
-let openInNewTab = false;
 let activeCategory = null;
 
 const categoryDefinitions = [
@@ -128,7 +114,6 @@ function getSearchQuery() {
 
 function buildSearchAssistActions(rawQuery) {
     const query = rawQuery.trim();
-
     const i18n = window.BussolaI18n || { t: k => k };
     return [
         {
@@ -172,13 +157,13 @@ async function copyTextToClipboard(text) {
 
 async function submitExternalSearch(action) {
     if (action.type === 'link') {
-        window.open(action.href, '_blank', 'noopener,noreferrer');
+        window.location.assign(action.href);
         return;
     }
 
     if (action.type === 'copy-link') {
         const copied = await copyTextToClipboard(action.copyText || '');
-        window.open(action.href, '_blank', 'noopener,noreferrer');
+        window.location.assign(action.href);
         showToast(copied ? action.copyLabel || 'Testo copiato negli appunti' : 'Pagina aperta. Copia la query manualmente.');
         return;
     }
@@ -188,8 +173,7 @@ async function submitExternalSearch(action) {
     form.action = action.action;
     form.style.display = 'none';
 
-    form.target = '_blank';
-    form.rel = 'noopener noreferrer';
+    form.target = '_self';
 
     Object.entries(action.fields || {}).forEach(([name, value]) => {
         const input = document.createElement('input');
@@ -253,6 +237,8 @@ function renderSearchAssist(query) {
 function getIcon(name) {
     const lowerName = name.toLowerCase();
 
+    if (lowerName.includes('id studente')) return 'ri-qr-code-line';
+    if (lowerName.includes('notifiche') || lowerName.includes('notifications')) return 'ri-notification-3-line';
     if (lowerName.includes('whatsapp')) return 'ri-whatsapp-line';
     if (lowerName.includes('telegram')) return 'ri-telegram-line';
     if (lowerName.includes('instagram')) return 'ri-instagram-line';
@@ -311,37 +297,6 @@ function getIcon(name) {
     return 'ri-link';
 }
 
-function renderChips() {
-    const container = document.getElementById('filter-chips');
-    if (!container) return;
-
-    container.innerHTML = '';
-
-    const createChip = (id, label) => {
-        const chip = document.createElement('div');
-        chip.className = `filter-chip ${activeCategory === id ? 'active' : ''}`;
-        chip.textContent = label;
-        chip.addEventListener('click', () => {
-            if (activeCategory === id) {
-                activeCategory = null;
-            } else {
-                activeCategory = id;
-            }
-            renderChips();
-            renderLinks();
-        });
-        return chip;
-    };
-
-    const i18n = window.BussolaI18n || { t: k => k, getLang: () => 'it' };
-    const lang = i18n.getLang();
-    container.appendChild(createChip('Principali', i18n.t('links_principali')));
-    categoryDefinitions.forEach(def => {
-        const label = (lang === 'en' && def.title_en) ? def.title_en : def.title;
-        container.appendChild(createChip(def.title, label));
-    });
-}
-
 function renderLinks() {
     const container = document.getElementById('links-container');
     container.innerHTML = '';
@@ -350,26 +305,11 @@ function renderLinks() {
     const query = rawQuery.toLowerCase();
 
     const isSearchActive = rawQuery.length > 0;
-    const isSearchFocused = document.activeElement === document.getElementById('search-input');
-
-    const chipsContainer = document.getElementById('filter-chips');
-    if (chipsContainer) {
-        if (isSearchActive || isSearchFocused) {
-            chipsContainer.style.display = 'none';
-        } else {
-            chipsContainer.style.display = 'flex';
-        }
-    }
-
     const i18n = window.BussolaI18n || { t: k => k, getLang: () => 'it' };
     const lang = i18n.getLang();
 
     const primaryLinks = [];
     const groupedLinks = {};
-
-    if (rawQuery) {
-        container.appendChild(renderSearchAssist(rawQuery));
-    }
 
     categoryDefinitions.forEach(def => {
         groupedLinks[def.title] = [];
@@ -392,72 +332,95 @@ function renderLinks() {
         }
     });
 
-    if (primaryLinks.length > 0 && (isSearchActive || isSearchFocused || activeCategory === null || activeCategory === "Principali")) {
-        const section = document.createElement('div');
-        section.className = 'links-primary';
-        primaryLinks.forEach(link => {
-            const card = document.createElement('a');
-            card.href = link.url;
-            card.className = 'card-primary fade-in-card';
-            card.target = openInNewTab ? '_blank' : '_self';
-            const displayName     = (lang === 'en' && link.name_en)     ? link.name_en     : link.name;
-            const displaySubtitle = (lang === 'en' && link.subtitle_en) ? link.subtitle_en : link.subtitle;
-            card.innerHTML = `
-                <i class="${getIcon(link.name)} icon"></i>
-                <div class="card-content" style="display: flex; flex-direction: column;">
-                    <span class="title">${displayName}</span>
-                    ${displaySubtitle ? `<span class="subtitle" style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.2rem; font-weight: 400;">${displaySubtitle}</span>` : ''}
-                </div>
-            `;
-            section.appendChild(card);
+    const makeLinkCard = (link, primary = false) => {
+        const card = document.createElement('a');
+        card.href = link.url;
+        card.className = `${primary ? 'card-primary' : 'card-tertiary'} fade-in-card`;
+        const openInNewTab = localStorage.getItem('bussola_links_new_tab') === 'true';
+        card.target = openInNewTab ? '_blank' : '_self';
+        if (openInNewTab) card.rel = 'noopener noreferrer';
+        if (link.url === '#' || link.url === '') {
+            card.classList.add('disabled');
+            card.removeAttribute('href');
+        }
+        const displayName = (lang === 'en' && link.name_en) ? link.name_en : link.name;
+        const displaySubtitle = (lang === 'en' && link.subtitle_en) ? link.subtitle_en : link.subtitle;
+        card.innerHTML = `<i class="${getIcon(link.name)} icon"></i><div class="card-content"><span class="title">${displayName}</span>${displaySubtitle ? `<span class="subtitle">${displaySubtitle}</span>` : ''}</div>${primary ? '<i class="ri-arrow-right-up-line card-arrow" aria-hidden="true"></i>' : ''}`;
+        return card;
+    };
+
+    const makeSectionTitle = (label, icon) => {
+        const title = document.createElement('h2');
+        title.className = 'section-title';
+        title.innerHTML = icon ? `<img src="${icon}" class="section-icon-img" alt=""> ${label}` : label;
+        return title;
+    };
+
+    const makeRail = (className, links) => {
+        const rail = document.createElement('div');
+        rail.className = className;
+        links.forEach(link => rail.appendChild(makeLinkCard(link, className.split(' ').includes('links-primary'))));
+        return rail;
+    };
+
+    if (isSearchActive) {
+        const resultsHeading = document.createElement('p');
+        resultsHeading.className = 'links-results-label';
+        resultsHeading.textContent = lang === 'en' ? 'Search results' : 'Risultati';
+        container.appendChild(resultsHeading);
+        if (primaryLinks.length) {
+            container.appendChild(makeRail('links-primary links-search-results', primaryLinks));
+        }
+        categoryDefinitions.forEach(def => {
+            const links = groupedLinks[def.title] || [];
+            if (!links.length) return;
+            container.appendChild(makeSectionTitle((lang === 'en' && def.title_en) ? def.title_en : def.title, def.icon));
+            container.appendChild(makeRail('links-tertiary links-search-results', links));
         });
-        container.appendChild(section);
+    } else if (activeCategory) {
+        const definition = categoryDefinitions.find(def => def.title === activeCategory);
+        const back = document.createElement('button');
+        back.type = 'button';
+        back.className = 'links-folder-back';
+        back.innerHTML = `<i class="ri-arrow-left-line" aria-hidden="true"></i><span>${lang === 'en' ? 'All categories' : 'Tutte le categorie'}</span>`;
+        back.addEventListener('click', () => { activeCategory = null; renderLinks(); });
+        const title = (lang === 'en' && definition?.title_en) ? definition.title_en : activeCategory;
+        container.appendChild(makeSectionTitle(title, definition?.icon));
+        container.appendChild(back);
+        const folderLinks = groupedLinks[activeCategory] || [];
+        if (folderLinks.length) container.appendChild(makeRail('links-tertiary links-folder-content', folderLinks));
+    } else {
+        container.appendChild(makeSectionTitle(lang === 'en' ? 'Quick access' : 'Accesso rapido'));
+        container.appendChild(makeRail('links-primary', primaryLinks));
+
+        const categoryHeading = document.createElement('h2');
+        categoryHeading.className = 'links-category-heading';
+        categoryHeading.textContent = lang === 'en' ? 'Browse by category' : 'Esplora per categoria';
+        container.appendChild(categoryHeading);
+        const categoryRail = document.createElement('div');
+        categoryRail.className = 'links-category-rail';
+        categoryDefinitions.forEach(def => {
+            const categoryCard = document.createElement('button');
+            categoryCard.type = 'button';
+            categoryCard.className = 'links-category-card';
+            const label = (lang === 'en' && def.title_en) ? def.title_en : def.title;
+            categoryCard.innerHTML = `<img class="links-category-icon" src="${def.icon}" alt=""><span>${label}</span><i class="ri-arrow-right-line" aria-hidden="true"></i>`;
+            categoryCard.addEventListener('click', () => { activeCategory = def.title; renderLinks(); container.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+            categoryRail.appendChild(categoryCard);
+        });
+        container.appendChild(categoryRail);
     }
 
-    categoryDefinitions.forEach(def => {
-        const categoryTitle = def.title;
-        const links = groupedLinks[categoryTitle];
-
-        if (links && links.length > 0 && (isSearchActive || isSearchFocused || activeCategory === null || activeCategory === categoryTitle)) {
-            const displayCat = (lang === 'en' && def.title_en) ? def.title_en : def.title;
-            const title = document.createElement('h2');
-            title.className = 'section-title';
-            title.innerHTML = `<img src="${def.icon}" class="section-icon-img" alt=""> ${displayCat}`;
-            container.appendChild(title);
-
-            const section = document.createElement('div');
-            section.className = 'links-tertiary';
-
-            links.forEach(link => {
-                const card = document.createElement('a');
-                card.href = link.url;
-                card.className = 'card-tertiary fade-in-card';
-                card.target = openInNewTab ? '_blank' : '_self';
-                if (link.url === '#' || link.url === '') {
-                    card.classList.add('disabled');
-                    card.removeAttribute('href');
-                }
-                const displayName     = (lang === 'en' && link.name_en)     ? link.name_en     : link.name;
-                const displaySubtitle = (lang === 'en' && link.subtitle_en) ? link.subtitle_en : link.subtitle;
-                card.innerHTML = `
-                    <i class="${getIcon(link.name)} icon"></i>
-                    <div class="card-content" style="display: flex; flex-direction: column;">
-                        <span class="title">${displayName}</span>
-                        ${displaySubtitle ? `<span class="subtitle" style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.2rem; font-weight: 400;">${displaySubtitle}</span>` : ''}
-                    </div>
-                `;
-                section.appendChild(card);
-            });
-            container.appendChild(section);
-        }
-    });
-
     const allListsEmpty = Object.values(groupedLinks).every(arr => arr.length === 0);
-    if (primaryLinks.length === 0 && allListsEmpty) {
+    if (isSearchActive && primaryLinks.length === 0 && allListsEmpty) {
         const emptyState = document.createElement('p');
         emptyState.className = 'search-empty-state';
         emptyState.textContent = i18n.t('links_empty');
         container.appendChild(emptyState);
+    }
+
+    if (rawQuery) {
+        container.appendChild(renderSearchAssist(rawQuery));
     }
 
     setTimeout(() => {
@@ -492,7 +455,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('links-container');
     if (!container) console.error("CRITICAL: 'links-container' not found!");
 
-    renderChips();
     renderLinks();
 
     const totalLinks = document.getElementById('total-links');
@@ -535,16 +497,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-    }
-
-    const tabToggle = document.getElementById('new-tab-toggle');
-    if (tabToggle) {
-        tabToggle.checked = openInNewTab;
-        tabToggle.addEventListener('change', (e) => {
-            openInNewTab = e.target.checked;
-            renderLinks();
-            // Optional: can keep a subtle toast, or just let the toggle be the UI feedback
-        });
     }
 
     document.addEventListener('keydown', (e) => {

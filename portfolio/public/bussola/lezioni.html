@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Lezioni">
-    <link rel="apple-touch-icon" href="assets/book.png">
-    <link rel="icon" type="image/png" href="assets/book.png">
+    <link rel="apple-touch-icon" href="assets/conference.png">
+    <link rel="icon" type="image/png" href="assets/conference.png">
     <link rel="manifest" href="./lezioni.manifest.json">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Lezioni - InfoUma">
@@ -146,38 +146,50 @@
     </style>
 </head>
 
-<body>
+<body class="bussola-page">
 
     <script src="navbar.js"></script>
-    <div class="container fade-in">
-        <header>
+    <div class="container page-shell fade-in">
+        <header class="page-hero">
+            <div class="page-heading">
             <picture class="site-logo-container">
                 <img src="assets/conference.webp" alt="Cerca Lezioni Logo" class="site-logo">
             </picture>
             <h1 data-i18n="lezioni_h1">Cerca Lezioni</h1>
-            <p data-i18n="lezioni_desc"
-                style="text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 1.5rem;">
+            </div>
+            <p data-i18n="lezioni_desc">
                 Cerca lezioni di oggi e dei prossimi giorni al polo Fibonacci.
             </p>
-            <div class="filter-controls" style="width: 100%; max-width: 600px; margin: 0 auto;">
-                <div class="search-container" style="margin-top: 0; width:100%;">
+        </header>
+        <div class="filter-controls lezioni-filter-controls page-controls">
+                <div class="search-container page-search">
                     <i class="ri-search-line search-icon"></i>
                     <input type="text" id="search-input" data-i18n="lezioni_placeholder" placeholder="Cerca lezione per nome o professore...">
                     <i class="ri-close-line search-clear" id="search-clear"></i>
+                    <button id="schedule-toggle" class="filters-toggle" type="button" aria-expanded="false" aria-controls="lessons-datetime-panel" data-i18n-aria-label="lezioni_datetime_toggle">
+                        <i class="ri-time-line" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div id="lessons-datetime-panel" class="datetime-controls lessons-datetime-controls" aria-label="Filtri data e ora" hidden>
+                    <div class="input-group" onclick="try{document.getElementById('date-input').showPicker()}catch(e){}" style="cursor:pointer;">
+                        <i class="ri-calendar-event-line input-icon" aria-hidden="true"></i>
+                        <input type="date" id="date-input" aria-label="Data lezioni">
+                    </div>
+                    <div class="input-group" onclick="try{document.getElementById('time-input').showPicker()}catch(e){}" style="cursor:pointer;">
+                        <i class="ri-time-line input-icon" aria-hidden="true"></i>
+                        <input type="time" id="time-input" aria-label="Ora lezioni">
+                    </div>
                 </div>
                 <div class="datetime-shortcuts">
                     <button id="tomorrow-btn-lez" class="tomorrow-btn" onclick="toggleTomorrowLezioni()">
                         <i class="ri-skip-right-line"></i> <span id="tomorrow-label-lez" data-i18n="lezioni_tomorrow">Domani</span>
                     </button>
                 </div>
-            </div>
-        </header>
+        </div>
 
-        <main id="main-scroll"
-            style="width: 100%; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column;">
-            <div id="results-bar"
-                style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.95rem; width: 100%;">
-                <span id="results-count-container" style="display: none; align-items: center; gap: 0.5rem;">
+        <main id="main-scroll" class="page-content lessons-content">
+            <div id="results-bar" class="page-results-bar">
+                <span id="results-count-container">
                     Risultati:
                     <strong id="results-total" style="color: var(--text-primary); font-size: 1.1rem;">0</strong>
                 </span>
@@ -187,39 +199,33 @@
                 </span>
             </div>
 
-            <div id="results-list" style="width: 100%;">
+            <div id="results-list">
             </div>
-            <a href="https://plumkewe.github.io/dove-unipi/" target="_blank" rel="noopener noreferrer" class="suggest-cta"
+            <a href="./aule.html" class="suggest-cta lessons-rooms-cta"
                 style="margin-top: 1.5rem; text-decoration: none;">
                 <div class="suggest-icon"
                     style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                    <img src="assets/doveunipi.webp" alt="Dove UniPi Logo" style="width: 24px; height: 24px;">
+                    <i class="ri-door-open-line" aria-hidden="true" style="font-size: 1.5rem;"></i>
                 </div>
                 <div class="suggest-content">
-                    <span class="suggest-title">Apri mappa completa</span>
-                    <span class="suggest-desc">Esplora tutte le aule e i poli su Dove UniPi.</span>
+                    <span class="suggest-title">Cerca aule libere</span>
+                    <span class="suggest-desc">Controlla disponibilità, orari e dettagli delle aule.</span>
                 </div>
-                <i class="ri-external-link-line suggest-arrow"></i>
+                <i class="ri-arrow-right-line suggest-arrow"></i>
             </a>
         </main>
-
-        <footer>
-            <img src="assets/compass.webp" alt="logo"
-                style="width: 40px; height: 40px; margin-bottom: 0.5rem; opacity: 0.9;">
-            <div
-                style="font-family: var(--font-display); font-size: 1.8rem; font-style: italic; margin-bottom: 1rem; color: var(--text-primary);">
-                La Bussola di InfoUma</div>
-            <p class="disclaimer">
-                by <strong style="color: var(--text-primary);">Paolo Pirruccio</strong>.<br>
-                Ispirato al lavoro di <a href="https://github.com/plumkewe" target="_blank" rel="noopener noreferrer"
-                    style="color: var(--text-primary); text-decoration: underline;">Lyubomyr Malay</a>.<br>
-            </p>
-            <a href="mailto:pirruccio.01@gmail.com?subject=Segnalazione%20Bug%20Cerca%20Lezioni"
-                style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.3rem; font-size: 0.8rem; margin-top: 1rem; transition: color 0.2s;">
-                <i class="ri-bug-line"></i> Segnala un bug
-            </a>
-            <div class="footer-legal-links"><a class="footer-link" href="/privacy">Privacy policy</a><a class="footer-link" href="termini.html">Termini di utilizzo</a></div>
+        <footer class="site-footer">
+            <div class="site-footer-brand">
+                <img src="assets/compass.webp" alt="" class="site-footer-icon">
+                <span data-i18n="footer_brand">La Bussola di InfoUma</span>
+            </div>
+            <nav class="footer-legal-links" aria-label="Informazioni legali">
+                <a href="https://pirruccio.dev/privacy" data-i18n="privacy_policy">Privacy policy</a>
+                <a href="https://pirruccio.dev/bussola/termini" data-i18n="terms_of_use">Termini di utilizzo</a>
+            </nav>
+            <p class="disclaimer">by <strong>Paolo Pirruccio</strong>.</p>
         </footer>
+
     </div>
 
     <script>
@@ -238,20 +244,75 @@
         let dataError = false;
         let roomsData = [];
         let _filterTomorrow = false;
+        let _dateTimeFilterActive = false;
+
+        const dateInput = document.getElementById('date-input');
+        const timeInput = document.getElementById('time-input');
+        const scheduleToggle = document.getElementById('schedule-toggle');
+        const dateTimePanel = document.getElementById('lessons-datetime-panel');
+        scheduleToggle.addEventListener('click', () => {
+            const open = scheduleToggle.getAttribute('aria-expanded') !== 'true';
+            scheduleToggle.setAttribute('aria-expanded', String(open));
+            dateTimePanel.hidden = !open;
+        });
+        function toLocalDateValue(date) {
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+        function updateDateDisplay() {
+            if (!dateInput.value) return;
+            const date = new Date(`${dateInput.value}T12:00:00`);
+            dateInput.setAttribute('data-display', date.toLocaleDateString(BussolaI18n.getLang() === 'en' ? 'en-GB' : 'it-IT', { day: 'numeric', month: 'short' }));
+        }
+        const initialDate = new Date();
+        const maxDate = new Date(initialDate);
+        maxDate.setDate(maxDate.getDate() + 14);
+        dateInput.min = toLocalDateValue(initialDate);
+        dateInput.max = toLocalDateValue(maxDate);
+        dateInput.value = toLocalDateValue(initialDate);
+        timeInput.value = `${String(initialDate.getHours()).padStart(2, '0')}:${String(initialDate.getMinutes()).padStart(2, '0')}`;
+        updateDateDisplay();
 
         function toggleTomorrowLezioni() {
             _filterTomorrow = !_filterTomorrow;
             const btn = document.getElementById('tomorrow-btn-lez');
             const label = document.getElementById('tomorrow-label-lez');
             if (_filterTomorrow) {
+                scheduleToggle.setAttribute('aria-expanded', 'true');
+                dateTimePanel.hidden = false;
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dateInput.value = toLocalDateValue(tomorrow);
+                timeInput.value = '08:30';
+                _dateTimeFilterActive = true;
                 if (label) label.textContent = BussolaI18n.t('lezioni_today_btn');
                 btn.classList.add('active');
             } else {
+                const today = new Date();
+                dateInput.value = toLocalDateValue(today);
+                timeInput.value = `${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`;
+                _dateTimeFilterActive = false;
                 if (label) label.textContent = BussolaI18n.t('lezioni_tomorrow');
                 btn.classList.remove('active');
             }
+            updateDateDisplay();
             renderResults();
         }
+
+        dateInput.addEventListener('change', () => {
+            _dateTimeFilterActive = true;
+            if (_filterTomorrow) {
+                _filterTomorrow = false;
+                const btn = document.getElementById('tomorrow-btn-lez');
+                btn.classList.remove('active');
+                document.getElementById('tomorrow-label-lez').textContent = BussolaI18n.t('lezioni_tomorrow');
+            }
+            updateDateDisplay();
+            renderResults();
+        });
+        timeInput.addEventListener('change', () => {
+            _dateTimeFilterActive = true;
+            renderResults();
+        });
 
         const searchInput = document.getElementById('search-input');
         const resultsList = document.getElementById('results-list');
@@ -274,6 +335,7 @@
         function applyLang(lang) {
             localStorage.setItem('bussola_lang', lang);
             BussolaI18n.applyDataI18n(lang);
+            updateDateDisplay();
             // Update tomorrow button label if active
             const btn = document.getElementById('tomorrow-btn-lez');
             if (btn) {
@@ -358,6 +420,11 @@
             const range = getLessonRange();
             dataLoaded = false;
             dataError = false;
+            const delayNotice = document.getElementById('cineca-delay-notice');
+            if (delayNotice) delayNotice.hidden = true;
+            const delayTimer = setTimeout(() => {
+                if (!dataLoaded && delayNotice) delayNotice.hidden = false;
+            }, 4000);
 
             const badge = document.getElementById('week-badge');
             if (badge) {
@@ -418,12 +485,16 @@
                 });
 
                 dataLoaded = true;
+                clearTimeout(delayTimer);
+                if (delayNotice) delayNotice.hidden = true;
                 renderResults();
 
             } catch (err) {
                 console.error('Errore fetch Cineca:', err);
                 dataLoaded = true;
                 dataError = true;
+                clearTimeout(delayTimer);
+                if (delayNotice) delayNotice.hidden = true;
                 renderResults();
             }
         }
@@ -432,7 +503,7 @@
             const query = searchInput.value.toLowerCase().trim();
             const resultsBar = document.getElementById('results-bar');
 
-            if (!_filterTomorrow && query.length > 0 && query.length < 3) {
+            if (query.length > 0 && query.length < 3) {
                 resultsList.innerHTML = `
                         <div class="no-results" style="padding: 2rem; border: none; background: transparent;">
                             <i class="ri-keyboard-line" style="font-size: 2rem; display: block; margin-bottom: 0.5rem; color: var(--text-secondary);"></i>
@@ -446,7 +517,7 @@
                 return;
             }
 
-            if (!_filterTomorrow && query.length === 0) {
+            if (!_filterTomorrow && !_dateTimeFilterActive && query.length === 0) {
                 resultsList.innerHTML = initialStateHtml;
                 document.getElementById('results-count-container').style.display = 'none';
                 resultsTotal.textContent = "0";
@@ -480,6 +551,8 @@
             }
 
             const now = new Date();
+            const selectedDay = dateInput.value;
+            const selectedDateTime = new Date(`${selectedDay}T${timeInput.value || '00:00'}`);
             // Calcola range di domani se filtro attivo
             let tomorrowStart = null, tomorrowEnd = null;
             if (_filterTomorrow) {
@@ -494,10 +567,14 @@
                 const eventStart = new Date(e.dataInizio);
                 const eventEnd = new Date(e.dataFine);
 
+                if (_dateTimeFilterActive) {
+                    if (toLocalDateValue(eventStart) !== selectedDay || eventEnd < selectedDateTime) return false;
+                }
+
                 // Filtro domani
                 if (_filterTomorrow) {
                     if (eventStart < tomorrowStart || eventStart > tomorrowEnd) return false;
-                } else {
+                } else if (!_dateTimeFilterActive) {
                     if (eventEnd < now) return false;
                 }
 
@@ -649,11 +726,13 @@
                 document.getElementById('results-count-container').style.display = 'none';
                 return;
             } else if (query.length === 0) {
-                resultsList.innerHTML = initialStateHtml;
-                document.getElementById('results-count-container').style.display = 'none';
-                resultsTotal.textContent = "0";
-                resultsBar.style.justifyContent = 'center';
-                return;
+                if (!_dateTimeFilterActive) {
+                    resultsList.innerHTML = initialStateHtml;
+                    document.getElementById('results-count-container').style.display = 'none';
+                    resultsTotal.textContent = "0";
+                    resultsBar.style.justifyContent = 'center';
+                    return;
+                }
             }
 
             renderResults();
@@ -700,7 +779,6 @@
         });
         window.dispatchEvent(new Event('scroll'));
     </script>
-    <script src="../version.js"></script>
     <div class="scroll-buttons">
         <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="scroll-btn" title="Torna su">
             <i class="ri-arrow-up-line"></i>
