@@ -51,8 +51,11 @@
                     <button id="filters-toggle" class="filters-toggle" type="button" aria-expanded="false" aria-controls="aule-filters-panel" data-i18n-aria-label="aule_filters_label">
                         <i class="ri-filter-3-line" aria-hidden="true"></i>
                     </button>
+                    <button id="schedule-toggle-aule" class="filters-toggle schedule-toggle" type="button" aria-expanded="false" aria-controls="aule-datetime-panel" data-i18n-aria-label="aule_datetime_toggle">
+                        <i class="ri-time-line" aria-hidden="true"></i>
+                    </button>
                 </div>
-                <div class="datetime-controls">
+                <div id="aule-datetime-panel" class="datetime-controls" hidden>
                     <div class="input-group" onclick="try{document.getElementById('date-input').showPicker()}catch(e){}" style="cursor:pointer;">
                         <i class="ri-calendar-event-line input-icon"></i>
                         <input type="date" id="date-input">
@@ -246,6 +249,8 @@
             const btn = document.getElementById('tomorrow-btn');
             const label = document.getElementById('tomorrow-label');
             if (_isTomorrow) {
+                document.getElementById('schedule-toggle-aule').setAttribute('aria-expanded', 'true');
+                document.getElementById('aule-datetime-panel').hidden = false;
                 const tomorrow = new Date();
                 tomorrow.setDate(tomorrow.getDate() + 1);
                 dateInput.value = inputDateValue(tomorrow);
@@ -663,12 +668,22 @@
             const clearBtn = document.getElementById('search-clear');
             const filtersToggle = document.getElementById('filters-toggle');
             const filtersPanel = document.getElementById('aule-filters-panel');
+            const scheduleToggle = document.getElementById('schedule-toggle-aule');
+            const dateTimePanel = document.getElementById('aule-datetime-panel');
 
             if (filtersToggle && filtersPanel) {
                 filtersToggle.addEventListener('click', () => {
                     const open = filtersToggle.getAttribute('aria-expanded') !== 'true';
                     filtersToggle.setAttribute('aria-expanded', String(open));
                     filtersPanel.hidden = !open;
+                });
+            }
+
+            if (scheduleToggle && dateTimePanel) {
+                scheduleToggle.addEventListener('click', () => {
+                    const open = scheduleToggle.getAttribute('aria-expanded') !== 'true';
+                    scheduleToggle.setAttribute('aria-expanded', String(open));
+                    dateTimePanel.hidden = !open;
                 });
             }
 
