@@ -8,7 +8,7 @@
     --page-controls-width: 460px;
     --page-section-gap: 1.5rem;
     --page-hero-height: 180px;
-    --page-hero-mobile-height: 208px;
+    --page-hero-mobile-height: 240px;
     --page-control-height: 56px;
     color-scheme: dark;
     /* Explicitly tell the browser this is a dark page */
@@ -3724,15 +3724,29 @@ html[data-theme="white"] .page-switcher-btn.active i {
 }
 
 .theme-card { font: inherit; }
+.settings-font-select-wrap { position: relative; width: 100%; }
 .settings-font-select {
     width: 100%;
     min-height: 44px;
-    padding: 0.7rem 0.9rem;
+    padding: 0.7rem 2.5rem 0.7rem 0.9rem;
     color: var(--text-primary);
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 12px;
     font: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+.settings-font-select-wrap > i {
+    position: absolute;
+    top: 50%;
+    right: 0.9rem;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    line-height: 1;
+    pointer-events: none;
 }
 .settings-language { margin-top: 1.25rem; }
 .schedule-hint {
@@ -3764,6 +3778,7 @@ html[data-theme="white"] .page-switcher-btn.active i {
 .orientati-category[aria-pressed="true"] { background: var(--accent-color); color: var(--bg-color); border-color: var(--accent-color); }
 .orientati-category:hover { transform: translateY(-2px); border-color: var(--accent-color); }
 .orientati-filters { display: grid; gap: .75rem; width: 100%; margin: 0 auto; }
+.orientati-results[hidden] { display: none !important; }
 .orientati-filters select,
 .orientati-search { min-width: 0; width: 100%; height: var(--page-control-height); padding: .75rem 1rem; border: 1px solid var(--card-border); border-radius: 14px; background: var(--card-bg); color: var(--text-primary); font: inherit; }
 .orientati-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .9rem; margin-top: 0; }
@@ -3931,8 +3946,8 @@ body .page-switcher {
 .page-heading .site-logo,
 .links-header .links-title-row .site-logo {
     display: block;
-    width: 76px !important;
-    height: 76px !important;
+    width: 88px !important;
+    height: 88px !important;
     object-fit: contain;
     margin: 0;
 }
@@ -4110,10 +4125,17 @@ body .page-switcher {
 .page-shell #results-list { scroll-margin-top: 5rem; }
 .page-shell .aule-filter-controls,
 .page-shell .lezioni-filter-controls { width: min(var(--page-controls-width), 100%); max-width: var(--page-controls-width); gap: .8rem; }
-.page-shell .lessons-rooms-cta { width: min(620px, 100%); align-self: center; }
+.page-shell .lessons-rooms-cta { width: min(520px, 100%); max-width: 520px; align-self: center; gap: 1rem; padding: 1.15rem 1.35rem; margin: 1.1rem auto 0; }
+.page-shell .lessons-rooms-cta .suggest-icon { width: 48px; height: 48px; flex: 0 0 48px; }
+.page-shell .lessons-rooms-cta .suggest-title { font-size: 1.3rem; }
+.page-shell .lessons-rooms-cta .suggest-desc { font-size: .9rem; }
+.page-shell .lessons-rooms-cta .suggest-arrow { font-size: 1.35rem; }
 .page-shell .orientati-categories { margin: 0 auto .25rem !important; }
 .page-shell .orientati-results { gap: .9rem; margin-top: 0; }
-.page-shell .orientati-map-link { width: min(var(--page-content-width), 100%); max-width: var(--page-content-width); margin: 1.4rem auto 0; }
+.page-shell .orientati-map-link { width: min(760px, 100%); max-width: 760px; gap: 1rem; padding: 1.25rem 1.5rem; margin: 1.4rem auto 0; }
+.page-shell .orientati-map-link .suggest-icon { width: 52px; height: 52px; flex: 0 0 52px; }
+.page-shell .orientati-map-link .suggest-title { font-size: 1.3rem; }
+.page-shell .orientati-map-link .suggest-arrow { font-size: 1.35rem; }
 
 /* Desktop keeps the traditional full-width glass header; mobile retains the dock. */
 .bussola-page .page-switcher {
@@ -4174,7 +4196,7 @@ body .page-switcher {
     .page-shell .page-heading,
     .page-shell .links-title-row { flex-direction: column; gap: .35rem; }
     .page-shell .page-heading .site-logo,
-    .page-shell .links-title-row .site-logo { width: 52px !important; height: 52px !important; }
+    .page-shell .links-title-row .site-logo { width: 68px !important; height: 68px !important; }
     .page-shell .page-heading h1,
     .page-shell .links-title-row h1 {
         max-width: 100%;
@@ -4189,6 +4211,7 @@ body .page-switcher {
     .page-shell .orientati-categories { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem !important; }
     .page-shell .orientati-category:last-child { grid-column: 1 / -1; }
     .page-shell .orientati-results { grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+    .page-shell .orientati-map-link { flex-direction: row; text-align: left; padding: 1rem; }
     .page-shell .help-groups { grid-template-columns: 1fr; }
     .page-shell .help-group-reps {
         grid-column: 1;
@@ -4196,7 +4219,7 @@ body .page-switcher {
         grid-template-areas: "title" "description" "link" "note";
         row-gap: 0;
     }
-    .page-shell .lessons-rooms-cta { width: 100%; }
+    .page-shell .lessons-rooms-cta { width: 100%; flex-direction: row; text-align: left; padding: 1rem; }
     .bussola-page .page-switcher {
         bottom: max(1rem, env(safe-area-inset-bottom)) !important;
         width: min(440px, calc(100% - 1.5rem));

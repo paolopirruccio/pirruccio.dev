@@ -26,13 +26,13 @@
             <p class="orientati-intro" data-i18n="orientati_intro">Esplora edifici, aule e servizi sulla mappa.</p>
         </header>
         <div class="orientati-categories" role="group" aria-label="Categoria">
-            <button class="orientati-category" type="button" data-category="building" aria-pressed="true"><i class="ri-building-4-line"></i><span data-i18n="orientati_buildings">Edifici</span></button>
+            <button class="orientati-category" type="button" data-category="building" aria-pressed="false"><i class="ri-building-4-line"></i><span data-i18n="orientati_buildings">Edifici</span></button>
             <button class="orientati-category" type="button" data-category="studio" aria-pressed="false"><i class="ri-book-open-line"></i><span data-i18n="orientati_study_rooms">Aule studio</span></button>
             <button class="orientati-category" type="button" data-category="aula" aria-pressed="false"><i class="ri-presentation-line"></i><span data-i18n="orientati_classrooms">Aule</span></button>
             <button class="orientati-category" type="button" data-category="persona" aria-pressed="false"><i class="ri-user-location-line"></i><span data-i18n="orientati_offices">Uffici</span></button>
             <button class="orientati-category" type="button" data-category="other" aria-pressed="false"><i class="ri-community-line"></i><span data-i18n="orientati_other">Altre sale</span></button>
         </div>
-        <div class="orientati-filters page-controls">
+        <div class="orientati-filters page-controls" hidden>
             <label class="orientati-building-wrap">
                 <select id="orientati-building" aria-label="Edificio"><option value="" data-i18n="orientati_all_buildings">Tutti gli edifici</option></select>
                 <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
@@ -43,7 +43,7 @@
             </label>
         </div>
         <main class="page-content">
-            <div id="orientati-results" class="orientati-results" aria-live="polite"><p class="orientati-status" data-i18n="orientati_loading">Caricamento della mappa...</p></div>
+            <div id="orientati-results" class="orientati-results" aria-live="polite" hidden><p class="orientati-status" data-i18n="orientati_loading">Caricamento della mappa...</p></div>
             <a class="suggest-cta orientati-map-link" href="https://plumkewe.github.io/dove-unipi/polo/fibonacci/?x=400.00&amp;y=300.00&amp;z=1.26" aria-label="Apri la mappa completa del Polo Fibonacci">
             <div class="suggest-icon"><img src="assets/doveunipi.webp" alt="" class="orientati-map-icon"></div>
                 <div class="suggest-content"><span class="suggest-title" data-i18n="orientati_full_map">Apri mappa completa</span><span class="suggest-desc" data-i18n="orientati_full_map_desc">Esplora il Polo Fibonacci su DOVE?UNIPI.</span></div>

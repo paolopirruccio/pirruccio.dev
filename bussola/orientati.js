@@ -5,16 +5,20 @@
     const results = document.getElementById('orientati-results');
     const filters = document.querySelector('.orientati-filters');
     const categoryButtons = Array.from(document.querySelectorAll('.orientati-category'));
-    let activeCategory = 'building';
+    let activeCategory = null;
     let entries = [];
+    let loadFailed = false;
     filters.hidden = true;
+    results.hidden = true;
 
     function flattenPolo(data) {
         const buildings = data && data.polo && data.polo.fibonacci && data.polo.fibonacci.edificio;
         if (!buildings) return [];
         const output = [];
         Object.entries(buildings).forEach(([key, building]) => {
-            const buildingName = (building.alias && building.alias[0]) || building.text || `Edificio ${key.toUpperCase()}`;
+            const sourceBuildingName = (building.alias && building.alias[0]) || building.text || `Edificio ${key.toUpperCase()}`;
+            const isMainBuilding = key.toUpperCase() === 'B' || /\bprincipale\b/i.test(sourceBuildingName);
+            const buildingName = isMainBuilding ? 'B (Principale)' : sourceBuildingName;
             const mappedEntries = [];
             Object.entries(building.piano || {}).forEach(([floor, places]) => {
                 (places || []).forEach(place => {
@@ -36,7 +40,7 @@
             });
             if (mappedEntries.length) {
                 output.push({
-                    name: buildingName.toLowerCase().startsWith('edificio') ? buildingName : `Edificio ${building.text || key.toUpperCase()}`,
+                    name: isMainBuilding ? buildingName : (buildingName.toLowerCase().startsWith('edificio') ? buildingName : `Edificio ${building.text || key.toUpperCase()}`),
                     type: 'building',
                     building: buildingName,
                     floor: '',
@@ -49,13 +53,14 @@
     }
 
     function categoryEntries() {
+        if (!activeCategory) return entries;
         if (activeCategory === 'building') return entries.filter(item => item.type === 'building');
         if (activeCategory === 'other') return entries.filter(item => ['sala', 'dipartimento', 'biblioteca', 'erogatore_acqua'].includes(item.type));
         return entries.filter(item => item.type === activeCategory);
     }
 
     function updateFilters() {
-        const showFilters = activeCategory !== 'building';
+        const showFilters = Boolean(activeCategory) && activeCategory !== 'building';
         filters.hidden = !showFilters;
         if (!showFilters) {
             buildingSelect.value = '';
@@ -77,10 +82,22 @@
     }
 
     function render() {
+        results.replaceChildren();
+        if (!activeCategory) {
+            results.hidden = true;
+            return;
+        }
+        results.hidden = false;
+        if (loadFailed) {
+            const status = document.createElement('p');
+            status.className = 'orientati-status';
+            status.textContent = window.BussolaI18n ? BussolaI18n.t('orientati_load_error') : 'Non riesco a caricare ora i luoghi. Puoi comunque aprire la mappa completa qui sotto.';
+            results.appendChild(status);
+            return;
+        }
         const building = buildingSelect.value;
         const query = searchInput.value.trim().toLocaleLowerCase('it');
         const matches = categoryEntries().filter(item => (!building || item.building === building) && (!query || item.search.includes(query)));
-        results.replaceChildren();
         if (!matches.length) {
             const empty = document.createElement('p');
             empty.className = 'orientati-status';
@@ -107,8 +124,8 @@
     }
 
     function setCategory(category) {
-        activeCategory = category;
-        categoryButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
+        activeCategory = activeCategory === category ? null : category;
+        categoryButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === activeCategory)));
         updateFilters();
         render();
     }
@@ -127,11 +144,8 @@
         })
         .catch(error => {
             console.warn('Impossibile caricare la mappa DOVE?UNIPI:', error);
-            results.replaceChildren();
-            const status = document.createElement('p');
-            status.className = 'orientati-status';
-            status.textContent = window.BussolaI18n ? BussolaI18n.t('orientati_load_error') : 'Non riesco a caricare ora i luoghi. Puoi comunque aprire la mappa completa qui sotto.';
-            results.appendChild(status);
+            loadFailed = true;
             buildingSelect.disabled = true;
+            render();
         });
 })();

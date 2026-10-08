@@ -345,7 +345,7 @@ function renderLinks() {
         }
         const displayName = (lang === 'en' && link.name_en) ? link.name_en : link.name;
         const displaySubtitle = (lang === 'en' && link.subtitle_en) ? link.subtitle_en : link.subtitle;
-        card.innerHTML = `<i class="${getIcon(link.name)} icon"></i><div class="card-content"><span class="title">${displayName}</span>${displaySubtitle ? `<span class="subtitle">${displaySubtitle}</span>` : ''}</div>${primary ? '<i class="ri-arrow-right-up-line card-arrow" aria-hidden="true"></i>' : ''}`;
+        card.innerHTML = `<i class="${getIcon(link.name)} icon"></i><div class="card-content"><span class="title">${displayName}</span>${displaySubtitle ? `<span class="subtitle">${displaySubtitle}</span>` : ''}</div>`;
         return card;
     };
 

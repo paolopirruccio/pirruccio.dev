@@ -235,3 +235,11 @@
 .mode-personal .studio-kicker,.mode-personal .studio-index,.mode-personal .studio-poster-category>span,.mode-personal .personal-service-card>span,.mode-personal .occasional-contact-finale>span,.mode-personal .passion-footer-head>span,.mode-personal .react-cv .role{letter-spacing:normal;text-transform:none}
 
 .mode-personal .contact-card-header span{letter-spacing:normal;text-transform:none}
+
+/* Keep draggable footer stickers above the sticky accordion heading. */
+.react-footer{z-index:auto}
+.react-footer .passion-stickers{z-index:191}
+
+/* Match the first project card to the first contact card at every viewport width. */
+.react-project-deck{--project-start-shift:clamp(40px,calc(8vw - 56px),180px);padding-left:max(16px,calc((100vw - 1200px)/2 + 40px - var(--project-start-shift)));scroll-padding-left:max(16px,calc((100vw - 1200px)/2 + 40px - var(--project-start-shift)))}
+@media(max-width:768px){.react-project-deck{padding-left:12px;scroll-padding-left:12px}}
