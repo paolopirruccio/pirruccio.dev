@@ -1,0 +1,127 @@
+.page {
+  --payment-bg: #f8f8f8;
+  --payment-card: #fff;
+  --payment-text: #171717;
+  --payment-muted: #777;
+  --payment-line: #1717171a;
+  --payment-accent: #ffd500;
+  min-height: 100svh;
+  padding: clamp(42px, 9vh, 100px) 20px;
+  background: var(--payment-bg);
+  color: var(--payment-text);
+}
+
+.content {
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.content h1 {
+  margin: 0;
+  font: 400 clamp(54px, 9vw, 92px)/.92 "Instrument Serif", Georgia, serif;
+  letter-spacing: -.035em;
+}
+
+.intro {
+  margin: 18px 0 38px;
+  color: var(--payment-muted);
+  font-size: clamp(16px, 2.4vw, 19px);
+}
+
+.methods {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.method {
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px;
+  border: 1px solid var(--payment-line);
+  border-radius: 20px;
+  background: var(--payment-card);
+  color: var(--payment-text);
+  font: 600 16px Inter, Arial, sans-serif;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.methodIcon {
+  width: 22px;
+  flex: 0 0 22px;
+  color: var(--payment-text);
+  font-size: 19px;
+  text-align: center;
+}
+
+.method[data-method="paypal"] .methodIcon { color: #0070ba; }
+.method[data-method="revolut"] .methodIcon { color: #171717; }
+.method[data-method="postepay"] .methodIcon { color: #d5aa00; }
+.method[data-method="bank"] .methodIcon { color: #35a66b; }
+
+.method:hover { transform: translateY(-2px); }
+.method:focus-visible,.copyButton:focus-visible,.openButton:focus-visible,.closeButton:focus-visible { outline: 3px solid var(--payment-accent); outline-offset: 3px; }
+.selected { border-color: var(--payment-text); background: var(--payment-text); color: var(--payment-bg); }
+.selected[data-method="revolut"] .methodIcon { color: #f8f8f8; }
+.revolutMark { height: 22px; fill: currentColor; }
+.arrow { margin-left: auto; color: var(--payment-muted); font-size: 13px; }
+.selected .arrow { color: currentColor; }
+
+.details {
+  margin-top: 22px;
+  padding: 24px;
+  border: 1px solid var(--payment-line);
+  border-radius: 24px;
+  background: var(--payment-card);
+  animation: reveal .22s ease-out both;
+}
+
+.detailHeading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.detailLabel { margin: 0 0 7px; color: var(--payment-muted); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.detailHeading h2 { margin: 0; font: 400 clamp(27px, 5vw, 38px)/1 "Instrument Serif", Georgia, serif; }
+.closeButton { display: grid; width: 38px; height: 38px; flex: 0 0 38px; place-items: center; border: 1px solid var(--payment-line); border-radius: 50%; background: transparent; color: var(--payment-muted); font-size: 17px; cursor: pointer; }
+.closeButton:hover { background: var(--payment-bg); color: var(--payment-text); }
+.identifier { display: block; margin: 20px 0; padding: 16px; overflow-wrap: anywhere; border: 1px solid var(--payment-line); border-radius: 14px; background: var(--payment-bg); color: var(--payment-text); font: 500 15px/1.45 Inter, Arial, sans-serif; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.copyButton,.openButton { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: 9px; padding: 0 17px; border: 1px solid var(--payment-line); border-radius: 999px; font: 600 13px Inter, Arial, sans-serif; text-decoration: none; cursor: pointer; }
+.copyButton { background: var(--payment-text); color: var(--payment-bg); }
+.openButton { background: transparent; color: var(--payment-text); }
+.copyError { margin: 12px 0 0; color: #a43a32; font-size: 13px; }
+.moneyConfetti { position: fixed; z-index: 100; inset: 0; overflow: hidden; pointer-events: none; }
+.moneyPiece { position: absolute; top: -48px; display: block; font-size: clamp(22px, 3vw, 34px); line-height: 1; filter: drop-shadow(0 2px 3px #0004); animation-name: money-rain; animation-timing-function: cubic-bezier(.33, .08, .67, .92); animation-fill-mode: both; will-change: transform, opacity; }
+
+@keyframes money-rain {
+  0% { opacity: 0; transform: translate3d(0, -3vh, 0) rotate(0); }
+  12% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(var(--money-drift), 108vh, 0) rotate(var(--money-spin)); }
+}
+
+@keyframes reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-color-scheme: dark) {
+  .page { --payment-bg: #111; --payment-card: #191919; --payment-text: #f4f1e9; --payment-muted: #aaa; --payment-line: #ffffff20; }
+  .method[data-method="revolut"] .methodIcon { color: #f4f1e9; }
+  .selected[data-method="revolut"] .methodIcon { color: #111; }
+  .method[data-method="postepay"] .methodIcon { color: #ffd500; }
+  .method[data-method="bank"] .methodIcon { color: #35a66b; }
+}
+
+@media (max-width: 560px) {
+  .page { padding: 42px 16px 56px; }
+  .intro { margin-bottom: 28px; }
+  .methods { grid-template-columns: 1fr; gap: 9px; }
+  .method { min-height: 68px; border-radius: 17px; }
+  .details { padding: 19px; border-radius: 20px; }
+  .closeButton { width: 36px; height: 36px; flex-basis: 36px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moneyConfetti { display: none; }
+  .method { transition: none; }
+  .method:hover { transform: none; }
+  .details { animation: none; }
+}
