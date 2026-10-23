@@ -41,13 +41,6 @@ const methods = [
     value: "3334012717",
     hint: "Numero PostePay",
   },
-  {
-    id: "bank",
-    name: "Bonifico",
-    icon: "fa-solid fa-building-columns",
-    value: "IT98E0366901600212575774520",
-    hint: "Intestatario Paolo Pirruccio",
-  },
 ] as const;
 
 export default function PagamentoPanel() {
@@ -106,54 +99,56 @@ export default function PagamentoPanel() {
         <p className={styles.intro}>Scegli il metodo che preferisci.</p>
 
         <div className={styles.methods} aria-label="Metodi di pagamento">
-          {methods.filter((method) => !selectedId || method.id === selectedId).map((method) => (
-            <button
-              className={`${styles.method} ${selectedId === method.id ? styles.selected : ""}`}
-              data-method={method.id}
-              key={method.id}
-              type="button"
-              aria-pressed={selectedId === method.id}
-              onClick={() => chooseMethod(method.id)}
-            >
-              {method.id === "revolut" ? (
-                <svg className={`${styles.revolutMark} ${styles.methodIcon}`} viewBox="0 0 32 32" aria-hidden="true">
-                  <path d="M7 3.5h12.2c6.6 0 10.3 3.4 10.3 8.8 0 3.9-1.9 6.6-5.4 8l6.2 8.2h-8.4l-5.1-7.1h-2.8v7.1H7V3.5Zm7 6.1v6.5h4.5c2.5 0 3.8-1 3.8-3.3s-1.3-3.2-3.8-3.2H14Z" />
-                </svg>
-              ) : (
-                <i className={`${method.icon} ${styles.methodIcon}`} aria-hidden="true" />
-              )}
-              <span>{method.name}</span>
-              <i className={`fa-solid ${selectedId === method.id ? "fa-chevron-up" : "fa-chevron-down"} ${styles.arrow}`} aria-hidden="true" />
-            </button>
-          ))}
-        </div>
+          {methods.filter((method) => !selectedId || method.id === selectedId).map((method) => {
+            const isSelected = selectedId === method.id;
 
-        {selected && (
-          <section className={styles.details} aria-live="polite" aria-labelledby="payment-detail-title">
-            <div className={styles.detailHeading}>
-              <div>
-                <p className={styles.detailLabel}>{selected.name}</p>
-                <h2 id="payment-detail-title">{selected.hint}</h2>
-              </div>
-              <button className={styles.closeButton} type="button" aria-label="Chiudi il metodo selezionato" onClick={() => setSelectedId(null)}>
-                <i className="fa-solid fa-xmark" aria-hidden="true" />
-              </button>
-            </div>
-            <code className={styles.identifier}>{selected.value}</code>
-            <div className={styles.actions}>
-              <button className={styles.copyButton} type="button" onClick={copyValue}>
-                <i className="fa-regular fa-copy" aria-hidden="true" />
-                {copied ? "Copiato" : "Copia"}
-              </button>
-              {"openUrl" in selected && (
-                <a className={styles.openButton} href={selected.openUrl} target="_blank" rel="noopener noreferrer">
-                  {selected.openLabel} <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" />
-                </a>
-              )}
-            </div>
-            {copyError && <p className={styles.copyError} role="status">Copia non riuscita. Seleziona e copia il dato manualmente.</p>}
-          </section>
-        )}
+            return (
+              <article className={`${styles.methodCard} ${isSelected ? styles.methodCardSelected : ""}`} key={method.id}>
+                <button
+                  className={`${styles.method} ${isSelected ? styles.selected : ""}`}
+                  data-method={method.id}
+                  type="button"
+                  aria-pressed={isSelected}
+                  onClick={() => chooseMethod(method.id)}
+                >
+                  {method.id === "revolut" ? (
+                    <svg className={`${styles.revolutMark} ${styles.methodIcon}`} viewBox="0 0 32 32" aria-hidden="true">
+                      <path d="M7 3.5h12.2c6.6 0 10.3 3.4 10.3 8.8 0 3.9-1.9 6.6-5.4 8l6.2 8.2h-8.4l-5.1-7.1h-2.8v7.1H7V3.5Zm7 6.1v6.5h4.5c2.5 0 3.8-1 3.8-3.3s-1.3-3.2-3.8-3.2H14Z" />
+                    </svg>
+                  ) : (
+                    <i className={`${method.icon} ${styles.methodIcon}`} aria-hidden="true" />
+                  )}
+                  <span>{method.name}</span>
+                  <i className={`fa-solid ${isSelected ? "fa-chevron-up" : "fa-chevron-down"} ${styles.arrow}`} aria-hidden="true" />
+                </button>
+
+                {isSelected && selected && (
+                  <section className={styles.details} aria-live="polite" aria-labelledby="payment-detail-title">
+                    <div className={styles.detailHeading}>
+                      <div>
+                        <p className={styles.detailLabel}>{selected.name}</p>
+                        <h2 id="payment-detail-title">{selected.hint}</h2>
+                      </div>
+                    </div>
+                    <code className={styles.identifier}>{selected.value}</code>
+                    <div className={styles.actions}>
+                      <button className={styles.copyButton} type="button" onClick={copyValue}>
+                        <i className="fa-regular fa-copy" aria-hidden="true" />
+                        {copied ? "Copiato" : "Copia"}
+                      </button>
+                      {"openUrl" in selected && (
+                        <a className={styles.openButton} href={selected.openUrl} target="_blank" rel="noopener noreferrer">
+                          {selected.openLabel} <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden="true" />
+                        </a>
+                      )}
+                    </div>
+                    {copyError && <p className={styles.copyError} role="status">Copia non riuscita. Seleziona e copia il dato manualmente.</p>}
+                  </section>
+                )}
+              </article>
+            );
+          })}
+        </div>
       </section>
       {moneyPieces.length > 0 && (
         <div className={styles.moneyConfetti} aria-hidden="true">

@@ -706,6 +706,25 @@
                     const open = scheduleToggle.getAttribute('aria-expanded') !== 'true';
                     scheduleToggle.setAttribute('aria-expanded', String(open));
                     dateTimePanel.hidden = !open;
+                    if (open) {
+                        const current = new Date();
+                        dateInput.value = inputDateValue(current);
+                        timeInput.value = current.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', hour12: false });
+                        _isTomorrow = false;
+                        const tomorrowButton = document.getElementById('tomorrow-btn');
+                        const tomorrowLabel = document.getElementById('tomorrow-label');
+                        if (tomorrowButton) {
+                            tomorrowButton.hidden = false;
+                            tomorrowButton.classList.remove('active');
+                        }
+                        if (tomorrowLabel) tomorrowLabel.textContent = BussolaI18n.t('aule_tomorrow');
+                        const hint = document.getElementById('schedule-hint');
+                        if (hint) hint.hidden = true;
+                        const hintDate = document.getElementById('schedule-hint-date');
+                        if (hintDate) hintDate.textContent = '';
+                        updateDateDisplay();
+                        syncCineca();
+                    }
                 });
             }
 
