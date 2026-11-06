@@ -23,9 +23,9 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20261008-room-favorites">
+    <link rel="stylesheet" href="style.css?v=20261106-room-filters">
     <script src="theme.js"></script>
-    <script src="i18n.js?v=20261008-rooms"></script>
+    <script src="i18n.js?v=20261106-room-filters"></script>
 </head>
 
 <body class="bussola-page aule-page">
@@ -49,23 +49,26 @@
                     <input type="text" id="search-input" data-i18n="aule_placeholder" placeholder="Cerca aule">
                     <i class="ri-close-line search-clear" id="search-clear"></i>
                     <button id="filters-toggle" class="filters-toggle" type="button" aria-expanded="false" aria-controls="aule-filters-panel" data-i18n-aria-label="aule_filters_label">
-                        <i class="ri-filter-3-line" aria-hidden="true"></i>
+                        <i class="ri-building-line" aria-hidden="true"></i>
                     </button>
                     <button id="schedule-toggle-aule" class="filters-toggle schedule-toggle" type="button" aria-expanded="false" aria-controls="aule-datetime-panel" data-i18n-aria-label="aule_datetime_toggle">
                         <i class="ri-time-line" aria-hidden="true"></i>
                     </button>
-                    <button id="favorites-toggle-aule" class="filters-toggle favorites-toggle" type="button" aria-pressed="false" data-i18n-aria-label="aule_favorites_toggle" hidden style="display: none;">
+                    <button id="favorites-toggle-aule" class="filters-toggle favorites-toggle" type="button" aria-pressed="false" data-i18n-aria-label="aule_favorites_toggle" hidden>
                         <i class="ri-heart-3-line" aria-hidden="true"></i>
                     </button>
                 </div>
+                <p id="filter-context-label" class="filter-context-label" hidden aria-live="polite"></p>
                 <div id="aule-datetime-panel" class="datetime-controls" hidden>
-                    <div class="input-group" onclick="try{document.getElementById('date-input').showPicker()}catch(e){}" style="cursor:pointer;">
-                        <i class="ri-calendar-event-line input-icon"></i>
-                        <input type="date" id="date-input">
-                    </div>
-                    <div class="input-group" onclick="try{document.getElementById('time-input').showPicker()}catch(e){}" style="cursor:pointer;">
-                        <i class="ri-time-line input-icon"></i>
-                        <input type="time" id="time-input">
+                    <div class="datetime-inputs">
+                        <div class="input-group" onclick="try{document.getElementById('date-input').showPicker()}catch(e){}" style="cursor:pointer;">
+                            <i class="ri-calendar-event-line input-icon"></i>
+                            <input type="date" id="date-input">
+                        </div>
+                        <div class="input-group" onclick="try{document.getElementById('time-input').showPicker()}catch(e){}" style="cursor:pointer;">
+                            <i class="ri-time-line input-icon"></i>
+                            <input type="time" id="time-input">
+                        </div>
                     </div>
                 </div>
                 <div class="datetime-shortcuts">
@@ -144,7 +147,6 @@
         let selectedBuilding = 'TUTTI';
         let selectedFloor = 'TUTTI';
         let showOnlyFavs = false;
-
         // ── Preferiti ──
         function getFavs() {
             try { return JSON.parse(localStorage.getItem('bussola_favs') || '[]'); } catch { return []; }
@@ -155,42 +157,74 @@
         }
         function isFav(name) { return getFavs().includes(name); }
         function toggleFav(name) {
-            const wasFilteringFavorites = showOnlyFavs;
             const favs = getFavs();
             const idx = favs.indexOf(name);
             if (idx >= 0) favs.splice(idx, 1); else favs.push(name);
             localStorage.setItem('bussola_favs', JSON.stringify(favs));
-            updateFavUi();
-            if (wasFilteringFavorites) renderList();
+            return idx < 0;
         }
         function handleFavClick(e, btn, name) {
             e.preventDefault();
             e.stopPropagation();
-            toggleFav(name);
-            const saved = isFav(name);
+            const wasFilteringFavorites = showOnlyFavs;
+            const saved = toggleFav(name);
             btn.classList.toggle('saved', saved);
             btn.querySelector('i').className = saved ? 'ri-heart-3-fill' : 'ri-heart-3-line';
-            btn.title = saved ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti';
+            btn.title = BussolaI18n.t(saved ? 'aule_fav_remove' : 'aule_fav_add');
+            updateFavUi();
+            if (wasFilteringFavorites) renderList();
+            showRoomToast(BussolaI18n.t(saved ? 'aule_fav_added' : 'aule_fav_removed'));
         }
         function updateFavUi() {
             const count = getAvailableFavs().length;
-            const label = document.getElementById('fav-chip-label');
-            if (label) label.textContent = `${BussolaI18n.t('aule_favorites')} (${count})`;
-            if (showOnlyFavs && count === 0) { showOnlyFavs = false; }
-            const chip = document.getElementById('fav-chip');
-            if (chip) chip.classList.toggle('fav-chip-active', showOnlyFavs);
+            if (showOnlyFavs && count === 0) showOnlyFavs = false;
             const toggle = document.getElementById('favorites-toggle-aule');
             if (toggle) {
                 toggle.hidden = count === 0;
-                toggle.style.display = count === 0 ? 'none' : '';
                 toggle.classList.toggle('fav-chip-active', showOnlyFavs);
                 toggle.setAttribute('aria-pressed', String(showOnlyFavs));
+                toggle.querySelector('i').className = showOnlyFavs ? 'ri-heart-3-fill' : 'ri-heart-3-line';
             }
+            renderFilterContext();
         }
         function toggleFavFilter() {
             showOnlyFavs = !showOnlyFavs;
             updateFavUi();
             renderList();
+        }
+        function renderFilterContext() {
+            const label = document.getElementById('filter-context-label');
+            if (!label) return;
+            const activeFilters = [];
+            if (!document.getElementById('aule-datetime-panel').hidden) activeFilters.push(BussolaI18n.t('aule_filter_time'));
+            if (!document.getElementById('aule-filters-panel').hidden) activeFilters.push(BussolaI18n.t('aule_filter_building'));
+            if (showOnlyFavs) activeFilters.push(BussolaI18n.t('aule_filter_favorites'));
+            if (!activeFilters.length) {
+                label.hidden = true;
+                label.textContent = '';
+            } else {
+                const list = activeFilters.length === 1
+                    ? activeFilters[0]
+                    : `${activeFilters.slice(0, -1).join(', ')} ${BussolaI18n.t('aule_filter_and')} ${activeFilters[activeFilters.length - 1]}`;
+                label.textContent = `${BussolaI18n.t('aule_filter_context_prefix')} ${list}`;
+                label.hidden = false;
+            }
+            const tomorrowButton = document.getElementById('tomorrow-btn');
+            if (tomorrowButton) tomorrowButton.classList.toggle('filters-active', activeFilters.length > 0);
+        }
+        function showRoomToast(message) {
+            let toast = document.getElementById('toast-notification');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast-notification';
+                toast.setAttribute('role', 'status');
+                toast.setAttribute('aria-live', 'polite');
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(showRoomToast.timeout);
+            showRoomToast.timeout = setTimeout(() => toast.classList.remove('show'), 2600);
         }
         const dateInput = document.getElementById('date-input');
         const timeInput = document.getElementById('time-input');
@@ -284,6 +318,7 @@
                 if (label) label.textContent = BussolaI18n.t('aule_tomorrow');
                 btn.classList.remove('active');
             }
+            renderFilterContext();
             ensureOpenSearchDate();
             syncCineca();
         }
@@ -303,10 +338,11 @@
                 await fetchRooms();
                 selectedBuilding = roomsData.find(room => getBuildingCode(room.building) === 'B')?.building || 'TUTTI';
                 generateChips();
+                updateFavUi();
                 generateFloorChips();
                 await syncCineca();
                 bindUI();
-                updateFavUi();
+                renderFilterContext();
             } catch (err) {
                 console.error(err);
                 resultsList.innerHTML = `
@@ -357,7 +393,7 @@
                 const codeB = getBuildingCode(b);
                 return (priority[codeA] ?? 2) - (priority[codeB] ?? 2) || a.localeCompare(b, 'it');
             })), 'TUTTI'];
-            chipContainer.innerHTML = `<button id="fav-chip" class="chip fav-filter-chip" onclick="toggleFavFilter()"><i class="ri-heart-3-fill"></i><span id="fav-chip-label">${BussolaI18n.t('aule_favorites')}</span></button><span class="chip-divider" aria-hidden="true"></span>` + buildings.map(b => {
+            chipContainer.innerHTML = buildings.map(b => {
                 let label = b;
                 let icon = '';
                 if (b === 'TUTTI') {
@@ -491,6 +527,19 @@
             let mText = mins > 0 ? ` e ${mins} min` : "";
             return `Ancora per ${hText}${mText}`;
         }
+        function formatMinutesUntil(minutes) {
+            if (minutes < 1) return BussolaI18n.t('aule_under_minute');
+            if (BussolaI18n.getLang() === 'en') {
+                if (minutes < 60) return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+                const hours = Math.floor(minutes / 60);
+                const mins = minutes % 60;
+                return mins ? `${hours}h ${mins}min` : `${hours}h`;
+            }
+            if (minutes < 60) return `${minutes} ${minutes === 1 ? 'minuto' : 'minuti'}`;
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            return mins ? `${hours} ${hours === 1 ? 'ora' : 'ore'} e ${mins} min` : `${hours} ${hours === 1 ? 'ora' : 'ore'}`;
+        }
         function renderList() {
             const time = timeInput.value;
             const date = dateInput.value;
@@ -526,13 +575,12 @@
             setTimeout(() => {
                 chipContainer.style.display = 'flex';
                 if (selectedBuilding !== 'TUTTI') floorChipContainer.style.display = 'flex';
-                const _favs = getFavs();
                 const processed = roomsData
                     .filter(r => {
                         const matchesSearch = !searchQuery || r.name.toLowerCase().includes(searchQuery) || r.building.toLowerCase().includes(searchQuery);
                         const matchesBuilding = selectedBuilding === 'TUTTI' || r.building === selectedBuilding;
                         const matchesFloor = selectedFloor === 'TUTTI' || String(r.floor) === selectedFloor;
-                        const matchesFav = !showOnlyFavs || _favs.includes(r.name);
+                        const matchesFav = !showOnlyFavs || getFavs().includes(r.name);
                         return matchesSearch && matchesBuilding && matchesFloor && matchesFav;
                     })
                     .map(room => {
@@ -542,7 +590,7 @@
                             if (check < start || check >= end) return false;
                             return e.aule.some(a => matchesRoom(a, room));
                         });
-                        let outcome = { room, busy: !!event, current: event, next: null, freeAt: null };
+                        let outcome = { room, busy: !!event, current: event, next: null, nextAfter: null, freeAt: null };
                         if (event) {
                             let currentEventEnd = new Date(event.dataFine);
                             const roomEvents = eventsData
@@ -557,6 +605,12 @@
                                 }
                             }
                             outcome.freeAt = currentEventEnd;
+                            const closingTime = new Date(check);
+                            closingTime.setHours(CLOSING_HOUR, CLOSING_MINUTE, 0, 0);
+                            outcome.nextAfter = roomEvents.find(e => {
+                                const start = new Date(e.dataInizio);
+                                return start >= currentEventEnd && start < closingTime;
+                            }) || null;
                         } else {
                             outcome.next = eventsData.filter(e => {
                                 return new Date(e.dataInizio) >= check && e.aule.some(a => matchesRoom(a, room));
@@ -593,7 +647,9 @@
                         const limitTime = item.next ? new Date(item.next.dataInizio) : new Date(new Date(check).setHours(CLOSING_HOUR, CLOSING_MINUTE, 0, 0));
                         const minutesLeft = Math.floor((limitTime - check) / (1000 * 60));
                         const timeStr = limitTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                        untilText = `${BussolaI18n.t('aule_free_until')} ${timeStr}`;
+                        untilText = item.next
+                            ? `${BussolaI18n.t('aule_free_until')} ${timeStr}`
+                            : `${BussolaI18n.t('aule_free_until_close')} (${timeStr})`;
                         const realNow = new Date();
                         const isToday = new Date(dateInput.value).toDateString() === realNow.toDateString();
                         const isCurrentTime = Math.abs(realNow - check) < 120000;
@@ -602,11 +658,6 @@
                             timeRemainingText = formatRemainingTime(minutesLeft);
                         }
                     } else {
-                        const timeStr = item.freeAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                        const freeAtHours = item.freeAt.getHours();
-                        const freeAtMinutes = item.freeAt.getMinutes();
-                        const isAfterClosing = freeAtHours > CLOSING_HOUR || (freeAtHours === CLOSING_HOUR && freeAtMinutes >= CLOSING_MINUTE);
-                        untilText = isAfterClosing ? BussolaI18n.t('aule_free_until_close') : `${BussolaI18n.t('aule_free_from')} ${timeStr}`;
                     }
                     const _favSaved = isFav(item.room.name);
                     const _rn = item.room.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
@@ -631,15 +682,31 @@
                                 <div class="occupancy-text">
                                     ${item.busy
                             ? (() => {
-                                const nowReal = new Date();
-                                const isToday = new Date(dateInput.value).toDateString() === nowReal.toDateString();
                                 const minutesLeft = Math.floor((item.freeAt - check) / (1000 * 60));
-                                let subText = untilText;
-                                if (isToday && minutesLeft > 0 && minutesLeft < 60) {
-                                    subText = `${BussolaI18n.t('aule_free_in')} ${minutesLeft} min`;
-                                }
+                                const countdown = `${BussolaI18n.t('aule_free_in')} ${formatMinutesUntil(minutesLeft)}`;
                                 const displayName = (BussolaI18n.getLang() === 'en' && item.current.nomeLezioneEn ? item.current.nomeLezioneEn : item.current.nomeLezione).split('-')[0].trim();
-                                return `<span>${displayName}</span><br><span style="font-size: 0.75rem; opacity: 0.8;">${subText}</span>`;
+                                const nextLine = item.nextAfter
+                                    ? (() => {
+                                        const nextStart = new Date(item.nextAfter.dataInizio);
+                                        const nextEnd = new Date(item.nextAfter.dataFine);
+                                        const gapMinutes = Math.max(0, Math.floor((nextStart - item.freeAt) / 60000));
+                                        const nextName = BussolaI18n.getLang() === 'en' && item.nextAfter.nomeLezioneEn
+                                            ? item.nextAfter.nomeLezioneEn
+                                            : item.nextAfter.nomeLezione;
+                                        const cleanNextName = String(nextName || '').split('-')[0].trim();
+                                        const nextTime = nextEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                                        const startsText = gapMinutes < 1
+                                            ? BussolaI18n.t('aule_starts_now')
+                                            : `${BussolaI18n.t('aule_starts_in')} ${formatMinutesUntil(gapMinutes)}`;
+                                        return `${BussolaI18n.t('aule_next_class')} ${cleanNextName} · ${startsText} · ${BussolaI18n.t('aule_free_again_at')} ${nextTime}`;
+                                    })()
+                                    : (() => {
+                                        const closingTime = new Date(check);
+                                        closingTime.setHours(CLOSING_HOUR, CLOSING_MINUTE, 0, 0);
+                                        const closeText = closingTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                                        return `${BussolaI18n.t('aule_then_free_close')} (${closeText})`;
+                                    })();
+                                return `<span>${countdown}</span><br><span class="occupancy-subtext">${displayName}</span><br><span class="occupancy-subtext occupancy-next">${nextLine}</span>`;
                             })()
                             : `<span>${untilText}</span>${showMinutes ? `<br><span style="font-size: 0.75rem; opacity: 0.8;">${timeRemainingText}</span>` : ''}`
                         }
@@ -652,9 +719,7 @@
                         </a>
                     `;
                 });
-                const emptyMessage = showOnlyFavs && getFavs().length === 0
-                    ? BussolaI18n.t('aule_favorites_empty')
-                    : BussolaI18n.t('aule_no_results');
+                const emptyMessage = showOnlyFavs ? BussolaI18n.t('aule_favorites_empty') : BussolaI18n.t('aule_no_results');
                 resultsList.innerHTML = html || `<div style="padding: 3rem; text-align: center; color: var(--text-muted);"><i class="ri-search-eye-line" style="font-size: 2rem; display: block; margin-bottom: 1rem;"></i>${emptyMessage}</div>`;
             }, 10);
         }
@@ -685,8 +750,8 @@
             const filtersToggle = document.getElementById('filters-toggle');
             const filtersPanel = document.getElementById('aule-filters-panel');
             const scheduleToggle = document.getElementById('schedule-toggle-aule');
-            const favoritesToggle = document.getElementById('favorites-toggle-aule');
             const dateTimePanel = document.getElementById('aule-datetime-panel');
+            const favoritesToggle = document.getElementById('favorites-toggle-aule');
             const filtersVisibleByDefault = localStorage.getItem('bussola_filters_default_visible') === 'true';
 
             if (filtersToggle && filtersPanel) {
@@ -696,6 +761,7 @@
                     const open = filtersToggle.getAttribute('aria-expanded') !== 'true';
                     filtersToggle.setAttribute('aria-expanded', String(open));
                     filtersPanel.hidden = !open;
+                    renderFilterContext();
                 });
             }
 
@@ -706,6 +772,7 @@
                     const open = scheduleToggle.getAttribute('aria-expanded') !== 'true';
                     scheduleToggle.setAttribute('aria-expanded', String(open));
                     dateTimePanel.hidden = !open;
+                    renderFilterContext();
                     if (open) {
                         const current = new Date();
                         dateInput.value = inputDateValue(current);
@@ -714,7 +781,6 @@
                         const tomorrowButton = document.getElementById('tomorrow-btn');
                         const tomorrowLabel = document.getElementById('tomorrow-label');
                         if (tomorrowButton) {
-                            tomorrowButton.hidden = false;
                             tomorrowButton.classList.remove('active');
                         }
                         if (tomorrowLabel) tomorrowLabel.textContent = BussolaI18n.t('aule_tomorrow');
@@ -740,6 +806,7 @@
                     scheduleToggle.setAttribute('aria-expanded', String(open));
                     dateTimePanel.hidden = !open;
                 }
+                renderFilterContext();
             });
 
             searchInput.addEventListener('input', () => {
@@ -795,10 +862,9 @@
             // Rebuild chips with new language
             generateChips();
             generateFloorChips();
+            updateFavUi();
             // Re-render list
             renderList();
-            // Update fav UI
-            updateFavUi();
         }
 
         // Apply lang on load

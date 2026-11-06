@@ -3759,8 +3759,9 @@ html[data-theme="white"] .page-switcher-btn.active i {
 .aule-filter-controls,
 .lezioni-filter-controls { display: flex; flex-direction: column; align-items: center; gap: .8rem; }
 .filter-controls > .page-search { order: 0; margin: 0 auto !important; }
-.filter-controls .datetime-controls { order: 1; max-width: 420px; }
-.filter-controls .datetime-shortcuts { order: 2; min-height: 0; margin: 0; }
+.filter-controls .datetime-controls { order: 2; max-width: 420px; }
+.filter-controls .datetime-shortcuts { order: 3; min-height: 0; margin: 0; }
+.filter-controls .filter-context-label { order: 1; }
 .fav-filter-chip { display: inline-flex; align-items: center; gap: .4rem; cursor: pointer; font-family: var(--font-family); }
 .fav-filter-chip i { font-size: .95rem; }
 .fav-filter-chip.fav-chip-active { background: var(--accent-color); color: var(--bg-color); border-color: var(--accent-color); }
@@ -4360,6 +4361,31 @@ html[data-theme="white"] body.bussola-page .page-switcher {
     right: 2rem;
     bottom: 2rem;
     z-index: 1000;
+}
+
+/* Room search refinements */
+.page-shell .aule-filter-controls .page-search > #search-input { padding-right: 10.8rem; }
+.page-shell .aule-filter-controls .page-search .search-clear { right: 7.45rem; }
+.aule-filters-panel .chip-container { justify-content: center; flex-wrap: wrap; overflow-x: visible; }
+.tomorrow-btn.filters-active { display: none !important; }
+.page-shell .aule-filter-controls #aule-datetime-panel { display: flex; flex-direction: column; align-items: stretch; width: min(420px, 100%); height: auto; gap: .65rem; }
+.page-shell .aule-filter-controls #aule-datetime-panel[hidden] { display: none !important; }
+.page-shell .aule-filter-controls #aule-datetime-panel .datetime-inputs { display: flex; width: 100%; height: var(--page-control-height); gap: .65rem; }
+.page-shell .aule-filter-controls #aule-datetime-panel .input-group { min-width: 0; flex: 1 1 0; width: auto; }
+.filter-context-label { margin: .1rem 0 .1rem; color: var(--text-secondary); font-size: .85rem; text-align: center; }
+.filter-context-label[hidden] { display: none !important; }
+.bussola-page.aule-page .container.page-shell > .page-controls { margin-bottom: 0 !important; }
+.bussola-page.aule-page .container.page-shell { row-gap: 1rem; }
+.bussola-page.aule-page #aule-filters-panel:not([hidden]) + #results-list { margin-top: 1rem; }
+.aule-page .occupancy-text { min-width: 0; flex: 1; line-height: 1.35; }
+.aule-page .occupancy-subtext { font-size: .75rem; font-weight: 500; line-height: 1.3; opacity: .86; overflow-wrap: anywhere; }
+.aule-page .occupancy-next { display: inline-block; margin-top: .1rem; }
+.bussola-page.aule-page #results-list { padding-bottom: 4.5rem; }
+.bussola-page.aule-page #toast-notification { bottom: max(6rem, env(safe-area-inset-bottom)); z-index: 10001; }
+.bussola-page.aule-page #toast-notification.show { bottom: max(7rem, calc(env(safe-area-inset-bottom) + 1rem)); }
+@media (min-width: 900px) {
+    .bussola-page.aule-page #results-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+    .bussola-page.aule-page #results-list > .search-result-item { min-width: 0; }
 }
 
 @media (max-width: 768px) {
