@@ -3750,6 +3750,7 @@ html[data-theme="white"] .page-switcher-btn.active i {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
+    margin-block: .3rem .65rem;
     color: var(--text-secondary);
     font-size: 0.72rem;
     text-align: left;
@@ -4371,6 +4372,7 @@ html[data-theme="white"] body.bussola-page .page-switcher {
 @media (min-width: 900px) {
     .bussola-page.aule-page #results-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
     .bussola-page.aule-page #results-list > .search-result-item { min-width: 0; }
+    .bussola-page.aule-page #results-list > .results-state { grid-column: 1 / -1; width: 100%; box-sizing: border-box; }
 }
 
 @media (max-width: 768px) {

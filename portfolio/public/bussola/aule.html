@@ -23,9 +23,9 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20261106-room-filters">
+    <link rel="stylesheet" href="style.css?v=20261107-grid-state">
     <script src="theme.js"></script>
-    <script src="i18n.js?v=20261106-room-filters"></script>
+    <script src="i18n.js?v=20261107-next-class"></script>
 </head>
 
 <body class="bussola-page aule-page">
@@ -460,7 +460,7 @@
                 return;
             }
 
-            resultsList.innerHTML = `<div style="display: flex; justify-content: center; padding: 4rem 0;"><div class="spinner"></div></div>`;
+            resultsList.innerHTML = `<div class="results-state results-loading" style="display: flex; justify-content: center; padding: 4rem 0;"><div class="spinner"></div></div>`;
             dataError = false;
             try {
                 const day = dateInput.value;
@@ -550,7 +550,7 @@
                 chipContainer.style.display = 'none';
                 floorChipContainer.style.display = 'none';
                 resultsList.innerHTML = `
-                        <div style="padding: 3rem; text-align: center; color: var(--text-muted); background: var(--card-bg); border-radius: 16px; border: 1px solid var(--card-border);">
+                        <div class="results-state results-closed" style="padding: 3rem; text-align: center; color: var(--text-muted); background: var(--card-bg); border-radius: 16px; border: 1px solid var(--card-border);">
                             <i class="ri-door-lock-line" style="font-size: 3rem; display: block; margin-bottom: 1rem; color: var(--text-secondary);"></i>
                             <h3 style="margin-bottom: 0.5rem; color: var(--text-primary); font-family: var(--font-display); font-size: 1.8rem; font-weight: 400;">${BussolaI18n.t('aule_polo_closed_title')}</h3>
                             <p style="font-size: 0.95rem; line-height: 1.5;">${BussolaI18n.t('aule_polo_closed_desc')}</p>
@@ -571,7 +571,7 @@
                 return;
             }
 
-            resultsList.innerHTML = `<div style="display: flex; justify-content: center; padding: 4rem 0;"><div class="spinner"></div></div>`;
+            resultsList.innerHTML = `<div class="results-state results-loading" style="display: flex; justify-content: center; padding: 4rem 0;"><div class="spinner"></div></div>`;
             setTimeout(() => {
                 chipContainer.style.display = 'flex';
                 if (selectedBuilding !== 'TUTTI') floorChipContainer.style.display = 'flex';
